@@ -1,6 +1,6 @@
 <template>
   <div class="players">
-    <b-nav justified tabs>
+    <b-nav justified tabs class="tabs">
       <b-nav-item @click="tab = 'app-profile'" :active="tab === 'app-profile'"><i class="fa fa-user"></i></b-nav-item>
       <b-nav-item @click="tab = 'app-friends'" :active="tab === 'app-friends'"><i class="fa fa-users"></i></b-nav-item>
       <b-nav-item @click="tab = 'app-mail'" :active="tab === 'app-mail'"><i class="fa fa-envelope"></i></b-nav-item>
@@ -38,6 +38,10 @@ export default {
 </script>
 
 <style scoped>
+  .tabs {
+    margin-bottom: 20px;
+  }
+
   .players {
     background: #222;
     min-height: 80vh;

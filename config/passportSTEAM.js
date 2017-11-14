@@ -1,17 +1,17 @@
-const SteamStrategy = require('passport-steam').Strategy
-const mongoose = require('mongoose')
+const Strategy = require('passport-steam').Strategy
 const keys = require('./keys')
 const Player = require('../models/player')
 
-module.exports = function(passport) {
-  passport.use(
-    new SteamStrategy({
-      returnURL: keys.returnURL,
-      realm: keys.realm,
-      apiKey: keys.apiKey,
-      proxy: true
-    },
-    function(identifier, profile, done) {
+module.exports = (passport) => {
+
+  const parameters = {
+    returnURL: keys.returnURL,
+    realm: keys.realm,
+    apiKey: keys.apiKey,
+    proxy: true
+  }
+
+  passport.use(new Strategy(parameters, (identifier, profile, done) => {
       // asynchronous verification, for effect...
       process.nextTick(() => {
         console.log('Identifier:' + identifier)

@@ -2,41 +2,36 @@ let express = require('express')
 let path = require('path')
 let favicon = require('serve-favicon')
 let logger = require('morgan')
-let cookieParser = require('cookie-parser')
 let bodyParser = require('body-parser')
 let mongoose = require('mongoose')
 let cors = require('cors')
 let passport = require('passport')
-let session = require('express-session')
+let jwt = require('jsonwebtoken')
+let config = require('./config/index.js')
+let database = require('./config/database')(mongoose, config)
+require('module-alias/register')
 
 let app = express()
 
 // PASSPORT CONFIG
-// require('./config/passport')(passport)
+require('./config/passportJWT')(passport)
+// require('./config/passportSTEAM')(passport)
 // passport.serializeUser(function(user, done) {
 //   done(null, user);
 // });
-
+//
 // passport.deserializeUser(function(user, done) {
 //   done(null, user);
 // });
 
 
 // LOAD ROUTES
+// let players = require('./routes/api/players_routes')
+// let auth = require('./routes/auth/auth')
+let authJWT = require('./routes/auth/authJWT')
+// let authSteam = require('./routes/auth/authSteam')
 let players = require('./routes/api/players_routes')
-let auth = require('./routes/auth/auth')
 
-
-// DATABASE
-
-// ADD OWN DB LINK
-mongoose.Promise = global.Promise
-mongoose.connect('mongodb://cf913:password@ds241025.mlab.com:41025/b1gv2')
-const db = mongoose.connection
-db.on("error", console.error.bind(console, "connection error"))
-db.once("open", function(callback){
-  console.log("Connection Successful")
-})
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -44,10 +39,12 @@ app.set('view engine', 'ejs')
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(logger('dev'))
-app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(cookieParser())
+app.use(bodyParser.json())
 app.use(cors())
+app.use(passport.initialize())
+
+app.set('synergsecret', config.secret);
 
 
 // app.use(session({
@@ -59,11 +56,12 @@ app.use(cors())
 // app.use(passport.session());
 
 //app.use(express.static(path.join(__dirname, 'public')))
-//app.use(express.static(path.join(__dirname, 'client/dist')))
+app.use(express.static(path.join(__dirname, 'client/dist')))
 
 // Set our api routes
 app.use('/api', players)
-app.use('/auth', auth)
+app.use('/auth/jwt', authJWT)
+// app.use('/auth/steam', authSteam)
 
 // Login/Home page
 app.get('/home', (req, res) => {
@@ -72,10 +70,10 @@ app.get('/home', (req, res) => {
 
 
 // Catch all other routes and return the index file
-// app.get('*', ensureAuthenticated, (req, res) => {
-//   console.log('loading vue')
-//   res.sendFile(path.join(__dirname, 'client/dist/index.html'))
-// })
+app.get('*', (req, res) => {
+  console.log('loading vue')
+  res.sendFile(path.join(__dirname, 'client/dist/index.html'))
+})
 
 
 // function ensureAuthenticated(req, res, next) {

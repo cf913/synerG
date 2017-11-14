@@ -1,6 +1,6 @@
 <template>
   <div class="players">
-    <h1 class="py-3">Players</h1>
+    <h2 class="py-3">Players</h2>
       <router-view/>
   </div>
 </template>

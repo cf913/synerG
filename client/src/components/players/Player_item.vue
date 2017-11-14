@@ -6,7 +6,7 @@
       </div>
       <div class="col-sm-10">
         <a class="btn btn-primary btn-xs float-right" @click="$emit('playerSelected', player)">View Profile</a>
-        <a @click="$emit('playerSelected', player)"><h4>{{ player.username }}</h4></a>
+        <a @click="$emit('playerSelected', player)"><h5>{{ player.username }}</h5></a>
       </div>
     </div>
   </div>

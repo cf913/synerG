@@ -8,6 +8,8 @@ import Players from '@/components/Players'
 import PlayerList from '@/components/players/Player_list'
 import Teams from '@/components/Teams'
 import News from '@/components/News'
+import Login from '@/components/auth/Login'
+import Register from '@/components/auth/Register'
 
 Vue.use(Router)
 
@@ -41,6 +43,14 @@ export default new Router({
         {
           path: 'news',
           component: News
+        },
+        {
+          path: 'login',
+          component: Login
+        },
+        {
+          path: 'register',
+          component: Register
         }
       ]
     }
