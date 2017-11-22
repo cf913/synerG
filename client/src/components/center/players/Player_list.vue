@@ -3,7 +3,7 @@
     <button v-show="showRefresh" class="btn-primary btn-sm float-right" @click="refresh" style="position: absolute; top: -60px;"><i class="fa fa-refresh"></i></button>
     <div v-if="loading" class="text-center">
       <p class="lead">Searching for players...</p>
-      <img src="../../assets/loading.svg" alt="">
+      <img src="../../../assets/loading.svg" alt="">
     </div>
     <div v-show="!showDetails">
       <ul class="list-group clearfix" v-for="(player, index) in players" :key="index">

@@ -6,7 +6,7 @@ import Main from '@/components/Main'
 
 import Welcome from '@/components/center/Welcome'
 import Players from '@/components/center/Players'
-import PlayerList from '@/components/players/Player_list'
+import PlayerList from '@/components/center/players/Player_list'
 import Teams from '@/components/center/Teams'
 import News from '@/components/center/News'
 import Login from '@/components/auth/Login'

@@ -12,6 +12,7 @@ export default {
 
 <style scoped>
     .players {
+        border-radius: 5px;
         background: green;
     }
 </style>
