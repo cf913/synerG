@@ -6,19 +6,19 @@
         <b-form-group id="exampleInputGroup1"
                       label="Email" label-for="exampleInput1">
           <b-form-input id="exampleInput1"
-                        type="email" v-model="form.email" required
+                        type="email" v-model="email" required
                         placeholder="Enter email"
           ></b-form-input>
         </b-form-group>
         <b-form-group id="exampleInputGroup2"
                       label="Password" label-for="exampleInput2">
           <b-form-input id="exampleInput2"
-                        type="password" v-model="form.password" required
+                        type="password" v-model="password" required
                         placeholder="Enter password"
           ></b-form-input>
         </b-form-group>
         <b-form-group id="exampleGroup4">
-          <b-form-checkbox v-model="form.checked" id="exampleInput4">
+          <b-form-checkbox v-model="checked" id="exampleInput4">
             Remember me
           </b-form-checkbox>
         </b-form-group>
@@ -34,28 +34,22 @@
 </template>
 
 <script>
-  import { eventBus } from '../../main'
-  const host = `http://${window.location.hostname}:3000`
-  
   export default {
     data: () => {
       return {
-        form: {
-          email: '',
-          password: ''
-        }
+        email: '',
+        password: '',
+        checked: ''
       }
     },
     methods: {
-      onSubmit (evt) {
-        this.$http.post(`${host}/auth/jwt/login`, this.form)
-          .then(res => {
-            console.log(res)
-            eventBus.$emit('loggedIn', true)
-            this.$router.push('/')
-          }, err => {
-            console.log(err)
-          })
+      onSubmit () {
+        const formData = {
+          email: this.email,
+          password: this.password
+        }
+        console.log(formData)
+        this.$store.dispatch('login', { email: formData.email, password: formData.password })
       }
     }
   }

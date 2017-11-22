@@ -13,7 +13,13 @@ api.login = (User) => (req, res) => {
       user.comparePassword(req.body.password, (error, matches) => {
         if (matches && !error) {
           const token = jwt.sign({ user }, config.secret)
-          res.json({ success: true, message: 'Token granted', token })
+          const data = { 
+            token: token,
+            localId: user._id,
+            user: user,
+            expires: 7200
+          }
+          res.json({ success: true, message: 'Token granted', data })
         } else {
           res.status(401).send({ success: false, message: 'Authentication failed. Wrong password.' })
         }
@@ -31,7 +37,7 @@ api.verify = (headers) => {
 }
 
 api.signup = (User) => (req, res) => {
-  console.log(req)
+  console.log(req.body.email + ' ' + req.body.password + ' ' + req.body.username)
   if (!req.body.email || !req.body.password || !req.body.username) res.json({ success: false, message: 'Please, pass an username and password.' })
   else {
     const user = new User({
@@ -42,7 +48,29 @@ api.signup = (User) => (req, res) => {
 
     user.save(error => {
       if (error) return res.status(400).json({ success: false, message: 'Username already exists.' })
-      res.json({ success: true, message: 'Account created successfully' })
+      const token = jwt.sign({ user }, config.secret)
+      User.findOne({ email: req.body.email }, (error, user) => {
+        if (error) throw error
+
+        if (!user) res.status(401).send({ success: false, message: 'Authentication failed. User not found.' })
+        else {
+          user.comparePassword(req.body.password, (error, matches) => {
+            if (matches && !error) {
+              const token = jwt.sign({ user }, config.secret)
+              const data = { 
+                token: token,
+                localId: user._id,
+                user: user,
+                expires: 7200 
+              }
+              res.json({ success: true, message: 'Token granted', data })
+            } else {
+              res.status(401).send({ success: false, message: 'Authentication failed. Wrong password.' })
+            }
+          })
+        }
+      })
+      //res.json({ success: true, message: 'Account created successfully' })
     })
   }
 }

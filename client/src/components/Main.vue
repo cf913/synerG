@@ -11,9 +11,11 @@
         </div>
       </div>
       <div class="center col-md-8 col-lg-6">
-        <keep-alive>
-          <router-view/>
-        </keep-alive>
+        <!-- <transition name="bounce" mode="out-in"> -->
+          <keep-alive>
+            <router-view/>
+          </keep-alive>
+        <!-- </transition> -->
       </div>
       <div class="right col-lg-3">
         <div class="fixed">
@@ -73,11 +75,58 @@ export default {
   }
 
   .container-fluid {
+    max-width: 1500px;
     padding-top: 70px;
   }
   .fixed {
     position: sticky;
-    top: 80px;
+    top: 90px;
   }
+
+  .bounce-enter-active {
+    animation: bounce-in-left .5s;
+  }
+  .bounce-leave-active {
+    animation: bounce-in-right .5s reverse;
+  }
+  @keyframes bounce-in-left {
+    from {
+      transform: translateX(-2500px);
+      opacity: 0
+    }
+    50% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    70% {
+      transform: translateX(-20px);
+    }
+    90% {
+      transform: translateX(10px);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  @keyframes bounce-in-right {
+    from {
+      transform: translateX(2500px);
+      opacity: 0
+    }
+    50% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    70% {
+      transform: translateX(20px);
+    }
+    90% {
+      transform: translateX(-10px);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
 
 </style>

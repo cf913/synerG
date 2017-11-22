@@ -71,7 +71,6 @@ app.get('/home', (req, res) => {
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
-  console.log('loading vue')
   res.sendFile(path.join(__dirname, 'client/dist/index.html'))
 })
 

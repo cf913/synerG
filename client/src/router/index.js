@@ -3,13 +3,15 @@ import Router from 'vue-router'
 
 // COMPONENTS
 import Main from '@/components/Main'
-import Welcome from '@/components/Welcome'
-import Players from '@/components/Players'
+
+import Welcome from '@/components/center/Welcome'
+import Players from '@/components/center/Players'
 import PlayerList from '@/components/players/Player_list'
-import Teams from '@/components/Teams'
-import News from '@/components/News'
+import Teams from '@/components/center/Teams'
+import News from '@/components/center/News'
 import Login from '@/components/auth/Login'
 import Register from '@/components/auth/Register'
+import SteamLogin from '@/components/auth/SteamLogin'
 
 Vue.use(Router)
 
@@ -17,7 +19,7 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '',
       name: 'Main',
       component: Main,
       // redirect: '/news',
@@ -51,8 +53,16 @@ export default new Router({
         {
           path: 'register',
           component: Register
+        },
+        {
+          path: 'linksteam',
+          component: SteamLogin
         }
       ]
+    },
+    {
+      path: '*',
+      redirect: '/'
     }
   ]
 })

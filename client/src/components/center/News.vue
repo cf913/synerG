@@ -1,6 +1,6 @@
 <template>
     <div class="players">
-        <h1 class="py-3">Teams</h1>
+        <h2 class="py-3">News</h2>
     </div>
 </template>
 
@@ -12,6 +12,6 @@ export default {
 
 <style scoped>
     .players {
-        background: blue;
+        background: green;
     }
 </style>

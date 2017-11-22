@@ -33,13 +33,13 @@
         <b-nav-item-dropdown right>
           <!-- Using button-content slot -->
           <template slot="button-content">
-            <span>User </span>
+            <i id="profile-logo" class="fa fa-user-circle-o"></i>
           </template>
-          <div v-show="isLoggedIn">
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Signout</b-dropdown-item>
+          <div v-show="auth">
+            <b-dropdown-item href="">Profile</b-dropdown-item>
+            <b-dropdown-item @click="onLogout">Logout</b-dropdown-item>
           </div>
-          <div v-show="!isLoggedIn">
+          <div v-show="!auth">
             <b-dropdown-item to="/login">Login</b-dropdown-item>
             <b-dropdown-item to="/register">Sign up!</b-dropdown-item>
           </div>
@@ -56,9 +56,19 @@
 import { eventBus } from '../main'
 
 export default {
-  data: () => {
-    return {
-      isLoggedIn: false
+  // data: () => {
+  //   return {
+  //     isLoggedIn: !this.$store.idToken == null
+  //   }
+  // },
+  computed: {
+    auth () {
+      return this.$store.getters.isAuthenticated
+    }
+  },
+  methods: {
+    onLogout () {
+      this.$store.dispatch('logout')
     }
   },
   created () {
@@ -72,12 +82,17 @@ export default {
 <style scoped>
 
   .navbar {
-    background: darkblue !important;
+    /* background: rgb(10,10,100) !important; */
+    background: linear-gradient(to bottom, rgb(0,0,0), rgba(0,0,0,.6)) !important;
   }
   .navbar-brand {
     padding-left: 20px;
   }
   li.nav-item {
     padding: 0 20px;
+  }
+  #profile-logo {
+    font-size: 1.2em;
+    margin: 4px 5px 0 5px;
   }
 </style>

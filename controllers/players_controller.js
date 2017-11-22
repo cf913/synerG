@@ -19,7 +19,7 @@ api.setup = (User) => (req, res) => {
 api.index = (User, BudgetToken) => (req, res) => {
   const token = BudgetToken;
   if (token) {
-    User.find({}, (error, users) => {
+    User.find({}, {limit: 20}, (error, users) => {
       if (error) throw error;
       res.status(200).json(users);
     });

@@ -47,7 +47,7 @@
 </template>
 
 <script>
-  const host = `http://${window.location.hostname}:3000`
+  // const host = `http://${window.location.hostname}:3000`
 
   export default {
     data: () => {
@@ -60,14 +60,13 @@
       }
     },
     methods: {
-      onSubmit (evt) {
-        this.$http.post(`${host}/auth/jwt/register`, this.form)
-          .then(res => {
-            console.log(res)
-            this.$router.push('/login')
-          }, err => {
-            console.log(err)
-          })
+      onSubmit () {
+        console.log(this.form)
+        this.$store.dispatch('signup', {
+          email: this.form.email,
+          username: this.form.username,
+          password: this.form.password
+        })
       }
     }
   }

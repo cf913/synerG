@@ -13,6 +13,7 @@ export default {
 
 <style scoped>
   .players {
+    border-radius: 5px;
     background: #222;
     min-height: 80vh;
     color: white;

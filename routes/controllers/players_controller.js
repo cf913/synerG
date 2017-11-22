@@ -3,7 +3,7 @@ const Player = require('../../models/player')
 module.exports = {
 
     getPlayers(req, res, next) {
-        Player.find({})
+        Player.find({}).limit(30)
         .then((players) => {
             res.send(players)
         })

@@ -1,6 +1,6 @@
 <template>
   <div class="player_details">
-    {{player}}
+    <p>{{player}}</p>
     <br><br>
     <button class="btn btn-primary" @click="$emit('toPlayerList', false)">Back To Playerlist</button>
   </div>

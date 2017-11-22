@@ -27,25 +27,20 @@ export default {
     return {
       showDetails: false,
       showRefresh: true,
-      selectedPlayer: {},
-      loading: true,
-      players: []
+      selectedPlayer: {}
+    }
+  },
+  computed: {
+    players () {
+      return this.$store.getters.players
+    },
+    loading () {
+      return this.$store.getters.player_list_loading
     }
   },
   methods: {
     getPlayers () {
-      this.$http.get('http://localhost:3000/api/players')
-        .then(res => {
-          return res.json()
-        })
-        .then(data => {
-          const resultArray = []
-          for (let key in data) {
-            resultArray.push(data[key])
-          }
-          this.loading = false
-          this.players = resultArray
-        })
+      return this.$store.dispatch('getPlayers')
     },
     onPlayerSelected (value) {
       this.showRefresh = false
@@ -53,8 +48,10 @@ export default {
       this.selectedPlayer = value
     },
     refresh () {
-      this.loading = true
-      this.players = []
+      this.$store.commit('refreshPlayerList', {
+        loading: true,
+        players: []
+      })
       this.getPlayers()
     }
   },
