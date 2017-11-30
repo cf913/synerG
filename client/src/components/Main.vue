@@ -35,15 +35,13 @@ import Header from './Header'
 
 export default {
   name: 'Main',
-  data () {
-    return {
-      msg: 'YAAAAAAAAAAAAAAAAAAAAAAAAYYYYYYYYYY'
-    }
-  },
   components: {
     appRight: Right,
     appLeft: Left,
     appHeader: Header
+  },
+  created () {
+    this.$store.dispatch('checkLogin', this.$route.query)
   }
 }
 </script>
@@ -66,7 +64,7 @@ export default {
 
 
   .main {
-    background: black;
+    background: #000;
     /* background: url('../assets/back.jpg') center no-repeat;
     background-size: cover;
     background-attachment: fixed; */
@@ -129,4 +127,13 @@ export default {
   }
 
 
+</style>
+
+<style>
+  .tile {
+    border-radius: 5px;
+  }
+  .gray-tile {
+    background: #333;
+  }
 </style>

@@ -5,9 +5,9 @@ const SteamSchema = require('./steamDetails')
 const Schema = mongoose.Schema
 
 const PlayerSchema = new Schema({
-  username: {type: String, index: true, required: true, unique: true},
-  password: {type: String, required: true},
-  email: {type: String, required: true, unique:true },
+  // username: {type: String, index: true, required: true, unique: true},
+  // password: {type: String, required: true},
+  // email: {type: String, required: true, unique:true },
   steamId: String,
   steamName: String,
   steam: [SteamSchema],
@@ -25,29 +25,29 @@ const PlayerSchema = new Schema({
 
 PlayerSchema.plugin(uniqueValidator);
 
-PlayerSchema.pre('save', function (next) {
-  const user = this
+// PlayerSchema.pre('save', function (next) {
+//   const user = this
 
-  if (this.isModified('password') || this.isNew) {
-    bcrypt.genSalt(10, (error, salt) => {
-      if (error) return next(error)
-      bcrypt.hash(user.password, salt, (error, hash) => {
-        if (error) return next(error)
-        user.password = hash
-        next()
-      })
-    })
-  } else {
-    return next()
-  }
-})
+//   if (this.isModified('password') || this.isNew) {
+//     bcrypt.genSalt(10, (error, salt) => {
+//       if (error) return next(error)
+//       bcrypt.hash(user.password, salt, (error, hash) => {
+//         if (error) return next(error)
+//         user.password = hash
+//         next()
+//       })
+//     })
+//   } else {
+//     return next()
+//   }
+// })
 
-PlayerSchema.methods.comparePassword = function (password, callback) {
-  bcrypt.compare(password, this.password, (error, matches) => {
-    if (error) return callback(error)
-    callback(null, matches)
-  });
-};
+// PlayerSchema.methods.comparePassword = function (password, callback) {
+//   bcrypt.compare(password, this.password, (error, matches) => {
+//     if (error) return callback(error)
+//     callback(null, matches)
+//   });
+// };
 
 const Player = mongoose.model('player', PlayerSchema)
 

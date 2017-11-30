@@ -14,25 +14,24 @@ module.exports = (passport) => {
   passport.use(new Strategy(parameters, (identifier, profile, done) => {
       // asynchronous verification, for effect...
       process.nextTick(() => {
-        console.log('Identifier:' + identifier)
-        console.log('Profile: ' + profile)
 
-        Player.findOne({userId: profile.id})
+        Player.findOne({steamId: profile.id})
           .then(user => {
             if (user) {
               return done(null, user)
             }
-            console.log('NEW USER')
             const newPlayer = new Player({
-              userId: profile.id,
-              username: profile.displayName,
+              steamId: profile.id,
+              steamName: profile.displayName,
               steam: profile._json,
               img: profile.photos[2].value
             })
             newPlayer.save()
               .then(() => {
-                console.log('NEW USER SAVED')
                 return done(null, newPlayer)
+              })
+              .catch(err => {
+                console.log(err)
               })
           })
           .catch(err => console.log(err))

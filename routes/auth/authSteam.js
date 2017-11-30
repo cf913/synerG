@@ -1,15 +1,21 @@
 let express = require('express')
 const router = express.Router()
 const passport = require('passport')
+var jwt = require('jsonwebtoken')
+let config = require('../../config/index.js')
 
-router.get('/steam', passport.authenticate('steam', { failureRedirect: '/' }), (req, res) => {
-  res.send('auth')
+router.get('/steam', passport.authenticate('steam'), (req, res) => {
 })
 
 router.get(
-  '/steam/return', passport.authenticate('steam', { failureRedirect: '/' }), (req, res) => {
-      console.log('Success!')
-  res.redirect('/')
+  '/steam/return', passport.authenticate('steam'), (req, res) => {
+      console.log('POST LOGIN')
+      if (req.user) {
+        let token = jwt.sign(req.user.steamId, config.secret)
+        res.redirect(`/?steamid=${req.user.steamId}&token=${token}`);
+      } else {
+        res.redirect('/');
+      }
 })
 
 router.get('/logout', function(req, res){

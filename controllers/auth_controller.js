@@ -3,6 +3,17 @@ const jwt = require('jsonwebtoken')
 const config = require('@config')
 
 const api = {}
+api.confirmLogin = (User) => (req,res) => {
+  const steamId = req.body.id
+  User.findOne({steamId})
+    .then(user => {
+      console.log(user)
+      res.json({success: true, message: 'Logged In', user})
+    })
+    .catch(error => {
+      res.status(401).send({ success: false, message: error })
+    })
+}
 
 api.login = (User) => (req, res) => {
   User.findOne({ email: req.body.email }, (error, user) => {

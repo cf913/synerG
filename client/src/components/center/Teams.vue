@@ -1,5 +1,5 @@
 <template>
-    <div class="players">
+    <div class="players tile gray-tile">
         <h2 class="py-3">Teams</h2>
     </div>
 </template>
@@ -12,7 +12,6 @@ export default {
 
 <style scoped>
     .players {
-        border-radius: 5px;
-        background: blue;
+        color: white;
     }
 </style>

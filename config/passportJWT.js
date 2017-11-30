@@ -11,11 +11,20 @@ module.exports = (passport) => {
   }
 
   passport.use(new Strategy(parameters, (payload, done) => {
-
-    Player.findOne({ id: payload.id }, (error, user) => {
-      if (error) return done(error, false)
-      if (user) done(null, user)
-      else done(null, false)
+    console.log('PLAYLOAD:' + payload)
+    Player.findOne({ steamId: payload.id }, (error, user) => {
+      if (error) {
+        conso
+        console.log(error)
+        return done(error, false)
+      }
+      if (user) {
+        console.log('ACCESS GRANTED')
+        done(null, user)
+      } else {
+        console.log('ELSE WTF??')
+        done(null, false)
+      }
     })
 
   }))

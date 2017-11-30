@@ -15,21 +15,21 @@ let app = express()
 
 // PASSPORT CONFIG
 require('./config/passportJWT')(passport)
-// require('./config/passportSTEAM')(passport)
-// passport.serializeUser(function(user, done) {
-//   done(null, user);
-// });
-//
-// passport.deserializeUser(function(user, done) {
-//   done(null, user);
-// });
+require('./config/passportSTEAM')(passport)
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
 
 
 // LOAD ROUTES
 // let players = require('./routes/api/players_routes')
 // let auth = require('./routes/auth/auth')
 let authJWT = require('./routes/auth/authJWT')
-// let authSteam = require('./routes/auth/authSteam')
+let authSteam = require('./routes/auth/authSteam')
 let players = require('./routes/api/players_routes')
 
 
@@ -39,21 +39,14 @@ app.set('view engine', 'ejs')
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(logger('dev'))
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cors())
-app.use(passport.initialize())
+// app.use(passport.initialize())
 
 app.set('synergsecret', config.secret);
 
-
-// app.use(session({
-//   secret: 'your secret',
-//   name: 'name of session id',
-//   resave: true,
-//   saveUninitialized: true}));
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
 
 //app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.static(path.join(__dirname, 'client/dist')))
@@ -61,30 +54,22 @@ app.use(express.static(path.join(__dirname, 'client/dist')))
 // Set our api routes
 app.use('/api', players)
 app.use('/auth/jwt', authJWT)
-// app.use('/auth/steam', authSteam)
+app.use('/auth/steam', authSteam)
 
 // Login/Home page
 app.get('/home', (req, res) => {
   res.render('home')
 })
 
-
-// Catch all other routes and return the index file
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/dist/index.html'))
 })
 
+// Catch all other routes and return the index file
+app.get('*', (req, res) => {
+  res.redirect('/')
+})
 
-// function ensureAuthenticated(req, res, next) {
-//   console.log('middle')
-//   if (req.isAuthenticated()) {
-//     // req.user is available for use here
-//     console.log('blup')
-//     return next(); }
-
-//   // denied. redirect to login
-//   res.redirect('/home')
-// }
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

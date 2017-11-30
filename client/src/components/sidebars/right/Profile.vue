@@ -3,7 +3,7 @@
     <div v-if="isLoggedIn" class="container">
       <div class="card">
         <div class="card-header">
-          <h5 class="profile-name">{{ user.username }}</h5>
+          <h5 class="profile-name">{{ user.steamName }}</h5>
           <router-link to=""><i class="fa fa-edit"></i></router-link>
         </div> 
         <img class="card-img avatar" :src="user.img" alt="Avatar">
@@ -26,6 +26,7 @@
     <div v-else>
       <router-link to="/login" class="btn btn-primary btn-lg">Login</router-link>
     </div>
+      <a id="steamBtn" href="/auth/steam/steam" @click="getSteamInfo" class="btn btn-primary btn-lg">Login with Steam</a>
   </div>
 </template>
 
@@ -37,6 +38,10 @@ export default {
     },
     isLoggedIn () {
       return this.$store.getters.isAuthenticated
+    }
+  },
+  methods: {
+    getSteamInfo () {
     }
   }
 }
@@ -70,4 +75,7 @@ export default {
     min-height: 100px;
   }
 
+  #steamBtn {
+    margin: 10px auto;
+  }
 </style>

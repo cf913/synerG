@@ -1,5 +1,5 @@
 <template>
-  <div class="players">
+  <div class="players tile gray-tile">
     <h2 class="py-3">Players</h2>
       <router-view/>
   </div>
@@ -13,8 +13,6 @@ export default {
 
 <style scoped>
   .players {
-    border-radius: 5px;
-    background: #222;
     min-height: 80vh;
     color: white;
   }

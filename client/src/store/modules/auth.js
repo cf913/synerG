@@ -84,14 +84,47 @@ const actions = {
       })
       .catch(error => console.log(error))
   },
+  checkLogin ({commit, dispatch}, params) {
+    if (params == null || state.idToken) {
+      return
+    }
+    if (params.steamid && params.token) {
+      const id = params.steamid
+      const token = params.token
+      console.log('Pre confirming')
+      axios.post('/auth/jwt/confirm-login/?token=' + token, {id})
+      .then(data => {
+        const user = data.data.user
+        console.log(user)
+        const expiresIn = 7200 // 2h
+        const now = new Date()
+        const expirationDate = new Date(now.getTime() + expiresIn * 1000)
+
+        localStorage.setItem('token', token)
+        localStorage.setItem('userId', id)
+        localStorage.setItem('user', JSON.stringify(user))
+        localStorage.setItem('expirationDate', expirationDate)
+        commit('authUser', {
+          token: token,
+          userId: id,
+          user: user
+        })
+        dispatch('setLogoutTimer', expiresIn)
+      })
+      .catch(error => console.log(error))
+    }
+  },
   tryAutoLogin ({commit}) {
+    console.log('trying auto loggin')
     const token = localStorage.getItem('token')
     if (!token) {
+      console.log('no token')
       return
     }
     const expirationDate = localStorage.getItem('expirationDate')
     const now = new Date()
     if (now >= expirationDate) {
+      console.log(`expiration issue: now = ${now}, exp = ${expirationDate}`)
       return
     }
     const userId = localStorage.getItem('userId')
@@ -101,12 +134,14 @@ const actions = {
       userId: userId,
       user: user
     })
+    console.log('Success!')
   },
   logout ({commit}) {
     commit('clearAuthData')
     localStorage.removeItem('expirationDate')
     localStorage.removeItem('token')
     localStorage.removeItem('userId')
+    localStorage.removeItem('user')
     router.replace('/login')
   }
 }
