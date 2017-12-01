@@ -1,13 +1,16 @@
 <template>
   <div class="player_list text-left container" style="position: relative">
-    <button v-show="showRefresh" class="btn-primary btn-sm float-right" @click="refresh" style="position: absolute; top: -60px;"><i class="fa fa-refresh"></i></button>
+    <header class="text-center">
+      <h2 class="py-3">Players</h2>
+    </header>
+    <!-- <button v-show="showRefresh" class="btn-primary btn-sm float-right" @click="refresh" style="position: absolute; top: -60px;"><i class="fa fa-refresh"></i></button> -->
     <div v-if="loading" class="text-center">
       <p class="lead">Searching for players...</p>
       <img src="../../../assets/loading.svg" alt="">
     </div>
     <div v-show="!showDetails">
       <ul class="list-group clearfix" v-for="(player, index) in players" :key="index">
-        <li class="list-group-item">
+        <li class="list-group-item tile-shadow">
           <app-player-item :player="player" @playerSelected="onPlayerSelected"></app-player-item>
         </li>
       </ul>
@@ -68,7 +71,9 @@ export default {
 <style scoped>
   li.list-group-item {
     list-style-type: none;
-    background: #111;
+    background: #000;
     margin-bottom: 10px;
+    /* color: #d4d4d4 */
+    padding: 15px;
   }
 </style>

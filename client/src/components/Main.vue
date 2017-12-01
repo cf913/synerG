@@ -20,6 +20,7 @@
       <div class="right col-lg-3">
         <div class="fixed">
           <app-right></app-right>
+
         </div>
       </div>
     </div>
@@ -64,7 +65,8 @@ export default {
 
 
   .main {
-    background: #000;
+    background: linear-gradient(to bottom, #023, #012); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     /* background: url('../assets/back.jpg') center no-repeat;
     background-size: cover;
     background-attachment: fixed; */
@@ -134,6 +136,11 @@ export default {
     border-radius: 5px;
   }
   .gray-tile {
-    background: #333;
+    background: #111;
   }
+
+  .tile-shadow {
+    box-shadow: 0px 2px 2px #000;
+  }
+
 </style>

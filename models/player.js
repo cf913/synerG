@@ -4,15 +4,21 @@ const bcrypt = require('bcrypt')
 const SteamSchema = require('./steamDetails')
 const Schema = mongoose.Schema
 
+
 const PlayerSchema = new Schema({
   // username: {type: String, index: true, required: true, unique: true},
   // password: {type: String, required: true},
   // email: {type: String, required: true, unique:true },
   steamId: String,
+  steam32: String,
   steamName: String,
   steam: [SteamSchema],
   img: String,
-  mmr: Number,
+  mmr: {
+    mmr_estimate: Number,
+    mmr_solo: Number,
+    mmr_party: Number
+  },
   languages: [String],
   country: String,
   regions: [String],
@@ -22,6 +28,8 @@ const PlayerSchema = new Schema({
   // friends: [{type: Schema.Types.ObjectId, ref: 'player'}],
   // teams: [{type: Schema.Types.ObjectId, ref: 'team'}],
 })
+
+
 
 PlayerSchema.plugin(uniqueValidator);
 

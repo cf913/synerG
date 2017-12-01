@@ -1,6 +1,9 @@
 const Strategy = require('passport-steam').Strategy
 const keys = require('./keys')
 const Player = require('../models/player')
+const convertor = require('steam-id-convertor');
+const request = require('request-promise')
+const util = require('util')
 
 module.exports = (passport) => {
 
@@ -9,6 +12,25 @@ module.exports = (passport) => {
     realm: keys.realm,
     apiKey: keys.apiKey,
     proxy: true
+  }
+
+  function getMMR(steam32) {
+    request.get(`https://api.opendota.com/api/players/${steam32}`)
+      .then(dataJSON => {
+        const data = JSON.parse(dataJSON)
+        let mmr = {}
+
+        if (data.mmr_estimate.estimate) mmr.mmr_estimate = data.mmr_estimate.estimate 
+        if (data.solo_competitive_rank) mmr.mmr_solo     = data.solo_competitive_rank
+        if (data.competitive_rank) mmr.mmr_party         = data.competitive_rank
+        console.log(util.inspect(mmr, null))
+        console.log('TYPEOF ESTIMATE: ' + typeof data.mmr_estimate.estimate)
+        return mmr
+      })
+      .catch(err => {
+        console.log(err)
+        return {}
+      })
   }
 
   passport.use(new Strategy(parameters, (identifier, profile, done) => {
@@ -20,18 +42,40 @@ module.exports = (passport) => {
             if (user) {
               return done(null, user)
             }
-            const newPlayer = new Player({
-              steamId: profile.id,
-              steamName: profile.displayName,
-              steam: profile._json,
-              img: profile.photos[2].value
-            })
-            newPlayer.save()
-              .then(() => {
-                return done(null, newPlayer)
+            // Convert steam64 to 32 to use OpenDOTA Api
+            const steam32 = convertor.to32(profile.id) 
+
+            request.get(`https://api.opendota.com/api/players/${steam32}`)
+              .then(dataJSON => {
+                const data = JSON.parse(dataJSON)
+                let mmr = {}
+        
+                if (data.mmr_estimate.estimate) mmr.mmr_estimate = data.mmr_estimate.estimate 
+                if (data.solo_competitive_rank) mmr.mmr_solo     = data.solo_competitive_rank
+                if (data.competitive_rank) mmr.mmr_party         = data.competitive_rank
+                
+                const newPlayer = new Player({
+                  steamId: profile.id,
+                  steam32,
+                  mmr,
+                  steamName: profile.displayName,
+                  steam: profile._json,
+                  img: profile.photos[2].value
+                })
+    
+                console.log(newPlayer)
+                newPlayer.save()
+                  .then(() => {
+                    return done(null, newPlayer)
+                  })
+                  .catch(err => {
+                    console.log(err)
+                  })
+
               })
               .catch(err => {
                 console.log(err)
+                return {}
               })
           })
           .catch(err => console.log(err))

@@ -150,8 +150,11 @@ const getters = {
   user (state) {
     return state.user
   },
+  userId (state) {
+    return state.userId
+  },
   isAuthenticated (state) {
-    return state.idToken !== null
+    return state.idToken !== null && state.user !== null && state.userId !== null
   }
 }
 

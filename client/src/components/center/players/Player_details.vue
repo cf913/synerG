@@ -1,14 +1,18 @@
 <template>
   <div class="player_details">
-    <p>{{player}}</p>
+    <p>{{user}}</p>
     <br><br>
-    <button class="btn btn-primary" @click="$emit('toPlayerList', false)">Back To Playerlist</button>
+    <router-link class="btn btn-primary" to="/players">Back To Playerlist</router-link>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['player']
+  data () {
+    return {
+      user: {}
+    }
+  }
 }
 </script>
 

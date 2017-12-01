@@ -1,5 +1,5 @@
 <template>
-  <div class="players tile gray-tile">
+  <div class="players tile gray-tile tile-shadow" v-if="isLoggedIn">
     <b-nav justified tabs class="tabs">
       <b-nav-item @click="tab = 'app-profile'" :active="tab === 'app-profile'"><i class="fa fa-user"></i></b-nav-item>
       <b-nav-item @click="tab = 'app-friends'" :active="tab === 'app-friends'"><i class="fa fa-users"></i></b-nav-item>
@@ -10,6 +10,13 @@
     <keep-alive>
       <component :is="tab"></component>
     </keep-alive>
+  </div>
+  <div class="login" v-else>
+    <a href="/auth/steam/steam" class="btn btn-primary btn-lg d-inline-flex align-items-center">
+      <i class="fa fa-steam p-2"></i> 
+      <span class="p-2">Sign in with Steam</span>
+    </a>
+    <router-link :to="{ path: `/players/${userId}/edit`}" class="btn btn-warning btn-lg my-2">Edit Profile</router-link>
   </div>
 </template>
 
@@ -26,6 +33,14 @@ export default {
       tab: 'app-profile'
     }
   },
+  computed: {
+    userId () {
+      return this.$store.getters.userId
+    },
+    isLoggedIn () {
+      return this.$store.getters.isAuthenticated
+    }
+  },
   components: {
     appProfile: Profile,
     appFriends: Friends,
@@ -38,6 +53,13 @@ export default {
 </script>
 
 <style scoped>
+  .login i {
+    flex: 1;
+    font-size: 2em;
+  }
+  .login span {
+    flex: 2;
+  }
 
   .players {
     min-height: 60vh;
@@ -47,8 +69,8 @@ export default {
   ul.nav-tabs {
     border-radius: 5px 5px 0 0;
     margin-bottom: 15px;
-    background: #111;
-    border-color: #111;
+    background: #333;
+    border-color: #333;
   }
 
   li.nav-item {
@@ -58,7 +80,7 @@ export default {
   li.nav-item a.nav-link{
     border-radius: 0;
     border:0;
-        transition: 0.5s;
+    transition: 0.5s;
   }
 
   li.nav-item a.nav-link:hover{
@@ -74,7 +96,7 @@ export default {
   } 
 
   li.nav-item a.nav-link.active{
-    background-color:#333;
+    background-color:#111;
     color: white;
   } 
 

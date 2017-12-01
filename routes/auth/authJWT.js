@@ -9,17 +9,18 @@ let config = require('../../config/index.js')
 router.post('/login', api.login(Player))
 router.post('/register', api.signup(Player))
 
-// router.use('/', (req, res, next) => {
-//   jwt.verify(req.query.token, config.secret, (err, decoded) => {
-//       if (err) {
-//           return res.status(401).json({
-//               title: 'Not Authenticated',
-//               error: err
-//           });
-//       }
-//       next();
-//   })
-// });
+// TODO: verify token ID
+router.use('/', (req, res, next) => {
+  jwt.verify(req.query.token, config.secret, (err, decoded) => {
+      if (err) {
+          return res.status(401).json({
+              title: 'Not Authenticated',
+              error: err
+          });
+      }
+      next();
+  })
+});
 
 router.post('/confirm-login', api.confirmLogin(Player))
 

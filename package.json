@@ -28,7 +28,10 @@
     "passport": "^0.4.0",
     "passport-jwt": "^3.0.1",
     "passport-steam": "^1.0.8",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
     "serve-favicon": "~2.4.5",
-    "serve-static": "^1.13.1"
+    "serve-static": "^1.13.1",
+    "steam-id-convertor": "^1.0.1"
   }
 }

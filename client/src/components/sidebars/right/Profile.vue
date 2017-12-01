@@ -2,31 +2,25 @@
   <div class="profile">
     <div v-if="isLoggedIn" class="container">
       <div class="card">
-        <div class="card-header">
-          <h5 class="profile-name">{{ user.steamName }}</h5>
-          <router-link to=""><i class="fa fa-edit"></i></router-link>
+        <div class="card-header d-flex align-items-center">
+              <img class="avatar" :src="user.img" alt="Avatar">
+              <h4 class="profile-name">{{ user.steamName }}</h4>
+              <router-link to="/players/edit" class="profile-edit"><i class="fa fa-edit"></i></router-link>
+
+        
         </div> 
-        <img class="card-img avatar" :src="user.img" alt="Avatar">
         <div class="card-body">
-          <h4 class="card-title">Hard Carry</h4>
-            <h6 class="card-subtitle mb-2 text-muted clearfix">Co-Founder</h6>
-            <p class="card-text">
-              <ul>
-                <li>Online Store</li>
-                <li>SEO</li>
-                <li>Social Media Advertising</li>  
-              </ul>
-            </p>
+          {{user}}
         </div>
         <div class="card-footer">
-          <small class="text-muted">Brisbane, Australia</small>
+          <small class="text-muted">This is a footer</small>
         </div>
       </div>
     </div>
     <div v-else>
-      <router-link to="/login" class="btn btn-primary btn-lg">Login</router-link>
-    </div>
       <a id="steamBtn" href="/auth/steam/steam" @click="getSteamInfo" class="btn btn-primary btn-lg">Login with Steam</a>
+    </div>
+
   </div>
 </template>
 
@@ -34,10 +28,10 @@
 export default {
   computed: {
     user () {
-      return !this.$store.getters.user ? false : this.$store.getters.user
+      return !this.$store.getters.user ? 'No user logged in' : this.$store.getters.user
     },
     isLoggedIn () {
-      return this.$store.getters.isAuthenticated
+      return true // this.$store.getters.isAuthenticated
     }
   },
   methods: {
@@ -50,29 +44,30 @@ export default {
 <style scoped>
   .card {
     border-radius: 5px;
-    background: #111;
+    background: #000;
     border: 0;
+    margin-bottom: 15px;
   }
-
-  .profile-name {
-    margin-top: 10px;
-  }
-
   .card-header {
-    display: flex;
-    justify-content: space-between;
-  }  
+    border-bottom: 3px solid #666;
+  }
+  .profile-name {
+    margin: 0;
+    flex: 4;
+  }
 
-  .fa.fa-edit {
-    margin-top: 15px;
-    display: block;
+  .profile-edit {
+    margin-top: 3px;
+    flex: 1;
+    text-align: right;
     font-size: 1.2em;
   }
 
   .avatar {
-    border-radius: 0;
+    flex: 2;
+    border-radius: 3px;
     background: #444;
-    min-height: 100px;
+    max-width: 60px;
   }
 
   #steamBtn {
