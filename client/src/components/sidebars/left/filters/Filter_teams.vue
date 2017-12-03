@@ -1,6 +1,6 @@
 <template>
   <div class="players tile gray-tile tile-shadow">
-    <h4 class="py-3">Left</h4>
+    <h4 class="py-3">Filter Teams</h4>
   </div>
 </template>
 

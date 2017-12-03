@@ -9,6 +9,9 @@ import Players from '@/components/center/Players'
 import PlayerList from '@/components/center/players/Player_list'
 import PlayerEdit from '@/components/center/players/Player_edit'
 import PlayerDetails from '@/components/center/players/Player_details'
+import Left from '@/components/sidebars/left/Left'
+import FilterPlayers from '@/components/sidebars/left/filters/Filter_players'
+import FilterTeams from '@/components/sidebars/left/filters/Filter_teams'
 import Teams from '@/components/center/Teams'
 import News from '@/components/center/News'
 
@@ -25,11 +28,17 @@ export default new Router({
       children: [
         {
           path: '',
-          component: Welcome
+          components: {
+            default: Welcome,
+            left: Left
+          }
         },
         {
           path: 'players',
-          component: Players,
+          components: {
+            default: Players,
+            left: FilterPlayers
+          },
           children: [
             {
               path: '',
@@ -47,7 +56,10 @@ export default new Router({
         },
         {
           path: 'teams',
-          component: Teams
+          components: {
+            default: Teams,
+            left: FilterTeams
+          }
         },
         {
           path: 'news',

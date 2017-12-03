@@ -8,16 +8,11 @@
       <p class="lead">Searching for players...</p>
       <img src="../../../assets/loading.svg" alt="">
     </div>
-    <div v-show="!showDetails">
       <ul class="list-group clearfix" v-for="(player, index) in players" :key="index">
         <li class="list-group-item tile-shadow">
           <app-player-item :player="player" @playerSelected="onPlayerSelected"></app-player-item>
         </li>
       </ul>
-    </div>
-    <div v-show="showDetails">
-      <app-player-details :player="selectedPlayer" @toPlayerList="showDetails = false; showRefresh = true"></app-player-details>
-    </div>
   </div>
 </template>
 

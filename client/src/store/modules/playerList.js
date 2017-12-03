@@ -18,12 +18,9 @@ const mutations = {
 }
 
 const actions = {
-  getPlayers ({commit, state, rootState}) {
-    // if (!rootState.idToken) {
-    //   router.replace('/login')
-    //   return
-    // }
-    axios.get('/api/players')
+  getPlayers ({commit, state, rootState}, query) {
+    console.log(query)
+    axios.post('/api/players', query)
     .then(res => {
       return res
     })

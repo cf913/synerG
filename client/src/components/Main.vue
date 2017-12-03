@@ -7,7 +7,9 @@
     <div class="row">
       <div class="left col-md-4 col-lg-3 sidebar">
         <div class="">
-          <app-left></app-left>
+          <transition name="bounce" mode="out-in">
+            <router-view name="left"/> 
+          </transition>
         </div>
       </div>
       <div class="center col-md-8 col-lg-6">
@@ -20,7 +22,6 @@
       <div class="right col-lg-3">
         <div class="fixed">
           <app-right></app-right>
-
         </div>
       </div>
     </div>
@@ -31,14 +32,12 @@
 
 <script>
 import Right from './sidebars/right/Right'
-import Left from './sidebars/left/Left'
 import Header from './Header'
 
 export default {
   name: 'Main',
   components: {
     appRight: Right,
-    appLeft: Left,
     appHeader: Header
   },
   created () {
@@ -90,25 +89,47 @@ export default {
   }
 
   .bounce-enter-active {
-    animation: bounce-in-left .5s;
+    animation: bounce-in-top .5s cubic-bezier(.11,.67,.07,.97);
   }
   .bounce-leave-active {
-    animation: bounce-in-right .5s reverse;
+    animation: bounce-in-bot .5s reverse cubic-bezier(.11,.67,.07,.97);
+  }
+  @keyframes bounce-in-top {
+    from {
+      transform: translateY(-1000px);
+      opacity: 0
+    }
+    /* 50% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    70% {
+      transform: translateY(-20px);
+    }
+    90% {
+      transform: translateY(10px);
+    } */
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes bounce-in-bot {
+    from {
+      transform: translateY(1000px);
+      opacity: 0
+    }
+    10% {
+      opacity: 1;
+    }
+    to {
+      transform: translateY(0);
+    }
   }
   @keyframes bounce-in-left {
     from {
       transform: translateX(-2500px);
       opacity: 0
-    }
-    50% {
-      transform: translateX(0);
-      opacity: 1;
-    }
-    70% {
-      transform: translateX(-20px);
-    }
-    90% {
-      transform: translateX(10px);
     }
     to {
       transform: translateX(0);
@@ -124,10 +145,10 @@ export default {
       opacity: 1;
     }
     70% {
-      transform: translateX(20px);
+      transform: translateX(-20px);
     }
     90% {
-      transform: translateX(-10px);
+      transform: translateX(10px);
     }
     to {
       transform: translateX(0);

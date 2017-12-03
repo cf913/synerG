@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken')
 
 // Get list of players
 router.get('/players', PlayersController.getPlayers)
+router.post('/players', PlayersController.getPlayers)
 // Get player details
 router.get('/players/:id',  PlayersController.getPlayer)
 

@@ -1,48 +1,47 @@
 <template>
-  <div class="player-edit">
-    <header class="text-center">
-      <h2 class="py-3">{{ username }}</h2>
-    </header>
+  <div class="filter tile gray-tile tile-shadow">
+    <h4 class="py-3">Filter Players</h4>
     <div class="container">
       <b-form>
         <div class="row">
-          <div class="col-sm-4">
+          <div class="col-sm-6">
             <b-form-group>
               <h5 class="label">Regions:</h5>
-              <b-form-checkbox-group  name="flavour1" stacked v-model="regions_selected" :options="regions_options">
+              <b-form-checkbox-group stacked v-model="regions_selected" :options="regions_options">
               </b-form-checkbox-group>
             </b-form-group>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-6">
             <b-form-group>
               <h5 class="label">Languages:</h5>
-              <b-form-checkbox-group  name="flavour1" stacked v-model="languages_selected" :options="languages_options">
+              <b-form-checkbox-group stacked v-model="languages_selected" :options="languages_options">
               </b-form-checkbox-group>
             </b-form-group>
-          </div>
-          <div class="col-sm-4">
             <b-form-group>
               <h5 class="label">Comms:</h5>
-              <b-form-checkbox-group  name="flavour1" stacked v-model="comms_selected" :options="comms_options">
-              </b-form-checkbox-group>
-            </b-form-group>
-            <br>
-            <b-form-group>
-              <h5 class="label">Positions:</h5>
-              <b-form-checkbox-group name="flavour1" stacked v-model="positions_selected" :options="positions_options">
+              <b-form-checkbox-group stacked v-model="comms_selected" :options="comms_options">
               </b-form-checkbox-group>
             </b-form-group>
           </div>
-          <b-form-textarea class="description"
-            v-model="description"
-            placeholder="Describe yourself, your playstyle, what sort of team you are looking for, etc... :D "
-            :rows="3"
-            :max-rows="6">
-          </b-form-textarea>
         </div>
-        <b-button @click.prevent="onSubmit()" variant="info">Save</b-button>
+        <div class="row">
+          <div class="col-sm-6">
+            <b-form-group>
+              <h5 class="label">Positions:</h5>
+              <b-form-checkbox-group stacked v-model="positions_selected" :options="positions_options">
+              </b-form-checkbox-group>
+            </b-form-group>
+          </div>
+          <div class="col-sm-6">
+            <b-form-group>
+              <h5 class="label">MMR:</h5>
+              <b-form-checkbox-group stacked v-model="mmr_selected" :options="mmr_options">
+              </b-form-checkbox-group>
+            </b-form-group>
+          </div>
+        </div>
+        <b-button @click.prevent="onSubmit()" variant="info"><i class="fa fa-search"></i> Search</b-button>
         <b-button @click.prevent="onReset()" variant="warning">Reset</b-button>
-        <b-button @click.prevent="onCancel()" variant="danger">Cancel</b-button>
       </b-form>
     </div>
   </div>
@@ -50,15 +49,14 @@
 
 <script>
 export default {
-
   data () {
     return {
       username: '- UserName -',
-      description: '',
       regions_selected: [], // Must be an array reference!
       languages_selected: [],
       comms_selected: [],
       positions_selected: [],
+      mmr_selected: [],
       regions_options: [
         { text: 'Chile', value: 'Chile' },
         { text: 'China', value: 'China' },
@@ -93,79 +91,64 @@ export default {
         { text: 'Offlaner', value: 'Offlaner' },
         { text: 'Farming Support', value: 'Farming Support' },
         { text: 'Hard Support', value: 'Hard Support' }
+      ],
+      mmr_options: [
+        {text: '< 1k', value: {min: 0, max: 999}},
+        {text: '1k - 2k', value: {min: 1000, max: 1999}},
+        {text: '2k - 3k', value: {min: 2000, max: 2999}},
+        {text: '3k - 4k', value: {min: 3000, max: 3999}},
+        {text: '4k - 5k', value: {min: 4000, max: 4999}},
+        {text: '5k - 7k', value: {min: 5000, max: 6999}},
+        {text: '> 7k', value: {min: 7000, max: 99999}}
       ]
     }
   },
   methods: {
     onSubmit () {
       const data = {
-        description: this.description,
         regions: this.regions_selected,
         languages: this.languages_selected,
         comms: this.comms_selected,
-        positions: this.positions_selected
+        positions: this.positions_selected,
+        mmr: this.mmr_selected
       }
-      this.$store.dispatch('editPlayer', {data, id: this.$route.params.id})
+      this.$store.dispatch('getPlayers', data)
     },
     onReset () {
-      this.description = ''
       this.regions_selected = []
       this.languages_selected = []
       this.comms_selected = []
       this.positions_selected = []
-    },
-    onCancel () {
-      this.$router.go(-1)
-    }
-  },
-  created () {
-    if (this.$store.getters.user) {
-      this.username = this.$store.getters.user.steamName
-      this.description = this.$store.getters.user.description
-      this.regions_selected = this.$store.getters.user.regions
-      this.languages_selected = this.$store.getters.user.languages
-      this.comms_selected = this.$store.getters.user.comms
-      this.positions_selected = this.$store.getters.user.positions
+      this.mmr_selected = []
     }
   }
 }
 </script>
 
 <style scoped>
+  .filter {
+    color: white;
+    font-size: 1em;
+    padding-bottom: 15px;
+  }
 
+  .custom-controls-stacked {
+    padding-left: 15%;
+  }
   .container {
-    padding: 0 20px;
+    border-radius: 5px;
+    padding-top: 10px;
+    width: 90%;
+    background: #222;
   }
   .label {
+    font-size: 1.2em;
     font-weight: bold;
     color: #106CD6;
     text-align: left;
   }
-  .custom-controls-stacked {
-    padding-left: 20%;
-  }
   .btn {
-    width: 100px;
-    margin: 10px 5px;
+    margin: auto 5px; 
+    margin-bottom: 20px;
   }
-  textarea {
-    margin: auto 10px;
-    background-color: #222;
-    color: white;
-    border-width: 2px;
-  }
-  textarea:focus {
-    background-color: #000;
-    color: white;
-    border-color: orange;
-  }
-
-  .row {
-    border-radius: 5px;
-    margin: auto 10px;
-    padding: 20px;
-    margin: auto;
-    background: #333;
-  }
-
 </style>

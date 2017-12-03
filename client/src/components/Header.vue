@@ -36,7 +36,7 @@
             <i id="profile-logo" class="fa fa-user-circle-o"></i>
           </template>
           <div v-show="auth">
-            <b-dropdown-item :to="{ path: `/players/${userId}`}">Profile</b-dropdown-item>
+            <b-dropdown-item :to="{ path: `/players/${id}`}">Profile</b-dropdown-item>
             <b-dropdown-item @click="onLogout">Logout</b-dropdown-item>
           </div>
           <div v-show="!auth">
@@ -63,6 +63,11 @@ export default {
   computed: {
     auth () {
       return this.$store.getters.isAuthenticated
+    },
+    id () {
+      if (this.$store.getters.user) {
+        return this.$store.getters.user.steamId
+      }
     }
   },
   methods: {

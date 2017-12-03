@@ -3,25 +3,18 @@ const Player = require('@models/player')
 module.exports = {
 
     getPlayers(req, res, next) {
-        Player.find({}).limit(30)
+        let query = buildQuery(req.body)
+        Player.find(query).limit(30)
         .then((players) => {
             res.send(players)
         })
+        .catch(err => {
+            console.log(err)
+        })
     },
 
-
-    // create(req, res, next) {
-    //     const playerProps = req.body
-
-    //     Player.create(playerProps)
-    //     .then(player => {
-    //         res.send(player)
-    //     })
-    //     .catch(next)
-    // },
-
     getPlayer(req, res, next) {
-        Player.findById(req.params.id)
+        Player.findOne({steamId: req.params.id})
         .then(player => {
             res.send(player)
         })
@@ -36,15 +29,33 @@ module.exports = {
             send(err)
         })
     },
+}
 
-//   updatePlayer(req, res, next) {
-//     Player.findByIdAndUpdate(req.params.id, req.body)
-//       .then(() => Player.findById(req.params.id))
-//       .then(player => res.render('player', {player: player}))
-//       .catch(next)
-//   },
-
-//   delete(req, res, next) {
-//   }
-
+function buildQuery(body) {
+    let query = {}
+    if (Object.keys(body).length === 0) return query
+    // build query
+    if (body.regions.length > 0) {
+        query['regions'] = {$in: body.regions}
+    }
+    if (body.languages.length > 0) {
+        query['languages'] = {$in: body.languages}
+    }
+    if (body.comms.length > 0) {
+        query['comms'] = {$in: body.comms}
+    }
+    if (body.positions.length > 0) {
+        query['positions'] = {$in: body.positions}
+    }
+    if (body.mmr.length > 0) {
+        if (body.mmr.length == 1) {
+            query['mmr.mmr_estimate'] = { $gte: body.mmr[0].min, $lte: body.mmr[0].max}
+        } else {
+            query['$or'] = []
+            for (let i = 0; i < body.mmr.length; i++) {
+                query['$or'].push({'mmr.mmr_estimate': {$gte: body.mmr[i].min, $lte: body.mmr[i].max}})
+            }
+        }
+    }
+    return query
 }
