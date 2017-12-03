@@ -64,9 +64,9 @@ const mutations = {
 }
 
 const actions = {
-  setLogoutTimer ({commit}, expirationTime) {
+  setLogoutTimer ({dispatch}, expirationTime) {
     setTimeout(() => {
-      commit('clearAuthData')
+      dispatch('logout')
     }, expirationTime * 1000)
   },
   signup ({commit, dispatch}, authData) {
@@ -157,17 +157,19 @@ const actions = {
       .catch(error => console.log(error))
     }
   },
-  tryAutoLogin ({commit}) {
+  tryAutoLogin ({commit, dispatch}) {
     console.log('trying auto loggin')
     const token = localStorage.getItem('token')
     if (!token) {
       console.log('no token')
       return
     }
-    const expirationDate = localStorage.getItem('expirationDate')
+    const expirationDate = new Date(localStorage.getItem('expirationDate'))
     const now = new Date()
+
     if (now >= expirationDate) {
       console.log(`expiration issue: now = ${now}, exp = ${expirationDate}`)
+      dispatch('logout')
       return
     }
     const userId = localStorage.getItem('userId')
@@ -185,7 +187,7 @@ const actions = {
     localStorage.removeItem('token')
     localStorage.removeItem('userId')
     localStorage.removeItem('user')
-    router.replace('/login')
+    router.replace('/')
   }
 }
 

@@ -1,4 +1,4 @@
-const PlayersController = require('../controllers/players_controller')
+const PlayersController = require('@controllers/players_controller')
 let express = require('express')
 const router = express.Router()
 const passport = require('passport')

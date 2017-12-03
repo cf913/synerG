@@ -1,44 +1,50 @@
-const mongoose = require('mongoose')
-const User = require('@models/player')
+const Player = require('@models/player')
 
-const api = {}
+module.exports = {
 
-api.setup = (User) => (req, res) => {
-  const admin = new User({
-    username: 'admin',
-    password: 'admin',
-    clients: []
-  });
-  admin.save(error => {
-    if (error) throw error;
-    console.log('Admin account was succesfully set up');
-    res.json({ success: true });
-  })
+    getPlayers(req, res, next) {
+        Player.find({}).limit(30)
+        .then((players) => {
+            res.send(players)
+        })
+    },
+
+
+    // create(req, res, next) {
+    //     const playerProps = req.body
+
+    //     Player.create(playerProps)
+    //     .then(player => {
+    //         res.send(player)
+    //     })
+    //     .catch(next)
+    // },
+
+    getPlayer(req, res, next) {
+        Player.findById(req.params.id)
+        .then(player => {
+            res.send(player)
+        })
+    },
+
+    editPlayer(req, res, next) {
+        Player.findOneAndUpdate({ steamId: req.params.id }, { $set: req.body }, { new: true })
+        .then(player => {
+            res.send(player)
+        })
+        .catch(err => {
+            send(err)
+        })
+    },
+
+//   updatePlayer(req, res, next) {
+//     Player.findByIdAndUpdate(req.params.id, req.body)
+//       .then(() => Player.findById(req.params.id))
+//       .then(player => res.render('player', {player: player}))
+//       .catch(next)
+//   },
+
+//   delete(req, res, next) {
+//   }
+
 }
-
-api.index = (User, BudgetToken) => (req, res) => {
-  const token = BudgetToken;
-  if (token) {
-    User.find({}, {limit: 20}, (error, users) => {
-      if (error) throw error;
-      res.status(200).json(users);
-    });
-  } else return res.status(403).send({ success: false, message: 'Unauthorized' });
-}
-
-api.signup = (User) => (req, res) => {
-  if (!req.body.username || !req.body.password) res.json({ success: false, message: 'Please, pass an username and password.' })
-  else {
-    const user = new User({
-      username: req.body.username,
-      password: req.body.password
-    })
-
-    user.save(error => {
-      if (error) return res.status(400).json({ success: false, message: 'Username already exists.' })
-      res.json({ success: true, message: 'Account created successfully' })
-    })
-  }
-}
-
-module.exports = api

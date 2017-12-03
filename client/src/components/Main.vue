@@ -43,6 +43,7 @@ export default {
   },
   created () {
     this.$store.dispatch('checkLogin', this.$route.query)
+    this.$router.push('/')
   }
 }
 </script>

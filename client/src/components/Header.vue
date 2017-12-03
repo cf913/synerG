@@ -40,7 +40,7 @@
             <b-dropdown-item @click="onLogout">Logout</b-dropdown-item>
           </div>
           <div v-show="!auth">
-            <b-dropdown-item to="/auth/steam/steam">Login</b-dropdown-item>
+            <b-dropdown-item href="/auth/steam/steam">Login</b-dropdown-item>
           </div>
         </b-nav-item-dropdown>
       
