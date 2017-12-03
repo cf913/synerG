@@ -23,7 +23,7 @@ const actions = {
     //   router.replace('/login')
     //   return
     // }
-    axios.get('http://localhost:3000/api/players')
+    axios.get('/api/players')
     .then(res => {
       return res
     })

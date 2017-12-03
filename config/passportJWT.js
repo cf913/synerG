@@ -7,14 +7,13 @@ const Player = require('../models/player')
 module.exports = (passport) => {
   const parameters = {
     secretOrKey: config.secret,
-    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
+    jwtFromRequest: ExtractJWT.fromUrlQueryParameter('token')
   }
-
+  console.log('USING THE STRAT')
   passport.use(new Strategy(parameters, (payload, done) => {
-    console.log('PLAYLOAD:' + payload)
+    console.log('PLAYLOAD:' + payload.id)
     Player.findOne({ steamId: payload.id }, (error, user) => {
       if (error) {
-        conso
         console.log(error)
         return done(error, false)
       }
@@ -28,4 +27,14 @@ module.exports = (passport) => {
     })
 
   }))
+
+  // return {
+  //   initialize: function() {
+  //       return passport.initialize();
+  //   },
+  //   authenticate: function() {
+  //     console.log("AUTHENTICATING...")
+  //       return passport.authenticate("jwt", config.secret);
+  //   }
+  // }
 }

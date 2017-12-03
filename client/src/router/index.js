@@ -11,9 +11,6 @@ import PlayerEdit from '@/components/center/players/Player_edit'
 import PlayerDetails from '@/components/center/players/Player_details'
 import Teams from '@/components/center/Teams'
 import News from '@/components/center/News'
-import Login from '@/components/auth/Login'
-import Register from '@/components/auth/Register'
-import SteamLogin from '@/components/auth/SteamLogin'
 
 Vue.use(Router)
 
@@ -55,18 +52,6 @@ export default new Router({
         {
           path: 'news',
           component: News
-        },
-        {
-          path: 'login',
-          component: Login
-        },
-        {
-          path: 'register',
-          component: Register
-        },
-        {
-          path: 'linksteam',
-          component: SteamLogin
         }
       ]
     },

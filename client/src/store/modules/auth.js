@@ -5,9 +5,52 @@ const state = {
   idToken: null,
   userId: null,
   user: null
+  // user: { _id: '5a2100b386c90104354d705f',
+  //   steamId: '76561198303121519',
+  //   steam32: '342855791',
+  //   steamName: 'B2G \' Orno',
+  //   img: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg',
+  //   __v: 0,
+  //   description: 'This is a description!',
+  //   comms: [ 'Discord' ],
+  //   regions: [
+  //     'EU West',
+  //     'EU East',
+  //     'Japan',
+  //     'Australia',
+  //     'Russia',
+  //     'US West',
+  //     'South Africa',
+  //     'US East'
+  //   ],
+  //   languages: [ 'Chinese' ],
+  //   positions: [],
+  //   mmr: { mmr_estimate: 2757 },
+  //   steam: {
+  //     steamid: '76561198303121519',
+  //     communityvisibilitystate: 3,
+  //     profilestate: 1,
+  //     personaname: 'B2G \' Orno',
+  //     lastlogoff: 1512061628,
+  //     profileurl: 'http://steamcommunity.com/id/b2gorno/',
+  //     avatar: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb.jpg',
+  //     avatarmedium: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_medium.jpg',
+  //     avatarfull: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg',
+  //     personastate: 0,
+  //     realname: 'Joe Harper',
+  //     primaryclanid: '103582791429521408',
+  //     timecreated: 1462816155,
+  //     personastateflags: 0,
+  //     loccountrycode: 'GB',
+  //     locstatecode: 'H9'
+  //   }
+  // }
 }
 
 const mutations = {
+  userUpdate (state, newUser) {
+    state.user = newUser
+  },
   authUser (state, userData) {
     state.idToken = userData.token
     state.userId = userData.userId
@@ -89,12 +132,12 @@ const actions = {
       return
     }
     if (params.steamid && params.token) {
-      const id = params.steamid
       const token = params.token
       console.log('Pre confirming')
-      axios.post('/auth/jwt/confirm-login/?token=' + token, {id})
+      axios.post('/auth/jwt/confirm-login/?token=' + token)
       .then(data => {
         const user = data.data.user
+        const id = data.data.user.steamId
         console.log(user)
         const expiresIn = 7200 // 2h
         const now = new Date()
@@ -152,6 +195,9 @@ const getters = {
   },
   userId (state) {
     return state.userId
+  },
+  idToken (state) {
+    return state.idToken
   },
   isAuthenticated (state) {
     return state.idToken !== null && state.user !== null && state.userId !== null

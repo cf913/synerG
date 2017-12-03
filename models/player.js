@@ -9,23 +9,25 @@ const PlayerSchema = new Schema({
   // username: {type: String, index: true, required: true, unique: true},
   // password: {type: String, required: true},
   // email: {type: String, required: true, unique:true },
-  steamId: String,
+  steamId: {type: String, index: true, required: true, unique: true},
   steam32: String,
   steamName: String,
-  steam: [SteamSchema],
+  steam: SteamSchema,
   img: String,
   mmr: {
     mmr_estimate: Number,
     mmr_solo: Number,
     mmr_party: Number
   },
+  positions: [String],
+  description: String,
   languages: [String],
   country: String,
   regions: [String],
-  comms: [String]
+  comms: [String],
   // posts: [{type: Schema.Types.ObjectId, ref: 'post'}],
   // comments: [{type: Schema.Types.ObjectId, ref: 'comment'}],
-  // friends: [{type: Schema.Types.ObjectId, ref: 'player'}],
+  friends: [{type: Schema.Types.ObjectId, ref: 'player'}]
   // teams: [{type: Schema.Types.ObjectId, ref: 'team'}],
 })
 

@@ -9,10 +9,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'font-awesome/css/font-awesome.css'
 
-import axios from 'axios'
 import store from './store/store'
-
-axios.defaults.baseURL = 'https://vue-update.firebaseio.com'
 
 Vue.use(BootstrapVue)
 Vue.use(VueResource)

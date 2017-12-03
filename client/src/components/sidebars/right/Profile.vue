@@ -5,7 +5,7 @@
         <div class="card-header d-flex align-items-center">
               <img class="avatar" :src="user.img" alt="Avatar">
               <h4 class="profile-name">{{ user.steamName }}</h4>
-              <router-link to="/players/edit" class="profile-edit"><i class="fa fa-edit"></i></router-link>
+              <router-link :to="{ path: `/players/${userId}/edit`}" class="profile-edit"><i class="fa fa-edit"></i></router-link>
 
         
         </div> 
@@ -29,6 +29,9 @@ export default {
   computed: {
     user () {
       return !this.$store.getters.user ? 'No user logged in' : this.$store.getters.user
+    },
+    userId () {
+      return this.$store.getters.userId
     },
     isLoggedIn () {
       return true // this.$store.getters.isAuthenticated

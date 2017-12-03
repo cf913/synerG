@@ -14,25 +14,6 @@ module.exports = (passport) => {
     proxy: true
   }
 
-  function getMMR(steam32) {
-    request.get(`https://api.opendota.com/api/players/${steam32}`)
-      .then(dataJSON => {
-        const data = JSON.parse(dataJSON)
-        let mmr = {}
-
-        if (data.mmr_estimate.estimate) mmr.mmr_estimate = data.mmr_estimate.estimate 
-        if (data.solo_competitive_rank) mmr.mmr_solo     = data.solo_competitive_rank
-        if (data.competitive_rank) mmr.mmr_party         = data.competitive_rank
-        console.log(util.inspect(mmr, null))
-        console.log('TYPEOF ESTIMATE: ' + typeof data.mmr_estimate.estimate)
-        return mmr
-      })
-      .catch(err => {
-        console.log(err)
-        return {}
-      })
-  }
-
   passport.use(new Strategy(parameters, (identifier, profile, done) => {
       // asynchronous verification, for effect...
       process.nextTick(() => {

@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 // import router from './../router'
 
 import PlayersListModule from './modules/playerList'
+import PlayerModule from './modules/player'
 import AuthModule from './modules/auth'
 
 Vue.use(Vuex)
@@ -22,7 +23,8 @@ export default new Vuex.Store({
 
   },
   modules: {
+    AuthModule,
     PlayersListModule,
-    AuthModule
+    PlayerModule
   }
 })

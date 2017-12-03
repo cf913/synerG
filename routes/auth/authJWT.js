@@ -2,26 +2,14 @@ const express = require('express')
 const router = express.Router()
 const Player = require('@models/player')
 const api = require('@controllers/auth_controller')
-var jwt = require('jsonwebtoken')
-let config = require('../../config/index.js')
+const jwt = require('jsonwebtoken')
+const config = require('../../config/index.js')
+const passport = require('passport')
 
 
 router.post('/login', api.login(Player))
 router.post('/register', api.signup(Player))
 
-// TODO: verify token ID
-router.use('/', (req, res, next) => {
-  jwt.verify(req.query.token, config.secret, (err, decoded) => {
-      if (err) {
-          return res.status(401).json({
-              title: 'Not Authenticated',
-              error: err
-          });
-      }
-      next();
-  })
-});
-
-router.post('/confirm-login', api.confirmLogin(Player))
+router.post('/confirm-login', passport.authenticate('jwt'), api.confirmLogin(Player))
 
 module.exports = router

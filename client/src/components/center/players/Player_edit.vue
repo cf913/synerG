@@ -1,7 +1,7 @@
 <template>
   <div class="player-edit">
     <header class="text-center">
-      <h2 class="py-3">(username here)</h2>
+      <h2 class="py-3">{{ username }}</h2>
     </header>
     <div class="container">
       <b-form>
@@ -50,8 +50,10 @@
 
 <script>
 export default {
+
   data () {
     return {
+      username: '- UserName -',
       description: '',
       regions_selected: [], // Must be an array reference!
       languages_selected: [],
@@ -96,14 +98,35 @@ export default {
   },
   methods: {
     onSubmit () {
+      const data = {
+        description: this.description,
+        regions: this.regions_selected,
+        languages: this.languages_selected,
+        comms: this.comms_selected,
+        positions: this.positions_selected
+      }
+      this.$store.dispatch('editPlayer', {data, id: this.$route.params.id})
     },
     onReset () {
+      this.description = ''
+      this.regions_selected = []
+      this.languages_selected = []
+      this.comms_selected = []
+      this.positions_selected = []
     },
     onCancel () {
+      this.$router.go(-1)
     }
   },
   created () {
-
+    if (this.$store.getters.user) {
+      this.username = this.$store.getters.user.steamName
+      this.description = this.$store.getters.user.description
+      this.regions_selected = this.$store.getters.user.regions
+      this.languages_selected = this.$store.getters.user.languages
+      this.comms_selected = this.$store.getters.user.comms
+      this.positions_selected = this.$store.getters.user.positions
+    }
   }
 }
 </script>
@@ -124,7 +147,7 @@ export default {
     margin: 10px 5px;
   }
   textarea {
-    margin: auto 50px;
+    margin: auto 10px;
     background-color: #222;
     color: white;
     border-width: 2px;
@@ -133,6 +156,14 @@ export default {
     background-color: #000;
     color: white;
     border-color: orange;
+  }
+
+  .row {
+    border-radius: 5px;
+    margin: auto 10px;
+    padding: 20px;
+    margin: auto;
+    background: #333;
   }
 
 </style>

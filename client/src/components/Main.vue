@@ -65,7 +65,12 @@ export default {
 
 
   .main {
-    background: linear-gradient(to bottom, #023, #012); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to bottom, #485563, #29323c);
+    background: linear-gradient(to top, #000000, #53346d);
+    background: linear-gradient(to top, #141e30, #243b55);
+    background: linear-gradient(to top, #000428, #004e92);
+
+    /* background: linear-gradient(to bottom, #023, #012); */
 
     /* background: url('../assets/back.jpg') center no-repeat;
     background-size: cover;

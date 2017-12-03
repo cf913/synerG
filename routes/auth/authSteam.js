@@ -10,7 +10,7 @@ router.get('/steam', passport.authenticate('steam'), (req, res) => {
 router.get(
   '/steam/return', passport.authenticate('steam'), (req, res) => {
       if (req.user) {
-        let token = jwt.sign(req.user.steamId, config.secret)
+        let token = jwt.sign({id: req.user.steamId}, config.secret, { expiresIn: 7200 })
         res.redirect(`/?steamid=${req.user.steamId}&token=${token}`);
       } else {
         res.redirect('/');

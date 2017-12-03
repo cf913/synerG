@@ -4,15 +4,19 @@ const config = require('@config')
 
 const api = {}
 api.confirmLogin = (User) => (req,res) => {
-  const steamId = req.body.id
-  User.findOne({steamId})
-    .then(user => {
-      console.log(user)
-      res.json({success: true, message: 'Logged In', user})
-    })
-    .catch(error => {
-      res.status(401).send({ success: false, message: error })
-    })
+  // Check the ID from the token
+  jwt.verify(req.query.token, config.secret, (err, decoded) => {
+    if (decoded.id) {
+      User.findOne({steamId: decoded.id})
+      .then(user => {
+        console.log(user)
+        res.json({success: true, message: 'Logged In', user})
+      })
+      .catch(error => {
+        res.status(401).send({ success: false, message: error })
+      })
+    }
+  })
 }
 
 api.login = (User) => (req, res) => {
