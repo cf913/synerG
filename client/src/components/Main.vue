@@ -8,7 +8,9 @@
       <div class="left col-md-4 col-lg-3 sidebar">
         <div class="">
           <transition name="bounce" mode="out-in">
-            <router-view name="left"/> 
+            <keep-alive>
+              <router-view name="left"/> 
+            </keep-alive>
           </transition>
         </div>
       </div>
@@ -65,9 +67,9 @@ export default {
 
 
   .main {
-    background: linear-gradient(to bottom, #485563, #29323c);
+    /* background: linear-gradient(to top, #141e30, #243b55);
     background: linear-gradient(to top, #000000, #53346d);
-    background: linear-gradient(to top, #141e30, #243b55);
+    background: linear-gradient(to bottom, #485563, #29323c); */
     background: linear-gradient(to top, #000428, #004e92);
 
     /* background: linear-gradient(to bottom, #023, #012); */
@@ -81,11 +83,11 @@ export default {
 
   .container-fluid {
     max-width: 1500px;
-    padding-top: 70px;
+    padding-top: 55px;
   }
   .fixed {
     position: sticky;
-    top: 90px;
+    top: 75px;
   }
 
   .bounce-enter-active {

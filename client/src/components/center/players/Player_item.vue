@@ -8,9 +8,12 @@
         <a class="btn btn-info btn-sm float-right">Steam Profile</a>
         <router-link class="btn btn-primary btn-sm float-right" :to="{ path: `/players/${player.steamId}`}">PlayerProfile</router-link>
         <router-link :to="{ path: `/players/${player.steamId}`}"><h5>{{ player.steamName }}</h5></router-link>
-        <ul id="details">
-          <li><i class="fa fa-trophy"></i>  ~{{ player.mmr.mmr_estimate | toDecimal }}K</li>
-          <li><i class="fa fa-map-marker"></i> EU, OCE</li>
+        <ul class="d-flex details">
+          <li v-if="player.mmr.mmr_estimate"><i class="fa fa-trophy fa-fw"></i>  ~{{ player.mmr.mmr_estimate | toDecimal }}K</li>
+          <li v-if="player.regions.length !== 0"><i class="fa fa-map-marker fa-fw"></i> {{ player.regions | displayListContent }}</li>
+          <li v-if="player.languages.length !== 0"><i class="fa fa-globe fa-fw"></i> {{ player.languages | displayListContent }}</li>
+          <li v-if="player.comms.length !== 0"><i class="fa fa-microphone fa-fw"></i> {{ player.comms | displayListContent }}</li>
+          <li v-if="player.positions.length !== 0"><i class="fa fa-pie-chart fa-fw"></i> {{ player.positions | displayListContent }}</li>
         </ul>
       </div>
     </div>
@@ -34,6 +37,9 @@ export default {
       }
       value = (value / 1000).toFixed(1)
       return value
+    },
+    displayListContent (value) {
+      return value.join(', ')
     }
   }
 }
@@ -64,22 +70,24 @@ export default {
     text-decoration: underline;
   }
 
-  #details i {
+  .details i {
     font-size: 1.2em;
     color: #ddd;
     margin-right: 4px;
   }
 
-  ul#details {
+  ul.details {
     background: #222;
     padding: 10px;
     padding-left: 20px;
     border-radius: 3px;
+    flex-wrap: wrap;
   }
-  #details li {
+  .details li {
     padding: 2px 0;
     list-style-type: none;
     font-size: 0.9em;
+    flex-basis: calc(48%);  
   }
 
 </style>

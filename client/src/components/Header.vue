@@ -1,7 +1,7 @@
 <template>
 <div class="header">
 
-  <b-navbar class="py-3 fixed-top" toggleable="md" type="dark" style="background: rgba(0,0,0,0.5)">
+  <b-navbar class="py-2 fixed-top" toggleable="md" type="dark" style="background: rgba(0,0,0,0.5)">
 
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 

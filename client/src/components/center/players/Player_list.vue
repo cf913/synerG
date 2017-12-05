@@ -58,6 +58,7 @@ export default {
     appPlayerDetails: PlayerDetails
   },
   created () {
+    console.log('createing player list')
     this.getPlayers()
   }
 }

@@ -128,7 +128,7 @@ export default {
 <style scoped>
   .filter {
     color: white;
-    font-size: 1em;
+    font-size: 0.9em;
     padding-bottom: 15px;
   }
 
