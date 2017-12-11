@@ -1,6 +1,6 @@
 <template>
-    <div class="players tile gray-tile">
-        <h2 class="py-3">Teams</h2>
+    <div class="players tile gray-tile tile-shadow">
+        <router-view/>
     </div>
 </template>
 

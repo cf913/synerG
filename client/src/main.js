@@ -16,7 +16,19 @@ Vue.use(VueResource)
 
 Vue.config.productionTip = false
 
-export const eventBus = new Vue()
+Vue.filter('displayListContent', function (value) {
+  return value.join(', ')
+})
+Vue.filter('toDecimal', function (value, decimals) {
+  if (!value) {
+    value = 0
+  }
+  if (!decimals) {
+    decimals = 1
+  }
+  value = (value / 1000).toFixed(1)
+  return value
+})
 
 /* eslint-disable no-new */
 new Vue({

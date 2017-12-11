@@ -25,6 +25,11 @@ const PlayerSchema = new Schema({
   country: String,
   regions: [String],
   comms: [String],
+  mail: {
+    read: Boolean,
+    author: String,
+    content: String,
+  },
   // posts: [{type: Schema.Types.ObjectId, ref: 'post'}],
   // comments: [{type: Schema.Types.ObjectId, ref: 'comment'}],
   friends: [{type: Schema.Types.ObjectId, ref: 'player'}]

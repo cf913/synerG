@@ -52,8 +52,6 @@
 </template>
 
 <script>
-import { eventBus } from '../main'
-
 export default {
   // data: () => {
   //   return {
@@ -74,11 +72,6 @@ export default {
     onLogout () {
       this.$store.dispatch('logout')
     }
-  },
-  created () {
-    eventBus.$on('loggedIn', status => {
-      this.isLoggedIn = status
-    })
   }
 }
 </script>

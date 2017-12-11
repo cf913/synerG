@@ -9,10 +9,15 @@ import Players from '@/components/center/Players'
 import PlayerList from '@/components/center/players/Player_list'
 import PlayerEdit from '@/components/center/players/Player_edit'
 import PlayerDetails from '@/components/center/players/Player_details'
+
 import Left from '@/components/sidebars/left/Left'
 import FilterPlayers from '@/components/sidebars/left/filters/Filter_players'
 import FilterTeams from '@/components/sidebars/left/filters/Filter_teams'
+
 import Teams from '@/components/center/Teams'
+import TeamNew from '@/components/center/teams/Team_new'
+import TeamList from '@/components/center/teams/Team_list'
+
 import News from '@/components/center/News'
 
 Vue.use(Router)
@@ -22,7 +27,6 @@ export default new Router({
   routes: [
     {
       path: '',
-      name: 'Main',
       component: Main,
       // redirect: '/news',
       children: [
@@ -59,7 +63,17 @@ export default new Router({
           components: {
             default: Teams,
             left: FilterTeams
-          }
+          },
+          children: [
+            {
+              path: '', // change to new
+              component: TeamList
+            },
+            {
+              path: 'new', // change to new
+              component: TeamNew
+            }
+          ]
         },
         {
           path: 'news',

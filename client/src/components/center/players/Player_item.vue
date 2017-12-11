@@ -5,11 +5,21 @@
         <img id="avatar" :src="player.img" alt="Avatar">
       </div>
       <div class="col-sm-10">
-        <a class="btn btn-info btn-sm float-right">Steam Profile</a>
-        <router-link class="btn btn-primary btn-sm float-right" :to="{ path: `/players/${player.steamId}`}">PlayerProfile</router-link>
+        <a class="btn btn-info btn-sm float-right" target="_blank" :href="`http://www.steamcommunity.com/profiles/${player.steamId}`"><i class="fa fa-steam fa-fw"></i></a>
+        <router-link class="btn btn-primary btn-sm float-right" :to="{ path: `/players/${player.steamId}/add`}"><i class="fa fa-user-plus fa-fw"></i></router-link>
+        <!-- <router-link class="btn btn-warning btn-sm float-right" :to="{}"><i class="fa fa-comment fa-fw"></i></router-link> -->
+        <router-link class="btn btn-warning btn-sm float-right" :to="{ path: `/players/${player.steamId}`}"><i class="fa fa-user-circle-o fa-fw"></i></router-link>
         <router-link :to="{ path: `/players/${player.steamId}`}"><h5>{{ player.steamName }}</h5></router-link>
         <ul class="d-flex details">
-          <li v-if="player.mmr.mmr_estimate"><i class="fa fa-trophy fa-fw"></i>  ~{{ player.mmr.mmr_estimate | toDecimal }}K</li>
+          <li v-if="player.mmr.mmr_estimate"><i class="fa fa-trophy fa-fw"></i>
+            ~{{ player.mmr.mmr_estimate | toDecimal }}K
+            <!--<div v-if="player.mmr.mmr_solo">-->
+              <!--(s) {{ player.mmr.mmr_solo | toDecimal }}K-->
+            <!--</div>-->
+            <!--<div v-if="player.mmr.mmr_party">-->
+              <!--(p) {{ player.mmr.mmr_party  | toDecimal }}K-->
+            <!--</div>-->
+          </li>
           <li v-if="player.regions.length !== 0"><i class="fa fa-map-marker fa-fw"></i> {{ player.regions | displayListContent }}</li>
           <li v-if="player.languages.length !== 0"><i class="fa fa-globe fa-fw"></i> {{ player.languages | displayListContent }}</li>
           <li v-if="player.comms.length !== 0"><i class="fa fa-microphone fa-fw"></i> {{ player.comms | displayListContent }}</li>
@@ -26,21 +36,6 @@ export default {
   data: () => {
     return {
     }
-  },
-  filters: {
-    toDecimal (value, decimals) {
-      if (!value) {
-        value = 0
-      }
-      if (!decimals) {
-        decimals = 1
-      }
-      value = (value / 1000).toFixed(1)
-      return value
-    },
-    displayListContent (value) {
-      return value.join(', ')
-    }
   }
 }
 </script>
@@ -48,7 +43,10 @@ export default {
 <style scoped>
 
   a.btn {
-    margin-left: 10px;
+    margin-left: 8px;
+  }
+  a.btn i {
+    font-size: 1em;
   }
   #avatar {
     width: 100%;
@@ -87,7 +85,7 @@ export default {
     padding: 2px 0;
     list-style-type: none;
     font-size: 0.9em;
-    flex-basis: calc(48%);  
+    flex-basis: calc(48%);
   }
 
 </style>

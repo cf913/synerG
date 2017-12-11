@@ -120,6 +120,7 @@ export default {
       this.comms_selected = []
       this.positions_selected = []
       this.mmr_selected = []
+      this.$store.dispatch('getPlayers', {})
     }
   }
 }

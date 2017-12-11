@@ -6,11 +6,10 @@
               <img class="avatar" :src="user.img" alt="Avatar">
               <h4 class="profile-name">{{ user.steamName }}</h4>
               <router-link :to="{ path: `/players/${userId}/edit`}" class="profile-edit"><i class="fa fa-edit"></i></router-link>
-
-        
         </div> 
         <div class="card-body">
-          {{user}}
+          <router-link class="btn btn-primary btn-sm" :to="{ path: `/teams/new`}"><i class="fa fa-plus fa-fw"></i> New Team</router-link>
+          <p>{{user}}</p>
         </div>
         <div class="card-footer">
           <small class="text-muted">This is a footer</small>

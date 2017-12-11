@@ -38,7 +38,7 @@ export default {
       return this.$store.getters.userId
     },
     isLoggedIn () {
-      return this.$store.getters.isAuthenticated
+      return true // this.$store.getters.isAuthenticated
     }
   },
   components: {
@@ -62,7 +62,7 @@ export default {
   }
 
   .players {
-    min-height: 60vh;
+    min-height: 40vh;
     color: white;
   }
 

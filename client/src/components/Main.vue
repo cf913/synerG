@@ -161,6 +161,11 @@ export default {
 </style>
 
 <style>
+  * {
+    font-size: 15px;
+    font-weight: 500;
+  }
+
   .tile {
     border-radius: 5px;
   }
