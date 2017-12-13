@@ -53,6 +53,46 @@ const actions = {
         console.log(err)
       })
   },
+  updatePlayer (rootState, id) {
+    if (!rootState.getters.idToken) {
+      console.log('Not Authenticated')
+      router.replace(`/players/${rootState.getters.user.steamId}`)
+      return
+    }
+    axios.get(`/api/players/${rootState.getters.user.steamId}/update?token=${rootState.getters.idToken}`)
+      .then(({data}) => {
+        console.log('DATA RETURNED!')
+        rootState.commit('player', {
+          loading: false,
+          player: data
+        })
+        localStorage.setItem('user', JSON.stringify(data))
+        rootState.commit('userUpdate', {
+          user: data
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },
+  addFriend (rootState, id) {
+    if (!rootState.getters.idToken) {
+      console.log('Not Authenticated')
+      router.replace(`/players/${rootState.getters.user.steamId}`)
+      return
+    }
+    axios.get(`/api/players/${rootState.getters.user.steamId}/add-friend?token=${rootState.getters.idToken}`)
+    .then(({data}) => {
+      console.log('DATA RETURNED!')
+      localStorage.setItem('user', JSON.stringify(data))
+      rootState.commit('userUpdate', {
+        user: data
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  },
   resetPlayerDetails ({commit}) {
     commit('reset')
   }

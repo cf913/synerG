@@ -1,7 +1,7 @@
 <template>
   <div class="profile">
     <div v-if="isLoggedIn" class="container">
-      <div class="card">
+      <div class="card inner-tile">
         <div class="card-header d-flex align-items-center">
               <img class="avatar" :src="user.img" alt="Avatar">
               <h4 class="profile-name">{{ user.steamName }}</h4>
@@ -46,7 +46,7 @@ export default {
 <style scoped>
   .card {
     border-radius: 5px;
-    background: #000;
+    /* background: #000; */
     border: 0;
     margin-bottom: 15px;
   }

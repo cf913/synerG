@@ -1,7 +1,7 @@
 const Strategy = require('passport-steam').Strategy
 const keys = require('./keys')
 const Player = require('../models/player')
-const convertor = require('steam-id-convertor');
+const convertor = require('steam-id-convertor')
 const request = require('request-promise')
 const util = require('util')
 

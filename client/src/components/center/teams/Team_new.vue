@@ -44,6 +44,11 @@ export default {
         { text: 'OCE', value: 'OCE' }
       ]
     }
+  },
+  methods: {
+    onCancel () {
+      this.$router.go(-1)
+    }
   }
 }
 </script>

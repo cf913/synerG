@@ -67,10 +67,17 @@ export default {
 
 
   .main {
-    /* background: linear-gradient(to top, #141e30, #243b55);
-    background: linear-gradient(to top, #000000, #53346d);
-    background: linear-gradient(to bottom, #485563, #29323c); */
+    /* background: linear-gradient(to top, #000000, #53346d);
+    background: linear-gradient(to bottom, #159957, #155799);
+    background: linear-gradient(to bottom, #007991, #78ffd6);
+    background: linear-gradient(to top, #200122, #6f0000);
     background: linear-gradient(to top, #000428, #004e92);
+    background: linear-gradient(to top, #3a7bd5, #3a6073);
+    background: linear-gradient(to top, #000000, #434343);
+    background: linear-gradient(to top, #2980b9, #2c3e50);
+    background: linear-gradient(to top, #4b79a1, #283e51);
+    background: linear-gradient(to bottom, #485563, #29323c); */
+    background: linear-gradient(to top, #141e30, #243b55);
 
     /* background: linear-gradient(to bottom, #023, #012); */
 
@@ -170,9 +177,17 @@ export default {
     border-radius: 5px;
   }
   .gray-tile {
-    background: #111;
+    /* background: #111; */
+    background: rgba(17, 17, 17, 0.5);
   }
 
+  .inner-tile {
+    background: rgba(0, 0, 0, 0.35) !important;
+  }
+
+  .inner-2-tile {
+    background: rgba(100, 100, 100, 0.2) !important;
+  }
   .tile-shadow {
     box-shadow: 0px 2px 2px #000;
   }

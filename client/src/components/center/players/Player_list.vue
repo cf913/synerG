@@ -9,7 +9,7 @@
       <img src="../../../assets/loading.svg" alt="">
     </div>
       <ul class="list-group clearfix" v-for="(player, index) in players" :key="index">
-        <li class="list-group-item tile-shadow">
+        <li class="list-group-item tile-shadow inner-tile">
           <app-player-item :player="player" @playerSelected="onPlayerSelected"></app-player-item>
         </li>
       </ul>
@@ -58,7 +58,6 @@ export default {
     appPlayerDetails: PlayerDetails
   },
   created () {
-    console.log('createing player list')
     this.getPlayers()
   }
 }
@@ -67,7 +66,7 @@ export default {
 <style scoped>
   li.list-group-item {
     list-style-type: none;
-    background: #000;
+    /* background: #000; */
     margin-bottom: 10px;
     /* color: #d4d4d4 */
     padding: 15px;

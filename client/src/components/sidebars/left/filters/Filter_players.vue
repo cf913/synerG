@@ -1,7 +1,7 @@
 <template>
   <div class="filter tile gray-tile tile-shadow">
     <h4 class="py-3">Filter Players</h4>
-    <div class="container">
+    <div class="container inner-tile">
       <b-form>
         <div class="row">
           <div class="col-sm-6">
@@ -140,7 +140,7 @@ export default {
     border-radius: 5px;
     padding-top: 10px;
     width: 90%;
-    background: #222;
+    /* background: #222; */
   }
   .label {
     font-size: 1.2em;

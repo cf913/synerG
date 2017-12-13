@@ -1,7 +1,9 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 const bcrypt = require('bcrypt')
-const SteamSchema = require('./steamDetails')
+const SteamSchema = require('./schemas/steamDetails')
+const HeroSchema = require('./schemas/heroes')
+const FriendsRequestSchema = require('./schemas/friendsrequest')
 const Schema = mongoose.Schema
 
 
@@ -25,15 +27,18 @@ const PlayerSchema = new Schema({
   country: String,
   regions: [String],
   comms: [String],
-  mail: {
+  heroes: [HeroSchema],
+  inbox: {
+    type: String,
     read: Boolean,
     author: String,
     content: String,
   },
   // posts: [{type: Schema.Types.ObjectId, ref: 'post'}],
   // comments: [{type: Schema.Types.ObjectId, ref: 'comment'}],
-  friends: [{type: Schema.Types.ObjectId, ref: 'player'}]
-  // teams: [{type: Schema.Types.ObjectId, ref: 'team'}],
+  friends_req: [FriendsRequestSchema],
+  friends: [{type: Schema.Types.ObjectId, ref: 'player'}],
+  teams: [{type: Schema.Types.ObjectId, ref: 'team'}],
 })
 
 

@@ -1,4 +1,8 @@
 const Player = require('@models/player')
+const request = require('request-promise')
+const convertor = require('steam-id-convertor')
+const config = require('@config')
+const jwt = require('jsonwebtoken')
 
 module.exports = {
 
@@ -26,9 +30,59 @@ module.exports = {
             res.send(player)
         })
         .catch(err => {
-            send(err)
+            res.send(err)
         })
     },
+
+    // TODO: update all data from OpenDota
+    updatePlayer(req, res, next) {
+        // Convert steam64 to 32 to use OpenDOTA Api
+        const steam32 = convertor.to32(req.params.id) 
+        console.log('Steam32: ' + steam32)
+        let data = {
+            heroes: {}
+        }
+
+        request.get(`https://api.opendota.com/api/players/${steam32}/heroes?having=1`)
+            .then(dataJSON => {
+                data.heroes = JSON.parse(dataJSON)
+                console.log("HEROES ACQUIRED")
+                Player.findOneAndUpdate({ steamId: req.params.id }, { $set: data }, { new: true })
+                .then(player => {
+                    console.log(player)
+                    res.send(player)
+                })
+                .catch(err => {
+                    res.send(err)
+                })
+            })
+            .catch(err => {
+                res.send(err)
+            })
+    },
+    // TODO: make this check for a friends request before adding friend to friendslist
+    addFriend(req, res, next) {
+        jwt.verify(req.query.token, config.secret, (err, decoded) => {
+            if (decoded.id) {
+                Player.findOne({steamId: req.params.id})
+                .then(friend => {
+                    console.log('found friend...')
+                    Player.findOneAndUpdate({ steamId: decoded.id}, {$push: { friends: friend._id}}, { new: true })
+                    .then(user => {
+                        console.log(user)
+                        res.json({success: true, message: 'Friend Added', user})
+                    })
+                    .catch(error => {
+                        res.status(401).send({ success: false, message: error })
+                    })
+                })
+                .catch(err => {
+                    console.log(err)
+                    res.send(err, {message: 'Your friend-to-be doesn\'t exist! LOL'})
+                }) 
+            }
+          })
+    }
 }
 
 function buildQuery(body) {

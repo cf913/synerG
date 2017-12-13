@@ -34,6 +34,9 @@ export default {
   color: #2c3e50;
   min-height: 100vh;
   background: linear-gradient(to top, #000428, #004e92);
+  background: linear-gradient(to bottom, #485563, #29323c);
+  background: linear-gradient(to top, #000000, #53346d);
+  background: linear-gradient(to top, #141e30, #243b55);
 }
 
 a {

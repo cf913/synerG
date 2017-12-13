@@ -10,7 +10,7 @@
         <!-- <router-link class="btn btn-warning btn-sm float-right" :to="{}"><i class="fa fa-comment fa-fw"></i></router-link> -->
         <router-link class="btn btn-warning btn-sm float-right" :to="{ path: `/players/${player.steamId}`}"><i class="fa fa-user-circle-o fa-fw"></i></router-link>
         <router-link :to="{ path: `/players/${player.steamId}`}"><h5>{{ player.steamName }}</h5></router-link>
-        <ul class="d-flex details">
+        <ul class="d-flex details inner-2-tile">
           <li v-if="player.mmr.mmr_estimate"><i class="fa fa-trophy fa-fw"></i>
             ~{{ player.mmr.mmr_estimate | toDecimal }}K
             <!--<div v-if="player.mmr.mmr_solo">-->
@@ -75,7 +75,7 @@ export default {
   }
 
   ul.details {
-    background: #222;
+    /* background: #222; */
     padding: 10px;
     padding-left: 20px;
     border-radius: 3px;

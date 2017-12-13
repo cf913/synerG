@@ -1,9 +1,9 @@
 <template>
   <div class="friends">
     <div class="container">
-      <!-- <div v-for="(friend, index) in friends" :key="index">
-        TODO: do this
-      </div> -->
+      <div v-for="(friend, index) in friends" :key="index">
+        <p>{{friend}}</p>
+      </div>
     </div>
   </div> 
 </template>
