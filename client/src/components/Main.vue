@@ -163,8 +163,6 @@ export default {
       transform: translateX(0);
     }
   }
-
-
 </style>
 
 <style>

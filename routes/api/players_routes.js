@@ -13,7 +13,7 @@ router.post('/players', PlayersController.getPlayers)
 router.get('/players/:id',  PlayersController.getPlayer)
 
 // Making sure a user CAN NOT edit someone else's profile
-router.use('/players/:id/:alterdata', (req, res, next) => {
+router.use('/players/:id/:alterdata', passport.authenticate('jwt'), (req, res, next) => {
   jwt.verify(req.query.token, config.secret, (err, decoded) => {
       if (err) {
         return res.status(401).json({
@@ -34,8 +34,8 @@ router.use('/players/:id/:alterdata', (req, res, next) => {
 });
 
 // Edit player
-router.post('/players/:id/edit',  passport.authenticate('jwt'), PlayersController.editPlayer)
-router.get('/players/:id/update',  passport.authenticate('jwt'), PlayersController.updatePlayer)
-router.get('/players/:id/add-friend',  passport.authenticate('jwt'), PlayersController.addFriend)
+router.post('/players/:id/edit', PlayersController.editPlayer)
+router.get('/players/:id/update', PlayersController.updatePlayer)
+router.get('/players/:id/add-friend', PlayersController.addFriend)
 
 module.exports = router
