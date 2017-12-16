@@ -1,9 +1,7 @@
 <template>
   <div class="friends">
     <div class="container">
-      <div v-for="(friend, index) in friends" :key="index">
-        <p>{{friend}}</p>
-      </div>
+      {{friends}}
     </div>
   </div> 
 </template>
@@ -12,14 +10,10 @@
 export default {
   computed: {
     friends () {
-      // return !this.$store.getters.user ? 'No user logged in' : this.$store.getters.user.friends
-    },
-    isLoggedIn () {
+      return this.$store.getters.user.friends
     }
   },
   methods: {
-    getSteamInfo () {
-    }
   }
 }
 </script>

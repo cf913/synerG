@@ -6,9 +6,13 @@
       </div>
       <div class="col-sm-10">
         <a class="btn btn-info btn-sm float-right" target="_blank" :href="`http://www.steamcommunity.com/profiles/${player.steamId}`"><i class="fa fa-steam fa-fw"></i></a>
-        <router-link class="btn btn-primary btn-sm float-right" :to="{ path: `/players/${player.steamId}/add`}"><i class="fa fa-user-plus fa-fw"></i></router-link>
+        <a v-if="inReceived" class="btn btn-success btn-sm float-right" @click="acceptRequest(player.steamId)"><i class="fa fa-check fa-fw"></i></a>
+        <a v-if="inReceived" class="btn btn-danger btn-sm float-right" @click="declineRequest(player.steamId)"><i class="fa fa-times fa-fw"></i></a>
+        <a v-else-if="inSent" class="btn btn-warning btn-sm float-right" @click="cancelRequest(player.steamId)"><i class="fa fa-ban fa-fw"></i></a>
+        <a v-else-if="inAccepted" class="btn btn-danger btn-sm float-right" @click="deleteFriend(player.steamId)"><i class="fa fa-trash fa-fw"></i></a>
+        <a v-else class="btn btn-primary btn-sm float-right" @click="sendRequest(player.steamId)"><i class="fa fa-user-plus fa-fw"></i></a>
         <!-- <router-link class="btn btn-warning btn-sm float-right" :to="{}"><i class="fa fa-comment fa-fw"></i></router-link> -->
-        <router-link class="btn btn-warning btn-sm float-right" :to="{ path: `/players/${player.steamId}`}"><i class="fa fa-user-circle-o fa-fw"></i></router-link>
+        <router-link class="btn btn-secondary btn-sm float-right" :to="{ path: `/players/${player.steamId}`}"><i class="fa fa-user-circle-o fa-fw"></i></router-link>
         <router-link :to="{ path: `/players/${player.steamId}`}"><h5>{{ player.steamName }}</h5></router-link>
         <ul class="d-flex details inner-2-tile">
           <li v-if="player.mmr.mmr_estimate"><i class="fa fa-trophy fa-fw"></i>
@@ -33,8 +37,40 @@
 <script>
 export default {
   props: ['player'],
-  data: () => {
-    return {
+  computed: {
+    inSent () {
+      if (this.$store.getters.user) return this.$store.getters.user.friends.pending_sent.includes(this.player.steamId)
+      else return false
+    },
+    inReceived () {
+      if (this.$store.getters.user) return this.$store.getters.user.friends.pending_received.includes(this.player.steamId)
+      else return false
+    },
+    inAccepted () {
+      if (this.$store.getters.user) return this.$store.getters.user.friends.accepted.includes(this.player.steamId)
+      else return false
+    },
+    inBlocked () {
+      if (this.$store.getters.user) return this.$store.getters.user.friends.blocked.includes(this.player.steamId)
+      else return false
+    }
+  },
+  methods: {
+    sendRequest (id) {
+      this.$store.dispatch('sendRequest', id)
+    },
+    cancelRequest (id) {
+      this.$store.dispatch('cancelRequest', id)
+    },
+    acceptRequest (id) {
+      this.$store.dispatch('acceptRequest', id)
+    },
+    declineRequest (id) {
+      confirm('Are you sure?')
+      this.$store.dispatch('declineRequest', id)
+    },
+    deleteFriend (id) {
+      this.$store.dispatch('deleteFriend', id)
     }
   }
 }

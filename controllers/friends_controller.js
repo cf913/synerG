@@ -25,18 +25,20 @@ const api = {
   // req.body: {requester: steamId, requestee: steamId}
   //
   declineRequest(req, res, next) {
-    const rqster = req.body.from
-    const rqstee = req.body.to
+    const rqster = req.params.id
+    const rqstee = req.body.tokenId
+    
     // DECLINED: cancel the request
-    let updateSender = Player.findOneAndUpdate({ steamId: rqster }, 
+    let updateRequester = Player.findOneAndUpdate({ steamId: rqster }, 
                                                { $pullAll: { 'friends.pending_sent': [rqstee] }}, 
                                                { new: true })
-    let updateReceiver = Player.findOneAndUpdate({ steamId: rqstee }, 
+    let updateRequestee = Player.findOneAndUpdate({ steamId: rqstee }, 
                                                { $pullAll: {'friends.pending_received': [rqster] }}, 
                                                { new: true })
-    Promise.all([updateSender, updateReceiver])
+    Promise.all([updateRequester, updateRequestee])
       .then(data => {
-        res.send('Friendship declined')
+        console.log('DECLIIIIIIIIIIINED')
+        res.send(data[1])
       })
       .catch(err => { res.send(err) })
   },
@@ -45,8 +47,8 @@ const api = {
   // req.body: {requester: steamId, requestee: steamId}
   //
   acceptRequest(req, res, next) {
-    const rqster = req.body.from
-    const rqstee = req.body.to
+    const rqster = req.params.id
+    const rqstee = req.body.tokenId
     let friendsAlready = false
     // ACCEPTED: 
     // create new or update existing relationship
@@ -75,20 +77,14 @@ const api = {
     if (!friendsAlready) {
       // update users friends.accepted list
       let updateRequester = Player.findOneAndUpdate({ steamId: rqster }, 
-                                                  { $push: {'friends.accepted': rqstee }}, 
-                                                  { new: true })
+                                                    { $push: {'friends.accepted': rqstee }, $pullAll: { 'friends.pending_sent': [rqstee] }},
+                                                    { new: true })
       let updateRequestee = Player.findOneAndUpdate({ steamId: rqstee }, 
-                                                    { $push: {'friends.accepted': rqster}}, 
+                                                    { $push: {'friends.accepted': rqster}, $pullAll: {'friends.pending_received': [rqster] }},
                                                     { new: true })
-      let cancelRequester = Player.findOneAndUpdate({ steamId: rqster }, 
-                                                    { $pullAll: { 'friends.pending_sent': [rqstee] }}, 
-                                                    { new: true })
-      let cancelRequestee = Player.findOneAndUpdate({ steamId: rqstee }, 
-                                                    { $pullAll: {'friends.pending_received': [rqster] }}, 
-                                                    { new: true })
-      Promise.all([updateRequester, updateRequestee, cancelRequester, cancelRequestee])
+      Promise.all([updateRequester, updateRequestee])
       .then(data => {
-        res.send('You are now friends')
+        res.send(data[1])
       }) 
     } else {
       res.send('Friends already')
@@ -99,7 +95,8 @@ const api = {
   // updates the relationship by changing relation to 0
   // removes ids from both friends.accepted lists
   removeFriend(req, res, next) {
-    let query = sortUsers(req.body.from, req.body.to)
+    console.log('start remove...')
+    let query = sortUsers(req.body.tokenId, req.params.id)
     Relationship.findOneAndUpdate({ $and: [
                                     { user1: query.user1 }, 
                                     { user2: query.user2 }, 
@@ -107,8 +104,9 @@ const api = {
                                   ]}, 
                                   { $set: { relation: 0 }})
     .then((data) => {
-      if (!data) res.send('Dafuk??? You where not even friends??')
+      if (data.length) res.json({message: 'Dafuk??? You where not even friends??'})
       else {
+        console.log('deleting...')
         let unfriendRequester = Player.findOneAndUpdate({ steamId: query.user1}, 
                                                         { $pullAll: { 'friends.accepted': [query.user2] }},
                                                         { new: true })
@@ -116,8 +114,10 @@ const api = {
                                                         { $pullAll: { 'friends.accepted': [query.user1] }},
                                                         { new: true })
         Promise.all([unfriendRequester, unfriendRequestee])
-          .then(blub => {
-            res.send(`${query.user1} and ${query.user2} are no longer friends`)
+          .then(data => {
+            console.log(data)
+            if (data[0].steamId === req.body.tokenId) res.send(data[0])
+            else res.send(data[1])
           })
           .catch(err => {
             res.send(err)
@@ -134,18 +134,20 @@ const api = {
   // updates the friends.pending_recieved list of the Receiver
   // if one of the update fails, the request is cancel
   sendRequest(req, res, next) {
-    let query = sortUsers(req.body.from, req.body.to)
+    const rqsterId = req.body.tokenId
+    const rqsteeId = req.params.id
+    let query = sortUsers(rqsterId, rqsteeId)
     console.log("User1: " + query.user1)
     console.log("User2: " + query.user2)
-    Relationship.find({$and: [{ user1: query.user1 } , { user2: query.user2 }, { relation: 1 }]})
+    Relationship.find({$and: [{ user1: query.user1 } , { use2: query.user2 }, { relation: 1 }]})
     .then(data => {
-      if (!data) res.json({message:'Already friends!', success: false })
+      if (data.length) res.json({message:'Already friends!', success: false })
       else {
-        let updateSender = Player.findOneAndUpdate({ steamId: req.body.from }, 
-                                                   { $push: {'friends.pending_sent': req.body.to }}, 
+        let updateSender = Player.findOneAndUpdate({ steamId: rqsterId }, 
+                                                   { $push: {'friends.pending_sent': rqsteeId }}, 
                                                    { new: true })
-        let updateReceiver = Player.findOneAndUpdate({ steamId: req.body.to }, 
-                                                     { $push: {'friends.pending_received': req.body.from }}, 
+        let updateReceiver = Player.findOneAndUpdate({ steamId: rqsteeId }, 
+                                                     { $push: {'friends.pending_received': rqsterId }}, 
                                                      { new: true })
         
         Promise.all([updateSender, updateReceiver])
@@ -153,8 +155,8 @@ const api = {
             if (data[0] == null) {
               if (data[1] == null) res.send('Your request has failed, Nobody found, pls try again later')
               else {
-                Player.findOneAndUpdate({ steamId: req.body.to }, 
-                                        { $pullAll: {'friends.pending_received': [req.body.from] }}, 
+                Player.findOneAndUpdate({ steamId: rqsteeId }, 
+                                        { $pullAll: {'friends.pending_received': [rqsterId] }}, 
                                         { new: true }) 
                 .then(data => {
                   res.send('Your request has failed, Sender not found, pls try again later')
@@ -164,8 +166,8 @@ const api = {
                 }) 
               }
             } else if (data[1] == null && data[0] != null) {
-              Player.findOneAndUpdate({ steamId: req.body.from }, 
-                                      { pullAll: { 'friends.pending_sent': [req.body.to] }}, 
+              Player.findOneAndUpdate({ steamId: rqsterId }, 
+                                      { pullAll: { 'friends.pending_sent': [rqsteeId] }}, 
                                       { new: true })
                 .then(data => {
                   res.send('Your request has failed, Receiver not found, pls try again later')
@@ -174,7 +176,7 @@ const api = {
                   res.send(err)
                 }) 
             } else {
-              res.send('Sucess: your friends request has been sent')
+              res.send(data[0])
             }
           })
           .catch(err => {
@@ -191,15 +193,17 @@ const api = {
   // removes ids from Senders pending_sent list
   // removes ids from Receivers pending_received list
   cancelRequest(req, res, next) {
-    let updateSender = Player.findOneAndUpdate({ steamId: req.body.from }, 
-                                               { $pullAll: { 'friends.pending_sent': [req.body.to] }}, 
+    const canceller = req.body.tokenId
+    const requestee = req.params.id
+    let updateRequester = Player.findOneAndUpdate({ steamId: canceller }, 
+                                               { $pullAll: { 'friends.pending_sent': [requestee] }}, 
                                                { new: true })
-    let updateReceiver = Player.findOneAndUpdate({ steamId: req.body.to }, 
-                                                 { $pullAll: {'friends.pending_received': [req.body.from] }}, 
+    let updateRequestee = Player.findOneAndUpdate({ steamId: requestee }, 
+                                                 { $pullAll: {'friends.pending_received': [canceller] }}, 
                                                  { new: true })
-    Promise.all([updateSender, updateReceiver])
+    Promise.all([updateRequester, updateRequestee])
       .then(data => {
-        res.send('Request cancelled')
+        res.send(data[0])
       })
       .catch(err => res.send(err))
   }
@@ -213,7 +217,10 @@ module.exports = api
 // Get steamId from token
 function getIdFromToken(token) {
   jwt.verify(token, config.secret, (err, decoded) => {
-    if (decoded.id) return decoded.id
+    if (decoded.id) {
+      console.log('ID: ' + decoded.id)
+      return decoded.id
+    }
   })
 }
 

@@ -57,9 +57,13 @@
             <header class="d-flex justify-content-between align-items-center">
               <h2>{{player.steamName}}</h2>
               <ul class="links">
-                <li><a class="scale-up" @click="addFriend"><h3><i class="fa fa-user-plus fa-fw"></i></h3></a></li>
-                <li><a :href="`http://www.steamcommunity.com/profiles/${player.steamId}`" class="scale-up" target="_blank"><h3><i class="fa fa-steam-square fa-fw"></i></h3></a></li>
-                <li><a class="scale-up" @click="updatePlayer"><h3><i class="fa fa-refresh fa-fw"></i></h3></a></li>
+                <li v-if="inReceived"><a class="scale-up" @click="acceptRequest(player.steamId)"><i class="fa fa-check fa-fw"></i></a></li>
+                <li v-if="inReceived"><a class="scale-up" @click="declineRequest(player.steamId)"><i class="fa fa-times fa-fw"></i></a></li>
+                <li v-else-if="inSent"><a class="scale-up" @click="cancelRequest(player.steamId)"><i class="fa fa-ban fa-fw"></i></a></li>
+                <li v-else-if="inAccepted"><a class="scale-up" @click="deleteFriend(player.steamId)"><i class="fa fa-trash fa-fw"></i></a></li>
+                <li v-else><a class="scale-up" @click="sendRequest(player.steamId)"><i class="fa fa-user-plus fa-fw"></i></a></li>
+                <li><a :href="`http://www.steamcommunity.com/profiles/${player.steamId}`" class="scale-up" target="_blank"><i class="fa fa-steam-square fa-fw"></i></a></li>
+                <li><a class="scale-up" @click="updatePlayer"><i class="fa fa-refresh fa-fw"></i></a></li>
               </ul>
             </header>
             <div class="tiled description inner-tile">
@@ -104,12 +108,42 @@ export default {
     },
     loading () {
       return this.$store.getters.player_loading
+    },
+    inSent () {
+      if (this.$store.getters.user) return this.$store.getters.user.friends.pending_sent.includes(this.player.steamId)
+      else return false
+    },
+    inReceived () {
+      if (this.$store.getters.user) return this.$store.getters.user.friends.pending_received.includes(this.player.steamId)
+      else return false
+    },
+    inAccepted () {
+      if (this.$store.getters.user) return this.$store.getters.user.friends.accepted.includes(this.player.steamId)
+      else return false
+    },
+    inBlocked () {
+      if (this.$store.getters.user) return this.$store.getters.user.friends.blocked.includes(this.player.steamId)
+      else return false
     }
-
   },
   methods: {
-    addFriend () {
-      this.$store.dispatch('addFriend', this.$route.params.id)
+    sendRequest (id) {
+      this.$store.dispatch('sendRequest', id)
+    },
+    cancelRequest (id) {
+      confirm('Are you sure?')
+      this.$store.dispatch('cancelRequest', id)
+    },
+    acceptRequest (id) {
+      this.$store.dispatch('acceptRequest', id)
+    },
+    declineRequest (id) {
+      confirm('Are you sure?')
+      this.$store.dispatch('declineRequest', id)
+    },
+    deleteFriend (id) {
+      confirm('Are you sure?')
+      this.$store.dispatch('deleteFriend', id)
     },
     getPlayer () {
       this.$store.dispatch('getPlayer', this.$route.params.id)
@@ -192,11 +226,15 @@ export default {
   }
 
   ul.links {
-    margin-bottom: 0;
+    margin-bottom: 5px;
   }
   ul.links li {
     display: inline-block;
   }
+  ul.links li a i {
+    font-size: 1.8em;
+  }
+
 
   .title {
     font-weight: 600;
