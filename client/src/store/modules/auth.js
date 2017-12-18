@@ -69,64 +69,12 @@ const actions = {
       dispatch('logout')
     }, expirationTime * 1000)
   },
-  signup ({commit, dispatch}, authData) {
-    axios.post('/auth/jwt/register', {
-      email: authData.email,
-      username: authData.username,
-      password: authData.password
-    })
-      .then(res => {
-        console.log(res)
-        const tok = res.data.data.token
-        const id = res.data.data.localId
-        const expires = res.data.data.expires
-
-        commit('authUser', {
-          token: tok,
-          userId: id
-        })
-        const now = new Date()
-        const expirationDate = new Date(now.getTime() + expires * 1000)
-        localStorage.setItem('token', tok)
-        localStorage.setItem('userId', id)
-        localStorage.setItem('expirationDate', expirationDate)
-        // dispatch('storeUser', authData)
-        dispatch('setLogoutTimer', expires)
-        router.replace('/steam')
-      })
-      .catch(error => console.log(error))
-  },
-  login ({commit, dispatch}, authData) {
-    axios.post('/auth/jwt/login', {
-      email: authData.email,
-      password: authData.password
-    })
-      .then(res => {
-        const tok = res.data.data.token
-        const id = res.data.data.localId
-        const user = res.data.data.user
-        const expires = res.data.data.expires
-
-        console.log('Tok:' + res.data.data.token)
-        console.log('Tok:' + res.data.data.localId)
-        console.dir(res)
-
-        const now = new Date()
-        const expirationDate = new Date(now.getTime() + expires * 1000)
-        localStorage.setItem('token', tok)
-        localStorage.setItem('userId', id)
-        localStorage.setItem('user', JSON.stringify(user))
-        localStorage.setItem('expirationDate', expirationDate)
-        commit('authUser', {
-          token: tok,
-          userId: id,
-          user: user
-        })
-        dispatch('setLogoutTimer', expires)
-        router.replace('/')
-      })
-      .catch(error => console.log(error))
-  },
+  // autoRefreshUserData (rootState) {
+  //   setInterval(() => {
+  //     rootState.dispatch('updatePlayer', rootState.getters.userId)
+  //     console.log('Refreshing...')
+  //   }, 300 * 1000)
+  // },
   checkLogin ({commit, dispatch}, params) {
     if (params == null || state.idToken) {
       return
@@ -153,6 +101,7 @@ const actions = {
           user: user
         })
         dispatch('setLogoutTimer', expiresIn)
+        // dispatch('autoRefreshUserData')
       })
       .catch(error => console.log(error))
     }

@@ -214,16 +214,6 @@ module.exports = api
 
 //////////////////////////////// HELPER FUNCTIONS ///////////////////////////////////
 
-// Get steamId from token
-function getIdFromToken(token) {
-  jwt.verify(token, config.secret, (err, decoded) => {
-    if (decoded.id) {
-      console.log('ID: ' + decoded.id)
-      return decoded.id
-    }
-  })
-}
-
 // Order user ids to store in model. user1 should always be the smallest id
 // Prevents duplication 
 function sortUsers(user1, user2) {

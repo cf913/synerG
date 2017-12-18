@@ -8,6 +8,19 @@ const mutations = {
 }
 
 const actions = {
+  getOneFriend (rootState, id) {
+    if (!id) {
+      console.log('No id')
+      return
+    }
+    axios.get(`/api/players/${id}`)
+      .then(({data}) => {
+        return data
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },
   sendRequest (rootState, id) {
     if (rootState.getters.userId === id) {
       console.log('It\'s you!')
