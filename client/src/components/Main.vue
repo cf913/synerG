@@ -9,14 +9,16 @@
         <div class="">
           <transition name="bounce" mode="out-in">
             <keep-alive>
-              <router-view/> 
+              <router-view name="main"/> 
             </keep-alive>
           </transition>
         </div>
       </div>
       <div class="right col-lg-3 sidebar">
         <div class="fixed">
-          <app-right></app-right>
+          <keep-alive>
+            <router-view name="right"/>
+          </keep-alive>
         </div>
       </div>
     </div>
@@ -26,13 +28,11 @@
 </template>
 
 <script>
-import Right from './sidebars/right/Right'
 import Header from './Header'
 
 export default {
   name: 'Main',
   components: {
-    appRight: Right,
     appHeader: Header
   },
   created () {

@@ -1,6 +1,6 @@
 <template>
   <div class="players tile gray-tile">
-    <h2 class="py-3">Welcome</h2>
+    <h2 class="py-3">Welcome to SynerG</h2>
       <router-view/>
   </div>
 </template>
