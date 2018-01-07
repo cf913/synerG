@@ -5,23 +5,16 @@
   <!-- Components News/Players/Teams -->
   <div class="container-fluid">
     <div class="row">
-      <div class="left col-md-4 col-lg-3 sidebar">
+      <div class="left col-md-12 col-lg-9">
         <div class="">
           <transition name="bounce" mode="out-in">
             <keep-alive>
-              <router-view name="left"/> 
+              <router-view/> 
             </keep-alive>
           </transition>
         </div>
       </div>
-      <div class="center col-md-8 col-lg-6">
-        <!-- <transition name="bounce" mode="out-in"> -->
-          <keep-alive>
-            <router-view/>
-          </keep-alive>
-        <!-- </transition> -->
-      </div>
-      <div class="right col-lg-3">
+      <div class="right col-lg-3 sidebar">
         <div class="fixed">
           <app-right></app-right>
         </div>
