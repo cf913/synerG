@@ -1,8 +1,9 @@
 <template>
   <div class="player_list text-left container" style="position: relative">
-    <header class="text-center">
-      <h2 class="py-3">Players</h2>
-    </header>
+    <form>
+      <input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
+      <button size="sm" class="my-2 my-sm-0" type="submit">Search</button>
+    </form>
     <!-- <button v-show="showRefresh" class="btn-primary btn-sm float-right" @click="refresh" style="position: absolute; top: -60px;"><i class="fa fa-refresh"></i></button> -->
     <div v-if="loading" class="text-center">
       <p class="lead">Searching for players...</p>

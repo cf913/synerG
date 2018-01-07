@@ -10,9 +10,9 @@
     <b-collapse is-nav id="nav_collapse">
 
       <b-navbar-nav>
-        <b-nav-item to="/news">News</b-nav-item>
-        <b-nav-item to="/players">Players</b-nav-item>
-        <b-nav-item to="/teams">Teams</b-nav-item>
+        <b-nav-item to="/news">DotA 2</b-nav-item>
+        <b-nav-item to="/players">CS:GO</b-nav-item>
+        <b-nav-item to="/teams">League of Legends</b-nav-item>
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->

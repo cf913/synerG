@@ -9,16 +9,14 @@
         <div class="">
           <transition name="bounce" mode="out-in">
             <keep-alive>
-              <router-view name="main"/> 
+              <router-view/> 
             </keep-alive>
           </transition>
         </div>
       </div>
       <div class="right col-lg-3 sidebar">
         <div class="fixed">
-          <keep-alive>
-            <router-view name="right"/>
-          </keep-alive>
+          <app-right></app-right>
         </div>
       </div>
     </div>
@@ -29,11 +27,13 @@
 
 <script>
 import Header from './Header'
+import Right from './sidebars/right/Right'
 
 export default {
   name: 'Main',
   components: {
-    appHeader: Header
+    appHeader: Header,
+    appRight: Right
   },
   created () {
     this.$store.dispatch('checkLogin', this.$route.query)

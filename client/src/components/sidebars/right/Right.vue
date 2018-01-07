@@ -1,15 +1,23 @@
 <template>
   <div class="players tile gray-tile tile-shadow" v-if="isLoggedIn">
     <b-nav justified tabs class="tabs">
-      <b-nav-item @click="tab = 'app-profile'" :active="tab === 'app-profile'"><i class="fa fa-user"></i></b-nav-item>
-      <b-nav-item @click="tab = 'app-friends'" :active="tab === 'app-friends'"><i class="fa fa-users"></i></b-nav-item>
-      <b-nav-item @click="tab = 'app-mail'" :active="tab === 'app-mail'"><i class="fa fa-envelope"></i></b-nav-item>
-      <b-nav-item @click="tab = 'app-settings'" :active="tab === 'app-settings'"><i class="fa fa-gear"></i></b-nav-item>
-      <b-nav-item @click="tab = 'app-newtab'" :active="tab === 'app-newtab'"><i class="fa fa-ellipsis-h"></i></b-nav-item>
+      <b-nav-item><router-link to="/"><i class="fa fa-newspaper-o"></i></router-link></b-nav-item>
+      <b-nav-item><router-link to="/profile"><i class="fa fa-user"></i></router-link></b-nav-item>
+      <b-nav-item><router-link to="/messages"><i class="fa fa-envelope"></i></router-link></b-nav-item>
+      <b-nav-item><router-link to="/settings"><i class="fa fa-gear"></i></router-link></b-nav-item>
+    </b-nav>
+    <div class="card-header d-flex align-items-center">
+      <img class="avatar" :src="user.img" alt="Avatar">
+      <h4 class="profile-name">{{ user.steamName }}</h4>
+    </div>
+    <b-nav justified tabs class="tabs">
+      <b-nav-item @click="tab = 'app-player-list'" :active="tab === 'app-player-list'">Players</b-nav-item>
+      <b-nav-item @click="tab = 'app-team-list'" :active="tab === 'app-team-list'">Teams</b-nav-item>
     </b-nav>
     <keep-alive>
       <component :is="tab"></component>
     </keep-alive>
+
   </div>
   <div class="login" v-else>
     <a href="/auth/steam/steam" class="btn btn-primary btn-lg d-inline-flex align-items-center">
@@ -21,19 +29,23 @@
 </template>
 
 <script>
-import Profile from './Profile'
+import Profile from '../../center/Profile'
 import Friends from './Friends'
 import Mail from './Mail'
 import Settings from './Settings'
-import Newtab from './Newtab'
+import PlayerList from '../../center/players/Player_list'
+import TeamList from '../../center/teams/Team_list'
 
 export default {
   data: () => {
     return {
-      tab: 'app-profile'
+      tab: 'app-player-list'
     }
   },
   computed: {
+    user () {
+      return !this.$store.getters.user ? 'No user logged in' : this.$store.getters.user
+    },
     userId () {
       return this.$store.getters.userId
     },
@@ -46,7 +58,8 @@ export default {
     appFriends: Friends,
     appMail: Mail,
     appSettings: Settings,
-    appNewtab: Newtab
+    appPlayerList: PlayerList,
+    appTeamList: TeamList
   }
 
 }

@@ -3,10 +3,9 @@ import Router from 'vue-router'
 
 // COMPONENTS
 import Main from '@/components/Main'
-
-import Center from '@/components/center/Center'
-
-import Right from '@/components/sidebars/right/Right'
+import Home from '@/components/center/Home'
+import PlayerDetails from '@/components/center/players/Player_details'
+import Profile from '@/components/center/Profile'
 
 Vue.use(Router)
 
@@ -16,15 +15,20 @@ export default new Router({
     {
       path: '',
       component: Main,
-      // redirect: '/news',
       children: [
         {
           path: '',
-          components: {
-            main: Center,
-            right: Right
-          }
+          component: Home
+        },
+        {
+          path: 'players/:id',
+          component: PlayerDetails
+        },
+        {
+          path: 'profile',
+          component: Profile
         }
+      ]
     //     {
     //       path: 'players',
     //       components: {
@@ -67,7 +71,7 @@ export default new Router({
     //       path: 'news',
     //       component: News
     //     }
-      ]
+      // ]
     },
     {
       path: '*',
