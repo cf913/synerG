@@ -14,6 +14,8 @@ import Left from '@/components/sidebars/left/Left'
 import FilterPlayers from '@/components/sidebars/left/filters/Filter_players'
 import FilterTeams from '@/components/sidebars/left/filters/Filter_teams'
 
+import Right from '@/components/sidebars/right/Right'
+
 import Teams from '@/components/center/Teams'
 import TeamNew from '@/components/center/teams/Team_new'
 import TeamList from '@/components/center/teams/Team_list'
@@ -27,7 +29,10 @@ export default new Router({
   routes: [
     {
       path: '',
-      component: Main,
+      component: {
+        default: Main,
+        right: Right
+      },
       // redirect: '/news',
       children: [
         {
