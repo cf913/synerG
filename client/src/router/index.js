@@ -5,6 +5,7 @@ import Router from 'vue-router'
 import Main from '@/components/Main'
 import Home from '@/components/center/Home'
 import PlayerDetails from '@/components/center/players/Player_details'
+import PlayerEdit from '@/components/center/players/Player_edit'
 import Profile from '@/components/center/Profile'
 
 Vue.use(Router)
@@ -23,6 +24,10 @@ export default new Router({
         {
           path: 'players/:id',
           component: PlayerDetails
+        },
+        {
+          path: 'players/:id/edit',
+          component: PlayerEdit
         },
         {
           path: 'profile',
