@@ -1,37 +1,54 @@
 <template>
   <div class="player_list text-left container" style="position: relative">
     <b-form>
-      <div class="row">
-        <div class="col-sm-9">
-          <b-form-input type="text" placeholder="Search for players..." v-model="player_search">
-          </b-form-input>
-        </div>
-        <div class="col-sm-3">
-          <!--Need to add functionality here to actually submit-->
-          <b-button>Submit</b-button>
-        </div>        
-        <div class="col-sm-4">
+      <b-form-input type="text" placeholder="Search for players..." v-model="player_search">
+      </b-form-input>
+      <div class="row maxwidth">
+        <div class="col-lg-4 padding-0">
           <b-form-select v-model="position_selected" :options="position_options">
           </b-form-select>
         </div>
-        <div class="col-sm-4">
+        <div class="col-lg-4 padding-0">
           <b-form-select v-model="mmr_selected" :options="mmr_options">
           </b-form-select>
         </div>
-        <div class="col-sm-4">
+        <div class="col-lg-4 padding-0">
           <b-form-select v-model="region_selected" :options="region_options">
           </b-form-select>
         </div>
-        <div class="col-sm-4">
+      </div>
+      <div class="row maxwidth">
+        <div class="col-lg-4 padding-0">
           <b-form-select v-model="language_selected" :options="language_options">
           </b-form-select>
         </div>
-        <div class="col-sm-4">
+        <div class="col-lg-4 padding-0">
           <b-form-select v-model="competitive_selected" :options="competitive_options">
           </b-form-select>
         </div>
+        <div class="col-lg-4 padding-0">
+          <!--Need to add functionality here to actually submit-->
+          <b-button type="submit">Submit</b-button>
+        </div>
       </div>
-    </b-form>    
+
+    </b-form>
+    <!--<b-form class="searchconditions">-->
+    <!--  <b-form-input class="searchbar" type="text" placeholder="Search for players..." v-model="player_search">-->
+    <!--  </b-form-input>-->
+      <!--Need to add functionality here to actually submit-->
+    <!--  <b-button class="submitsearch" type="submit">Submit</b-button>-->
+    <!--  <b-form-select class="filter" v-model="position_selected" :options="position_options">-->
+    <!--  </b-form-select>-->
+    <!--  <b-form-select class="filter" v-model="mmr_selected" :options="mmr_options">-->
+    <!--  </b-form-select>-->
+    <!--  <b-form-select class="filter" v-model="region_selected" :options="region_options">-->
+    <!--  </b-form-select>-->
+    <!--  <b-form-select class="filter" v-model="language_selected" :options="language_options">-->
+    <!--  </b-form-select>-->
+    <!--  <b-form-select class="filter" v-model="competitive_selected" :options="competitive_options">-->
+    <!--  </b-form-select>-->
+    <!--</b-form>-->
     <!-- <button v-show="showRefresh" class="btn-primary btn-sm float-right" @click="refresh" style="position: absolute; top: -60px;"><i class="fa fa-refresh"></i></button> -->
     <div v-if="loading" class="text-center">
       <p class="lead">Searching for players...</p>
@@ -185,11 +202,12 @@ export default {
 </script>
 
 <style scoped>
-  li.list-group-item {
-    list-style-type: none;
-    /* background: #000; */
-    margin-bottom: 10px;
-    /* color: #d4d4d4 */
-    padding: 15px;
+  .padding-0{
+      padding-right:0;
+      padding-left:0;
+  }
+  .maxwidth{
+    width: 100%;
+    margin: 0;
   }
 </style>

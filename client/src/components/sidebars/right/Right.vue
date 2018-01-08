@@ -6,7 +6,7 @@
       <b-nav-item><router-link to="/messages"><i class="fa fa-envelope"></i></router-link></b-nav-item>
       <b-nav-item><router-link to="/settings"><i class="fa fa-gear"></i></router-link></b-nav-item>
     </b-nav>
-    <div class="card-header d-flex align-items-center">
+    <div class="card-header d-flex align-items-center" id="rightprofile">
       <img class="avatar" :src="user.img" alt="Avatar">
       <h4 class="profile-name">{{ user.steamName }}</h4>
     </div>
@@ -15,7 +15,7 @@
       <b-nav-item @click="tab = 'app-team-list'" :active="tab === 'app-team-list'">Teams</b-nav-item>
     </b-nav>
     <keep-alive>
-      <component :is="tab"></component>
+      <component :is="tab" id="search"></component>
     </keep-alive>
 
   </div>
@@ -78,10 +78,19 @@ export default {
     min-height: 40vh;
     color: white;
   }
-
+  
+  #rightprofile{
+    padding: 5px;
+  }
+  
+  .avatar{
+    margin-right: 10px;
+    max-height: 100px;
+    max-width: 100px;
+  }
+  
   ul.nav-tabs {
     border-radius: 5px 5px 0 0;
-    margin-bottom: 15px;
     background: #333;
     border-color: #333;
   }
@@ -102,48 +111,13 @@ export default {
     transition: 0.1s;
   }
 
-  li.nav-item a.nav-link:active i{
-    color: white;
-    transform: scale(0.8);
-    transition: 0.1s;
-  } 
-
   li.nav-item a.nav-link.active{
     background-color:#111;
     color: white;
-  } 
-
-  li.nav-item a.nav-link.active{
-    border-radius: 0;
-    border:0;
   }
-
-  i.fa {
-    transform: scale(1);
+  
+  #search{
+    padding: 0;
   }
-
-  li.nav-item a.nav-link.active i{
-    transform: scale(1.3);
-    transition: 0.2s;
-  }
-
-  li.nav-item:first-child a.nav-link{
-    border-radius: 5px 0 0 0;
-    border:0;
-  }
-
-  li.nav-item:first-child a.nav-link.active{
-    border-radius: 5px 0 0 0;
-    border:0;
-  } 
-  li.nav-item:last-child a.nav-link{
-    border-radius: 0 5px 0 0;    
-    border:0;
-  }
-
-  li.nav-item:last-child a.nav-link.active{
-    border-radius: 0 5px 0 0;    
-    border:0;
-  } 
 
 </style>
