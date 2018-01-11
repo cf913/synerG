@@ -74,8 +74,9 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(hero, index) in user.heroes.slice(0,5)">
-                        <img class="img-thumbnails" :src="'https://api.opendota.com' + heroStats.heroStats[hero.hero_id].img" alt="Avatar">
+                      <tr v-for="(hero, index) in user.heroes.slice(0, 5)">
+                        <img class="img-thumbnails" :src="'https://api.opendota.com' + heroStats.heroStats[hero.hero_id - 2].img" alt="Avatar">
+                        <img class="img-thumbnails" :src="heroes[2].img" alt="Avatar">
                         <td class="text-center">{{ heroStats.heroStats[hero.hero_id].id }}</td>
                         <td class="text-center">{{ hero.hero_id }}</td>
                         <td class="text-center">{{ hero.games }}</td>
@@ -84,8 +85,8 @@
                     </tbody>
                   </table>
                   <ul>
-                    <li>
-                        {{ heroStats.heroStats[0].img }}
+                    <li v-for="hero in heroStats">
+                      {{ hero }}
                     </li>
                   </ul>
                 </p>
@@ -123,6 +124,9 @@ export default {
     },
     heroStats () {
       return this.$store.getters.heroStats
+    },
+    heroes () {
+      return this.$store.getters.heroes
     },
     isLoggedIn () {
       return true // this.$store.getters.isAuthenticated

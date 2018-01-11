@@ -7,6 +7,7 @@ import PlayersListModule from './modules/playerList'
 import PlayerModule from './modules/player'
 import FriendsModule from './modules/friends'
 import AuthModule from './modules/auth'
+import HeroesModule from './modules/heroes'
 
 Vue.use(Vuex)
 
@@ -27,6 +28,7 @@ export default new Vuex.Store({
     AuthModule,
     FriendsModule,
     PlayersListModule,
-    PlayerModule
+    PlayerModule,
+    HeroesModule
   }
 })
