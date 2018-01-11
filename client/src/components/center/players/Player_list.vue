@@ -33,23 +33,6 @@
       </div>
 
     </b-form>
-    <!--<b-form class="searchconditions">-->
-    <!--  <b-form-input class="searchbar" type="text" placeholder="Search for players..." v-model="player_search">-->
-    <!--  </b-form-input>-->
-      <!--Need to add functionality here to actually submit-->
-    <!--  <b-button class="submitsearch" type="submit">Submit</b-button>-->
-    <!--  <b-form-select class="filter" v-model="position_selected" :options="position_options">-->
-    <!--  </b-form-select>-->
-    <!--  <b-form-select class="filter" v-model="mmr_selected" :options="mmr_options">-->
-    <!--  </b-form-select>-->
-    <!--  <b-form-select class="filter" v-model="region_selected" :options="region_options">-->
-    <!--  </b-form-select>-->
-    <!--  <b-form-select class="filter" v-model="language_selected" :options="language_options">-->
-    <!--  </b-form-select>-->
-    <!--  <b-form-select class="filter" v-model="competitive_selected" :options="competitive_options">-->
-    <!--  </b-form-select>-->
-    <!--</b-form>-->
-    <!-- <button v-show="showRefresh" class="btn-primary btn-sm float-right" @click="refresh" style="position: absolute; top: -60px;"><i class="fa fa-refresh"></i></button> -->
     <div v-if="loading" class="text-center">
       <p class="lead">Searching for players...</p>
       <img src="../../../assets/loading.svg" alt="">

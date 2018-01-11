@@ -1,10 +1,13 @@
-import axios from './../../authentication/axios-auth'
+// import axios from './../../authentication/axios-auth'
+// Commented out global axios config as I needed to access openDota url
+import axios from 'axios'
 import router from './../../router'
 
 const state = {
   idToken: null,
   userId: null,
-  user: null
+  user: null,
+  heroStats: {}
   // user: { _id: '5a2100b386c90104354d705f',
   //   steamId: '76561198303121519',
   //   steam32: '342855791',
@@ -60,6 +63,9 @@ const mutations = {
     state.idToken = null
     state.userId = null
     state.user = null
+  },
+  updateHeroes (state, newStats) {
+    state.heroStats = newStats
   }
 }
 
@@ -82,7 +88,7 @@ const actions = {
     if (params.steamid && params.token) {
       const token = params.token
       console.log('Pre confirming')
-      axios.post('/auth/jwt/confirm-login/?token=' + token)
+      axios.post('https://synerg-tchung95.c9users.io/auth/jwt/confirm-login/?token=' + token)
       .then(data => {
         const user = data.data.user
         const id = data.data.user.steamId
@@ -130,6 +136,17 @@ const actions = {
     })
     console.log('Success!')
   },
+  getHeroes ({commit}) {
+    axios.get(`https://api.opendota.com/api/heroStats`)
+      .then(({data}) => {
+        commit('updateHeroes', {
+          heroStats: data
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },
   logout ({commit}) {
     commit('clearAuthData')
     localStorage.removeItem('expirationDate')
@@ -149,6 +166,9 @@ const getters = {
   },
   idToken (state) {
     return state.idToken
+  },
+  heroStats (state) {
+    return state.heroStats
   },
   isAuthenticated (state) {
     return state.idToken !== null && state.user !== null && state.userId !== null

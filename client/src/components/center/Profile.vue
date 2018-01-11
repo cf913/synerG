@@ -58,10 +58,34 @@
               </div>
               <div class="tiled heroes inner-tile">
                 <p> 
-                  <span class="title">Most Played Heroes</span>
+                  <span class="title">Most Played Heroes:</span>
+                  <span class="title">{{user.heroes[0].hero_id}}</span>
                   <ul id="example-1">
                     <li v-for="(hero, index) in user.heroes.slice(0,5)" :key="index">
                       {{ hero }}
+                    </li>
+                  </ul>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Hero ID</th>
+                        <th>Games Played</th>
+                        <th>Winrate</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(hero, index) in user.heroes.slice(0,5)">
+                        <img class="img-thumbnails" :src="'https://api.opendota.com' + heroStats.heroStats[hero.hero_id].img" alt="Avatar">
+                        <td class="text-center">{{ heroStats.heroStats[hero.hero_id].id }}</td>
+                        <td class="text-center">{{ hero.hero_id }}</td>
+                        <td class="text-center">{{ hero.games }}</td>
+                        <td class="text-center">{{ hero.win }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <ul>
+                    <li>
+                        {{ heroStats.heroStats[0].img }}
                     </li>
                   </ul>
                 </p>
@@ -97,6 +121,9 @@ export default {
     userId () {
       return this.$store.getters.userId
     },
+    heroStats () {
+      return this.$store.getters.heroStats
+    },
     isLoggedIn () {
       return true // this.$store.getters.isAuthenticated
     },
@@ -114,15 +141,16 @@ export default {
     }
   },
   methods: {
-    getSteamInfo () {
-    },
-    sendRequest (id) {
-      this.$store.dispatch('sendRequest', id)
-    },
     updatePlayer () {
       console.log('Updating Players...')
       this.$store.dispatch('updatePlayer', this.$route.params.id)
+    },
+    getHeroes () {
+      this.$store.dispatch('getHeroes')
     }
+  },
+  created () {
+    this.getHeroes()
   }
 }
 </script>
