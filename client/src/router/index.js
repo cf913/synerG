@@ -36,7 +36,7 @@ export default new Router({
           component: Profile
         },
         {
-          path: 'myteams',
+          path: 'players/:id/myteams',
           component: MyTeams
         },
         {
