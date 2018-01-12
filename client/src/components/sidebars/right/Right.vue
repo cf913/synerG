@@ -3,6 +3,7 @@
     <b-nav justified tabs class="tabs">
       <b-nav-item><router-link to="/"><i class="fa fa-newspaper-o"></i></router-link></b-nav-item>
       <b-nav-item><router-link to="/profile"><i class="fa fa-user"></i></router-link></b-nav-item>
+      <b-nav-item><router-link to="/myteams"><i class="fa fa-group"></i></router-link></b-nav-item>
       <b-nav-item><router-link to="/messages"><i class="fa fa-envelope"></i></router-link></b-nav-item>
       <b-nav-item><router-link to="/settings"><i class="fa fa-gear"></i></router-link></b-nav-item>
     </b-nav>
@@ -61,7 +62,6 @@ export default {
     appPlayerList: PlayerList,
     appTeamList: TeamList
   }
-
 }
 </script>
 
