@@ -6,7 +6,7 @@ import router from './../../router'
 const state = {
   idToken: null,
   userId: null,
-  user: null,
+  user: null
   // Not needed
   // heroStats: {}
   // user: { _id: '5a2100b386c90104354d705f',
