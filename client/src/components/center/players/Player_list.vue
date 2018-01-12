@@ -46,7 +46,6 @@
 </template>
 
 <script>
-import PlayerItem from './Player_item.vue'
 import PlayerDetails from './Player_details.vue'
 
 export default {
@@ -175,7 +174,6 @@ export default {
     }
   },
   components: {
-    appPlayerItem: PlayerItem,
     appPlayerDetails: PlayerDetails
   },
   created () {

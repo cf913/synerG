@@ -7,7 +7,8 @@ const state = {
   idToken: null,
   userId: null,
   user: null,
-  heroStats: {}
+  // Not needed
+  // heroStats: {}
   // user: { _id: '5a2100b386c90104354d705f',
   //   steamId: '76561198303121519',
   //   steam32: '342855791',
@@ -63,10 +64,11 @@ const mutations = {
     state.idToken = null
     state.userId = null
     state.user = null
-  },
-  updateHeroes (state, newStats) {
-    state.heroStats = newStats
   }
+  // Not needed
+  // updateHeroes (state, newStats) {
+  //   state.heroStats = newStats
+  // }
 }
 
 const actions = {
@@ -136,17 +138,18 @@ const actions = {
     })
     console.log('Success!')
   },
-  getHeroes ({commit}) {
-    axios.get(`https://api.opendota.com/api/heroStats`)
-      .then(({data}) => {
-        commit('updateHeroes', {
-          heroStats: data
-        })
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  },
+  // No longer required but just keeping the code for reference of how to get hero stats from opendota
+  // getHeroes ({commit}) {
+  //   axios.get(`https://api.opendota.com/api/heroStats`)
+  //     .then(({data}) => {
+  //       commit('updateHeroes', {
+  //         heroStats: data
+  //       })
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
+  //     })
+  // },
   logout ({commit}) {
     commit('clearAuthData')
     localStorage.removeItem('expirationDate')
@@ -167,9 +170,10 @@ const getters = {
   idToken (state) {
     return state.idToken
   },
-  heroStats (state) {
-    return state.heroStats
-  },
+  // Not needed
+  // heroStats (state) {
+  //   return state.heroStats
+  // },
   isAuthenticated (state) {
     return state.idToken !== null && state.user !== null && state.userId !== null
   }
