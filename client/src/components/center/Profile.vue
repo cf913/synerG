@@ -59,36 +59,36 @@
               <div class="tiled heroes inner-tile">
                 <p> 
                   <span class="title">Most Played Heroes:</span>
-                  <span class="title">{{user.heroes[0].hero_id}}</span>
-                  <ul id="example-1">
-                    <li v-for="(hero, index) in user.heroes.slice(0,5)" :key="index">
-                      {{ hero }}
-                    </li>
-                  </ul>
+                  <!--Don't need this bit anymore but just keeping it in to have the code for reference-->
+                  <!--<ul id="example-1">-->
+                  <!--  <li v-for="(hero, index) in user.heroes.slice(0,5)" :key="index">-->
+                  <!--    {{ hero }}-->
+                  <!--  </li>-->
+                  <!--</ul>-->
                   <table>
                     <thead>
                       <tr>
-                        <th>Hero ID</th>
-                        <th>Games Played</th>
-                        <th>Winrate</th>
+                        <th class="text-center table-header">Hero ID</th>
+                        <th class="text-center table-header">Games Played</th>
+                        <th class="text-center table-header">Games Won</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="(hero, index) in user.heroes.slice(0, 5)">
-                        <img class="img-thumbnails" :src="'https://api.opendota.com' + heroStats.heroStats[hero.hero_id - 2].img" alt="Avatar">
-                        <img class="img-thumbnails" :src="heroes[2].img" alt="Avatar">
-                        <td class="text-center">{{ heroStats.heroStats[hero.hero_id].id }}</td>
-                        <td class="text-center">{{ hero.hero_id }}</td>
-                        <td class="text-center">{{ hero.games }}</td>
-                        <td class="text-center">{{ hero.win }}</td>
+                        <!--<img class="img-thumbnails" :src="'https://api.opendota.com' + heroStats.heroStats[hero.hero_id - 2].img" alt="Avatar">-->
+                        <img class="img-thumbnails" :src="heroes[hero.hero_id - 1].img" alt="Avatar">
+                        <!--<td class="text-center">{{ heroStats.heroStats[hero.hero_id].id }}</td>-->
+                        <td class="text-center table-content">{{ hero.games }}</td>
+                        <td class="text-center table-content">{{ hero.win }}</td>
                       </tr>
                     </tbody>
                   </table>
-                  <ul>
-                    <li v-for="hero in heroStats">
-                      {{ hero }}
-                    </li>
-                  </ul>
+                  <!--Also don't need this bit but just keeping in the code for reference-->
+                  <!--<ul>-->
+                  <!--  <li v-for="hero in heroStats">-->
+                  <!--    {{ hero }}-->
+                  <!--  </li>-->
+                  <!--</ul>-->
                 </p>
               </div>
               <div class="tiled teams inner-tile">
@@ -122,9 +122,10 @@ export default {
     userId () {
       return this.$store.getters.userId
     },
-    heroStats () {
-      return this.$store.getters.heroStats
-    },
+    // No longer need this as we don't use heroStats from opendota anymore but just keeping it in for reference again
+    // heroStats () {
+    //   return this.$store.getters.heroStats
+    // },
     heroes () {
       return this.$store.getters.heroes
     },
@@ -148,14 +149,16 @@ export default {
     updatePlayer () {
       console.log('Updating Players...')
       this.$store.dispatch('updatePlayer', this.$route.params.id)
-    },
-    getHeroes () {
-      this.$store.dispatch('getHeroes')
     }
-  },
-  created () {
-    this.getHeroes()
+    // Not needed
+    // getHeroes () {
+    //   this.$store.dispatch('getHeroes')
+    // }
   }
+  // Not needed
+  // created () {
+  //   this.getHeroes()
+  // }
 }
 </script>
 
@@ -234,6 +237,21 @@ export default {
     font-weight: 600;
     /* color: #106CD6; */
     color: orange;
+  }
+  
+  table {
+    color: white;
+  }
+  
+  tr th.table-header {
+    font-size: 20px;
+    weight: bold;
+  }
+  
+  tr img.img-thumbnails {
+    height: 57px;
+    width: 100px;
+    margin: 5px;
   }
   
   #steamBtn {
