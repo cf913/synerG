@@ -7,15 +7,15 @@
             <div class="tiled inner-tile">
               <div class="form-group">
                 <label class="col-form-label" for="team-name">Team Name</label>
-                <input type="text" class="form-control" id="team-name" placeholder="Team Name">
+                <input type="text" class="form-control" id="team-name" name="team_name" v-model="team_name" placeholder="Team Name">
               </div>
             </div>
-            <div class="tiled inner-tile">
-              <div class="form-group">
-                <label for="team-logo">Team Logo</label>
-                <input type="file" class="form-control-file" id="team-logo">
-              </div>
-            </div>
+            <!--<div class="tiled inner-tile">-->
+            <!--  <div class="form-group">-->
+            <!--    <label for="team-logo">Team Logo</label>-->
+            <!--    <input type="file" class="form-control-file" id="team-logo" name="team_logo" v-model="team_logo">-->
+            <!--  </div>-->
+            <!--</div>-->
             <div class="tiled inner-tile">
               <h5 class="label">Description:</h5>
               <b-form-textarea class="description"
@@ -30,7 +30,7 @@
             <div class="tiled inner-tile">
               <b-form-group>
                 <h5 class="label">Recruiting:</h5>
-                <b-form-checkbox-group  name="positions" v-model="positions_selected" :options="positions_options">
+                <b-form-checkbox-group  name="recruiting" v-model="recruiting_selected" :options="recruiting_options">
                 </b-form-checkbox-group>
               </b-form-group>
             </div>
@@ -77,12 +77,14 @@
 export default {
   data () {
     return {
+      team_name: '',
+      team_logo: '',
       description: '',
-      positions_selected: [],
+      recruiting_selected: [],
       languages_selected: [],
       regions_selected: [],
       competitive_selected: '',
-      positions_options: [
+      recruiting_options: [
         { text: 'Carry', value: 'Carry' },
         { text: 'Midlaner', value: 'Midlaner' },
         { text: 'Offlaner', value: 'Offlaner' },
@@ -128,6 +130,20 @@ export default {
     }
   },
   methods: {
+    onSubmit () {
+      const data = {
+        teamName: this.team_name,
+        teamLogo: this.team_logo,
+        description: this.description,
+        regions: this.regions_selected,
+        languages: this.languages_selected,
+        comms: this.comms_selected,
+        recruiting: this.recruiting_selected,
+        competitiveness: this.competitive_selected
+      }
+      console.log(data)
+      this.$store.dispatch('createTeam', data)
+    },
     onCancel () {
       this.$router.go(-1)
     }

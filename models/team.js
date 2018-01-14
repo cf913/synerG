@@ -42,6 +42,6 @@ TeamSchema.plugin(uniqueValidator);
 //   });
 // };
 
-const Team = mongoose.model('team', TeamSchema)
+const Team = mongoose.model('Team', TeamSchema)
 
 module.exports = Team

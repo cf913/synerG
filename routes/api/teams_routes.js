@@ -7,33 +7,35 @@ const jwt = require('jsonwebtoken')
 
 
 // Get list of teams
-router.get('/teams', TeamsController.getTeams)
-router.post('/teams', TeamsController.getTeamsFiltered)
+// router.post('/teams', TeamsController.getTeams)
 // Get team details
-router.get('/teams/:id',  TeamsController.getTeam)
+// router.get('/teams/:id',  TeamsController.getTeam)
+router.post('/teams/new', TeamsController.createTeam)
+
 
 // Making sure a user CAN NOT edit someone else's profile
-router.use('/teams/:id/edit', (req, res, next) => {
-  jwt.verify(req.query.token, config.secret, (err, decoded) => {
-      if (err) {
-        return res.status(401).json({
-            title: 'Not Authenticated',
-            error: err
-        })
-      }
-      console.log(decoded.id)
-      console.log(req.params.id)
-      if (decoded.id != req.params.id) {
-        return res.status(401).json({
-          title: 'Not your team sry bro',
-          error: err
-        })
-      }
-      next();
-  })
-});
+// router.use('/teams/:id/edit', (req, res, next) => {
+//   jwt.verify(req.query.token, config.secret, (err, decoded) => {
+//       if (err) {
+//         return res.status(401).json({
+//             title: 'Not Authenticated',
+//             error: err
+//         })
+//       }
+//       console.log(decoded.id)
+//       console.log(req.params.id)
+//       if (decoded.id != req.params.id) {
+//         return res.status(401).json({
+//           title: 'Not your team sry bro',
+//           error: err
+//         })
+//       }
+//       next();
+//   })
+// });
 
 // Edit teams
-router.post('/teams/:id/edit',  passport.authenticate('jwt'), TeamsController.editTeam)
+// router.post('/teams/:id/edit',  passport.authenticate('jwt'), TeamsController.editTeam)
+// router.post('/teams/new', TeamsController.createTeam)
 
 module.exports = router
