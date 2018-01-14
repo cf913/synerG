@@ -40,7 +40,7 @@ export default new Router({
           component: MyTeams
         },
         {
-          path: 'new_team',
+          path: 'teams/new',
           component: TeamsNew
         }
       ]

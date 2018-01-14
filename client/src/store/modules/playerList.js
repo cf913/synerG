@@ -18,9 +18,8 @@ const mutations = {
 }
 
 const actions = {
-  getPlayers ({commit, state, rootState}, query) {
-    console.log(query)
-    axios.post('/api/players', query)
+  getPlayers ({commit}) {
+    axios.get('api/players')
     .then(res => {
       return res
     })
@@ -30,14 +29,37 @@ const actions = {
       for (let key in data) {
         resultArray.push(data[key])
       }
-      state.player_list_loading = false
-      state.players = resultArray
+      state.team_list_loading = false
+      state.teams = resultArray
       commit('playerList', {
-        player_list_loading: false,
-        players: resultArray
+        team_list_loading: false,
+        teams: resultArray
       })
     })
+    .catch(err => {
+      console.log(err)
+    })
   }
+  // getPlayersFiltered ({commit, state, rootState}, query) {
+  //   console.log(query)
+  //   axios.post('/api/players', query)
+  //   .then(res => {
+  //     return res
+  //   })
+  //   .then(({data}) => {
+  //     console.log(data)
+  //     const resultArray = []
+  //     for (let key in data) {
+  //       resultArray.push(data[key])
+  //     }
+  //     state.player_list_loading = false
+  //     state.players = resultArray
+  //     commit('playerList', {
+  //       player_list_loading: false,
+  //       players: resultArray
+  //     })
+  //   })
+  // }
 }
 
 const getters = {
