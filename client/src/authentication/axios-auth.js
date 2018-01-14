@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: 'http://localhost:3000'
+  baseURL: 'https://synerg-tchung95.c9users.io/'
 })
 
 // instance.defaults.headers.common['SOMETHING'] = 'something'

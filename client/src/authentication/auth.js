@@ -1,7 +1,7 @@
 import Axios from 'axios'
 import router from '@/router'
 
-const host = `http://${window.location.hostname}:3000`
+const host = `https://synerg-tchung95.c9users.io/`
 
 export default {
   user: { authenticated: false },
