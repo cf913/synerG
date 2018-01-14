@@ -7,10 +7,10 @@ const jwt = require('jsonwebtoken')
 
 
 // Get list of teams
-router.get('/teams', TeamsController.getPlayers)
-router.post('/teams', TeamsController.getPlayers)
+router.get('/teams', TeamsController.getTeams)
+router.post('/teams', TeamsController.getTeams)
 // Get team details
-router.get('/teams/:id',  TeamsController.getPlayer)
+router.get('/teams/:id',  TeamsController.getTeam)
 
 // Making sure a user CAN NOT edit someone else's profile
 router.use('/teams/:id/edit', (req, res, next) => {
@@ -33,7 +33,7 @@ router.use('/teams/:id/edit', (req, res, next) => {
   })
 });
 
-// Edit player
-router.post('/teams/:id/edit',  passport.authenticate('jwt'), TeamsController.editPlayer)
+// Edit teams
+router.post('/teams/:id/edit',  passport.authenticate('jwt'), TeamsController.editTeam)
 
 module.exports = router

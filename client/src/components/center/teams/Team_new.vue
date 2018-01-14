@@ -55,6 +55,13 @@
                 </b-form-radio-group>
               </b-form-group>
             </div>
+            <div class="tiled inner-tile">
+              <b-form-group>
+                <h5 class="label">Method of Communication:</h5>
+                <b-form-checkbox-group  name="comms" v-model="comms_selected" :options="comms_options">
+                </b-form-checkbox-group>
+              </b-form-group>
+            </div>
             <p>Need to add a timetable here of when online</p>
             <p>Show friends list here to select teammate</p>
             <b-button @click.prevent="onSubmit()" variant="info">Save</b-button>
@@ -111,6 +118,12 @@ export default {
         { text: 'Semi-Competitive Ranked', value: 'Semi-Competitive Ranked' },
         { text: 'Competitive Ranked', value: 'Competitive Ranked' },
         { text: 'Tournaments', value: 'Tournaments' }
+      ],
+      comms_options: [
+        { text: 'In-Game Chat/Mic', value: 'In-Game Chat/Mic' },
+        { text: 'Discord', value: 'Discord' },
+        { text: 'Skype', value: 'Skype' },
+        { text: 'Teamspeak', value: 'Teamspeak' }
       ]
     }
   },
