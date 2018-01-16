@@ -1,5 +1,6 @@
 <template>
   <div class="team_list text-left container" style="position: relative">
+    <p>{{ teams }}</p>
     <b-form>
       <b-form-input type="text" placeholder="Search for teams..." v-model="team_search">
       </b-form-input>
@@ -35,7 +36,7 @@
     </div>
       <ul class="list-group clearfix" v-for="(team, index) in teams" :key="index">
         <li class="list-group-item tile-shadow inner-tile">
-          <app-player-item :player="team" @playerSelected="onTeamSelected"></app-player-item>
+          <app-team-item :team="team"></app-team-item>
         </li>
       </ul>
   </div>
@@ -43,7 +44,7 @@
 
 <script>
 import TeamItem from './Team_item.vue'
-import TeamDetails from './Team_details.vue'
+// import TeamDetails from './Team_details.vue'
 
 export default {
   data: () => {
@@ -52,18 +53,18 @@ export default {
       showRefresh: true,
       selectedTeam: {},
       recruiting_selected: null, // Must be an array reference!
-      region_selected: null,
-      language_selected: null,
+      regions_selected: null,
+      languages_selected: null,
       competitive_selected: null,
       recruiting_options: [
-        { text: 'Position:', value: null },
+        { text: 'Recruiting:', value: null },
         { text: 'Carry', value: 'Carry' },
         { text: 'Midlaner', value: 'Midlaner' },
         { text: 'Offlaner', value: 'Offlaner' },
         { text: 'Farming Support', value: 'Farming Support' },
         { text: 'Hard Support', value: 'Hard Support' }
       ],
-      region_options: [
+      regions_options: [
         { text: 'Region:', value: null },
         { text: 'Chile', value: 'Chile' },
         { text: 'China', value: 'China' },
@@ -78,7 +79,7 @@ export default {
         { text: 'US West', value: 'US West' },
         { text: 'US East', value: 'US East' }
       ],
-      language_options: [
+      languages_options: [
         { text: 'Language:', value: null },
         { text: 'English', value: 'English' },
         { text: 'Chinese', value: 'Chinese' },
@@ -113,7 +114,7 @@ export default {
     onTeamSelected (value) {
       this.showRefresh = false
       this.showDetails = true
-      this.selectedPlayer = value
+      this.selectedTeam = value
     },
     refresh () {
       this.$store.commit('refreshTeamList', {
@@ -124,8 +125,8 @@ export default {
     }
   },
   components: {
-    appTeamItem: TeamItem,
-    appTeamDetails: TeamDetails
+    appTeamItem: TeamItem
+    // appTeamDetails: TeamDetails
   },
   created () {
     this.getTeams()

@@ -1,5 +1,5 @@
 import axios from './../../authentication/axios-auth'
-import router from './../../router'
+// import router from './../../router'
 
 const state = {
   team_list_loading: true,
@@ -23,6 +23,7 @@ const mutations = {
 const actions = {
   getTeams ({commit, state, rootState}, query) {
     console.log(query)
+    console.log('Getting teams')
     axios.post('/api/teams', query)
     .then(res => {
       return res
@@ -39,6 +40,8 @@ const actions = {
         team_list_loading: false,
         teams: resultArray
       })
+      console.log('Teams gathered')
+      console.log(resultArray)
     })
   }
 }
