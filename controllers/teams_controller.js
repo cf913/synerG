@@ -10,8 +10,9 @@ module.exports = {
     const newTeam = data
     console.log(data)
     newTeam.save()
-    .then(res => {
+    .then(team => {
       console.log('New team created')
+      res.send(team)
     })
     .catch(err => {
       console.log(err)

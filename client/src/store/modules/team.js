@@ -20,13 +20,15 @@ const mutations = {
 const actions = {
   createTeam (rootState, data) {
     console.log('About to post')
+    console.log(data)
     axios.post(`/api/teams/new`, data)
     .then(res => {
-      console.dir('Team created!')
       return res
     })
     .then(({data}) => {
-      rootState.commit('addTeam', data)
+      console.log('done')
+      console.log(data)
+    //   rootState.commit('addTeam', data)
       router.replace(`/profile`)
     })
     .catch(err => {
