@@ -8,6 +8,7 @@ import PlayerModule from './modules/player'
 import FriendsModule from './modules/friends'
 import AuthModule from './modules/auth'
 import HeroesModule from './modules/heroes'
+import TeamList from './modules/teamList'
 import TeamModule from './modules/team'
 
 Vue.use(Vuex)
