@@ -47,8 +47,8 @@ function buildQuery(body) {
   if (body.recruiting.length > 0) {
     query['recruiting'] = {$in: body.recruiting}
   }
-  if (body.competitiveness.length > 0) {
-    query['competitiveness'] = body.competitiveness
-  }
+  // if (body.competitiveness.length > 0) {
+  //   query['competitiveness'] = body.competitiveness
+  // }
   return query
 }

@@ -1,6 +1,5 @@
 <template>
   <div class="team_list text-left container" style="position: relative">
-    <p>{{ teams }}</p>
     <b-form>
       <b-form-input type="text" placeholder="Search for teams..." v-model="team_search">
       </b-form-input>
@@ -10,22 +9,27 @@
           </b-form-select>
         </div>
         <div class="col-lg-4 padding-0">
-          <b-form-select v-model="region_selected" :options="region_options">
+          <b-form-select v-model="regions_selected" :options="regions_options">
           </b-form-select>
         </div>
         <div class="col-lg-4 padding-0">
-          <b-form-select v-model="language_selected" :options="language_options">
+          <b-form-select v-model="languages_selected" :options="languages_options">
           </b-form-select>
         </div>
       </div>
       <div class="row maxwidth">
+        <!--<div class="col-lg-4 padding-0">-->
+        <!--  <b-form-select v-model="competitive_selected" :options="competitive_options">-->
+        <!--  </b-form-select>-->
+        <!--</div>-->
         <div class="col-lg-4 padding-0">
-          <b-form-select v-model="competitive_selected" :options="competitive_options">
+          <b-form-select v-model="comms_selected" :options="comms_options">
           </b-form-select>
         </div>
         <div class="col-lg-4 padding-0">
           <!--Need to add functionality here to actually submit-->
-          <b-button type="submit">Submit</b-button>
+          <b-button @click.prevent="onSubmit()" variant="info"><i class="fa fa-search"></i> Search</b-button>
+          <b-button @click.prevent="onReset()" variant="warning">Reset</b-button>
         </div>
       </div>
 
@@ -55,7 +59,8 @@ export default {
       recruiting_selected: null, // Must be an array reference!
       regions_selected: null,
       languages_selected: null,
-      competitive_selected: null,
+      comms_selected: null,
+      // competitive_selected: null,
       recruiting_options: [
         { text: 'Recruiting:', value: null },
         { text: 'Carry', value: 'Carry' },
@@ -89,14 +94,21 @@ export default {
         { text: 'Russian', value: 'Russian' },
         { text: 'Spanish', value: 'Spanish' }
       ],
-      competitive_options: [
-        { text: 'Competitiveness:', value: null },
-        { text: 'Casual Unranked', value: 'Casual Unranked' },
-        { text: 'Casual Ranked', value: 'Casual Ranked' },
-        { text: 'Semi-Competitive Ranked', value: 'Semi-Competitive Ranked' },
-        { text: 'Competitive Ranked', value: 'Competitive Ranked' },
-        { text: 'Tournaments', value: 'Tournaments' }
+      comms_options: [
+        { text: 'Communication', value: null },
+        { text: 'In-Game Chat/Mic', value: 'In-Game Chat/Mic' },
+        { text: 'Discord', value: 'Discord' },
+        { text: 'TeamSpeak', value: 'TeamSpeak' },
+        { text: 'Skype', value: 'Skype' }
       ]
+      // competitive_options: [
+      //   { text: 'Competitiveness:', value: null },
+      //   { text: 'Casual Unranked', value: 'Casual Unranked' },
+      //   { text: 'Casual Ranked', value: 'Casual Ranked' },
+      //   { text: 'Semi-Competitive Ranked', value: 'Semi-Competitive Ranked' },
+      //   { text: 'Competitive Ranked', value: 'Competitive Ranked' },
+      //   { text: 'Tournaments', value: 'Tournaments' }
+      // ]
     }
   },
   computed: {
@@ -122,6 +134,24 @@ export default {
         teams: []
       })
       this.getTeams()
+    },
+    onSubmit () {
+      const data = {
+        regions: this.regions_selected,
+        languages: this.languages_selected,
+        comms: this.comms_selected,
+        recruiting: this.recruiting_selected
+        // competitiveness: this.competitive_selected
+      }
+      this.$store.dispatch('getTeams', data)
+    },
+    onReset () {
+      this.regions_selected = []
+      this.languages_selected = []
+      this.comms_selected = []
+      this.recruiting_selected = []
+      // this.competitive_selected = ''
+      this.$store.dispatch('getTeams', {})
     }
   },
   components: {

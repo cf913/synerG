@@ -7,14 +7,16 @@
       <div class="col-sm-10">
         <h5>{{ team.teamName }}</h5>
         <ul class="d-flex details inner-2-tile">
-          <!--<li v-if="team.regions.length !== 0"><i class="fa fa-map-marker fa-fw"></i> {{ team.regions | displayListContent }}</li>-->
-          <!--<li v-if="team.languages.length !== 0"><i class="fa fa-globe fa-fw"></i> {{ team.languages | displayListContent }}</li>-->
-          <!--<li v-if="team.comms.length !== 0"><i class="fa fa-microphone fa-fw"></i> {{ team.comms | displayListContent }}</li>-->
-          <!--<li v-if="team.positions.length !== 0"><i class="fa fa-pie-chart fa-fw"></i> {{ team.positions | displayListContent }}</li>-->
-          <li><i class="fa fa-map-marker fa-fw"></i> {{ team.regions | displayListContent }}</li>
-          <li><i class="fa fa-globe fa-fw"></i> {{ team.languages | displayListContent }}</li>
-          <li><i class="fa fa-microphone fa-fw"></i> {{ team.comms | displayListContent }}</li>
-          <li><i class="fa fa-pie-chart fa-fw"></i> {{ team.recruiting | displayListContent }}</li>
+          <li v-if="team.regions.length !== 0"><i class="fa fa-map-marker fa-fw"></i> {{ team.regions | displayListContent }}</li>
+          <li v-if="team.languages.length !== 0"><i class="fa fa-globe fa-fw"></i> {{ team.languages | displayListContent }}</li>
+          <!--Something wrong with the competitiveness data format so doesn't work if we try to show the competitiveness field-->
+          <!--<li v-if="team.competitiveness.length !== 0"><i class="fa fa-microphone fa-fw"></i> {{ team.competitiveness | displayListContent }}</li>-->
+          <li v-if="team.recruiting.length !== 0"><i class="fa fa-pie-chart fa-fw"></i> {{ team.recruiting | displayListContent }}</li>
+          <li v-if="team.comms.length !== 0"><i class="fa fa-microphone fa-fw"></i> {{ team.comms | displayListContent }}</li>
+          <!--<li><i class="fa fa-map-marker fa-fw"></i> {{ team.regions | displayListContent }}</li>-->
+          <!--<li><i class="fa fa-globe fa-fw"></i> {{ team.languages | displayListContent }}</li>-->
+          <!--<li><i class="fa fa-microphone fa-fw"></i> {{ team.comms | displayListContent }}</li>-->
+          <!--<li><i class="fa fa-pie-chart fa-fw"></i> {{ team.recruiting | displayListContent }}</li>-->
         </ul>
       </div>
     </div>

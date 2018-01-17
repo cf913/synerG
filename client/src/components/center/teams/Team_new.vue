@@ -51,7 +51,7 @@
             <div class="tiled inner-tile">
               <b-form-group>
                 <h5 class="label">Competitiveness:</h5>
-                <b-form-radio-group  name="competitive" v-model="competitive_selected" :options="competitive_options">
+                <b-form-radio-group  name="competitiveness" v-model="competitive_selected" :options="competitive_options">
                 </b-form-radio-group>
               </b-form-group>
             </div>

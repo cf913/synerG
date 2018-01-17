@@ -5,30 +5,31 @@
       </b-form-input>
       <div class="row maxwidth">
         <div class="col-lg-4 padding-0">
-          <b-form-select v-model="position_selected" :options="position_options">
+          <b-form-select v-model="positions_selected" :options="positions_options">
           </b-form-select>
         </div>
+        <!--<div class="col-lg-4 padding-0">-->
+        <!--  <b-form-select v-model="mmr_selected" :options="mmr_options">-->
+        <!--  </b-form-select>-->
+        <!--</div>-->
         <div class="col-lg-4 padding-0">
-          <b-form-select v-model="mmr_selected" :options="mmr_options">
-          </b-form-select>
-        </div>
-        <div class="col-lg-4 padding-0">
-          <b-form-select v-model="region_selected" :options="region_options">
+          <b-form-select v-model="regions_selected" :options="regions_options">
           </b-form-select>
         </div>
       </div>
       <div class="row maxwidth">
         <div class="col-lg-4 padding-0">
-          <b-form-select v-model="language_selected" :options="language_options">
+          <b-form-select v-model="languages_selected" :options="languages_options">
           </b-form-select>
         </div>
         <div class="col-lg-4 padding-0">
-          <b-form-select v-model="competitive_selected" :options="competitive_options">
+          <b-form-select v-model="comms_selected" :options="comms_options">
           </b-form-select>
         </div>
         <div class="col-lg-4 padding-0">
           <!--Need to add functionality here to actually submit-->
-          <b-button type="submit">Submit</b-button>
+          <b-button @click.prevent="onSubmit()" variant="info"><i class="fa fa-search"></i> Search</b-button>
+          <b-button @click.prevent="onReset()" variant="warning">Reset</b-button>
         </div>
       </div>
 
@@ -55,12 +56,13 @@ export default {
       showDetails: false,
       showRefresh: true,
       selectedPlayer: {},
-      position_selected: null, // Must be an array reference!
+      positions_selected: null, // Must be an array reference!
       mmr_selected: null,
-      region_selected: null,
-      language_selected: null,
+      regions_selected: null,
+      languages_selected: null,
+      comms_selected: null,
       competitive_selected: null,
-      position_options: [
+      positions_options: [
         { text: 'Position:', value: null },
         { text: 'Carry', value: 'Carry' },
         { text: 'Midlaner', value: 'Midlaner' },
@@ -114,7 +116,7 @@ export default {
         { text: 'Divine (5)', value: 'Divine(5)' },
         { text: 'Leaderboards', value: 'Leaderboards' }
       ],
-      region_options: [
+      regions_options: [
         { text: 'Region:', value: null },
         { text: 'Chile', value: 'Chile' },
         { text: 'China', value: 'China' },
@@ -129,7 +131,7 @@ export default {
         { text: 'US West', value: 'US West' },
         { text: 'US East', value: 'US East' }
       ],
-      language_options: [
+      languages_options: [
         { text: 'Language:', value: null },
         { text: 'English', value: 'English' },
         { text: 'Chinese', value: 'Chinese' },
@@ -138,6 +140,13 @@ export default {
         { text: 'Portuguese', value: 'Portuguese' },
         { text: 'Russian', value: 'Russian' },
         { text: 'Spanish', value: 'Spanish' }
+      ],
+      comms_options: [
+        { text: 'Communication', value: null },
+        { text: 'In-Game Chat/Mic', value: 'In-Game Chat/Mic' },
+        { text: 'Discord', value: 'Discord' },
+        { text: 'TeamSpeak', value: 'TeamSpeak' },
+        { text: 'Skype', value: 'Skype' }
       ],
       competitive_options: [
         { text: 'Competitiveness:', value: null },
@@ -172,6 +181,22 @@ export default {
         players: []
       })
       this.getPlayers()
+    },
+    onSubmit () {
+      const data = {
+        regions: this.regions_selected,
+        languages: this.languages_selected,
+        comms: this.comms_selected,
+        positions: this.positions_selected
+      }
+      this.$store.dispatch('getPlayers', data)
+    },
+    onReset () {
+      this.regions_selected = null
+      this.languages_selected = null
+      this.comms_selected = null
+      this.positions_selected = null
+      this.$store.dispatch('getPlayers', {})
     }
   },
   components: {
