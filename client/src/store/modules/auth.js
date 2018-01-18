@@ -1,6 +1,6 @@
 // import axios from './../../authentication/axios-auth'
 // Commented out global axios config as I needed to access openDota url
-import axios from 'axios'
+import axios from './../../authentication/axios-auth'
 import router from './../../router'
 
 const state = {
@@ -90,7 +90,7 @@ const actions = {
     if (params.steamid && params.token) {
       const token = params.token
       console.log('Pre confirming')
-      axios.post('https://synerg-tchung95.c9users.io/auth/jwt/confirm-login/?token=' + token)
+      axios.post('/auth/jwt/confirm-login/?token=' + token)
       .then(data => {
         const user = data.data.user
         const id = data.data.user.steamId
