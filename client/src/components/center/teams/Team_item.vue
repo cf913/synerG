@@ -10,7 +10,7 @@
           <li v-if="team.regions.length !== 0"><i class="fa fa-map-marker fa-fw"></i> {{ team.regions | displayListContent }}</li>
           <li v-if="team.languages.length !== 0"><i class="fa fa-globe fa-fw"></i> {{ team.languages | displayListContent }}</li>
           <!--Something wrong with the competitiveness data format so doesn't work if we try to show the competitiveness field-->
-          <!--<li v-if="team.competitiveness.length !== 0"><i class="fa fa-microphone fa-fw"></i> {{ team.competitiveness | displayListContent }}</li>-->
+          <li v-if="team.competitiveness.length !== 0"><i class="fa fa-trophy fa-fw"></i> {{ team.competitiveness }}</li>
           <li v-if="team.recruiting.length !== 0"><i class="fa fa-pie-chart fa-fw"></i> {{ team.recruiting | displayListContent }}</li>
           <li v-if="team.comms.length !== 0"><i class="fa fa-microphone fa-fw"></i> {{ team.comms | displayListContent }}</li>
           <!--<li><i class="fa fa-map-marker fa-fw"></i> {{ team.regions | displayListContent }}</li>-->

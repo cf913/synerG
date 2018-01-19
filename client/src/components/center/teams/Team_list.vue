@@ -18,10 +18,10 @@
         </div>
       </div>
       <div class="row maxwidth">
-        <!--<div class="col-lg-4 padding-0">-->
-        <!--  <b-form-select v-model="competitive_selected" :options="competitive_options">-->
-        <!--  </b-form-select>-->
-        <!--</div>-->
+        <div class="col-lg-4 padding-0">
+          <b-form-select v-model="competitive_selected" :options="competitive_options">
+          </b-form-select>
+        </div>
         <div class="col-lg-4 padding-0">
           <b-form-select v-model="comms_selected" :options="comms_options">
           </b-form-select>
@@ -60,7 +60,7 @@ export default {
       regions_selected: null,
       languages_selected: null,
       comms_selected: null,
-      // competitive_selected: null,
+      competitive_selected: null,
       recruiting_options: [
         { text: 'Recruiting:', value: null },
         { text: 'Carry', value: 'Carry' },
@@ -100,15 +100,15 @@ export default {
         { text: 'Discord', value: 'Discord' },
         { text: 'TeamSpeak', value: 'TeamSpeak' },
         { text: 'Skype', value: 'Skype' }
+      ],
+      competitive_options: [
+        { text: 'Competitiveness:', value: null },
+        { text: 'Casual Unranked', value: 'Casual Unranked' },
+        { text: 'Casual Ranked', value: 'Casual Ranked' },
+        { text: 'Semi-Competitive Ranked', value: 'Semi-Competitive Ranked' },
+        { text: 'Competitive Ranked', value: 'Competitive Ranked' },
+        { text: 'Tournaments', value: 'Tournaments' }
       ]
-      // competitive_options: [
-      //   { text: 'Competitiveness:', value: null },
-      //   { text: 'Casual Unranked', value: 'Casual Unranked' },
-      //   { text: 'Casual Ranked', value: 'Casual Ranked' },
-      //   { text: 'Semi-Competitive Ranked', value: 'Semi-Competitive Ranked' },
-      //   { text: 'Competitive Ranked', value: 'Competitive Ranked' },
-      //   { text: 'Tournaments', value: 'Tournaments' }
-      // ]
     }
   },
   computed: {
@@ -140,17 +140,17 @@ export default {
         regions: this.regions_selected,
         languages: this.languages_selected,
         comms: this.comms_selected,
-        recruiting: this.recruiting_selected
-        // competitiveness: this.competitive_selected
+        recruiting: this.recruiting_selected,
+        competitiveness: this.competitive_selected
       }
       this.$store.dispatch('getTeams', data)
     },
     onReset () {
-      this.regions_selected = []
-      this.languages_selected = []
-      this.comms_selected = []
-      this.recruiting_selected = []
-      // this.competitive_selected = ''
+      this.regions_selected = null
+      this.languages_selected = null
+      this.comms_selected = null
+      this.recruiting_selected = null
+      this.competitive_selected = null
       this.$store.dispatch('getTeams', {})
     }
   },
