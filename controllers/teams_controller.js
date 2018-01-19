@@ -28,7 +28,14 @@ module.exports = {
     .catch(err => {
         console.log(err)
     })
-  }
+  },
+  
+  getTeam(req, res, next) {
+      Team.findOne({_id: req.params.id})
+      .then(player => {
+          res.send(player)
+      })
+  },
 }
 
 function buildQuery(body) {

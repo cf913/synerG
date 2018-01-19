@@ -41,6 +41,7 @@
       <ul class="list-group clearfix" v-for="(player, index) in players" :key="index">
         <li class="list-group-item tile-shadow inner-tile">
           <app-player-item :player="player" @playerSelected="onPlayerSelected"></app-player-item>
+          <!--<app-player-item :player="player"></app-player-item>-->
         </li>
       </ul>
   </div>

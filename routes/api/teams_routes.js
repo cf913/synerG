@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken')
 // Get list of teams
 router.post('/teams', TeamsController.getTeams)
 // Get team details
-// router.get('/teams/:id',  TeamsController.getTeam)
+router.get('/teams/:id',  TeamsController.getTeam)
 router.post('/teams/new', TeamsController.createTeam)
 
 

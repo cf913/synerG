@@ -9,6 +9,7 @@ import PlayerEdit from '@/components/center/players/Player_edit'
 import Profile from '@/components/center/Profile'
 import MyTeams from '@/components/center/teams/My_teams'
 import TeamsNew from '@/components/center/teams/Team_new'
+import TeamDetails from '@/components/center/teams/Team_details'
 
 Vue.use(Router)
 
@@ -42,6 +43,10 @@ export default new Router({
         {
           path: 'teams/new',
           component: TeamsNew
+        },
+        {
+          path: 'teams/:id',
+          component: TeamDetails
         }
       ]
     //     {

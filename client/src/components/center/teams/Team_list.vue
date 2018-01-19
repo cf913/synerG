@@ -40,7 +40,8 @@
     </div>
       <ul class="list-group clearfix" v-for="(team, index) in teams" :key="index">
         <li class="list-group-item tile-shadow inner-tile">
-          <app-team-item :team="team"></app-team-item>
+          <app-team-item :team="team" @teamSelected="onTeamSelected"></app-team-item>
+          <!--<app-team-item :team="team"></app-team-item>-->
         </li>
       </ul>
   </div>
@@ -48,7 +49,7 @@
 
 <script>
 import TeamItem from './Team_item.vue'
-// import TeamDetails from './Team_details.vue'
+import TeamDetails from './Team_details.vue'
 
 export default {
   data: () => {
@@ -155,8 +156,8 @@ export default {
     }
   },
   components: {
-    appTeamItem: TeamItem
-    // appTeamDetails: TeamDetails
+    appTeamItem: TeamItem,
+    appTeamDetails: TeamDetails
   },
   created () {
     this.getTeams()

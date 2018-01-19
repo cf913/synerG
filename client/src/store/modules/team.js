@@ -34,26 +34,26 @@ const actions = {
     .catch(err => {
       console.log('edit err: ' + err)
     })
+  },
+  getTeam ({commit}, id) {
+    if (!id) {
+      console.log('No id')
+      return
+    }
+    axios.get(`/api/teams/${id}`)
+    .then(({data}) => {
+      commit('team', {
+        loading: false,
+        team: data
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  },
+  resetTeamDetails ({commit}) {
+    commit('reset')
   }
-  // getTeam ({commit}, id) {
-  //   if (!id) {
-  //     console.log('No id')
-  //     return
-  //   }
-  //   axios.get(`/api/teams/${id}`)
-  //   .then(({data}) => {
-  //     commit('team', {
-  //       loading: false,
-  //       team: data
-  //     })
-  //   })
-  //   .catch(err => {
-  //     console.log(err)
-  //   })
-  // },
-  // resetTeamDetails ({commit}) {
-  //   commit('reset')
-  // }
 }
 
 const getters = {
