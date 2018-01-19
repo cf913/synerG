@@ -22,6 +22,9 @@ module.exports = {
         .then(player => {
             res.send(player)
         })
+        .catch(err => {
+            console.log(err)
+        })
     },
 
     editPlayer(req, res, next) {

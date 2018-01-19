@@ -31,10 +31,13 @@ module.exports = {
   },
   
   getTeam(req, res, next) {
-      Team.findOne({_id: req.params.id})
-      .then(player => {
-          res.send(player)
-      })
+    Team.findOne({_id: req.params.id})
+    .then(team => {
+      res.send(team)
+    })
+    .catch(err => {
+      console.log(err)
+    })
   },
 }
 

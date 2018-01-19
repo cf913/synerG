@@ -26,7 +26,8 @@ export default new Router({
         },
         {
           path: 'players/:id',
-          component: PlayerDetails
+          component: PlayerDetails,
+          name: 'playerDetails'
         },
         {
           path: 'players/:id/edit',
@@ -46,7 +47,8 @@ export default new Router({
         },
         {
           path: 'teams/:id',
-          component: TeamDetails
+          component: TeamDetails,
+          name: 'teamDetails'
         }
       ]
     //     {

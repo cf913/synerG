@@ -36,10 +36,10 @@ const actions = {
     })
   },
   getTeam ({commit}, id) {
-    if (!id) {
-      console.log('No id')
-      return
-    }
+    // if (!id) {
+    //   console.log('No id')
+    //   return
+    // }
     axios.get(`/api/teams/${id}`)
     .then(({data}) => {
       commit('team', {

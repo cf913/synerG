@@ -7,9 +7,9 @@ const jwt = require('jsonwebtoken')
 
 
 // Get list of players
-router.post('/players', PlayersController.getPlayers)
+router.post('/', PlayersController.getPlayers)
 // Get player details
-router.get('/players/:id',  PlayersController.getPlayer)
+router.get('/:id',  PlayersController.getPlayer)
 
 // Making sure a user CAN NOT edit someone else's profile
 router.use('/players/:id/:alterdata', passport.authenticate('jwt'), (req, res, next) => {
@@ -33,8 +33,8 @@ router.use('/players/:id/:alterdata', passport.authenticate('jwt'), (req, res, n
 });
 
 // Edit player
-router.post('/players/:id/edit', PlayersController.editPlayer)
-router.get('/players/:id/update', PlayersController.updatePlayer)
-router.get('/players/:id/add-friend', PlayersController.addFriend)
+router.post('/:id/edit', PlayersController.editPlayer)
+router.get('/:id/update', PlayersController.updatePlayer)
+router.get('/:id/add-friend', PlayersController.addFriend)
 
 module.exports = router

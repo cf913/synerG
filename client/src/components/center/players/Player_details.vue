@@ -14,7 +14,6 @@
     <!-- CONTENT -->
     <div v-else>
       <div class="container py-3 text-left">
-        <a class="btn btn-primary btn-sm back" @click="onBack"><i class="fa fa-arrow-left fa-fw"></i> Back</a>
         <div class="row">
           <div class="col-4 text-left">
             <img class="img-thumbnails" :src="player.img" alt="Avatar">
@@ -22,9 +21,9 @@
               <li class="tiled inner-tile">
                 <span class="title"><i class="fa fa-trophy fa-fw"></i> MMR:</span>
                 <ul>
-                  <li>Estimate: ~{{player.mmr.mmr_estimate}}</li>
-                  <li>Solo: {{player.mmr.mmr_solo || '----'}}</li>
-                  <li>Party: {{player.mmr.mmr_party || '----'}}</li>
+                  <!--<li>Estimate: ~{{player.mmr.mmr_estimate}}</li>-->
+                  <li>Solo: ----</li>
+                  <li>Party: ----</li>
                 </ul>
               </li>
               <li class="tiled inner-tile">
@@ -156,7 +155,13 @@ export default {
       this.$store.dispatch('updatePlayer', this.$route.params.id)
     }
   },
-  created () {
+  // watch: {
+  //   '$route.params.id' (newId, oldId) {
+  //     this.$store.dispatch('resetPlayerDetails')
+  //     this.getPlayer(newId)
+  //   }
+  // },
+  activated () {
     this.$store.dispatch('resetPlayerDetails')
     console.log('Fetching player profile...')
     this.getPlayer()

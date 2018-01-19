@@ -40,8 +40,8 @@
     </div>
       <ul class="list-group clearfix" v-for="(team, index) in teams" :key="index">
         <li class="list-group-item tile-shadow inner-tile">
-          <app-team-item :team="team" @teamSelected="onTeamSelected"></app-team-item>
-          <!--<app-team-item :team="team"></app-team-item>-->
+          <!--<app-team-item :team="team" @teamSelected="onTeamSelected"></app-team-item>-->
+          <app-team-item :team="team"></app-team-item>
         </li>
       </ul>
   </div>
@@ -54,9 +54,9 @@ import TeamDetails from './Team_details.vue'
 export default {
   data: () => {
     return {
-      showDetails: false,
-      showRefresh: true,
-      selectedTeam: {},
+      // showDetails: false,
+      // showRefresh: true,
+      // selectedTeam: {},
       recruiting_selected: null, // Must be an array reference!
       regions_selected: null,
       languages_selected: null,
@@ -124,11 +124,11 @@ export default {
     getTeams () {
       return this.$store.dispatch('getTeams')
     },
-    onTeamSelected (value) {
-      this.showRefresh = false
-      this.showDetails = true
-      this.selectedTeam = value
-    },
+    // onTeamSelected (value) {
+    //   this.showRefresh = false
+    //   this.showDetails = true
+    //   this.selectedTeam = value
+    // },
     refresh () {
       this.$store.commit('refreshTeamList', {
         loading: true,

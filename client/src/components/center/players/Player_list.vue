@@ -40,8 +40,8 @@
     </div>
       <ul class="list-group clearfix" v-for="(player, index) in players" :key="index">
         <li class="list-group-item tile-shadow inner-tile">
-          <app-player-item :player="player" @playerSelected="onPlayerSelected"></app-player-item>
-          <!--<app-player-item :player="player"></app-player-item>-->
+          <!--<app-player-item :player="player" @playerSelected="onPlayerSelected"></app-player-item>-->
+          <app-player-item :player="player"></app-player-item>
         </li>
       </ul>
   </div>
@@ -54,9 +54,9 @@ import PlayerDetails from './Player_details.vue'
 export default {
   data: () => {
     return {
-      showDetails: false,
-      showRefresh: true,
-      selectedPlayer: {},
+      // showDetails: false,
+      // showRefresh: true,
+      // selectedPlayer: {},
       positions_selected: null, // Must be an array reference!
       // mmr_selected: null,
       regions_selected: null,
@@ -171,11 +171,11 @@ export default {
     getPlayers () {
       return this.$store.dispatch('getPlayers')
     },
-    onPlayerSelected (value) {
-      this.showRefresh = false
-      this.showDetails = true
-      this.selectedPlayer = value
-    },
+    // onPlayerSelected (value) {
+    //   this.showRefresh = false
+    //   this.showDetails = true
+    //   this.selectedPlayer = value
+    // },
     refresh () {
       this.$store.commit('refreshPlayerList', {
         loading: true,
