@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
-const bcrypt = require('bcrypt')
 const Schema = mongoose.Schema
 
 
@@ -43,6 +42,6 @@ TeamSchema.plugin(uniqueValidator);
 //   });
 // };
 
-const Team = mongoose.model('team', TeamSchema)
+const Team = mongoose.model('Team', TeamSchema)
 
 module.exports = Team

@@ -9,7 +9,7 @@
         <div class="">
           <transition name="bounce" mode="out-in">
             <keep-alive>
-              <router-view/> 
+              <router-view :key="$route.fullPath"></router-view>
             </keep-alive>
           </transition>
         </div>

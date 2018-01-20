@@ -38,20 +38,20 @@ const actions = {
       })
   },
   getPlayer ({commit}, id) {
-    if (!id) {
-      console.log('No id')
-      return
-    }
+    // if (!id) {
+    //   console.log('No id')
+    //   return
+    // }
     axios.get(`/api/players/${id}`)
-      .then(({data}) => {
-        commit('player', {
-          loading: false,
-          player: data
-        })
+    .then(({data}) => {
+      commit('player', {
+        loading: false,
+        player: data
       })
-      .catch(err => {
-        console.log(err)
-      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
   },
   updatePlayer (rootState, id) {
     if (!rootState.getters.idToken) {

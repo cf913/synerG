@@ -13,17 +13,18 @@
         <a v-else class="btn btn-primary btn-sm float-right" @click="sendRequest(player.steamId)"><i class="fa fa-user-plus fa-fw"></i></a>
         <!-- <router-link class="btn btn-warning btn-sm float-right" :to="{}"><i class="fa fa-comment fa-fw"></i></router-link> -->
         <router-link class="btn btn-secondary btn-sm float-right" :to="{ path: `/players/${player.steamId}`}"><i class="fa fa-user-circle-o fa-fw"></i></router-link>
-        <router-link :to="{ path: `/players/${player.steamId}`}"><h5>{{ player.steamName }}</h5></router-link>
+        <!--<router-link :to="{ path: `/players/${player.steamId}`}"><h5>{{ player.steamName }}</h5></router-link>-->
+        <router-link :to="{ name: 'playerDetails', params: { id: player.steamId }}"><h5>{{ player.steamName }}</h5></router-link>
         <ul class="d-flex details inner-2-tile">
-          <li v-if="player.mmr.mmr_estimate"><i class="fa fa-trophy fa-fw"></i>
-            ~{{ player.mmr.mmr_estimate | toDecimal }}K
+          <!--<li v-if="player.mmr.mmr_estimate"><i class="fa fa-trophy fa-fw"></i>-->
+          <!--  ~{{ player.mmr.mmr_estimate | toDecimal }}K-->
             <!--<div v-if="player.mmr.mmr_solo">-->
               <!--(s) {{ player.mmr.mmr_solo | toDecimal }}K-->
             <!--</div>-->
             <!--<div v-if="player.mmr.mmr_party">-->
               <!--(p) {{ player.mmr.mmr_party  | toDecimal }}K-->
             <!--</div>-->
-          </li>
+          <!--</li>-->
           <li v-if="player.regions.length !== 0"><i class="fa fa-map-marker fa-fw"></i> {{ player.regions | displayListContent }}</li>
           <li v-if="player.languages.length !== 0"><i class="fa fa-globe fa-fw"></i> {{ player.languages | displayListContent }}</li>
           <li v-if="player.comms.length !== 0"><i class="fa fa-microphone fa-fw"></i> {{ player.comms | displayListContent }}</li>

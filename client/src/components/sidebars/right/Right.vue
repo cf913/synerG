@@ -52,6 +52,7 @@ export default {
     },
     isLoggedIn () {
       return this.$store.getters.isAuthenticated
+      // return true
     }
   },
   components: {

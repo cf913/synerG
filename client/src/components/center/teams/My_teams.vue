@@ -3,7 +3,7 @@
     <div class="card inner-tile">
       <div class="container py-3 text-left">
         <div>
-          <router-link to="/new_team">Create Team</router-link>
+          <router-link to="/teams/new">Create Team</router-link>
         </div>
         <div v-if="loading" class="text-center">
           <p class="lead">Loading your teams...</p>
