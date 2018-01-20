@@ -1,6 +1,5 @@
 <template>
-  <div class="my_teams text-left container" style="position: relative">
-    <div class="card inner-tile">
+  <div class="my_teams text-left container tile gray-tile" style="position: relative">
       <div class="container py-3 text-left">
         <div>
           <router-link to="/teams/new">Create Team</router-link>
@@ -16,7 +15,6 @@
         <!--</ul>-->
       </div>
     </div>
-  </div>
   <!--<div class="new-team">-->
   <!--  <h2 class="py-3">Teams</h2>-->
   <!--  <p>Team list works!</p>-->
