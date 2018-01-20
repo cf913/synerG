@@ -1,5 +1,5 @@
 <template>
-  <div class="players tile gray-tile">
+  <div class="players tile gray-tile tiled">
     <div class="container-fluid">
       <div class="row">
         <div class="left col-lg-4 sidebar">
@@ -31,6 +31,11 @@ export default {
 </script>
 
 <style scoped>
+  .tiled {
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+
   .players {
     display: flex;
     justify-content: center;

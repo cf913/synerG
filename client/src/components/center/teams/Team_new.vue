@@ -1,6 +1,6 @@
 <template>
-  <div class="new-team text-left container">
-    <div class="card inner-tile">
+  <div class="new-team text-left container tile gray-tile tile-shadow">
+    <div class="">
       <div class="container py-3 text-left">
         <h2 class="py-3">Create New Team</h2>
           <form>

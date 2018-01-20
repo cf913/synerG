@@ -32,8 +32,8 @@
           <b-button @click.prevent="onReset()" variant="warning">Reset</b-button>
         </div>
       </div>
-
     </b-form>
+    
     <div v-if="loading" class="text-center">
       <p class="lead">Searching for players...</p>
       <img src="../../../assets/loading.svg" alt="">

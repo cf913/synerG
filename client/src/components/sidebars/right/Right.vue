@@ -1,11 +1,12 @@
 <template>
   <div class="players tile gray-tile tile-shadow" v-if="isLoggedIn">
-    <b-nav justified tabs class="tabs">
-      <b-nav-item><router-link to="/"><i class="fa fa-newspaper-o"></i></router-link></b-nav-item>
-      <b-nav-item><router-link to="/profile"><i class="fa fa-user"></i></router-link></b-nav-item>
-      <b-nav-item><router-link to="/players/:id/myteams"><i class="fa fa-group"></i></router-link></b-nav-item>
-      <b-nav-item><router-link to="/messages"><i class="fa fa-envelope"></i></router-link></b-nav-item>
-      <b-nav-item><router-link to="/settings"><i class="fa fa-gear"></i></router-link></b-nav-item>
+    <b-nav justified tabs class="top-tabs">
+      <b-nav-item to="/" exact><i class="fa fa-newspaper-o"></i></b-nav-item>
+      <b-nav-item to="/profile"><i class="fa fa-user"></i></b-nav-item>
+      <b-nav-item to="/players/:id/myteams"><i class="fa fa-group"></i></b-nav-item>
+      <b-nav-item to="/players/:id/myteams"><i class="fa fa-group"></i></b-nav-item>
+      <b-nav-item to="/messages"><i class="fa fa-envelope"></i></b-nav-item>
+      <b-nav-item to="/settings"><i class="fa fa-gear"></i></b-nav-item>
     </b-nav>
     <div class="card-header d-flex align-items-center" id="rightprofile">
       <img class="avatar" :src="user.img" alt="Avatar">
@@ -51,8 +52,8 @@ export default {
       return this.$store.getters.userId
     },
     isLoggedIn () {
-      return this.$store.getters.isAuthenticated
-      // return true
+      // return this.$store.getters.isAuthenticated
+      return true
     }
   },
   components: {
@@ -89,9 +90,18 @@ export default {
     max-height: 100px;
     max-width: 100px;
   }
+
+  #search{
+    padding: 0;
+  }
   
-  ul.nav-tabs {
+
+  /* STYLE FOR TOP NAVBAR */
+  ul.nav-tabs.top-tabs  {
     border-radius: 5px 5px 0 0;
+  }
+
+  ul.nav-tabs {
     background: #333;
     border-color: #333;
   }
@@ -107,7 +117,6 @@ export default {
   }
 
   li.nav-item a.nav-link:hover{
-    color: white;
     background-color: #222; 
     transition: 0.1s;
   }
@@ -116,9 +125,34 @@ export default {
     background-color:#111;
     color: white;
   }
-  
-  #search{
-    padding: 0;
+
+  i.fa {
+    transform: scale(1);
   }
+
+  li.nav-item a.nav-link.active i{
+    transform: scale(1.3);
+    transition: 0.2s;
+  }
+
+  .top-tabs li.nav-item:first-child a.nav-link{
+    border-radius: 5px 0 0 0;
+    border:0;
+  }
+
+  .top-tabs li.nav-item:first-child a.nav-link.active{
+    border-radius: 5px 0 0 0;
+    border:0;
+  } 
+  .top-tabs li.nav-item:last-child a.nav-link{
+    border-radius: 0 5px 0 0;    
+    border:0;
+  }
+
+  .top-tabs li.nav-item:last-child a.nav-link.active{
+    border-radius: 0 5px 0 0;    
+    border:0;
+  } 
+  /* END STYLE TOP NAVBAR */
 
 </style>

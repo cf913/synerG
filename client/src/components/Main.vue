@@ -7,11 +7,11 @@
     <div class="row">
       <div class="left col-md-12 col-lg-9">
         <div class="">
-          <transition name="bounce" mode="out-in">
+          <!-- <transition name="bounce" mode="out-in"> -->
             <keep-alive>
               <router-view :key="$route.fullPath"></router-view>
             </keep-alive>
-          </transition>
+          <!-- </transition> -->
         </div>
       </div>
       <div class="right col-lg-3 sidebar">
@@ -82,7 +82,8 @@ export default {
   }
 
   .container-fluid {
-    max-width: 1500px;
+    /* stretch the container to 100% width */
+    max-width: 1600px;
     padding-top: 55px;
   }
   .fixed {
@@ -170,6 +171,7 @@ export default {
   .gray-tile {
     /* background: #111; */
     background: rgba(17, 17, 17, 0.5);
+    color: #fff;
   }
 
   .inner-tile {

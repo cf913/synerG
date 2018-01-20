@@ -1,5 +1,5 @@
 <template>
-    <div class="players tile gray-tile">
+    <div class="players tile gray-tile tile-shadow">
         <h2 class="py-3">News</h2>
     </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
-  <div class="profile">
+  <div class="profile tile gray-tile">
     <div v-if="isLoggedIn">
-      <div class="card inner-tile">
+      <!-- <div class="card inner-tile"> -->
         <div class="container py-3 text-left">
           <div class="row">
             <div class="col-4 text-left">
@@ -74,7 +74,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(hero, index) in user.heroes.slice(0, 5)">
+                      <tr v-for="(hero, index) in user.heroes.slice(0, 5)" :key="index">
                         <!--<img class="img-thumbnails" :src="'https://api.opendota.com' + heroStats.heroStats[hero.hero_id - 2].img" alt="Avatar">-->
                         <img class="img-thumbnails" :src="heroes[hero.hero_id - 1].img" alt="Avatar">
                         <!--<td class="text-center">{{ heroStats.heroStats[hero.hero_id].id }}</td>-->
@@ -103,7 +103,7 @@
             </div>
           </div>
         </div>
-      </div>
+      <!-- </div> -->
     </div>
     <div v-else>
       <a id="steamBtn" href="/auth/steam/steam" @click="getSteamInfo" class="btn btn-primary btn-lg">Login with Steam</a>
@@ -245,7 +245,7 @@ export default {
   
   tr th.table-header {
     font-size: 20px;
-    weight: bold;
+    font-weight: bold;
   }
   
   tr img.img-thumbnails {

@@ -1,5 +1,5 @@
 <template>
-  <div class="player_details">
+  <div class="player_details tile gray-tile">
     <!-- WHILE LOADING -->
     <div v-if="loading" class="text-center">
       <div class="container py-3 text-left">
@@ -74,11 +74,24 @@
             <div class="tiled heroes inner-tile">
               <p> 
                 <span class="title">Most Played Heroes</span>
-                <ul id="example-1">
-                  <li v-for="(hero, index) in player.heroes.slice(0,5)" :key="index">
-                    {{ hero }}
-                  </li>
-                </ul>
+                <table>
+                    <thead>
+                      <tr>
+                        <th class="text-center table-header">Hero ID</th>
+                        <th class="text-center table-header">Games Played</th>
+                        <th class="text-center table-header">Games Won</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(hero, index) in player.heroes.slice(0, 5)" :key="index">
+                        <!--<img class="img-thumbnails" :src="'https://api.opendota.com' + heroStats.heroStats[hero.hero_id - 2].img" alt="Avatar">-->
+                        <img class="img-thumbnails" :src="heroes[hero.hero_id - 1].img" alt="Avatar">
+                        <!--<td class="text-center">{{ heroStats.heroStats[hero.hero_id].id }}</td>-->
+                        <td class="text-center table-content">{{ hero.games }}</td>
+                        <td class="text-center table-content">{{ hero.win }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
               </p>
             </div>
             <div class="tiled teams inner-tile">
@@ -102,6 +115,9 @@
 <script>
 export default {
   computed: {
+    heroes () {
+      return this.$store.getters.heroes
+    },
     player () {
       return this.$store.getters.player
     },
@@ -245,5 +261,20 @@ export default {
     font-weight: 600;
     /* color: #106CD6; */
     color: orange;
+  }
+
+  table {
+    color: white;
+  }
+  
+  tr th.table-header {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  tr img.img-thumbnails {
+    height: 57px;
+    width: 100px;
+    margin: 5px;
   }
 </style>

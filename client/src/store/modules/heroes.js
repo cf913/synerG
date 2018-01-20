@@ -103,7 +103,7 @@ const state = {
     {
       'id': 21,
       'localized_name': 'Windranger',
-      'img': 'https://api.opendota.com/apps/dota2/images/heroes/windranger_full.png'
+      'img': 'https://api.opendota.com/apps/dota2/images/heroes/windrunner_full.png'
     },
     {
       'id': 22,

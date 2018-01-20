@@ -1,5 +1,5 @@
 <template>
-  <div class="team_details">
+  <div class="team_details tile gray-tile">
     <!-- WHILE LOADING -->
     <div v-if="loading" class="text-center">
       <div class="container py-3 text-left">

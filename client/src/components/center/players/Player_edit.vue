@@ -1,5 +1,5 @@
 <template>
-  <div class="player-edit">
+  <div class="player-edit tile gray-tile tile-shadow">
     <header class="text-center">
       <h2 class="py-3">{{ username }}</h2>
     </header>
