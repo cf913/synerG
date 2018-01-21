@@ -2,16 +2,20 @@
   <div class="players tile gray-tile tile-shadow" v-if="isLoggedIn">
     <b-nav justified tabs class="top-tabs">
       <b-nav-item to="/" exact><i class="fa fa-newspaper-o"></i></b-nav-item>
-      <b-nav-item to="/profile"><i class="fa fa-user"></i></b-nav-item>
+      <b-nav-item to="/profile"><i class="fa fa-user-circle-o"></i></b-nav-item>
       <b-nav-item to="/players/:id/myteams"><i class="fa fa-group"></i></b-nav-item>
-      <b-nav-item to="/players/:id/myteams"><i class="fa fa-group"></i></b-nav-item>
+      <b-nav-item to="/friends"><i class="fa fa-address-book"></i></b-nav-item>
       <b-nav-item to="/messages"><i class="fa fa-envelope"></i></b-nav-item>
       <b-nav-item to="/settings"><i class="fa fa-gear"></i></b-nav-item>
     </b-nav>
+
+
     <div class="card-header d-flex align-items-center" id="rightprofile">
       <img class="avatar" :src="user.img" alt="Avatar">
       <h4 class="profile-name">{{ user.steamName }}</h4>
     </div>
+
+    
     <b-nav justified tabs class="tabs">
       <b-nav-item @click="tab = 'app-player-list'" :active="tab === 'app-player-list'">Players</b-nav-item>
       <b-nav-item @click="tab = 'app-team-list'" :active="tab === 'app-team-list'">Teams</b-nav-item>
@@ -32,7 +36,6 @@
 
 <script>
 import Profile from '../../center/Profile'
-import Friends from './Friends'
 import Mail from './Mail'
 import Settings from './Settings'
 import PlayerList from '../../center/players/Player_list'
@@ -58,7 +61,6 @@ export default {
   },
   components: {
     appProfile: Profile,
-    appFriends: Friends,
     appMail: Mail,
     appSettings: Settings,
     appPlayerList: PlayerList,

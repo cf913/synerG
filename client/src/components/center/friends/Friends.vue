@@ -1,5 +1,5 @@
 <template>
-  <div class="friends">
+  <div class="friends tile gray-tile">
     <div class="container">
       
       Requests:
