@@ -38,10 +38,10 @@ const actions = {
       })
   },
   getPlayer ({commit}, id) {
-    // if (!id) {
-    //   console.log('No id')
-    //   return
-    // }
+    if (!id) {
+      console.log('No id')
+      return
+    }
     axios.get(`/api/players/${id}`)
     .then(({data}) => {
       commit('player', {

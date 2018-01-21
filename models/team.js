@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 const Schema = mongoose.Schema
+// const PlayerSchema = require('./schemas/player')
 
 
 const TeamSchema = new Schema({
@@ -11,7 +12,10 @@ const TeamSchema = new Schema({
   languages: [String],
   regions: [String],
   comms: [String],
-  competitiveness: String
+  competitiveness: String,
+  teamMembers: [String],
+  // teamAdmins: [PlayerSchema]
+  teamAdmins: [String]
 })
 
 

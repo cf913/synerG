@@ -11,9 +11,6 @@ const mutations = {
     state.team_list_loading = teamData.team_list_loading
     state.teams = teamData.teams
   },
-  // addTeam (state, teamData) {
-  //   state.teams = state.teams.push(teamData)
-  // },
   refreshteamList (state, data) {
     state.team_list_loading = data.loading
     state.teams = data.teams

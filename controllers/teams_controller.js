@@ -6,10 +6,11 @@ const jwt = require('jsonwebtoken')
 module.exports = {
   
   createTeam(req, res, next) {
-    let data = new Team(req.body)
-    const newTeam = data
+    console.log(req.body)
+    let data = new Team(req.body.data)
     console.log(data)
-    newTeam.save()
+    data.teamAdmins.push(req.body.user.steamId)
+    data.save()
     .then(team => {
       console.log('New team created')
       res.send(team)

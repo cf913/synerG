@@ -18,17 +18,18 @@ const mutations = {
 }
 
 const actions = {
-  createTeam (rootState, data) {
+  createTeam ({commit, rootState}, data) {
     console.log('About to post')
     console.log(data)
-    axios.post(`/api/teams/new`, data)
+    axios.post(`/api/teams/new`, {data: data, user: rootState.AuthModule.user})
     .then(res => {
       return res
     })
     .then(({data}) => {
       console.log('done')
       console.log(data)
-    //   rootState.commit('addTeam', data)
+      console.log(rootState.AuthModule.user)
+      // data.teamAdmins.push(rootState.AuthModule.user)
       router.replace(`/profile`)
     })
     .catch(err => {
@@ -36,10 +37,10 @@ const actions = {
     })
   },
   getTeam ({commit}, id) {
-    // if (!id) {
-    //   console.log('No id')
-    //   return
-    // }
+    if (!id) {
+      console.log('No id')
+      return
+    }
     axios.get(`/api/teams/${id}`)
     .then(({data}) => {
       commit('team', {
