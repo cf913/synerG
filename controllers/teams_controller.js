@@ -35,7 +35,7 @@ module.exports = {
   
   getMyTeams(req, res, next) {
     console.log(req.body)
-    Team.find({teamAdmins: req.body.steamId})
+    Team.find({ $or: [{teamAdmins: req.body.steamId}, {teamMembers: req.body.steamId}]})
     .then(team => {
       res.send(team)
     })
