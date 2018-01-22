@@ -3,7 +3,7 @@
     <b-nav justified tabs class="top-tabs">
       <b-nav-item to="/" exact><i class="fa fa-newspaper-o"></i></b-nav-item>
       <b-nav-item to="/profile"><i class="fa fa-user-circle-o"></i></b-nav-item>
-      <b-nav-item to="/players/:id/myteams"><i class="fa fa-group"></i></b-nav-item>
+      <b-nav-item to="/myteams"><i class="fa fa-group"></i></b-nav-item>
       <b-nav-item to="/friends"><i class="fa fa-address-book"></i></b-nav-item>
       <b-nav-item to="/messages"><i class="fa fa-envelope"></i></b-nav-item>
       <b-nav-item to="/settings"><i class="fa fa-gear"></i></b-nav-item>

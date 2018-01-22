@@ -38,18 +38,17 @@
       <p class="lead">Searching for teams...</p>
       <img src="../../../assets/loading.svg" alt="">
     </div>
-      <ul class="list-group clearfix" v-for="(team, index) in teams" :key="index">
-        <li class="list-group-item tile-shadow inner-tile">
-          <!--<app-team-item :team="team" @teamSelected="onTeamSelected"></app-team-item>-->
-          <app-team-item :team="team"></app-team-item>
-        </li>
-      </ul>
+    <ul class="list-group clearfix" v-for="(team, index) in teams" :key="index">
+      <li class="list-group-item tile-shadow inner-tile">
+        <!--<app-team-item :team="team" @teamSelected="onTeamSelected"></app-team-item>-->
+        <app-team-item :team="team"></app-team-item>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 import TeamItem from './Team_item.vue'
-import TeamDetails from './Team_details.vue'
 
 export default {
   data: () => {
@@ -156,8 +155,7 @@ export default {
     }
   },
   components: {
-    appTeamItem: TeamItem,
-    appTeamDetails: TeamDetails
+    appTeamItem: TeamItem
   },
   created () {
     this.getTeams()

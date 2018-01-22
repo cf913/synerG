@@ -39,7 +39,7 @@ export default new Router({
           component: Profile
         },
         {
-          path: 'players/:id/myteams',
+          path: 'myteams',
           component: MyTeams
         },
         {

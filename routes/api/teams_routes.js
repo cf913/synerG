@@ -11,6 +11,7 @@ router.post('/', TeamsController.getTeams)
 // Get team details
 router.get('/:id',  TeamsController.getTeam)
 router.post('/new', TeamsController.createTeam)
+router.post('/myteams', TeamsController.getMyTeams)
 
 
 // Making sure a user CAN NOT edit someone else's profile

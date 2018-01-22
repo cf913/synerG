@@ -21,13 +21,26 @@ module.exports = {
   },
   
   getTeams(req, res, next) {
+    console.log(req.body)
     let query = buildQuery(req.body)
+    console.log(query)
     Team.find(query).limit(30)
     .then((teams) => {
         res.send(teams)
     })
     .catch(err => {
         console.log(err)
+    })
+  },
+  
+  getMyTeams(req, res, next) {
+    console.log(req.body)
+    Team.find({teamAdmins: req.body.steamId})
+    .then(team => {
+      res.send(team)
+    })
+    .catch(err => {
+      console.log(err)
     })
   },
   
