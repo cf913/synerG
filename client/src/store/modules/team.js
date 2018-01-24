@@ -57,16 +57,16 @@ const actions = {
     commit('reset')
   },
   editTeam ({commit, state, rootState}, data) {
-    if (!(state.getters.team.teamAdmins.includes(rootState.getters.user.steamId))) {
+    if (!(state.team.teamAdmins.includes(rootState.AuthModule.user.steamId)) && rootState.AuthModule.idToken) {
       console.log('You are not a team admin')
-      router.replace(`/teams/${state.getters.team._id}`)
+      router.replace(`/teams/${state.team._id}`)
       return
     }
     // axios.post(`/api/teams/${state.getters.team._id}/edit?token=${rootState.getters.idToken}`, data.data)
-    axios.post(`/api/teams/${state.getters.team._id}/edit`, data.data)
+    axios.post(`/api/teams/${state.team._id}/edit`, data.data)
     .then(res => {
       console.dir('Profile Updated!')
-      router.replace(`/players/${state.getters.team._id}`)
+      router.replace(`/teams/${state.team._id}`)
       return res
     })
     .catch(err => {
