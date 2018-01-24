@@ -59,8 +59,8 @@ const actions = {
       for (let key in data) {
         resultArray.push(data[key])
       }
-      state.team_list_loading = false
-      state.teams = resultArray
+      state.my_team_list_loading = false
+      state.my_teams = resultArray
       commit('myTeamList', {
         my_team_list_loading: false,
         my_teams: resultArray

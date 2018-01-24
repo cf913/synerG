@@ -2,12 +2,12 @@
   <div class="new-team text-left container tile gray-tile tile-shadow">
     <div class="">
       <div class="container py-3 text-left">
-        <h2 class="py-3">Create New Team</h2>
+        <h2 class="py-3">{{team.teamName}}</h2>
           <form>
             <div class="tiled inner-tile">
               <div class="form-group">
                 <label class="col-form-label" for="team-name">Team Name</label>
-                <input type="text" class="form-control" id="team-name" name="team_name" v-model="team_name" placeholder="Team Name">
+                <input type="text" class="form-control" id="team-name" name="team_name" v-model="team_name">
               </div>
             </div>
             <!--<div class="tiled inner-tile">-->
@@ -20,7 +20,6 @@
               <h5 class="label">Description:</h5>
               <b-form-textarea class="description"
                 v-model="description"
-                placeholder="Describe what sort of players you are looking for and what your want to do as a team ..."
                 :rows="3"
                 :max-rows="6">
               </b-form-textarea>
@@ -77,28 +76,12 @@ export default {
   data () {
     return {
       team_name: '',
-      team_logo: '',
       description: '',
-      recruiting_selected: [],
+      regions_selected: [], // Must be an array reference!
       languages_selected: [],
-      regions_selected: [],
+      comms_selected: [],
+      recruiting_selected: [],
       competitive_selected: '',
-      recruiting_options: [
-        { text: 'Carry', value: 'Carry' },
-        { text: 'Midlaner', value: 'Midlaner' },
-        { text: 'Offlaner', value: 'Offlaner' },
-        { text: 'Farming Support', value: 'Farming Support' },
-        { text: 'Hard Support', value: 'Hard Support' }
-      ],
-      languages_options: [
-        { text: 'English', value: 'English' },
-        { text: 'Chinese', value: 'Chinese' },
-        { text: 'French', value: 'French' },
-        { text: 'Korean', value: 'Korean' },
-        { text: 'Portuguese', value: 'Portuguese' },
-        { text: 'Russian', value: 'Russian' },
-        { text: 'Spanish', value: 'Spanish' }
-      ],
       regions_options: [
         { text: 'Chile', value: 'Chile' },
         { text: 'China', value: 'China' },
@@ -113,26 +96,46 @@ export default {
         { text: 'US West', value: 'US West' },
         { text: 'US East', value: 'US East' }
       ],
+      languages_options: [
+        { text: 'English', value: 'English' },
+        { text: 'Chinese', value: 'Chinese' },
+        { text: 'French', value: 'French' },
+        { text: 'Korean', value: 'Korean' },
+        { text: 'Portuguese', value: 'Portuguese' },
+        { text: 'Russian', value: 'Russian' },
+        { text: 'Spanish', value: 'Spanish' }
+      ],
+      comms_options: [
+        { text: 'In-Game Chat/Mic', value: 'In-Game Chat/Mic' },
+        { text: 'Discord', value: 'Discord' },
+        { text: 'TeamSpeak', value: 'TeamSpeak' },
+        { text: 'Skype', value: 'Skype' }
+      ],
+      recruiting_options: [
+        { text: 'Carry', value: 'Carry' },
+        { text: 'Midlaner', value: 'Midlaner' },
+        { text: 'Offlaner', value: 'Offlaner' },
+        { text: 'Farming Support', value: 'Farming Support' },
+        { text: 'Hard Support', value: 'Hard Support' }
+      ],
       competitive_options: [
         { text: 'Casual Unranked', value: 'Casual Unranked' },
         { text: 'Casual Ranked', value: 'Casual Ranked' },
         { text: 'Semi-Competitive Ranked', value: 'Semi-Competitive Ranked' },
         { text: 'Competitive Ranked', value: 'Competitive Ranked' },
         { text: 'Tournaments', value: 'Tournaments' }
-      ],
-      comms_options: [
-        { text: 'In-Game Chat/Mic', value: 'In-Game Chat/Mic' },
-        { text: 'Discord', value: 'Discord' },
-        { text: 'Skype', value: 'Skype' },
-        { text: 'Teamspeak', value: 'Teamspeak' }
       ]
+    }
+  },
+  computed: {
+    team () {
+      return this.$store.getters.team
     }
   },
   methods: {
     onSubmit () {
       const data = {
         teamName: this.team_name,
-        teamLogo: this.team_logo,
         description: this.description,
         regions: this.regions_selected,
         languages: this.languages_selected,
@@ -140,12 +143,21 @@ export default {
         recruiting: this.recruiting_selected,
         competitiveness: this.competitive_selected
       }
-      console.log(data)
-      this.$store.dispatch('createTeam', data)
+      this.$store.dispatch('editTeam', {data, id: this.$route.params.id})
     },
     onCancel () {
       this.$router.go(-1)
     }
+  },
+  activated () {
+    const team = this.$store.getters.team
+    this.team_name = team.teamName
+    this.description = team.description
+    this.regions_selected = team.regions
+    this.languages_selected = team.languages
+    this.comms_selected = team.comms
+    this.recruiting_selected = team.recruiting
+    this.competitive_selected = team.competitiveness
   }
 }
 </script>
@@ -157,4 +169,3 @@ export default {
     margin-bottom: 15px;
   }
 </style>
-

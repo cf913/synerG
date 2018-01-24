@@ -64,6 +64,7 @@
               <!--  <li><a :href="`http://www.steamcommunity.com/profiles/${player.steamId}`" class="scale-up" target="_blank"><i class="fa fa-steam-square fa-fw"></i></a></li>-->
               <!--  <li><a class="scale-up" @click="updatePlayer"><i class="fa fa-refresh fa-fw"></i></a></li>-->
               <!--</ul>-->
+              <router-link v-if="team.teamAdmins.includes(user.steamId)" :to="{ name: 'teamEdit', params: { id: team._id }}"><i class="fa fa-edit"></i></router-link>
             </header>
             <div class="tiled description inner-tile">
               <p>
@@ -102,6 +103,9 @@
 <script>
 export default {
   computed: {
+    user () {
+      return this.$store.getters.user
+    },
     team () {
       return this.$store.getters.team
     },

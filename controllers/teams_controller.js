@@ -53,6 +53,16 @@ module.exports = {
       console.log(err)
     })
   },
+  
+  editTeam(req, res, next) {
+    Team.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true })
+    .then(team => {
+        res.send(team)
+    })
+    .catch(err => {
+        res.send(err)
+    })
+  }
 }
 
 function buildQuery(body) {

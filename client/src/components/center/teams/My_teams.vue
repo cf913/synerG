@@ -12,6 +12,7 @@
         <li class="list-group-item tile-shadow inner-tile">
           <app-team-item :team="team"></app-team-item>
         </li>
+        <br>
       </ul>
     </div>
   </div>
@@ -37,7 +38,7 @@ export default {
   components: {
     appTeamItem: TeamItem
   },
-  created () {
+  activated () {
     this.getMyTeams()
   }
 }
