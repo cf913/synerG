@@ -6,7 +6,6 @@ import Main from '@/components/Main'
 import Home from '@/components/center/Home'
 import PlayerDetails from '@/components/center/players/Player_details'
 import PlayerEdit from '@/components/center/players/Player_edit'
-import Profile from '@/components/center/Profile'
 import MyTeams from '@/components/center/teams/My_teams'
 import TeamsNew from '@/components/center/teams/Team_new'
 import TeamDetails from '@/components/center/teams/Team_details'
@@ -34,10 +33,6 @@ export default new Router({
         {
           path: 'players/:id/edit',
           component: PlayerEdit
-        },
-        {
-          path: 'profile',
-          component: Profile
         },
         {
           path: 'myteams',
