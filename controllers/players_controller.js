@@ -1,4 +1,5 @@
 const Player = require('@models/player')
+const Team = require('@models/team')
 const request = require('request-promise')
 const convertor = require('steam-id-convertor')
 const config = require('@config')
@@ -19,6 +20,11 @@ module.exports = {
 
     getPlayer(req, res, next) {
         Player.findOne({steamId: req.params.id})
+        .populate({path: 'teams', model: Team})
+        .exec(function (err, team) {
+        if (err) return console.log(err);
+        console.log(team);
+        })
         .then(player => {
             res.send(player)
         })
