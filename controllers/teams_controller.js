@@ -1,4 +1,5 @@
 const Team = require('@models/team')
+const Player = require('@models/player')
 const request = require('request-promise')
 const config = require('@config')
 const jwt = require('jsonwebtoken')
@@ -9,7 +10,7 @@ module.exports = {
     console.log(req.body)
     let data = new Team(req.body.data)
     console.log(data)
-    data.teamAdmins.push(req.body.user.steamId)
+    data.teamAdmins.push(req.body.user._id)
     data.save()
     .then(team => {
       console.log('New team created')
@@ -35,7 +36,7 @@ module.exports = {
   
   getMyTeams(req, res, next) {
     console.log(req.body)
-    Team.find({ $or: [{teamAdmins: req.body.steamId}, {teamMembers: req.body.steamId}]})
+    Team.find({ $or: [{teamAdmins: req.body._id}, {teamMembers: req.body._id}]})
     .then(team => {
       res.send(team)
     })
@@ -46,6 +47,11 @@ module.exports = {
   
   getTeam(req, res, next) {
     Team.findOne({_id: req.params.id})
+    .populate({path: 'teamAdmins', model: Player})
+    .exec(function (err, team) {
+    if (err) return console.log(err);
+    console.log(team);
+    })
     .then(team => {
       res.send(team)
     })

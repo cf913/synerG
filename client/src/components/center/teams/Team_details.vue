@@ -64,7 +64,7 @@
               <!--  <li><a :href="`http://www.steamcommunity.com/profiles/${player.steamId}`" class="scale-up" target="_blank"><i class="fa fa-steam-square fa-fw"></i></a></li>-->
               <!--  <li><a class="scale-up" @click="updatePlayer"><i class="fa fa-refresh fa-fw"></i></a></li>-->
               <!--</ul>-->
-              <router-link v-if="team.teamAdmins.includes(user.steamId)" :to="{ name: 'teamEdit', params: { id: team._id }}"><i class="fa fa-edit"></i></router-link>
+              <router-link v-if="team.teamAdmins.includes(user.steamId)" :to="{ name: 'teamEdit', params: { id: team._id }}" class="scale-up"><i class="fa fa-edit"></i></router-link>
             </header>
             <div class="tiled description inner-tile">
               <p>
@@ -91,6 +91,14 @@
             <div class="tiled other inner-tile">
               <p class="title">Other</p>
             </div>
+            <div class="tiled other inner-tile">
+              <p class="title">Team Members</p>
+              <ul class="list-group clearfix" v-for="(player, index) in team.teamAdmins" :key="index">
+                <li class="list-group-item tile-shadow inner-tile">
+                  <app-player-item :player="player"></app-player-item>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -101,6 +109,9 @@
 </template>
 
 <script>
+import PlayerItem from '../players/Player_item.vue'
+import PlayerDetails from '../players/Player_details.vue'
+
 export default {
   computed: {
     user () {
@@ -159,6 +170,10 @@ export default {
     //   this.$store.dispatch('updateTeam', this.$route.params.id)
     // }
   },
+  components: {
+    appPlayerItem: PlayerItem,
+    appPlayerDetails: PlayerDetails
+  },
   // watch: {
   //   '$route.params.id' (newId, oldId) {
   //     this.$store.dispatch('resetTeamDetails')
@@ -189,22 +204,23 @@ export default {
     margin-bottom: 15px;
   }
 
-  a.scale-up i{
+  .scale-up i{
+    font-size: 1.8em;
     cursor: pointer;
     transform: scale(1);
     transition: 0.3s;
   }
 
-  a.scale-up:hover i{
+  .scale-up:hover i{
     transform: scale(1.3);
     transition: 0.1s;
   }
 
-  a.scale-up:active i{
+  .scale-up:active i{
     transform: scale(1.1); 
   }
 
-  a.scale-up:focus i{
+  .scale-up:focus i{
     transform: scale(1.1); 
   }
   
@@ -240,10 +256,6 @@ export default {
   ul.links li {
     display: inline-block;
   }
-  ul.links li a i {
-    font-size: 1.8em;
-  }
-
 
   .title {
     font-weight: 600;

@@ -41,7 +41,7 @@ const PlayerSchema = new Schema({
     pending_received: [String],
     blocked: [String]
   },
-  teams: [{type: Schema.Types.ObjectId, ref: 'team'}],
+  teams: [{type: Schema.Types.ObjectId, ref: 'Team'}],
 }, { minimize: false })
 
 
@@ -72,6 +72,6 @@ PlayerSchema.plugin(uniqueValidator);
 //   });
 // };
 
-const Player = mongoose.model('player', PlayerSchema)
+const Player = mongoose.model('Player', PlayerSchema)
 
 module.exports = Player
