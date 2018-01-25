@@ -12,8 +12,10 @@ module.exports = {
     console.log(data)
     data.teamAdmins.push(req.body.user._id)
     data.save()
+    Player.findOneAndUpdate({_id: req.body.user._id}, {$push: {"teams" : data._id}})
     .then(team => {
       console.log('New team created')
+      console.log(team)
       res.send(team)
     })
     .catch(err => {

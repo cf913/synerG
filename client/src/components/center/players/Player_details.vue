@@ -96,6 +96,11 @@
             </div>
             <div class="tiled teams inner-tile">
               <p class="title">Teams</p>
+              <ul class="list-group clearfix" v-for="(team, index) in player.teams" :key="index">
+                <li class="list-group-item tile-shadow inner-tile">
+                  <app-team-item :team="team"></app-team-item>
+                </li>
+              </ul>
             </div>
             <div class="tiled playstyle inner-tile">
               <p class="title">Playstyle</p>
@@ -113,6 +118,9 @@
 </template>
 
 <script>
+import TeamItem from '../teams/Team_item.vue'
+import TeamDetails from '../teams/Team_details.vue'
+
 export default {
   computed: {
     heroes () {
@@ -170,6 +178,10 @@ export default {
       console.log('Updating Players...')
       this.$store.dispatch('updatePlayer', this.$route.params.id)
     }
+  },
+  components: {
+    appTeamItem: TeamItem,
+    appTeamDetails: TeamDetails
   },
   // watch: {
   //   '$route.params.id' (newId, oldId) {
