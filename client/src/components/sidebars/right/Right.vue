@@ -2,7 +2,7 @@
   <div class="players tile gray-tile tile-shadow" v-if="isLoggedIn">
     <b-nav justified tabs class="top-tabs">
       <b-nav-item to="/" exact><i class="fa fa-newspaper-o"></i></b-nav-item>
-      <b-nav-item to="/profile"><i class="fa fa-user-circle-o"></i></b-nav-item>
+      <b-nav-item :to="{ name: 'playerDetails', params: { id: user.steamId }}"><i class="fa fa-user-circle-o"></i></b-nav-item>
       <b-nav-item to="/myteams"><i class="fa fa-group"></i></b-nav-item>
       <b-nav-item to="/friends"><i class="fa fa-address-book"></i></b-nav-item>
       <b-nav-item to="/messages"><i class="fa fa-envelope"></i></b-nav-item>
