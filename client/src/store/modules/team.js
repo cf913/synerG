@@ -18,19 +18,21 @@ const mutations = {
 }
 
 const actions = {
-  createTeam ({commit, rootState}, data) {
+  createTeam (rootState, data) {
     console.log('About to post')
     console.log(data)
-    axios.post(`/api/teams/new`, {data: data, user: rootState.AuthModule.user})
+    console.log('ROOTSTATE')
+    console.log(rootState.getters)
+    axios.post(`/api/teams/new?token=${rootState.getters.idToken}`, {data: data, user: rootState.getters.user})
     .then(res => {
       return res
     })
     .then(({data}) => {
       console.log('done')
       console.log(data)
-      console.log(rootState.AuthModule.user)
+      console.log(rootState.getters.user)
       // data.teamAdmins.push(rootState.AuthModule.user)
-      router.replace(`/profile`)
+      router.replace(`/teams/${rootState.getters.team._id}`)
     })
     .catch(err => {
       console.log('edit err: ' + err)
@@ -56,17 +58,17 @@ const actions = {
   resetTeamDetails ({commit}) {
     commit('reset')
   },
-  editTeam ({commit, state, rootState}, data) {
-    if (!(state.team.teamAdmins.includes(rootState.AuthModule.user.steamId)) && rootState.AuthModule.idToken) {
+  editTeam (rootState, data) {
+    if (!(rootState.getters.team.teamAdmins.filter(admin => (admin.steamId === rootState.getters.user.steamId)).length) || !rootState.getters.idToken) {
       console.log('You are not a team admin')
-      router.replace(`/teams/${state.team._id}`)
+      router.replace(`/teams/${rootState.getters.team._id}`)
       return
     }
     // axios.post(`/api/teams/${state.getters.team._id}/edit?token=${rootState.getters.idToken}`, data.data)
-    axios.post(`/api/teams/${state.team._id}/edit`, data.data)
+    axios.post(`/api/teams/${rootState.getters.team._id}/edit?token=${rootState.getters.idToken}`, data.data)
     .then(res => {
       console.dir('Profile Updated!')
-      router.replace(`/teams/${state.team._id}`)
+      router.replace(`/teams/${rootState.getters.team._id}`)
       return res
     })
     .catch(err => {

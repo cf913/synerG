@@ -19,7 +19,7 @@ module.exports = (passport) => {
         console.log('ACCESS GRANTED')
         done(null, user)
       } else {
-        console.log('ELSE WTF??')
+        console.log('Please login')
         done(null, false)
       }
     })

@@ -49,7 +49,7 @@ const actions = {
   },
   getMyTeams ({commit, state, rootState}) {
     console.log('Getting my teams')
-    axios.post('/api/teams/myteams', rootState.AuthModule.user)
+    axios.post(`/api/teams/myteams?token=${rootState.AuthModule.idToken}`, rootState.AuthModule.user)
     .then(res => {
       return res
     })
