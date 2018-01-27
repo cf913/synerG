@@ -32,7 +32,7 @@ const actions = {
       console.log(data)
       console.log(rootState.getters.user)
       // data.teamAdmins.push(rootState.AuthModule.user)
-      router.replace(`/teams/${rootState.getters.team._id}`)
+      router.replace(`/players/${rootState.getters.user.steamId}`)
     })
     .catch(err => {
       console.log('edit err: ' + err)
