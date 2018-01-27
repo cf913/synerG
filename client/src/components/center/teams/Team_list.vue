@@ -39,7 +39,7 @@
       <img src="../../../assets/loading.svg" alt="">
     </div>
     <ul class="list-group clearfix" v-for="(team, index) in teams" :key="index">
-      <li class="list-group-item tile-shadow inner-tile">
+      <li class="list-group-item inner-tile">
         <!--<app-team-item :team="team" @teamSelected="onTeamSelected"></app-team-item>-->
         <app-team-item :team="team"></app-team-item>
       </li>
@@ -164,6 +164,9 @@ export default {
 </script>
 
 <style scoped>
+  .inner-tile {
+    margin-bottom: 5px;
+  }
   .padding-0{
       padding-right:0;
       padding-left:0;

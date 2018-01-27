@@ -10,7 +10,7 @@
         <a v-if="inReceived" class="btn btn-danger btn-sm float-right" @click="declineRequest(player.steamId)"><i class="fa fa-times fa-fw"></i></a>
         <a v-else-if="inSent" class="btn btn-warning btn-sm float-right" @click="cancelRequest(player.steamId)" title="Cancel request"><i class="fa fa-ban fa-fw"></i></a>
         <a v-else-if="inAccepted" class="btn btn-outline-secondary btn-sm float-right disabled"><i class="fa fa-check fa-fw"></i></a>
-        <a v-else-if="player.steamId !== user.steamId" class="btn btn-primary btn-sm float-right" @click="sendRequest(player.steamId)"><i class="fa fa-user-plus fa-fw"></i></a>
+        <a v-else-if="player.steamId !== user.steamId" :class="{disabled: !isLoggedIn}" class="btn btn-primary btn-sm float-right" @click="sendRequest(player.steamId)"><i class="fa fa-user-plus fa-fw"></i></a>
         <!-- <router-link class="btn btn-warning btn-sm float-right" :to="{}"><i class="fa fa-comment fa-fw"></i></router-link> -->
         <!-- <router-link class="btn btn-secondary btn-sm float-right" :to="{ path: `/players/${player.steamId}`}"><i class="fa fa-user-circle-o fa-fw"></i></router-link> -->
         <!--<router-link :to="{ path: `/players/${player.steamId}`}"><h5>{{ player.steamName }}</h5></router-link>-->
@@ -40,6 +40,7 @@ export default {
   props: ['player'],
   computed: {
     user () {
+      if (!this.$store.getters.user) return false
       return this.$store.getters.user
     },
     inSent () {
@@ -57,6 +58,10 @@ export default {
     inBlocked () {
       if (this.$store.getters.user) return this.$store.getters.user.friends.blocked.includes(this.player.steamId)
       else return false
+    },
+    isLoggedIn () {
+      return this.$store.getters.isAuthenticated
+      // return true
     }
   },
   methods: {

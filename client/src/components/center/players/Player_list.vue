@@ -4,7 +4,7 @@
       <b-form-input type="text" placeholder="Search for players..." v-model="player_search">
       </b-form-input>
       <div class="row maxwidth">
-        <div class="col-lg-4 padding-0">
+        <div class="col-lg-6 padding-0">
           <b-form-select v-model="positions_selected" :options="positions_options">
           </b-form-select>
         </div>
@@ -12,25 +12,25 @@
         <!--  <b-form-select v-model="mmr_selected" :options="mmr_options">-->
         <!--  </b-form-select>-->
         <!--</div>-->
-        <div class="col-lg-4 padding-0">
+        <div class="col-lg-6 padding-0">
           <b-form-select v-model="regions_selected" :options="regions_options">
           </b-form-select>
         </div>
       </div>
       <div class="row maxwidth">
-        <div class="col-lg-4 padding-0">
+        <div class="col-lg-6 padding-0">
           <b-form-select v-model="languages_selected" :options="languages_options">
           </b-form-select>
         </div>
-        <div class="col-lg-4 padding-0">
+        <div class="col-lg-6 padding-0">
           <b-form-select v-model="comms_selected" :options="comms_options">
           </b-form-select>
         </div>
-        <div class="col-lg-4 padding-0">
+      </div>
+      <div class="sub">
+          <b-button @click.prevent="onSubmit()" variant="info" class="subButton"><i class="fa fa-search"></i> Search</b-button>
           <!--Need to add functionality here to actually submit-->
-          <b-button @click.prevent="onSubmit()" variant="info"><i class="fa fa-search"></i> Search</b-button>
-          <b-button @click.prevent="onReset()" variant="warning">Reset</b-button>
-        </div>
+          <b-button @click.prevent="onReset()" variant="warning" class="subButton">Reset</b-button>
       </div>
     </b-form>
     
@@ -39,7 +39,7 @@
       <img src="../../../assets/loading.svg" alt="">
     </div>
       <ul class="list-group clearfix" v-for="(player, index) in players" :key="index">
-        <li class="list-group-item tile-shadow inner-tile">
+        <li class="list-group-item inner-tile">
           <!--<app-player-item :player="player" @playerSelected="onPlayerSelected"></app-player-item>-->
           <app-player-item :player="player"></app-player-item>
         </li>
@@ -211,12 +211,25 @@ export default {
 </script>
 
 <style scoped>
+.inner-tile {
+  margin-bottom: 5px;
+}
   .padding-0{
-      padding-right:0;
-      padding-left:0;
+    padding: 0;
   }
   .maxwidth{
     width: 100%;
     margin: 0;
+  }
+
+  .sub {
+    max-width: 220px;
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .subButton {
+    width: 100px;
   }
 </style>

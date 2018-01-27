@@ -1,18 +1,26 @@
 <template>
-  <div class="players tile gray-tile tile-shadow" v-if="isLoggedIn">
+  <div class="players tile gray-tile tile-shadow">
     <b-nav justified tabs class="top-tabs">
-      <b-nav-item to="/" exact><i class="fa fa-newspaper-o"></i></b-nav-item>
-      <b-nav-item :to="{ name: 'playerDetails', params: { id: user.steamId }}"><i class="fa fa-user-circle-o"></i></b-nav-item>
-      <b-nav-item to="/myteams"><i class="fa fa-group"></i></b-nav-item>
-      <b-nav-item to="/friends"><i class="fa fa-address-book"></i></b-nav-item>
-      <b-nav-item to="/messages"><i class="fa fa-envelope"></i></b-nav-item>
-      <b-nav-item to="/settings"><i class="fa fa-gear"></i></b-nav-item>
+      <b-nav-item to="/" exact :disabled="!isLoggedIn"><i class="fa fa-newspaper-o"></i></b-nav-item>
+      <b-nav-item :to="{ name: 'playerDetails', params: { id: user.steamId }}" :disabled="!isLoggedIn"><i class="fa fa-user-circle-o"></i></b-nav-item>
+      <b-nav-item to="/myteams" :disabled="!isLoggedIn"><i class="fa fa-group"></i></b-nav-item>
+      <b-nav-item to="/friends" :disabled="!isLoggedIn"><i class="fa fa-address-book"></i></b-nav-item>
+      <b-nav-item to="/messages" :disabled="!isLoggedIn"><i class="fa fa-envelope"></i></b-nav-item>
+      <b-nav-item to="/settings" :disabled="!isLoggedIn"><i class="fa fa-gear"></i></b-nav-item>
     </b-nav>
 
-
-    <div class="card-header d-flex align-items-center" id="rightprofile">
+    <!-- LOGGED IN -->
+    <div class="card-header d-flex align-items-center" id="rightprofile" v-if="isLoggedIn">
       <img class="avatar" :src="user.img" alt="Avatar">
       <h4 class="profile-name">{{ user.steamName }}</h4>
+    </div>
+
+    <!-- SIGN IN BUTTON-->
+    <div class="login" v-else>
+      <a href="/auth/steam/steam" class="btn btn-outline-secondary btn-md d-inline-flex align-items-center my-3 sign-in">
+        <i class="fa fa-steam p-2"></i> 
+        <span class="p-2">Sign in with Steam</span>
+      </a>
     </div>
 
     
@@ -24,13 +32,6 @@
       <component :is="tab" id="search"></component>
     </keep-alive>
 
-  </div>
-  <div class="login" v-else>
-    <a href="/auth/steam/steam" class="btn btn-primary btn-lg d-inline-flex align-items-center">
-      <i class="fa fa-steam p-2"></i> 
-      <span class="p-2">Sign in with Steam</span>
-    </a>
-    <router-link :to="{ path: `/players/${userId}/edit`}" class="btn btn-warning btn-lg my-2">Edit Profile</router-link>
   </div>
 </template>
 
@@ -68,6 +69,16 @@ export default {
 </script>
 
 <style scoped>
+
+  a.btn.sign-in {
+    color: white !important;
+    border-color: white !important;
+  }
+
+  a.btn.sign-in:hover {
+    background-color: rgba(0,0,0,0.5) !important;
+  }
+
   .login i {
     flex: 1;
     font-size: 2em;
@@ -92,7 +103,7 @@ export default {
   }
 
   #search{
-    padding: 0;
+    padding: 5px;
   }
   
 
