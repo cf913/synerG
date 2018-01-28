@@ -2,7 +2,8 @@ import Axios from 'axios'
 import router from '@/router'
 
 // const host = `https://synerg-tchung95.c9users.io/`
-const host = `http://localhost:3000`
+// const host = `http://localhost:3000`
+const host = `https://b1g-synerg.herokuapp.com/`
 
 export default {
   user: { authenticated: false },
