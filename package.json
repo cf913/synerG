@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "build": "./build.sh",
-    "postinstall": "npm --prefix ./client install && npm  --prefix ./client run build"
+    "build": "./build.sh"
   },
   "_moduleAliases": {
     "@root": ".",
