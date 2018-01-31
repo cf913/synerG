@@ -65,6 +65,8 @@
               <!--  <li><a class="scale-up" @click="updatePlayer"><i class="fa fa-refresh fa-fw"></i></a></li>-->
               <!--</ul>-->
               <router-link v-if="team.teamAdmins.filter(admin => (admin.steamId === user.steamId)).length" :to="{ name: 'teamEdit', params: { id: team._id }}" class="btn scale-up"><i class="fa fa-edit"></i></router-link>
+              <a v-else-if="team.teamMembers.filter(member => (member.steamId === user.steamId)).length"  class="btn btn-outline-secondary btn-sm float-right disabled"><i class="fa fa-check fa-fw"></i></a>
+              <a v-else class="btn btn-primary btn-sm float-right"><i class="fa fa-plus fa-fw"></i></a>
             </header>
             <div class="tiled description inner-tile">
               <p>
