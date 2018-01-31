@@ -64,9 +64,11 @@
               <!--  <li><a :href="`http://www.steamcommunity.com/profiles/${player.steamId}`" class="scale-up" target="_blank"><i class="fa fa-steam-square fa-fw"></i></a></li>-->
               <!--  <li><a class="scale-up" @click="updatePlayer"><i class="fa fa-refresh fa-fw"></i></a></li>-->
               <!--</ul>-->
+              <!--Icon only changes after refreshing NEED TO FIX-->
               <router-link v-if="team.teamAdmins.filter(admin => (admin.steamId === user.steamId)).length" :to="{ name: 'teamEdit', params: { id: team._id }}" class="btn scale-up"><i class="fa fa-edit"></i></router-link>
               <a v-else-if="team.teamMembers.filter(member => (member.steamId === user.steamId)).length"  class="btn btn-outline-secondary btn-sm float-right disabled"><i class="fa fa-check fa-fw"></i></a>
-              <a v-else class="btn btn-primary btn-sm float-right"><i class="fa fa-plus fa-fw"></i></a>
+              <a v-else-if="team.pending.filter(pending => (pending.steamId === user.steamId)).length"  class="btn btn-warning btn-sm float-right"><i class="fa fa-ban fa-fw"></i></a>
+              <a v-else class="btn btn-primary btn-sm float-right" @click="sendTeamRequest()"><i class="fa fa-plus fa-fw"></i></a>
             </header>
             <div class="tiled description inner-tile">
               <p>
@@ -164,6 +166,9 @@ export default {
     // },
     getTeam () {
       this.$store.dispatch('getTeam', this.$route.params.id)
+    },
+    sendTeamRequest () {
+      this.$store.dispatch('sendTeamRequest', this.$route.params.id)
     },
     onBack () {
       this.$router.go(-1)

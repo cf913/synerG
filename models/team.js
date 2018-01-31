@@ -15,7 +15,8 @@ const TeamSchema = new Schema({
   competitiveness: String,
   teamMembers: [{type: Schema.Types.ObjectId, ref: 'Player'}],
   // teamAdmins: [PlayerSchema]
-  teamAdmins: [{type: Schema.Types.ObjectId, ref: 'Player'}]
+  teamAdmins: [{type: Schema.Types.ObjectId, ref: 'Player'}],
+  pending: [{type: Schema.Types.ObjectId, ref: 'Player'}]
 })
 
 

@@ -49,7 +49,7 @@ module.exports = {
   
   getTeam(req, res, next) {
     Team.findOne({_id: req.params.id})
-    .populate({path: 'teamAdmins', model: Player})
+    .populate([{path: 'teamAdmins', model: Player}, {path: 'teamMembers', model: Player}, {path: 'pending', model: Player}])
     .exec(function (err, team) {
     if (err) return console.log(err);
     console.log(team);
@@ -69,6 +69,19 @@ module.exports = {
     })
     .catch(err => {
         res.send(err)
+    })
+  },
+  
+  sendTeamRequest(req, res, next) {
+    console.log(req.body)
+    Team.findOneAndUpdate({_id: req.params.id}, {$push: {"pending": req.body._id}})
+    .then(team => {
+      console.log("request sent")
+      console.log(team)
+      res.send(team)
+    })
+    .catch(err => {
+      res.send(err)
     })
   }
 }

@@ -74,6 +74,23 @@ const actions = {
     .catch(err => {
       console.log('edit err: ' + err)
     })
+  },
+  sendTeamRequest (rootState, teamId) {
+    if ((rootState.getters.team.teamAdmins.filter(admin => (admin.steamId === rootState.getters.user.steamId)).length) || (rootState.getters.team.teamMembers.filter(member => (member.steamId === rootState.getters.user.steamId)).length)) {
+      console.log('You are already a team member')
+      router.replace(`/teams/${rootState.getters.team._id}`)
+      return
+    }
+    // axios.post(`/api/teams/${teamId}/send?token=${rootState.getters.idToken}`, rootState.getters.user)
+    axios.post(`/api/teams/${teamId}/send`, rootState.getters.user)
+    .then(res => {
+      console.dir('Request Sent!')
+      router.replace(`/teams/${rootState.getters.team._id}`)
+      return res
+    })
+    .catch(err => {
+      console.log('edit err: ' + err)
+    })
   }
 }
 
