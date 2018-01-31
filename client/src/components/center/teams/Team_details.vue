@@ -103,6 +103,26 @@
                 </li>
               </ul>
             </div>
+            <div v-if="team.teamAdmins.filter(admin => (admin.steamId === user.steamId)).length" class="tiled other inner-tile">
+              <p class="title">Pending Requests</p>
+              <span v-if="team.pending.length !== 0">
+                <ul class="list-group clearfix" v-for="(player, index) in team.pending" :key="index">
+                  <li class="list-group-item inner-tile">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <img id="avatar" :src="player.img" alt="Avatar">
+                      </div>
+                      <div class="col-sm-9">
+                        <router-link :to="{ name: 'playerDetails', params: { id: player.steamId }}"><h5>{{ player.steamName }}</h5></router-link>
+                        <a class="btn btn-success btn-sm float-right"><i class="fa fa-check fa-fw"></i></a>
+                        <a class="btn btn-danger btn-sm float-right"><i class="fa fa-times fa-fw"></i></a>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </span>
+              <p v-else class="title">You have no pending requests</p>
+            </div>
           </div>
         </div>
       </div>
@@ -205,6 +225,7 @@ export default {
 
   a {
     color: white;
+    cursor: pointer;
   }
 
   header {
@@ -269,5 +290,28 @@ export default {
     font-weight: 600;
     /* color: #106CD6; */
     color: orange;
+  }
+  
+  #avatar {
+    width: 40%;
+    border: 3px solid #fff;
+    border-radius: 5px;
+  }
+  
+  a.btn {
+    margin-left: 8px;
+  }
+  
+  a.btn i {
+    font-size: 1em;
+  }
+  
+  h5 {
+    display: inline-block;
+    margin-bottom: 15px;
+  }
+  
+  a:hover h5{
+    text-decoration: underline;
   }
 </style>
