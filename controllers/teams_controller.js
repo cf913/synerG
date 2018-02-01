@@ -83,6 +83,32 @@ module.exports = {
     .catch(err => {
       res.send(err)
     })
+  },
+  
+  declineTeamRequest(req, res, next) {
+    console.log(req.body)
+    Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"pending": req.body._id}})
+    .then(team => {
+      console.log("request declined")
+      console.log(team)
+      res.send(team)
+    })
+    .catch(err => {
+      res.send(err)
+    })
+  },
+  
+  acceptTeamRequest(req, res, next) {
+    console.log(req.body)
+    Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"pending": req.body._id}, $push: {"teamMembers": req.body._id}}, {multi: true})
+    .then(team => {
+      console.log("request accepted")
+      console.log(team)
+      res.send(team)
+    })
+    .catch(err => {
+      res.send(err)
+    })
   }
 }
 

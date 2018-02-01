@@ -114,8 +114,8 @@
                       </div>
                       <div class="col-sm-9">
                         <router-link :to="{ name: 'playerDetails', params: { id: player.steamId }}"><h5>{{ player.steamName }}</h5></router-link>
-                        <a class="btn btn-success btn-sm float-right"><i class="fa fa-check fa-fw"></i></a>
-                        <a class="btn btn-danger btn-sm float-right"><i class="fa fa-times fa-fw"></i></a>
+                        <a class="btn btn-danger btn-sm float-right" @click="declineTeamRequest(player)"><i class="fa fa-times fa-fw"></i></a>
+                        <a class="btn btn-success btn-sm float-right" @click="acceptTeamRequest(player)"><i class="fa fa-check fa-fw"></i></a>
                       </div>
                     </div>
                   </li>
@@ -189,6 +189,12 @@ export default {
     },
     sendTeamRequest () {
       this.$store.dispatch('sendTeamRequest', this.$route.params.id)
+    },
+    declineTeamRequest (player) {
+      this.$store.dispatch('declineTeamRequest', player)
+    },
+    acceptTeamRequest (player) {
+      this.$store.dispatch('acceptTeamRequest', player)
     },
     onBack () {
       this.$router.go(-1)

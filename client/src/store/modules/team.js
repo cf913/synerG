@@ -81,10 +81,49 @@ const actions = {
       router.replace(`/teams/${rootState.getters.team._id}`)
       return
     }
+    if (!rootState.getters.idToken) {
+      console.log('You are not authenticated')
+      router.replace(`/teams/${teamId}`)
+      return
+    }
     // axios.post(`/api/teams/${teamId}/send?token=${rootState.getters.idToken}`, rootState.getters.user)
     axios.post(`/api/teams/${teamId}/send`, rootState.getters.user)
     .then(res => {
       console.dir('Request Sent!')
+      router.replace(`/teams/${teamId}`)
+      return res
+    })
+    .catch(err => {
+      console.log('edit err: ' + err)
+    })
+  },
+  declineTeamRequest (rootState, player) {
+    if (!(rootState.getters.team.teamAdmins.filter(admin => (admin.steamId === rootState.getters.user.steamId)).length) || !rootState.getters.idToken) {
+      console.log('You are not a team admin')
+      router.replace(`/teams/${rootState.getters.team._id}`)
+      return
+    }
+    // axios.post(`/api/teams/${teamId}/send?token=${rootState.getters.idToken}`, rootState.getters.user)
+    axios.post(`/api/teams/${rootState.getters.team._id}/decline`, player)
+    .then(res => {
+      console.dir('Request Declined!')
+      router.replace(`/teams/${rootState.getters.team._id}`)
+      return res
+    })
+    .catch(err => {
+      console.log('edit err: ' + err)
+    })
+  },
+  acceptTeamRequest (rootState, player) {
+    if (!(rootState.getters.team.teamAdmins.filter(admin => (admin.steamId === rootState.getters.user.steamId)).length) || !rootState.getters.idToken) {
+      console.log('You are not a team admin')
+      router.replace(`/teams/${rootState.getters.team._id}`)
+      return
+    }
+    // axios.post(`/api/teams/${teamId}/send?token=${rootState.getters.idToken}`, rootState.getters.user)
+    axios.post(`/api/teams/${rootState.getters.team._id}/accept`, player)
+    .then(res => {
+      console.dir('Request Accepted!')
       router.replace(`/teams/${rootState.getters.team._id}`)
       return res
     })
