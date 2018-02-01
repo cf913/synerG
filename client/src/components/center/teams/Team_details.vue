@@ -65,9 +65,9 @@
               <!--  <li><a class="scale-up" @click="updatePlayer"><i class="fa fa-refresh fa-fw"></i></a></li>-->
               <!--</ul>-->
               <!--Icon only changes after refreshing NEED TO FIX-->
-              <router-link v-if="team.teamAdmins.filter(admin => (admin.steamId === user.steamId)).length" :to="{ name: 'teamEdit', params: { id: team._id }}" class="btn scale-up"><i class="fa fa-edit"></i></router-link>
-              <a v-else-if="team.teamMembers.filter(member => (member.steamId === user.steamId)).length"  class="btn btn-outline-secondary btn-sm float-right disabled"><i class="fa fa-check fa-fw"></i></a>
-              <a v-else-if="team.pending.filter(pending => (pending.steamId === user.steamId)).length"  class="btn btn-warning btn-sm float-right" @click="cancelTeamRequest"><i class="fa fa-ban fa-fw"></i></a>
+              <router-link v-if="isTeamAdmin" :to="{ name: 'teamEdit', params: { id: team._id }}" class="btn scale-up"><i class="fa fa-edit"></i></router-link>
+              <a v-else-if="isTeamMember"  class="btn btn-outline-secondary btn-sm float-right disabled"><i class="fa fa-check fa-fw"></i></a>
+              <a v-else-if="isPending"  class="btn btn-warning btn-sm float-right" @click="cancelTeamRequest"><i class="fa fa-ban fa-fw"></i></a>
               <a v-else class="btn btn-primary btn-sm float-right" @click="sendTeamRequest()"><i class="fa fa-plus fa-fw"></i></a>
             </header>
             <div class="tiled description inner-tile">
@@ -108,7 +108,7 @@
                 </li>
               </ul>
             </div>
-            <div v-if="team.teamAdmins.filter(admin => (admin.steamId === user.steamId)).length" class="tiled other inner-tile">
+            <div v-if="isTeamAdmin" class="tiled other inner-tile">
               <p class="title">Pending Requests</p>
               <span v-if="team.pending.length !== 0">
                 <ul class="list-group clearfix" v-for="(player, index) in team.pending" :key="index">
@@ -152,23 +152,19 @@ export default {
     },
     loading () {
       return this.$store.getters.team_loading
+    },
+    isTeamAdmin () {
+      if (this.$store.getters.user) return this.$store.getters.team.teamAdmins.filter(admin => (admin.steamId === this.$store.getters.user.steamId)).length
+      else return false
+    },
+    isTeamMember () {
+      if (this.$store.getters.user) return this.$store.getters.team.teamMembers.filter(member => (member.steamId === this.$store.getters.user.steamId)).length
+      else return false
+    },
+    isPending () {
+      if (this.$store.getters.user) return this.$store.getters.team.pending.filter(pending => (pending.steamId === this.$store.getters.user.steamId)).length
+      else return false
     }
-    // inSent () {
-    //   if (this.$store.getters.user) return this.$store.getters.user.friends.pending_sent.includes(this.player.steamId)
-    //   else return false
-    // },
-    // inReceived () {
-    //   if (this.$store.getters.user) return this.$store.getters.user.friends.pending_received.includes(this.player.steamId)
-    //   else return false
-    // },
-    // inAccepted () {
-    //   if (this.$store.getters.user) return this.$store.getters.user.friends.accepted.includes(this.player.steamId)
-    //   else return false
-    // },
-    // inBlocked () {
-    //   if (this.$store.getters.user) return this.$store.getters.user.friends.blocked.includes(this.player.steamId)
-    //   else return false
-    // }
   },
   methods: {
     getTeam () {
