@@ -14,9 +14,7 @@ router.post('/', TeamsController.getTeams)
 router.post('/new', passport.authenticate('jwt'), TeamsController.createTeam)
 router.post('/myteams', passport.authenticate('jwt'), TeamsController.getMyTeams)
 router.get('/:id',  TeamsController.getTeam)
-router.post('/:id/send', TeamsController.sendTeamRequest)
-router.post('/:id/decline', TeamsController.declineTeamRequest)
-router.post('/:id/accept', TeamsController.acceptTeamRequest)
+router.post('/:id/send', passport.authenticate('jwt'), TeamsController.sendTeamRequest)
 
 // Making sure a user CAN NOT edit someone else's team
 router.use('/:id/:action', passport.authenticate('jwt'), (req, res, next) => {
@@ -52,5 +50,7 @@ router.use('/:id/:action', passport.authenticate('jwt'), (req, res, next) => {
 
 // Edit teams
 router.post('/:id/edit', TeamsController.editTeam)
+router.post('/:id/decline', TeamsController.declineTeamRequest)
+router.post('/:id/accept', TeamsController.acceptTeamRequest)
 
 module.exports = router

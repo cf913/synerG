@@ -74,7 +74,7 @@ module.exports = {
   
   sendTeamRequest(req, res, next) {
     console.log(req.body)
-    Team.findOneAndUpdate({_id: req.params.id}, {$push: {"pending": req.body._id}})
+    Team.findOneAndUpdate({_id: req.params.id}, {$push: {"pending": req.body._id}}, {new: true})
     .then(team => {
       console.log("request sent")
       console.log(team)
@@ -87,7 +87,7 @@ module.exports = {
   
   declineTeamRequest(req, res, next) {
     console.log(req.body)
-    Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"pending": req.body._id}})
+    Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"pending": req.body._id}}, {new: true})
     .then(team => {
       console.log("request declined")
       console.log(team)
@@ -100,7 +100,7 @@ module.exports = {
   
   acceptTeamRequest(req, res, next) {
     console.log(req.body)
-    Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"pending": req.body._id}, $push: {"teamMembers": req.body._id}}, {multi: true})
+    Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"pending": req.body._id}, $push: {"teamMembers": req.body._id}}, {multi: true}, {new: true})
     .then(team => {
       console.log("request accepted")
       console.log(team)

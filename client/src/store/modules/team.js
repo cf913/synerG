@@ -87,7 +87,7 @@ const actions = {
       return
     }
     // axios.post(`/api/teams/${teamId}/send?token=${rootState.getters.idToken}`, rootState.getters.user)
-    axios.post(`/api/teams/${teamId}/send`, rootState.getters.user)
+    axios.post(`/api/teams/${teamId}/send?token=${rootState.getters.idToken}`, rootState.getters.user)
     .then(res => {
       console.dir('Request Sent!')
       router.replace(`/teams/${teamId}`)
@@ -104,7 +104,7 @@ const actions = {
       return
     }
     // axios.post(`/api/teams/${teamId}/send?token=${rootState.getters.idToken}`, rootState.getters.user)
-    axios.post(`/api/teams/${rootState.getters.team._id}/decline`, player)
+    axios.post(`/api/teams/${rootState.getters.team._id}/decline?token=${rootState.getters.idToken}`, player)
     .then(res => {
       console.dir('Request Declined!')
       router.replace(`/teams/${rootState.getters.team._id}`)
@@ -121,7 +121,7 @@ const actions = {
       return
     }
     // axios.post(`/api/teams/${teamId}/send?token=${rootState.getters.idToken}`, rootState.getters.user)
-    axios.post(`/api/teams/${rootState.getters.team._id}/accept`, player)
+    axios.post(`/api/teams/${rootState.getters.team._id}/accept?token=${rootState.getters.idToken}`, player)
     .then(res => {
       console.dir('Request Accepted!')
       router.replace(`/teams/${rootState.getters.team._id}`)
