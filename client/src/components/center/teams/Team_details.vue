@@ -67,7 +67,7 @@
               <!--Icon only changes after refreshing NEED TO FIX-->
               <router-link v-if="team.teamAdmins.filter(admin => (admin.steamId === user.steamId)).length" :to="{ name: 'teamEdit', params: { id: team._id }}" class="btn scale-up"><i class="fa fa-edit"></i></router-link>
               <a v-else-if="team.teamMembers.filter(member => (member.steamId === user.steamId)).length"  class="btn btn-outline-secondary btn-sm float-right disabled"><i class="fa fa-check fa-fw"></i></a>
-              <a v-else-if="team.pending.filter(pending => (pending.steamId === user.steamId)).length"  class="btn btn-warning btn-sm float-right"><i class="fa fa-ban fa-fw"></i></a>
+              <a v-else-if="team.pending.filter(pending => (pending.steamId === user.steamId)).length"  class="btn btn-warning btn-sm float-right" @click="cancelTeamRequest"><i class="fa fa-ban fa-fw"></i></a>
               <a v-else class="btn btn-primary btn-sm float-right" @click="sendTeamRequest()"><i class="fa fa-plus fa-fw"></i></a>
             </header>
             <div class="tiled description inner-tile">
@@ -98,6 +98,11 @@
             <div class="tiled other inner-tile">
               <p class="title">Team Members</p>
               <ul class="list-group clearfix" v-for="(player, index) in team.teamAdmins" :key="index">
+                <li class="list-group-item inner-tile">
+                  <app-player-item :player="player"></app-player-item>
+                </li>
+              </ul>
+              <ul class="list-group clearfix" v-for="(player, index) in team.teamMembers" :key="index">
                 <li class="list-group-item inner-tile">
                   <app-player-item :player="player"></app-player-item>
                 </li>
@@ -166,24 +171,6 @@ export default {
     // }
   },
   methods: {
-    // sendRequest (id) {
-    //   this.$store.dispatch('sendRequest', id)
-    // },
-    // cancelRequest (id) {
-    //   confirm('Are you sure?')
-    //   this.$store.dispatch('cancelRequest', id)
-    // },
-    // acceptRequest (id) {
-    //   this.$store.dispatch('acceptRequest', id)
-    // },
-    // declineRequest (id) {
-    //   confirm('Are you sure?')
-    //   this.$store.dispatch('declineRequest', id)
-    // },
-    // deleteFriend (id) {
-    //   confirm('Are you sure?')
-    //   this.$store.dispatch('deleteFriend', id)
-    // },
     getTeam () {
       this.$store.dispatch('getTeam', this.$route.params.id)
     },
@@ -195,6 +182,10 @@ export default {
     },
     acceptTeamRequest (player) {
       this.$store.dispatch('acceptTeamRequest', player)
+    },
+    cancelTeamRequest () {
+      confirm('Are you sure?')
+      this.$store.dispatch('cancelTeamRequest', this.$route.params.id)
     },
     onBack () {
       this.$router.go(-1)

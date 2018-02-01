@@ -130,6 +130,28 @@ const actions = {
     .catch(err => {
       console.log('edit err: ' + err)
     })
+  },
+  cancelTeamRequest (rootState, teamId) {
+    if ((rootState.getters.team.teamAdmins.filter(admin => (admin.steamId === rootState.getters.user.steamId)).length) || (rootState.getters.team.teamMembers.filter(member => (member.steamId === rootState.getters.user.steamId)).length)) {
+      console.log('You are already a team member')
+      router.replace(`/teams/${rootState.getters.team._id}`)
+      return
+    }
+    if (!rootState.getters.idToken) {
+      console.log('You are not authenticated')
+      router.replace(`/teams/${teamId}`)
+      return
+    }
+    // axios.post(`/api/teams/${teamId}/send?token=${rootState.getters.idToken}`, rootState.getters.user)
+    axios.post(`/api/teams/${teamId}/cancel?token=${rootState.getters.idToken}`, rootState.getters.user)
+    .then(res => {
+      console.dir('Request Cancelled!')
+      router.replace(`/teams/${teamId}`)
+      return res
+    })
+    .catch(err => {
+      console.log('edit err: ' + err)
+    })
   }
 }
 

@@ -109,6 +109,19 @@ module.exports = {
     .catch(err => {
       res.send(err)
     })
+  },
+  
+  cancelTeamRequest(req, res, next) {
+    console.log(req.body)
+    Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"pending": req.body._id}}, {new: true})
+    .then(team => {
+      console.log("request cancelled")
+      console.log(team)
+      res.send(team)
+    })
+    .catch(err => {
+      res.send(err)
+    })
   }
 }
 
