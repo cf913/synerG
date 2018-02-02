@@ -100,6 +100,7 @@ module.exports = {
   
   acceptTeamRequest(req, res, next) {
     console.log(req.body)
+    Player.findOneAndUpdate({_id: req.body._id}, {$push: {"teams" : req.params.id}}, {new: true})
     Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"pending": req.body._id}, $push: {"teamMembers": req.body._id}}, {new: true})
     .then(team => {
       console.log("request accepted")
@@ -127,6 +128,7 @@ module.exports = {
   leaveTeam(req, res, next) {
     console.log(req.body)
     Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"teamAdmins": req.body._id, "teamMembers": req.body._id}}, {new: true})
+    // Player.findOneAndUpdate({_id: req.body._id}, {$pull: {"teams" : req.params._id}}, {new: true})
     .then(team => {
       console.log("left team")
       console.log(team)
