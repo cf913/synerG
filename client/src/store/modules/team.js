@@ -153,6 +153,28 @@ const actions = {
     .catch(err => {
       console.log('edit err: ' + err)
     })
+  },
+  leaveTeam ({state, rootState, dispatch}, teamId) {
+    if (!(state.team.teamAdmins.filter(admin => (admin.steamId === rootState.AuthModule.user.steamId)).length) && !(state.team.teamMembers.filter(member => (member.steamId === rootState.AuthModule.user.steamId)).length)) {
+      console.log('You are not a team member')
+      router.replace(`/teams/${teamId}`)
+      return
+    }
+    if (!rootState.AuthModule.idToken) {
+      console.log('You are not authenticated')
+      router.replace(`/teams/${teamId}`)
+      return
+    }
+    axios.post(`/api/teams/${teamId}/leave?token=${rootState.AuthModule.idToken}`, rootState.AuthModule.user)
+    .then(res => {
+      console.dir('Left Team!')
+      dispatch('getTeam', teamId)
+      router.replace(`/teams/${teamId}`)
+      return res
+    })
+    .catch(err => {
+      console.log('edit err: ' + err)
+    })
   }
 }
 

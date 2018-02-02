@@ -66,7 +66,7 @@
               <!--</ul>-->
               <!--Icon only changes after refreshing NEED TO FIX-->
               <router-link v-if="isTeamAdmin" :to="{ name: 'teamEdit', params: { id: team._id }}" class="btn scale-up"><i class="fa fa-edit"></i></router-link>
-              <a v-else-if="isTeamMember"  class="btn btn-outline-secondary btn-sm float-right disabled"><i class="fa fa-check fa-fw"></i></a>
+              <a v-if="isTeamMember || isTeamAdmin"  class="btn btn-danger btn-sm float-right" @click="leaveTeam"><i class="fa fa-times fa-fw"></i></a>
               <a v-else-if="isPending"  class="btn btn-warning btn-sm float-right" @click="cancelTeamRequest"><i class="fa fa-ban fa-fw"></i></a>
               <a v-else class="btn btn-primary btn-sm float-right" @click="sendTeamRequest()"><i class="fa fa-plus fa-fw"></i></a>
             </header>
@@ -182,6 +182,10 @@ export default {
     cancelTeamRequest () {
       confirm('Are you sure?')
       this.$store.dispatch('cancelTeamRequest', this.$route.params.id)
+    },
+    leaveTeam () {
+      confirm('Are you sure?')
+      this.$store.dispatch('leaveTeam', this.$route.params.id)
     },
     onBack () {
       this.$router.go(-1)

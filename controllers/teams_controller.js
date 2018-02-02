@@ -122,6 +122,19 @@ module.exports = {
     .catch(err => {
       res.send(err)
     })
+  },
+  
+  leaveTeam(req, res, next) {
+    console.log(req.body)
+    Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"teamAdmins": req.body._id, "teamMembers": req.body._id}}, {new: true})
+    .then(team => {
+      console.log("left team")
+      console.log(team)
+      res.send(team)
+    })
+    .catch(err => {
+      res.send(err)
+    })
   }
 }
 
