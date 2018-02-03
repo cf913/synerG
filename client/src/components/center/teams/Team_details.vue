@@ -184,8 +184,13 @@ export default {
       this.$store.dispatch('cancelTeamRequest', this.$route.params.id)
     },
     leaveTeam () {
-      confirm('Are you sure?')
-      this.$store.dispatch('leaveTeam', this.$route.params.id)
+      if ((this.$store.getters.team.teamAdmins.filter(admin => (admin.steamId === this.$store.getters.user.steamId)).length) && this.$store.getters.team.teamAdmins.length === 1) {
+        confirm('You are the last team admin, assign admin status to another member otherwise team will disband')
+        this.$store.dispatch('deleteTeam', this.$route.params.id)
+      } else {
+        confirm('Are you sure?')
+        this.$store.dispatch('leaveTeam', this.$route.params.id)
+      }
     },
     onBack () {
       this.$router.go(-1)

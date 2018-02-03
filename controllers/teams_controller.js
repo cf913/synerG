@@ -137,6 +137,19 @@ module.exports = {
     .catch(err => {
       res.send(err)
     })
+  },
+  
+  deleteTeam(req, res, next) {
+    console.log(req.body)
+    Team.findOneAndRemove({_id: req.params.id})
+    .then(team => {
+      console.log("deleted team")
+      console.log(team)
+      res.send(team)
+    })
+    .catch(err => {
+      res.send(err)
+    })
   }
 }
 

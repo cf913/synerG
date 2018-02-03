@@ -175,6 +175,22 @@ const actions = {
     .catch(err => {
       console.log('edit err: ' + err)
     })
+  },
+  deleteTeam (rootState, teamId) {
+    if (!(rootState.getters.team.teamAdmins.filter(admin => (admin.steamId === rootState.getters.user.steamId)).length) || !rootState.getters.idToken) {
+      console.log('You are not a team admin')
+      router.replace(`/teams/${teamId}`)
+      return
+    }
+    axios.post(`/api/teams/${teamId}/delete?token=${rootState.getters.idToken}`, teamId)
+    .then(res => {
+      console.dir('Deleted Team!')
+      router.replace(`/players/${rootState.getters.user.steamId}`)
+      return res
+    })
+    .catch(err => {
+      console.log('edit err: ' + err)
+    })
   }
 }
 

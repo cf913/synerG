@@ -54,5 +54,6 @@ router.use('/:id/:action', passport.authenticate('jwt'), (req, res, next) => {
 router.post('/:id/edit', TeamsController.editTeam)
 router.post('/:id/decline', TeamsController.declineTeamRequest)
 router.post('/:id/accept', TeamsController.acceptTeamRequest)
+router.post('/:id/delete', TeamsController.deleteTeam)
 
 module.exports = router
