@@ -138,7 +138,33 @@ export default {
         languages: this.languages_selected,
         comms: this.comms_selected,
         recruiting: this.recruiting_selected,
-        competitiveness: this.competitive_selected
+        competitiveness: this.competitive_selected,
+        timetable: {
+          row1: [1, 0, 0, 0, 0, 0, 0],
+          row2: [1, 0, 0, 0, 0, 0, 0],
+          row3: [1, 0, 0, 1, 0, 0, 0],
+          row4: [1, 0, 0, 1, 0, 0, 0],
+          row5: [1, 0, 0, 1, 0, 0, 0],
+          row6: [1, 0, 0, 0, 0, 0, 0],
+          row7: [0, 0, 0, 0, 0, 0, 0],
+          row8: [0, 0, 0, 0, 0, 0, 0],
+          row9: [0, 0, 0, 0, 0, 0, 0],
+          row10: [0, 0, 1, 0, 0, 0, 0],
+          row11: [0, 0, 1, 0, 0, 0, 0],
+          row12: [0, 0, 1, 0, 0, 0, 0],
+          row13: [0, 0, 0, 0, 0, 0, 0],
+          row14: [0, 0, 0, 0, 0, 0, 0],
+          row15: [0, 0, 0, 0, 0, 0, 0],
+          row16: [0, 0, 0, 0, 0, 0, 0],
+          row17: [0, 0, 0, 0, 0, 0, 0],
+          row18: [0, 0, 0, 0, 0, 0, 0],
+          row19: [0, 0, 0, 0, 0, 0, 0],
+          row20: [0, 0, 0, 0, 0, 0, 0],
+          row21: [0, 0, 0, 0, 0, 0, 0],
+          row22: [0, 0, 0, 0, 0, 0, 0],
+          row23: [0, 0, 0, 0, 0, 0, 0],
+          row24: [0, 0, 0, 0, 0, 0, 0]
+        }
       }
       console.log(data)
       this.$store.dispatch('createTeam', data)

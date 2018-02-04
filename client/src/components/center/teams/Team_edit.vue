@@ -61,7 +61,67 @@
                 </b-form-checkbox-group>
               </b-form-group>
             </div>
-            <p>Need to add a timetable here of when online</p>
+            <div class="tiled inner-tile">
+              <p>Timetable</p>
+              <p>{{timetable}}</p>
+              <p>{{team.timetable}}</p>
+              <table id="timetable">
+		          	<tr>
+		          		<td></td>
+		          		<td>Monday</td>
+		          		<td>Tuesday</td>
+		          		<td>Wednesday</td>
+		          		<td>Thursday</td>
+		          		<td>Friday</td>
+		          		<td>Saturday</td>
+		          		<td>Sunday</td>
+		          	</tr>
+		          	<!--<tr>-->
+		          	<!--	<td>12am</td>-->
+		          	<!--	<td :class="{selected: monday[0] === 1}" class="scale-up">-->
+		          	<!--		<button type="button" v-if="monday[0] === 1" @click="monday[0] -= 1"><i class="fa fa-minus fa-fw"></i></button>-->
+		          	<!--		<button type="button" v-else @click="monday[0] += 1"><i class="fa fa-plus fa-fw"></i></button>-->
+		          	<!--	</td>-->
+		          	<!--	<td :class="{selected: tuesday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="tuesday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
+		          	<!--	<td :class="{selected: wednesday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="wednesday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
+		          	<!--	<td :class="{selected: thursday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="thursday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
+		          	<!--	<td :class="{selected: friday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="friday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
+		          	<!--	<td :class="{selected: saturday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="saturday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
+		          	<!--	<td :class="{selected: sunday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="sunday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
+		          	<!--</tr>-->
+		          	<tr v-for="(time, index) in team.timetable" :key="index">
+		          	  <td>12am</td>
+		          	  <td :class="{selected: time[0] === 1}">
+		          	  	<button type="button" v-if="time[0] === 1" @click="time[0] = 1"><i class="fa fa-minus fa-fw"></i></button>
+		          			<button type="button" v-else @click="time[0] = 1"><i class="fa fa-plus fa-fw"></i></button>
+		          	  </td>
+		          	  <td :class="{selected: time[1] === 1}">
+		          	  	<button type="button" v-if="time[1] === 1" @click="time[1] = 1"><i class="fa fa-minus fa-fw"></i></button>
+		          			<button type="button" v-else @click="time[1] = 1"><i class="fa fa-plus fa-fw"></i></button>
+		          	  </td>
+		          	  <td :class="{selected: time[2] === 1}">
+		          	  	<button type="button" v-if="time[2] === 1" @click="time[2] = 1"><i class="fa fa-minus fa-fw"></i></button>
+		          			<button type="button" v-else @click="time[2] = 1"><i class="fa fa-plus fa-fw"></i></button>
+		          	  </td>
+		          	  <td :class="{selected: time[3] === 1}">
+		          	  	<button type="button" v-if="time[3] === 1" @click="time[3] = 1"><i class="fa fa-minus fa-fw"></i></button>
+		          			<button type="button" v-else @click="time[3] = 1"><i class="fa fa-plus fa-fw"></i></button>
+		          	  </td>
+		          	  <td :class="{selected: time[4] === 1}">
+		          	  	<button type="button" v-if="time[4] === 1" @click="time[4] = 1"><i class="fa fa-minus fa-fw"></i></button>
+		          			<button type="button" v-else @click="time[4] = 1"><i class="fa fa-plus fa-fw"></i></button>
+		          	  </td>
+		          	  <td :class="{selected: time[5] === 1}">
+		          	  	<button type="button" v-if="time[5] === 1" @click="time[5] = 1"><i class="fa fa-minus fa-fw"></i></button>
+		          			<button type="button" v-else @click="time[5] = 1"><i class="fa fa-plus fa-fw"></i></button>
+		          	  </td>
+		          	  <td :class="{selected: time[6] === 1}">
+		          	  	<button type="button" v-if="time[6] === 1" @click="time[6] = 1"><i class="fa fa-minus fa-fw"></i></button>
+		          			<button type="button" v-else @click="time[6] = 1"><i class="fa fa-plus fa-fw"></i></button>
+		          	  </td>
+		          	</tr>
+		          </table>
+		        </div>
             <p>Show friends list here to select teammate</p>
             <b-button @click.prevent="onSubmit()" variant="info">Save</b-button>
             <b-button @click.prevent="onCancel()" variant="danger">Cancel</b-button>
@@ -124,7 +184,8 @@ export default {
         { text: 'Semi-Competitive Ranked', value: 'Semi-Competitive Ranked' },
         { text: 'Competitive Ranked', value: 'Competitive Ranked' },
         { text: 'Tournaments', value: 'Tournaments' }
-      ]
+      ],
+      timetable: []
     }
   },
   computed: {
@@ -158,6 +219,7 @@ export default {
     this.comms_selected = team.comms
     this.recruiting_selected = team.recruiting
     this.competitive_selected = team.competitiveness
+    this.timetable = team.timetable
   }
 }
 </script>
@@ -168,4 +230,58 @@ export default {
     border-radius: 5px;
     margin-bottom: 15px;
   }
+  
+  th,td{
+    margin: 0;
+    text-align: center;
+    border-collapse: collapse;
+    outline: 1px solid #e3e3e3;
+  }
+
+  td{
+    padding: 5px 10px;
+  }
+  
+  td.selected{
+    background-color: green;
+  }
+
+  th{
+    background: #666;
+    color: white;
+    padding: 5px 10px;
+  }
+
+  /*td:hover{*/
+  /*  cursor: pointer;*/
+  /*  background: #666;*/
+  /*  color: white;*/
+  /*}*/
+  
+  td i{
+    visibility:hidden;
+  }
+  td:hover i {
+    visibility:visible;
+  }
+  
+  /*.scale-up i{*/
+  /*  font-size: 1.8em;*/
+  /*  cursor: pointer;*/
+  /*  transform: scale(1);*/
+  /*  transition: 0.3s;*/
+  /*}*/
+
+  /*.scale-up:hover i{*/
+  /*  transform: scale(1.3);*/
+  /*  transition: 0.1s;*/
+  /*}*/
+
+  /*.scale-up:active i{*/
+  /*  transform: scale(1.1); */
+  /*}*/
+
+  /*.scale-up:focus i{*/
+  /*  transform: scale(1.1); */
+  /*}*/
 </style>
