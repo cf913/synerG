@@ -182,7 +182,7 @@ const actions = {
       router.replace(`/teams/${teamId}`)
       return
     }
-    axios.post(`/api/teams/${teamId}/delete?token=${rootState.getters.idToken}`, teamId)
+    axios.post(`/api/teams/${teamId}/delete?token=${rootState.getters.idToken}`, rootState.getters.user)
     .then(res => {
       console.dir('Deleted Team!')
       router.replace(`/players/${rootState.getters.user.steamId}`)

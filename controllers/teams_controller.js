@@ -99,9 +99,11 @@ module.exports = {
   },
   
   acceptTeamRequest(req, res, next) {
+    console.log('Accepting request')
     console.log(req.body)
-    Player.findOneAndUpdate({_id: req.body._id}, {$push: {"teams" : req.params.id}}, {new: true})
-    Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"pending": req.body._id}, $push: {"teamMembers": req.body._id}}, {new: true})
+    let updatePlayer = Player.findOneAndUpdate({_id: req.body._id}, {$push: {"teams" : req.params.id}}, {new: true})
+    let updateTeam = Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"pending": req.body._id}, $push: {"teamMembers": req.body._id}}, {new: true})
+    Promise.all([updatePlayer, updateTeam])
     .then(team => {
       console.log("request accepted")
       console.log(team)
@@ -126,9 +128,11 @@ module.exports = {
   },
   
   leaveTeam(req, res, next) {
+    console.log('Leaving Team')
     console.log(req.body)
-    Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"teamAdmins": req.body._id, "teamMembers": req.body._id}}, {new: true})
-    // Player.findOneAndUpdate({_id: req.body._id}, {$pull: {"teams" : req.params._id}}, {new: true})
+    let teamUpdate = Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"teamAdmins": req.body._id, "teamMembers": req.body._id}}, {new: true})
+    let playerUpdate = Player.findOneAndUpdate({_id: req.body._id}, {$pull: {"teams" : req.params.id}}, {new: true})
+    Promise.all([teamUpdate, playerUpdate])
     .then(team => {
       console.log("left team")
       console.log(team)
@@ -140,8 +144,11 @@ module.exports = {
   },
   
   deleteTeam(req, res, next) {
+    console.log('Deleting Team')
     console.log(req.body)
-    Team.findOneAndRemove({_id: req.params.id})
+    let teamUpdate = Team.findOneAndRemove({_id: req.params.id})
+    let playerUpdate = Player.findOneAndUpdate({_id: req.body._id}, {$pull: {"teams" : req.params.id}}, {new: true})
+    Promise.all([teamUpdate, playerUpdate])
     .then(team => {
       console.log("deleted team")
       console.log(team)
