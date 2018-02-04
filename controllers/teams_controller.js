@@ -50,7 +50,7 @@ module.exports = {
   getTeam(req, res, next) {
     Team.findOne({_id: req.params.id})
     .populate([{path: 'teamAdmins', model: Player}, {path: 'teamMembers', model: Player}, {path: 'pending', model: Player}])
-    .exec(function (err, team) {
+    .exec((err, team) => {
     if (err) return console.log(err);
     console.log(team);
     })
