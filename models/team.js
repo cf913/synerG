@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
+const TimetableSchema = require('./schemas/timetable')
 const Schema = mongoose.Schema
 // const PlayerSchema = require('./schemas/player')
 
@@ -13,6 +14,7 @@ const TeamSchema = new Schema({
   regions: [String],
   comms: [String],
   competitiveness: String,
+  timetable: TimetableSchema,
   teamMembers: [{type: Schema.Types.ObjectId, ref: 'Player'}],
   // teamAdmins: [PlayerSchema]
   teamAdmins: [{type: Schema.Types.ObjectId, ref: 'Player'}],
