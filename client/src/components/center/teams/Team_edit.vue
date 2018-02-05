@@ -91,7 +91,7 @@
 		          	<!--</tr>-->
 
 
-                <!-- you where updating time[index] instead of the values in timetable -->
+                <!-- you were updating time[index] instead of the values in timetable -->
 		          	<tr v-for="(time, index) in timetable" :key="index">
                   <!-- for display: added a filter (formatHour) to format index. index is the key of the object timetable (row1, row2,...). 
                        formatHour turns 'row6' into '5-6' -->
@@ -211,6 +211,7 @@ export default {
     toggleCell (prop, index) {
       let state = this.timetable[prop][index]
       // using absolute values: 0 - 1 = 1 and 1 - 1 = 0 ggwp :)
+      // splice replaces elem at index index by Math.abs(state - 1) 
       this.timetable[prop].splice(index, 1, Math.abs(state - 1))
     }
   },

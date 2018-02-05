@@ -7,11 +7,11 @@
     <div class="row">
       <div class="left col-md-12 col-lg-9">
         <div class="">
-          <!-- <transition name="bounce" mode="out-in"> -->
+          <transition name="fade" mode="out-in">
             <keep-alive>
               <router-view :key="$route.fullPath"></router-view>
             </keep-alive>
-          <!-- </transition> -->
+          </transition>
         </div>
       </div>
       <div class="right col-lg-3 sidebar">
@@ -90,6 +90,15 @@ export default {
     position: sticky;
     top: 75px;
   }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .15s;
+  }
+
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+  }
+
 
   .bounce-enter-active {
     animation: bounce-in-top .5s cubic-bezier(.11,.67,.07,.97);
