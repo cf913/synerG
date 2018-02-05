@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 const TimetableSchema = require('./schemas/timetable')
+const TeamMembersSchema = require('./schemas/teamMembers')
 const Schema = mongoose.Schema
 // const PlayerSchema = require('./schemas/player')
 
@@ -15,9 +16,8 @@ const TeamSchema = new Schema({
   comms: [String],
   competitiveness: String,
   timetable: TimetableSchema,
-  teamMembers: [{type: Schema.Types.ObjectId, ref: 'Player'}],
-  // teamAdmins: [PlayerSchema]
-  teamAdmins: [{type: Schema.Types.ObjectId, ref: 'Player'}],
+  teamAdmins: [TeamMembersSchema],
+  teamMembers: [TeamMembersSchema],
   pending: [{type: Schema.Types.ObjectId, ref: 'Player'}]
 })
 

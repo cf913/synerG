@@ -97,16 +97,16 @@
             </div>
             <div class="tiled other inner-tile">
               <p class="title">Team Members</p>
-              <ul class="list-group clearfix" v-for="(player, index) in team.teamAdmins" :key="index">
+              <ul class="list-group clearfix" v-for="(admin, index) in team.teamAdmins" :key="index">
                 <li class="list-group-item inner-tile">
-                  <app-player-item :player="player"></app-player-item>
+                  <app-player-item :player="admin.player"></app-player-item>
                 </li>
               </ul>
-              <ul class="list-group clearfix" v-for="(player, index) in team.teamMembers" :key="index">
-                <li class="list-group-item inner-tile">
-                  <app-player-item :player="player"></app-player-item>
-                </li>
-              </ul>
+              <!--<ul class="list-group clearfix" v-for="(member, index) in team.teamMembers" :key="index">-->
+              <!--  <li class="list-group-item inner-tile" v-for="(player, index) in member" :key="index">-->
+              <!--    <app-player-item :player="player"></app-player-item>-->
+              <!--  </li>-->
+              <!--</ul>-->
             </div>
             <div class="tiled other inner-tile">
               <p>Timetable</p>
@@ -191,19 +191,19 @@ export default {
     },
     loading () {
       return this.$store.getters.team_loading
-    },
-    isTeamAdmin () {
-      if (this.$store.getters.user) return this.$store.getters.team.teamAdmins.filter(admin => (admin.steamId === this.$store.getters.user.steamId)).length
-      else return false
-    },
-    isTeamMember () {
-      if (this.$store.getters.user) return this.$store.getters.team.teamMembers.filter(member => (member.steamId === this.$store.getters.user.steamId)).length
-      else return false
-    },
-    isPending () {
-      if (this.$store.getters.user) return this.$store.getters.team.pending.filter(pending => (pending.steamId === this.$store.getters.user.steamId)).length
-      else return false
     }
+    // isTeamAdmin () {
+    //   if (this.$store.getters.user) return this.$store.getters.team.teamAdmins.filter(admin => (admin.steamId === this.$store.getters.user.steamId)).length
+    //   else return false
+    // },
+    // isTeamMember () {
+    //   if (this.$store.getters.user) return this.$store.getters.team.teamMembers.filter(member => (member.steamId === this.$store.getters.user.steamId)).length
+    //   else return false
+    // },
+    // isPending () {
+    //   if (this.$store.getters.user) return this.$store.getters.team.pending.filter(pending => (pending.steamId === this.$store.getters.user.steamId)).length
+    //   else return false
+    // }
   },
   methods: {
     getTeam () {
@@ -223,13 +223,13 @@ export default {
       this.$store.dispatch('cancelTeamRequest', this.$route.params.id)
     },
     leaveTeam () {
-      if ((this.$store.getters.team.teamAdmins.filter(admin => (admin.steamId === this.$store.getters.user.steamId)).length) && this.$store.getters.team.teamAdmins.length === 1) {
-        confirm('You are the last team admin, assign admin status to another member otherwise team will disband')
-        this.$store.dispatch('deleteTeam', this.$route.params.id)
-      } else {
-        confirm('Are you sure?')
-        this.$store.dispatch('leaveTeam', this.$route.params.id)
-      }
+      // if ((this.$store.getters.team.teamAdmins.filter(admin => (admin.steamId === this.$store.getters.user.steamId)).length) && this.$store.getters.team.teamAdmins.length === 1) {
+      //   confirm('You are the last team admin, assign admin status to another member otherwise team will disband')
+      //   this.$store.dispatch('deleteTeam', this.$route.params.id)
+      // } else {
+      confirm('Are you sure?')
+      this.$store.dispatch('leaveTeam', this.$route.params.id)
+      // }
     },
     onBack () {
       this.$router.go(-1)

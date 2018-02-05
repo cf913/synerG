@@ -26,6 +26,13 @@
               </b-form-textarea>
             </div>
             <br>
+            <div class="tiled inner-tile">
+              <b-form-group>
+                <h5 class="label">Position You Are Playing:</h5>
+                <b-form-radio-group  name="position" v-model="position_selected" :options="position_options">
+                </b-form-radio-group>
+              </b-form-group>
+            </div>
             <!--Can have them all in the same b-form-group but spacing between them will be smaller, just preference-->
             <div class="tiled inner-tile">
               <b-form-group>
@@ -113,6 +120,7 @@ export default {
       languages_selected: [],
       regions_selected: [],
       competitive_selected: '',
+      position_selected: '',
       recruiting_options: [
         { text: 'Carry', value: 'Carry' },
         { text: 'Midlaner', value: 'Midlaner' },
@@ -156,6 +164,13 @@ export default {
         { text: 'Skype', value: 'Skype' },
         { text: 'Teamspeak', value: 'Teamspeak' }
       ],
+      position_options: [
+        { text: 'Carry', value: 'Carry' },
+        { text: 'Midlaner', value: 'Midlaner' },
+        { text: 'Offlaner', value: 'Offlaner' },
+        { text: 'Farming Support', value: 'Farming Support' },
+        { text: 'Hard Support', value: 'Hard Support' }
+      ],
       timetable: {
         row1: [0, 0, 0, 0, 0, 0, 0],
         row2: [0, 0, 0, 0, 0, 0, 0],
@@ -186,6 +201,7 @@ export default {
   },
   methods: {
     onSubmit () {
+      const user = this.$store.getters.user
       const data = {
         teamName: this.team_name,
         teamLogo: this.team_logo,
@@ -197,8 +213,12 @@ export default {
         competitiveness: this.competitive_selected,
         timetable: this.timetable
       }
+      const player = {
+        player: user._id,
+        position: this.position_selected
+      }
       console.log(data)
-      this.$store.dispatch('createTeam', data)
+      this.$store.dispatch('createTeam', {data, player})
     },
     onCancel () {
       this.$router.go(-1)

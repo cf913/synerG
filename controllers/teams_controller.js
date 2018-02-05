@@ -9,13 +9,13 @@ module.exports = {
   createTeam(req, res, next) {
     console.log(req.body)
     let data = new Team(req.body.data)
-    console.log(data)
-    data.teamAdmins.push(req.body.user._id)
+    // console.log(data)
+    data.teamAdmins.push(req.body.player)
     data.save()
-    Player.findOneAndUpdate({_id: req.body.user._id}, {$push: {"teams" : data._id}})
+    Player.findOneAndUpdate({_id: req.body.player.player}, {$push: {"teams" : data._id}})
     .then(team => {
       console.log('New team created')
-      console.log(team)
+      // console.log(team)
       res.send(team)
     })
     .catch(err => {
@@ -37,8 +37,7 @@ module.exports = {
   },
   
   getMyTeams(req, res, next) {
-    console.log(req.body)
-    Team.find({ $or: [{teamAdmins: req.body._id}, {teamMembers: req.body._id}]})
+    Team.find({ $or: [{'teamAdmins.player': req.body._id}, {'teamMembers.player': req.body._id}]})
     .then(team => {
       res.send(team)
     })
@@ -49,10 +48,10 @@ module.exports = {
   
   getTeam(req, res, next) {
     Team.findOne({_id: req.params.id})
-    .populate([{path: 'teamAdmins', model: Player}, {path: 'teamMembers', model: Player}, {path: 'pending', model: Player}])
+    .populate([{path: 'teamAdmins.player', model: Player}, {path: 'teamMembers.player', model: Player}, {path: 'pending', model: Player}])
     .exec((err, team) => {
     if (err) return console.log(err);
-    console.log(team);
+    return;
     })
     .then(team => {
       res.send(team)

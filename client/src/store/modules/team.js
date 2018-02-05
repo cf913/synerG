@@ -18,19 +18,18 @@ const mutations = {
 }
 
 const actions = {
-  createTeam (rootState, data) {
+  createTeam (rootState, {data, player}) {
     console.log('About to post')
     console.log(data)
     console.log('ROOTSTATE')
     console.log(rootState.getters)
-    axios.post(`/api/teams/new?token=${rootState.getters.idToken}`, {data: data, user: rootState.getters.user})
+    axios.post(`/api/teams/new?token=${rootState.getters.idToken}`, {data: data, player: player})
     .then(res => {
       return res
     })
     .then(({data}) => {
       console.log('done')
       console.log(data)
-      console.log(rootState.getters.user)
       // data.teamAdmins.push(rootState.AuthModule.user)
       router.replace(`/players/${rootState.getters.user.steamId}`)
     })

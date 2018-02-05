@@ -23,7 +23,7 @@ module.exports = {
         .populate({path: 'teams', model: Team})
         .exec(function (err, team) {
         if (err) return console.log(err);
-        console.log(team);
+        return;
         })
         .then(player => {
             res.send(player)
