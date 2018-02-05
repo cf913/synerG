@@ -62,7 +62,31 @@
                 </b-form-checkbox-group>
               </b-form-group>
             </div>
-            <p>Need to add a timetable here of when online</p>
+            <div class="tiled inner-tile">
+              <p>Indicate what time you are likely to be online</p>
+              <p>{{timetable}}</p>
+              <table id="timetable">
+		          	<tr>
+		          		<td></td>
+		          		<td>Monday</td>
+		          		<td>Tuesday</td>
+		          		<td>Wednesday</td>
+		          		<td>Thursday</td>
+		          		<td>Friday</td>
+		          		<td>Saturday</td>
+		          		<td>Sunday</td>
+		          	</tr>
+		          	<tr v-for="(time, index) in timetable" :key="index">
+		          	  <td>{{ index | formatHour }}</td> 
+		          	  <td v-for="(day, i) in time" :key="i" :class="{selected: day}">
+		          	  	<button type="button" @click="toggleCell(index, i)">
+                      <i v-if="day" class="fa fa-minus fa-fw"></i>
+                      <i v-else class="fa fa-plus fa-fw"></i>
+                    </button>
+		          	  </td>
+		          	</tr>
+		          </table>
+		        </div>
             <p>Show friends list here to select teammate</p>
             <b-button @click.prevent="onSubmit()" variant="info">Save</b-button>
             <b-button @click.prevent="onCancel()" variant="danger">Cancel</b-button>
@@ -74,6 +98,12 @@
 
 <script>
 export default {
+  filters: {
+    formatHour (value) {
+      let time = value.split('').splice(3).join('')
+      return `${time - 1}-${time}`
+    }
+  },
   data () {
     return {
       team_name: '',
@@ -125,7 +155,33 @@ export default {
         { text: 'Discord', value: 'Discord' },
         { text: 'Skype', value: 'Skype' },
         { text: 'Teamspeak', value: 'Teamspeak' }
-      ]
+      ],
+      timetable: {
+        row1: [0, 0, 0, 0, 0, 0, 0],
+        row2: [0, 0, 0, 0, 0, 0, 0],
+        row3: [0, 0, 0, 0, 0, 0, 0],
+        row4: [0, 0, 0, 0, 0, 0, 0],
+        row5: [0, 0, 0, 0, 0, 0, 0],
+        row6: [0, 0, 0, 0, 0, 0, 0],
+        row7: [0, 0, 0, 0, 0, 0, 0],
+        row8: [0, 0, 0, 0, 0, 0, 0],
+        row9: [0, 0, 0, 0, 0, 0, 0],
+        row10: [0, 0, 0, 0, 0, 0, 0],
+        row11: [0, 0, 0, 0, 0, 0, 0],
+        row12: [0, 0, 0, 0, 0, 0, 0],
+        row13: [0, 0, 0, 0, 0, 0, 0],
+        row14: [0, 0, 0, 0, 0, 0, 0],
+        row15: [0, 0, 0, 0, 0, 0, 0],
+        row16: [0, 0, 0, 0, 0, 0, 0],
+        row17: [0, 0, 0, 0, 0, 0, 0],
+        row18: [0, 0, 0, 0, 0, 0, 0],
+        row19: [0, 0, 0, 0, 0, 0, 0],
+        row20: [0, 0, 0, 0, 0, 0, 0],
+        row21: [0, 0, 0, 0, 0, 0, 0],
+        row22: [0, 0, 0, 0, 0, 0, 0],
+        row23: [0, 0, 0, 0, 0, 0, 0],
+        row24: [0, 0, 0, 0, 0, 0, 0]
+      }
     }
   },
   methods: {
@@ -139,38 +195,19 @@ export default {
         comms: this.comms_selected,
         recruiting: this.recruiting_selected,
         competitiveness: this.competitive_selected,
-        timetable: {
-          row1: [1, 0, 0, 0, 0, 0, 0],
-          row2: [1, 0, 0, 0, 0, 0, 0],
-          row3: [1, 0, 0, 1, 0, 0, 0],
-          row4: [1, 0, 0, 1, 0, 0, 0],
-          row5: [1, 0, 0, 1, 0, 0, 0],
-          row6: [1, 0, 0, 0, 0, 0, 0],
-          row7: [0, 0, 0, 0, 0, 0, 0],
-          row8: [0, 0, 0, 0, 0, 0, 0],
-          row9: [0, 0, 0, 0, 0, 0, 0],
-          row10: [0, 0, 1, 0, 0, 0, 0],
-          row11: [0, 0, 1, 0, 0, 0, 0],
-          row12: [0, 0, 1, 0, 0, 0, 0],
-          row13: [0, 0, 0, 0, 0, 0, 0],
-          row14: [0, 0, 0, 0, 0, 0, 0],
-          row15: [0, 0, 0, 0, 0, 0, 0],
-          row16: [0, 0, 0, 0, 0, 0, 0],
-          row17: [0, 0, 0, 0, 0, 0, 0],
-          row18: [0, 0, 0, 0, 0, 0, 0],
-          row19: [0, 0, 0, 0, 0, 0, 0],
-          row20: [0, 0, 0, 0, 0, 0, 0],
-          row21: [0, 0, 0, 0, 0, 0, 0],
-          row22: [0, 0, 0, 0, 0, 0, 0],
-          row23: [0, 0, 0, 0, 0, 0, 0],
-          row24: [0, 0, 0, 0, 0, 0, 0]
-        }
+        timetable: this.timetable
       }
       console.log(data)
       this.$store.dispatch('createTeam', data)
     },
     onCancel () {
       this.$router.go(-1)
+    },
+    toggleCell (prop, index) {
+      let state = this.timetable[prop][index]
+      // using absolute values: 0 - 1 = 1 and 1 - 1 = 0 ggwp :)
+      // splice replaces elem at index index by Math.abs(state - 1)
+      this.timetable[prop].splice(index, 1, Math.abs(state - 1))
     }
   }
 }
@@ -181,6 +218,27 @@ export default {
     padding: 5px 10px;
     border-radius: 5px;
     margin-bottom: 15px;
+  }
+  
+  th,td{
+    margin: 0;
+    text-align: center;
+    border-collapse: collapse;
+    outline: 1px solid #e3e3e3;
+  }
+
+  td{
+    padding: 5px 10px;
+  }
+  
+  td.selected{
+    background-color: green;
+  }
+
+  th{
+    background: #666;
+    color: white;
+    padding: 5px 10px;
   }
 </style>
 

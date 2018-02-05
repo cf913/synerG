@@ -198,7 +198,8 @@ export default {
         languages: this.languages_selected,
         comms: this.comms_selected,
         recruiting: this.recruiting_selected,
-        competitiveness: this.competitive_selected
+        competitiveness: this.competitive_selected,
+        timetable: this.timetable
       }
       this.$store.dispatch('editTeam', {data, id: this.$route.params.id})
     },
@@ -211,7 +212,7 @@ export default {
     toggleCell (prop, index) {
       let state = this.timetable[prop][index]
       // using absolute values: 0 - 1 = 1 and 1 - 1 = 0 ggwp :)
-      // splice replaces elem at index index by Math.abs(state - 1) 
+      // splice replaces elem at index index by Math.abs(state - 1)
       this.timetable[prop].splice(index, 1, Math.abs(state - 1))
     }
   },

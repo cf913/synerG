@@ -121,15 +121,23 @@
 		          		<td>Saturday</td>
 		          		<td>Sunday</td>
 		          	</tr>
+		          	<!--<tr v-for="(time, index) in team.timetable" :key="index">-->
+		          	<!--  <td>12am</td>-->
+		          	<!--  <td>{{time[0]}}</td>-->
+		          	<!--  <td>{{time[1]}}</td>-->
+		          	<!--  <td>{{time[2]}}</td>-->
+		          	<!--  <td>{{time[3]}}</td>-->
+		          	<!--  <td>{{time[4]}}</td>-->
+		          	<!--  <td>{{time[5]}}</td>-->
+		          	<!--  <td>{{time[6]}}</td>-->
+		          	<!--</tr>-->
 		          	<tr v-for="(time, index) in team.timetable" :key="index">
-		          	  <td>12am</td>
-		          	  <td>{{time[0]}}</td>
-		          	  <td>{{time[1]}}</td>
-		          	  <td>{{time[2]}}</td>
-		          	  <td>{{time[3]}}</td>
-		          	  <td>{{time[4]}}</td>
-		          	  <td>{{time[5]}}</td>
-		          	  <td>{{time[6]}}</td>
+                  <!-- for display: added a filter (formatHour) to format index. index is the key of the object timetable (row1, row2,...). 
+                       formatHour turns 'row6' into '5-6' -->
+		          	  <td>{{ index | formatHour }}</td> 
+                  <!-- For loop for table cells -->
+                  <!-- day is an elem of time, where time is an array of length 6. when day == 1 (same as day == true) add class selected -->
+		          	  <td v-for="(day, i) in time" :key="i" :class="{selected: day}"></td>
 		          	</tr>
 		          </table>
 		        </div>
@@ -167,6 +175,12 @@ import PlayerItem from '../players/Player_item.vue'
 import PlayerDetails from '../players/Player_details.vue'
 
 export default {
+  filters: {
+    formatHour (value) {
+      let time = value.split('').splice(3).join('')
+      return `${time - 1}-${time}`
+    }
+  },
   computed: {
     user () {
       if (!this.$store.getters.user) return false
