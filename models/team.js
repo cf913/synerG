@@ -18,7 +18,7 @@ const TeamSchema = new Schema({
   timetable: TimetableSchema,
   teamAdmins: [TeamMembersSchema],
   teamMembers: [TeamMembersSchema],
-  pending: [{type: Schema.Types.ObjectId, ref: 'Player'}]
+  pending: [TeamMembersSchema]
 })
 
 

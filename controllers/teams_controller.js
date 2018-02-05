@@ -48,7 +48,7 @@ module.exports = {
   
   getTeam(req, res, next) {
     Team.findOne({_id: req.params.id})
-    .populate([{path: 'teamAdmins.player', model: Player}, {path: 'teamMembers.player', model: Player}, {path: 'pending', model: Player}])
+    .populate([{path: 'teamAdmins.player', model: Player}, {path: 'teamMembers.player', model: Player}, {path: 'pending.player', model: Player}])
     .exec((err, team) => {
     if (err) return console.log(err);
     return;
@@ -73,7 +73,7 @@ module.exports = {
   
   sendTeamRequest(req, res, next) {
     console.log(req.body)
-    Team.findOneAndUpdate({_id: req.params.id}, {$push: {"pending": req.body._id}}, {new: true})
+    Team.findOneAndUpdate({_id: req.params.id}, {$push: {"pending": {player: req.body.user._id, position: req.body.position}}}, {new: true})
     .then(team => {
       console.log("request sent")
       console.log(team)
@@ -86,7 +86,7 @@ module.exports = {
   
   declineTeamRequest(req, res, next) {
     console.log(req.body)
-    Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"pending": req.body._id}}, {new: true})
+    Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"pending": {player: req.body.player._id}}}, {new: true})
     .then(team => {
       console.log("request declined")
       console.log(team)
@@ -100,8 +100,8 @@ module.exports = {
   acceptTeamRequest(req, res, next) {
     console.log('Accepting request')
     console.log(req.body)
-    let updatePlayer = Player.findOneAndUpdate({_id: req.body._id}, {$push: {"teams" : req.params.id}}, {new: true})
-    let updateTeam = Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"pending": req.body._id}, $push: {"teamMembers": req.body._id}}, {new: true})
+    let updatePlayer = Player.findOneAndUpdate({_id: req.body.player._id}, {$push: {"teams" : req.params.id}}, {new: true})
+    let updateTeam = Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"pending": {player: req.body.player._id, position: req.body.position}}, $push: {"teamMembers": {player: req.body.player._id, position: req.body.position}}}, {new: true})
     Promise.all([updatePlayer, updateTeam])
     .then(team => {
       console.log("request accepted")
@@ -115,7 +115,7 @@ module.exports = {
   
   cancelTeamRequest(req, res, next) {
     console.log(req.body)
-    Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"pending": req.body._id}}, {new: true})
+    Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"pending": {player: req.body._id}}}, {new: true})
     .then(team => {
       console.log("request cancelled")
       console.log(team)
@@ -129,7 +129,7 @@ module.exports = {
   leaveTeam(req, res, next) {
     console.log('Leaving Team')
     console.log(req.body)
-    let teamUpdate = Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"teamAdmins": req.body._id, "teamMembers": req.body._id}}, {new: true})
+    let teamUpdate = Team.findOneAndUpdate({_id: req.params.id}, {$pull: {'teamAdmins': {player: req.body._id}, 'teamMembers': {player: req.body._id}}}, {new: true})
     let playerUpdate = Player.findOneAndUpdate({_id: req.body._id}, {$pull: {"teams" : req.params.id}}, {new: true})
     Promise.all([teamUpdate, playerUpdate])
     .then(team => {

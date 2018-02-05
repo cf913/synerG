@@ -102,11 +102,11 @@
                   <app-player-item :player="admin.player"></app-player-item>
                 </li>
               </ul>
-              <!--<ul class="list-group clearfix" v-for="(member, index) in team.teamMembers" :key="index">-->
-              <!--  <li class="list-group-item inner-tile" v-for="(player, index) in member" :key="index">-->
-              <!--    <app-player-item :player="player"></app-player-item>-->
-              <!--  </li>-->
-              <!--</ul>-->
+              <ul class="list-group clearfix" v-for="(member, index) in team.teamMembers" :key="index">
+                <li class="list-group-item inner-tile">
+                  <app-player-item :player="member.player"></app-player-item>
+                </li>
+              </ul>
             </div>
             <div class="tiled other inner-tile">
               <p>Timetable</p>
@@ -144,16 +144,16 @@
             <div v-if="isTeamAdmin" class="tiled other inner-tile">
               <p class="title">Pending Requests</p>
               <span v-if="team.pending.length !== 0">
-                <ul class="list-group clearfix" v-for="(player, index) in team.pending" :key="index">
+                <ul class="list-group clearfix" v-for="(pending, index) in team.pending" :key="index">
                   <li class="list-group-item inner-tile">
                     <div class="row">
                       <div class="col-sm-3">
-                        <img id="avatar" :src="player.img" alt="Avatar">
+                        <img id="avatar" :src="pending.player.img" alt="Avatar">
                       </div>
                       <div class="col-sm-9">
-                        <router-link :to="{ name: 'playerDetails', params: { id: player.steamId }}"><h5>{{ player.steamName }}</h5></router-link>
-                        <a class="btn btn-danger btn-sm float-right" @click="declineTeamRequest(player)"><i class="fa fa-times fa-fw"></i></a>
-                        <a class="btn btn-success btn-sm float-right" @click="acceptTeamRequest(player)"><i class="fa fa-check fa-fw"></i></a>
+                        <router-link :to="{ name: 'playerDetails', params: { id: pending.player.steamId }}"><h5>{{ pending.player.steamName }}</h5></router-link>
+                        <a class="btn btn-danger btn-sm float-right" @click="declineTeamRequest(pending)"><i class="fa fa-times fa-fw"></i></a>
+                        <a class="btn btn-success btn-sm float-right" @click="acceptTeamRequest(pending)"><i class="fa fa-check fa-fw"></i></a>
                       </div>
                     </div>
                   </li>
@@ -175,6 +175,9 @@ import PlayerItem from '../players/Player_item.vue'
 import PlayerDetails from '../players/Player_details.vue'
 
 export default {
+  data: {
+    position_applied: ''
+  },
   filters: {
     formatHour (value) {
       let time = value.split('').splice(3).join('')
@@ -191,26 +194,26 @@ export default {
     },
     loading () {
       return this.$store.getters.team_loading
+    },
+    isTeamAdmin () {
+      if (this.$store.getters.user) return this.$store.getters.team.teamAdmins.filter(admin => (admin.player.steamId === this.$store.getters.user.steamId)).length
+      else return false
+    },
+    isTeamMember () {
+      if (this.$store.getters.user) return this.$store.getters.team.teamMembers.filter(member => (member.player.steamId === this.$store.getters.user.steamId)).length
+      else return false
+    },
+    isPending () {
+      if (this.$store.getters.user) return this.$store.getters.team.pending.filter(pending => (pending.player.steamId === this.$store.getters.user.steamId)).length
+      else return false
     }
-    // isTeamAdmin () {
-    //   if (this.$store.getters.user) return this.$store.getters.team.teamAdmins.filter(admin => (admin.steamId === this.$store.getters.user.steamId)).length
-    //   else return false
-    // },
-    // isTeamMember () {
-    //   if (this.$store.getters.user) return this.$store.getters.team.teamMembers.filter(member => (member.steamId === this.$store.getters.user.steamId)).length
-    //   else return false
-    // },
-    // isPending () {
-    //   if (this.$store.getters.user) return this.$store.getters.team.pending.filter(pending => (pending.steamId === this.$store.getters.user.steamId)).length
-    //   else return false
-    // }
   },
   methods: {
     getTeam () {
       this.$store.dispatch('getTeam', this.$route.params.id)
     },
     sendTeamRequest () {
-      this.$store.dispatch('sendTeamRequest', this.$route.params.id)
+      this.$store.dispatch('sendTeamRequest', this.position_applied)
     },
     declineTeamRequest (player) {
       this.$store.dispatch('declineTeamRequest', player)
@@ -223,13 +226,13 @@ export default {
       this.$store.dispatch('cancelTeamRequest', this.$route.params.id)
     },
     leaveTeam () {
-      // if ((this.$store.getters.team.teamAdmins.filter(admin => (admin.steamId === this.$store.getters.user.steamId)).length) && this.$store.getters.team.teamAdmins.length === 1) {
-      //   confirm('You are the last team admin, assign admin status to another member otherwise team will disband')
-      //   this.$store.dispatch('deleteTeam', this.$route.params.id)
-      // } else {
-      confirm('Are you sure?')
-      this.$store.dispatch('leaveTeam', this.$route.params.id)
-      // }
+      if ((this.$store.getters.team.teamAdmins.filter(admin => (admin.player.steamId === this.$store.getters.user.steamId)).length) && this.$store.getters.team.teamAdmins.length === 1) {
+        confirm('You are the last team admin, assign admin status to another member otherwise team will disband')
+        this.$store.dispatch('deleteTeam', this.$route.params.id)
+      } else {
+        confirm('Are you sure?')
+        this.$store.dispatch('leaveTeam', this.$route.params.id)
+      }
     },
     onBack () {
       this.$router.go(-1)

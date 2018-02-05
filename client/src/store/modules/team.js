@@ -58,7 +58,7 @@ const actions = {
     commit('reset')
   },
   editTeam (rootState, data) {
-    if (!(rootState.getters.team.teamAdmins.filter(admin => (admin.steamId === rootState.getters.user.steamId)).length) || !rootState.getters.idToken) {
+    if (!(rootState.getters.team.teamAdmins.filter(admin => (admin.player.steamId === rootState.getters.user.steamId)).length) || !rootState.getters.idToken) {
       console.log('You are not a team admin')
       router.replace(`/teams/${rootState.getters.team._id}`)
       return
@@ -74,23 +74,23 @@ const actions = {
       console.log('edit err: ' + err)
     })
   },
-  sendTeamRequest ({state, rootState, dispatch}, teamId) {
-    if ((state.team.teamAdmins.filter(admin => (admin.steamId === rootState.AuthModule.user.steamId)).length) || (state.team.teamMembers.filter(member => (member.steamId === rootState.AuthModule.user.steamId)).length)) {
+  sendTeamRequest ({state, rootState, dispatch}, position) {
+    if ((state.team.teamAdmins.filter(admin => (admin.player.steamId === rootState.AuthModule.user.steamId)).length) || (state.team.teamMembers.filter(member => (member.player.steamId === rootState.AuthModule.user.steamId)).length)) {
       console.log('You are already a team member')
-      router.replace(`/teams/${teamId}`)
+      router.replace(`/teams/${state.team._id}`)
       return
     }
     if (!rootState.AuthModule.idToken) {
       console.log('You are not authenticated')
-      router.replace(`/teams/${teamId}`)
+      router.replace(`/teams/${state.team._id}`)
       return
     }
-    axios.post(`/api/teams/${teamId}/send?token=${rootState.AuthModule.idToken}`, rootState.AuthModule.user)
+    axios.post(`/api/teams/${state.team._id}/send?token=${rootState.AuthModule.idToken}`, {user: rootState.AuthModule.user, position: position})
     .then(res => {
       console.log(res)
       console.dir('Request Sent!')
-      dispatch('getTeam', teamId)
-      router.replace(`/teams/${teamId}`)
+      dispatch('getTeam', state.team._id)
+      router.replace(`/teams/${state.team._id}`)
       return res
     })
     .catch(err => {
@@ -98,7 +98,7 @@ const actions = {
     })
   },
   declineTeamRequest ({state, rootState, dispatch}, player) {
-    if (!(state.team.teamAdmins.filter(admin => (admin.steamId === rootState.AuthModule.user.steamId)).length) || !rootState.AuthModule.idToken) {
+    if (!(state.team.teamAdmins.filter(admin => (admin.player.steamId === rootState.AuthModule.user.steamId)).length) || !rootState.AuthModule.idToken) {
       console.log('You are not a team admin')
       router.replace(`/teams/${state.team._id}`)
       return
@@ -115,7 +115,7 @@ const actions = {
     })
   },
   acceptTeamRequest ({state, rootState, dispatch}, player) {
-    if (!(state.team.teamAdmins.filter(admin => (admin.steamId === rootState.AuthModule.user.steamId)).length) || !rootState.AuthModule.idToken) {
+    if (!(state.team.teamAdmins.filter(admin => (admin.player.steamId === rootState.AuthModule.user.steamId)).length) || !rootState.AuthModule.idToken) {
       console.log('You are not a team admin')
       router.replace(`/teams/${state.team._id}`)
       return
@@ -132,7 +132,7 @@ const actions = {
     })
   },
   cancelTeamRequest ({state, rootState, dispatch}, teamId) {
-    if ((state.team.teamAdmins.filter(admin => (admin.steamId === rootState.AuthModule.user.steamId)).length) || (state.team.teamMembers.filter(member => (member.steamId === rootState.AuthModule.user.steamId)).length)) {
+    if ((state.team.teamAdmins.filter(admin => (admin.player.steamId === rootState.AuthModule.user.steamId)).length) || (state.team.teamMembers.filter(member => (member.player.steamId === rootState.AuthModule.user.steamId)).length)) {
       console.log('You are already a team member')
       router.replace(`/teams/${teamId}`)
       return
@@ -154,7 +154,7 @@ const actions = {
     })
   },
   leaveTeam ({state, rootState, dispatch}, teamId) {
-    if (!(state.team.teamAdmins.filter(admin => (admin.steamId === rootState.AuthModule.user.steamId)).length) && !(state.team.teamMembers.filter(member => (member.steamId === rootState.AuthModule.user.steamId)).length)) {
+    if (!(state.team.teamAdmins.filter(admin => (admin.player.steamId === rootState.AuthModule.user.steamId)).length) && !(state.team.teamMembers.filter(member => (member.player.steamId === rootState.AuthModule.user.steamId)).length)) {
       console.log('You are not a team member')
       router.replace(`/teams/${teamId}`)
       return
@@ -176,7 +176,7 @@ const actions = {
     })
   },
   deleteTeam (rootState, teamId) {
-    if (!(rootState.getters.team.teamAdmins.filter(admin => (admin.steamId === rootState.getters.user.steamId)).length) || !rootState.getters.idToken) {
+    if (!(rootState.getters.team.teamAdmins.filter(admin => (admin.player.steamId === rootState.getters.user.steamId)).length) || !rootState.getters.idToken) {
       console.log('You are not a team admin')
       router.replace(`/teams/${teamId}`)
       return

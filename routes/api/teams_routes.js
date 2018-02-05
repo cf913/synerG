@@ -30,7 +30,7 @@ router.use('/:id/:action', passport.authenticate('jwt'), (req, res, next) => {
       // check if in teamAdmins
       Team.findById({_id: req.params.id})
         .then(team => {
-          if (team.teamAdmins.filter(adminId => (adminId.toString() === decoded._id)).length) {
+          if (team.teamAdmins.filter(adminId => (adminId.player.toString() === decoded._id)).length) {
             // is a team admin: aduthorize
             next() 
           } else {
