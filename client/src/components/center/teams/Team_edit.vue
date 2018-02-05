@@ -89,35 +89,13 @@
 		          	<!--	<td :class="{selected: saturday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="saturday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
 		          	<!--	<td :class="{selected: sunday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="sunday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
 		          	<!--</tr>-->
-		          	<tr v-for="(time, index) in team.timetable" :key="index">
-		          	  <td>12am</td>
-		          	  <td :class="{selected: time[0] === 1}">
-		          	  	<button type="button" v-if="time[0] === 1" @click="time[0] = 1"><i class="fa fa-minus fa-fw"></i></button>
-		          			<button type="button" v-else @click="time[0] = 1"><i class="fa fa-plus fa-fw"></i></button>
-		          	  </td>
-		          	  <td :class="{selected: time[1] === 1}">
-		          	  	<button type="button" v-if="time[1] === 1" @click="time[1] = 1"><i class="fa fa-minus fa-fw"></i></button>
-		          			<button type="button" v-else @click="time[1] = 1"><i class="fa fa-plus fa-fw"></i></button>
-		          	  </td>
-		          	  <td :class="{selected: time[2] === 1}">
-		          	  	<button type="button" v-if="time[2] === 1" @click="time[2] = 1"><i class="fa fa-minus fa-fw"></i></button>
-		          			<button type="button" v-else @click="time[2] = 1"><i class="fa fa-plus fa-fw"></i></button>
-		          	  </td>
-		          	  <td :class="{selected: time[3] === 1}">
-		          	  	<button type="button" v-if="time[3] === 1" @click="time[3] = 1"><i class="fa fa-minus fa-fw"></i></button>
-		          			<button type="button" v-else @click="time[3] = 1"><i class="fa fa-plus fa-fw"></i></button>
-		          	  </td>
-		          	  <td :class="{selected: time[4] === 1}">
-		          	  	<button type="button" v-if="time[4] === 1" @click="time[4] = 1"><i class="fa fa-minus fa-fw"></i></button>
-		          			<button type="button" v-else @click="time[4] = 1"><i class="fa fa-plus fa-fw"></i></button>
-		          	  </td>
-		          	  <td :class="{selected: time[5] === 1}">
-		          	  	<button type="button" v-if="time[5] === 1" @click="time[5] = 1"><i class="fa fa-minus fa-fw"></i></button>
-		          			<button type="button" v-else @click="time[5] = 1"><i class="fa fa-plus fa-fw"></i></button>
-		          	  </td>
-		          	  <td :class="{selected: time[6] === 1}">
-		          	  	<button type="button" v-if="time[6] === 1" @click="time[6] = 1"><i class="fa fa-minus fa-fw"></i></button>
-		          			<button type="button" v-else @click="time[6] = 1"><i class="fa fa-plus fa-fw"></i></button>
+		          	<tr v-for="(time, index) in timetable" :key="index">
+		          	  <td>{{ index | formatHour }}</td>
+		          	  <td v-for="(day, i) in time" :key="i" :class="{selected: day}">
+		          	  	<button type="button" @click="toggleCell(index, i)">
+                      <i v-if="day" class="fa fa-minus fa-fw"></i>
+                      <i v-else class="fa fa-plus fa-fw"></i>
+                    </button>
 		          	  </td>
 		          	</tr>
 		          </table>
@@ -133,6 +111,12 @@
 
 <script>
 export default {
+  filters: {
+    formatHour (value) {
+      let time = value.split('').splice(3).join('')
+      return `${time - 1}-${time}`
+    }
+  },
   data () {
     return {
       team_name: '',
@@ -185,13 +169,17 @@ export default {
         { text: 'Competitive Ranked', value: 'Competitive Ranked' },
         { text: 'Tournaments', value: 'Tournaments' }
       ],
-      timetable: []
+      timetable: {}
     }
   },
   computed: {
     team () {
       return this.$store.getters.team
     }
+    // timetable () {
+    //   return this.timetable_cache
+    // }
+
   },
   methods: {
     onSubmit () {
@@ -208,6 +196,11 @@ export default {
     },
     onCancel () {
       this.$router.go(-1)
+    },
+    toggleCell (prop, index) {
+      let state = this.timetable[prop][index]
+      // If 0 -> 1 / If 1 -> 0
+      this.timetable[prop].splice(index, 1, Math.abs(state - 1))
     }
   },
   activated () {
