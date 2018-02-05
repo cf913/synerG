@@ -89,9 +89,17 @@
 		          	<!--	<td :class="{selected: saturday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="saturday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
 		          	<!--	<td :class="{selected: sunday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="sunday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
 		          	<!--</tr>-->
+
+
+                <!-- you where updating time[index] instead of the values in timetable -->
 		          	<tr v-for="(time, index) in timetable" :key="index">
-		          	  <td>{{ index | formatHour }}</td>
+                  <!-- for display: added a filter (formatHour) to format index. index is the key of the object timetable (row1, row2,...). 
+                       formatHour turns 'row6' into '5-6' -->
+		          	  <td>{{ index | formatHour }}</td> 
+                  <!-- For loop for table cells -->
+                  <!-- day is an elem of time, where time is an array of length 6. when day == 1 (same as day == true) add class selected -->
 		          	  <td v-for="(day, i) in time" :key="i" :class="{selected: day}">
+                    <!-- on click toggle day value 0 or 1 -->
 		          	  	<button type="button" @click="toggleCell(index, i)">
                       <i v-if="day" class="fa fa-minus fa-fw"></i>
                       <i v-else class="fa fa-plus fa-fw"></i>
@@ -197,9 +205,12 @@ export default {
     onCancel () {
       this.$router.go(-1)
     },
+    // toggleCell takes two arguments
+    // prop: the key i.e. row1, row2...
+    // index: the index of the cell of the array corresponding to key prop
     toggleCell (prop, index) {
       let state = this.timetable[prop][index]
-      // If 0 -> 1 / If 1 -> 0
+      // using absolute values: 0 - 1 = 1 and 1 - 1 = 0 ggwp :)
       this.timetable[prop].splice(index, 1, Math.abs(state - 1))
     }
   },
