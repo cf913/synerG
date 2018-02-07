@@ -40,7 +40,6 @@
     </div>
     <ul class="list-group clearfix" v-for="(team, index) in teams" :key="index">
       <li class="list-group-item inner-tile">
-        <!--<app-team-item :team="team" @teamSelected="onTeamSelected"></app-team-item>-->
         <app-team-item :team="team"></app-team-item>
       </li>
     </ul>
