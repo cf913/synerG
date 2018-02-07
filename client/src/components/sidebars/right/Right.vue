@@ -5,7 +5,7 @@
       <b-nav-item :to="{ name: 'playerDetails', params: { id: user.steamId }}" :disabled="!isLoggedIn"><i class="fa fa-user-circle-o"></i></b-nav-item>
       <b-nav-item to="/myteams" :disabled="!isLoggedIn"><i class="fa fa-group"></i></b-nav-item>
       <b-nav-item to="/friends" :disabled="!isLoggedIn"><i class="fa fa-address-book"></i></b-nav-item>
-      <b-nav-item to="/messages" :disabled="!isLoggedIn"><i class="fa fa-envelope"></i></b-nav-item>
+      <b-nav-item to="/messages" :disabled="!isLoggedIn"><i class="fa fa-comments"></i></b-nav-item>
       <b-nav-item to="/settings" :disabled="!isLoggedIn"><i class="fa fa-gear"></i></b-nav-item>
     </b-nav>
 

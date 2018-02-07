@@ -12,6 +12,7 @@ import TeamDetails from '@/components/center/teams/Team_details'
 import TeamEdit from '@/components/center/teams/Team_edit'
 import Friends from '@/components/center/friends/Friends'
 import Message from '@/components/center/messages/Message'
+import MessageDetails from '@/components/center/messages/Message_details'
 
 Vue.use(Router)
 
@@ -59,7 +60,13 @@ export default new Router({
         },
         {
           path: 'messages',
-          component: Message
+          component: Message,
+          children: [
+            {
+              path: '/:id',
+              component: MessageDetails
+            }
+          ]
         }
       ]
     //     {

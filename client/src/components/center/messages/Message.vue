@@ -10,7 +10,7 @@
         <div class="right col-lg-8">
           <div class="fixed">
             <keep-alive>
-              <app-message-details></app-message-details>
+              <router-view :key="$route.fullPath"></router-view>
             </keep-alive>
           </div>
         </div>
@@ -22,13 +22,11 @@
 <script>
 // Using player list for now but once friends is done should be friend list
 import MessageList from './Message_list'
-import MessageDetails from './Message_details'
 
 export default {
-  name: 'Home',
+  name: 'Message',
   components: {
-    appMessageList: MessageList,
-    appMessageDetails: MessageDetails
+    appMessageList: MessageList
   }
 }
 </script>
