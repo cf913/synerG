@@ -60,7 +60,31 @@ module.exports = {
     })
   },
   
-  newConversation(req, res, next) {  
+  checkConversation(req, res, next) {
+    Conversation.find({$and: [{participants: req.body.user}, {participants: req.body.recipient}]})
+    // .select('_id')
+    .exec((err, conversations) => {
+      console.log(conversations)
+      if (err) {
+        return console.log(err)
+      }
+      if(conversations.length===0) {
+        return res.status(200).json({ message: "No conversation yet" })
+        // return console.log('nothing')
+      } else {
+        return res.status(200).json({ message: "Found conversation" })
+      }
+    })
+    .then(conversation => {
+      console.log('need new conversation')
+      res.send(conversation)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  },
+  
+  newConversation(req, res, next) {
     if(!req.params.recipient) {
       res.status(422).send({ error: 'Please choose a valid recipient for your message.' })
       return next()

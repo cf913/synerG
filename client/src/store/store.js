@@ -10,6 +10,7 @@ import AuthModule from './modules/auth'
 import HeroesModule from './modules/heroes'
 import TeamListModule from './modules/teamList'
 import TeamModule from './modules/team'
+import MessagesModule from './modules/messages'
 
 Vue.use(Vuex)
 
@@ -33,6 +34,7 @@ export default new Vuex.Store({
     PlayerModule,
     HeroesModule,
     TeamModule,
-    TeamListModule
+    TeamListModule,
+    MessagesModule
   }
 })
