@@ -44,19 +44,22 @@ module.exports = {
   },
   
   getConversation(req, res, next) {  
-    Message.find({ conversationId: req.params.conversationId })
+    Message.find({ conversationId: req.params.id })
     .select('createdAt body author')
     .sort('-createdAt')
-    .populate({
-      path: 'author',
-      select: 'profile.firstName profile.lastName'
-    })
-    .exec(function(err, messages) {
+    .populate({path: 'author', model: Player, select: '_id img steamName steam'})
+    .exec((err, messages) => {
       if (err) {
         res.send({ error: err })
         return next(err)
       }
-      res.status(200).json({ conversation: messages })
+    })
+    .then(messages => {
+      console.log(messages)
+      res.send(messages)
+    })
+    .catch(err => {
+      console.log(err)
     })
   },
   

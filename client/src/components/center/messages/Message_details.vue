@@ -4,7 +4,7 @@
       <p>Name of recipient</p>
     </div>
     <div class="tiled inner-tile">
-      <p>Messages should appear here</p>
+      <p>{{messages}}</p>
     </div>
     <div class="tiled inner-tile">
       <form>
@@ -19,6 +19,22 @@
 </template>
 
 <script>
+export default {
+  computed: {
+    messages () {
+      return this.$store.getters.messages
+    }
+  },
+  methods: {
+    getConversation () {
+      this.$store.dispatch('getConversation', this.$route.params.id)
+    }
+  },
+  activated () {
+    console.log('Fetching conversation details')
+    this.getConversation()
+  }
+}
 </script>
 
 <style scoped>
