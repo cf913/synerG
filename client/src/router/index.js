@@ -11,6 +11,9 @@ import TeamsNew from '@/components/center/teams/Team_new'
 import TeamDetails from '@/components/center/teams/Team_details'
 import TeamEdit from '@/components/center/teams/Team_edit'
 import Friends from '@/components/center/friends/Friends'
+import Message from '@/components/center/messages/Message'
+import MessageDetails from '@/components/center/messages/Message_details'
+import MessageNew from '@/components/center/messages/Message_new'
 
 Vue.use(Router)
 
@@ -55,6 +58,20 @@ export default new Router({
         {
           path: 'friends',
           component: Friends
+        },
+        {
+          path: 'messages',
+          component: Message,
+          children: [
+            {
+              path: ':id',
+              component: MessageDetails
+            },
+            {
+              path: 'new/:recipient',
+              component: MessageNew
+            }
+          ]
         }
       ]
     //     {

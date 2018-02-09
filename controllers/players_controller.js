@@ -19,7 +19,7 @@ module.exports = {
     },
 
     getPlayer(req, res, next) {
-        Player.findOne({steamId: req.params.id})
+        Player.findOne({_id: req.params.id})
         .populate({path: 'teams', model: Team})
         .exec(function (err, team) {
         if (err) return console.log(err);
@@ -34,7 +34,7 @@ module.exports = {
     },
 
     editPlayer(req, res, next) {
-        Player.findOneAndUpdate({ steamId: req.params.id }, { $set: req.body }, { new: true })
+        Player.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true })
         .then(player => {
             res.send(player)
         })

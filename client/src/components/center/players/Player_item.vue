@@ -14,7 +14,7 @@
         <!-- <router-link class="btn btn-warning btn-sm float-right" :to="{}"><i class="fa fa-comment fa-fw"></i></router-link> -->
         <!-- <router-link class="btn btn-secondary btn-sm float-right" :to="{ path: `/players/${player.steamId}`}"><i class="fa fa-user-circle-o fa-fw"></i></router-link> -->
         <!--<router-link :to="{ path: `/players/${player.steamId}`}"><h5>{{ player.steamName }}</h5></router-link>-->
-        <router-link :to="{ name: 'playerDetails', params: { id: player.steamId }}"><h5>{{ player.steamName }}</h5></router-link>
+        <router-link :to="{ name: 'playerDetails', params: { id: player._id }}"><h5>{{ player.steamName }}</h5></router-link>
         <ul class="d-flex details inner-2-tile">
           <!--<li v-if="player.mmr.mmr_estimate"><i class="fa fa-trophy fa-fw"></i>-->
           <!--  ~{{ player.mmr.mmr_estimate | toDecimal }}K-->

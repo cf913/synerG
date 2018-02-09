@@ -21,17 +21,17 @@ const actions = {
   editPlayer (rootState, data) {
     if (!rootState.getters.idToken) {
       console.log('Not Authenticated')
-      router.replace(`/players/${rootState.getters.user.steamId}`)
+      router.replace(`/players/${rootState.getters.user._id}`)
       return
     }
-    axios.post(`/api/players/${rootState.getters.user.steamId}/edit?token=${rootState.getters.idToken}`, data.data)
+    axios.post(`/api/players/${rootState.getters.user._id}/edit?token=${rootState.getters.idToken}`, data.data)
       .then(res => {
         console.dir('Profile Updated!')
         return res
       })
       .then(({data}) => {
         rootState.commit('userUpdate', data)
-        router.replace(`/players/${rootState.getters.userId}`)
+        router.replace(`/players/${rootState.getters.user._id}`)
       })
       .catch(err => {
         console.log('edit err: ' + err)
@@ -56,10 +56,10 @@ const actions = {
   updatePlayer (rootState, id) {
     if (!rootState.getters.idToken) {
       console.log('Not Authenticated')
-      router.replace(`/players/${rootState.getters.user.steamId}`)
+      router.replace(`/players/${rootState.getters.user._id}`)
       return
     }
-    axios.get(`/api/players/${rootState.getters.user.steamId}/update?token=${rootState.getters.idToken}`)
+    axios.get(`/api/players/${rootState.getters.user._id}/update?token=${rootState.getters.idToken}`)
       .then(({data}) => {
         console.log('DATA RETURNED!')
         rootState.commit('player', {

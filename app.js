@@ -31,6 +31,7 @@ let authSteam = require('./routes/auth/authSteam')
 let players = require('./routes/api/players_routes')
 let friends = require('./routes/api/friends_routes')
 let teams = require('./routes/api/teams_routes')
+let messages = require('./routes/api/messages_routes')
 
 
 // uncomment after placing your favicon in /public
@@ -49,6 +50,7 @@ app.use(express.static(path.join(__dirname, 'client/dist')))
 app.use('/api/players', players)
 app.use('/api/friends', friends)
 app.use('/api/teams', teams)
+app.use('/api/messages', messages)
 app.use('/auth/jwt', authJWT)
 app.use('/auth/steam', authSteam)
 

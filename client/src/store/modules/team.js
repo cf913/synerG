@@ -31,7 +31,7 @@ const actions = {
       console.log('done')
       console.log(data)
       // data.teamAdmins.push(rootState.AuthModule.user)
-      router.replace(`/players/${rootState.getters.user.steamId}`)
+      router.replace(`/players/${rootState.getters.user._id}`)
     })
     .catch(err => {
       console.log('edit err: ' + err)
@@ -184,7 +184,7 @@ const actions = {
     axios.post(`/api/teams/${teamId}/delete?token=${rootState.getters.idToken}`, rootState.getters.user)
     .then(res => {
       console.dir('Deleted Team!')
-      router.replace(`/players/${rootState.getters.user.steamId}`)
+      router.replace(`/players/${rootState.getters.user._id}`)
       return res
     })
     .catch(err => {
