@@ -85,35 +85,34 @@ module.exports = {
   },
   
   newConversation(req, res, next) {
-    if(!req.params.recipient) {
-      res.status(422).send({ error: 'Please choose a valid recipient for your message.' })
-      return next()
-    }
-    if(!req.body.composedMessage) {
+    if(!req.body.message) {
       res.status(422).send({ error: 'Please enter a message.' })
-      return next()
+      return
     }
     const conversation = new Conversation({
-      participants: [req.user._id, req.params.recipient]
+      participants: [req.body.sender, req.body.recipient]
     })
-    conversation.save(function(err, newConversation) {
-      if (err) {
-        res.send({ error: err })
-        return next(err)
-      }
+    conversation.save()
+    .then(newConversation => {
+      console.log('New conversation created')
+      console.log(newConversation)
       const message = new Message({
         conversationId: newConversation._id,
-        body: req.body.composedMessage,
-        author: req.user._id
+        body: req.body.message,
+        author: req.body.sender
       })
-      message.save(function(err, newMessage) {
-        if (err) {
-          res.send({ error: err })
-          return next(err)
-        }
-        res.status(200).json({ message: 'Conversation started!', conversationId: conversation._id })
-        return next()
+      message.save()
+      .then(message => {
+        console.log('Here is the message')
+        console.log(message)
+        res.send(message)
       })
+      .catch(err => {
+        console.log(err)
+      })
+    })
+    .catch(err => {
+      console.log(err)
     })
   },
   

@@ -2,7 +2,7 @@
   <div class="players tile gray-tile tile-shadow">
     <b-nav justified tabs class="top-tabs">
       <b-nav-item to="/" exact :disabled="!isLoggedIn"><i class="fa fa-newspaper-o"></i></b-nav-item>
-      <b-nav-item :to="{ name: 'playerDetails', params: { id: user.steamId }}" :disabled="!isLoggedIn"><i class="fa fa-user-circle-o"></i></b-nav-item>
+      <b-nav-item :to="{ name: 'playerDetails', params: { id: user._id }}" :disabled="!isLoggedIn"><i class="fa fa-user-circle-o"></i></b-nav-item>
       <b-nav-item to="/myteams" :disabled="!isLoggedIn"><i class="fa fa-group"></i></b-nav-item>
       <b-nav-item to="/friends" :disabled="!isLoggedIn"><i class="fa fa-address-book"></i></b-nav-item>
       <b-nav-item to="/messages" :disabled="!isLoggedIn"><i class="fa fa-comments"></i></b-nav-item>

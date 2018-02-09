@@ -8,10 +8,15 @@
     </div>
     <div class="tiled inner-tile">
       <form>
-        <div>
-          <label class="col-form-label" for="message">Message:</label>
-          <input type="text" class="form-control" id="message" name="message" v-model="message" placeholder="Write Message ...">
-          <button><i class="fa fa-arrow-right fa-fw"></i></button>
+        <div class="tiled inner-tile">
+          <h5 class="label">Message:</h5>
+          <b-form-textarea class="message"
+            v-model="message"
+            placeholder="Write message..."
+            :rows="3"
+            :max-rows="6">
+          </b-form-textarea>
+          <button @click.prevent="newConversation"><i class="fa fa-arrow-right fa-fw"></i></button>
         </div>
       </form>
     </div>
@@ -20,6 +25,11 @@
 
 <script>
 export default {
+  data () {
+    return {
+      message: ''
+    }
+  },
   computed: {
     player () {
       return this.$store.getters.player
@@ -28,6 +38,13 @@ export default {
   methods: {
     getPlayer () {
       this.$store.dispatch('getPlayer', this.$route.params.recipient)
+    },
+    newConversation () {
+      const recipient = this.$store.getters.player._id
+      const message = this.message
+      console.log(message)
+      console.log(recipient)
+      this.$store.dispatch('newConversation', {message, recipient})
     }
   },
   activated () {

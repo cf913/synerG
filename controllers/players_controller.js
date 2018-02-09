@@ -34,7 +34,7 @@ module.exports = {
     },
 
     editPlayer(req, res, next) {
-        Player.findOneAndUpdate({ steamId: req.params.id }, { $set: req.body }, { new: true })
+        Player.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true })
         .then(player => {
             res.send(player)
         })
