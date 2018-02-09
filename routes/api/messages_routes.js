@@ -6,7 +6,7 @@ const config = require('@config')
 const jwt = require('jsonwebtoken')
 
 // Start new conversation
-router.get('/check', passport.authenticate('jwt'), MessagesController.checkConversation)
+router.post('/check', passport.authenticate('jwt'), MessagesController.checkConversation)
 router.post('/new/:recipient', passport.authenticate('jwt'), MessagesController.newConversation)
 
 // router.use('/:id/:action', passport.authenticate('jwt'), (req, res, next) => {

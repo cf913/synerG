@@ -46,16 +46,15 @@ const actions = {
       console.log('Not Authenticated')
       router.replace(`/players/${rootState.getters.player._id}`)
     }
-    axios.get(`/api/messages/check?token=${rootState.getters.idToken}`, {user: rootState.getters.user._id, recipient: data})
-    // axios.post(`/api/messages/new/${data}?token=${rootState.getters.idToken}`, {user: rootState.getters.user._id, recipient: data})
+    axios.post(`/api/messages/check?token=${rootState.getters.idToken}`, {user: rootState.getters.user._id, recipient: data})
     .then(checkConversation => {
       console.log('new conversation')
       console.log(checkConversation)
-      if (checkConversation.message === 'No conversation yet') {
+      if (checkConversation.data.message === 'No conversation yet') {
         console.log('Writing new message')
         router.replace(`/messages/new/${data}`)
       } else {
-        router.replace(`/messages/new/${data}`)
+        router.replace(`/messages/${checkConversation.data._id}`)
       }
     })
     .catch(err => {

@@ -64,18 +64,18 @@ module.exports = {
   },
   
   checkConversation(req, res, next) {
-    Conversation.find({$and: [{participants: req.body.user}, {participants: req.body.recipient}]})
+    Conversation.findOne({$and: [{participants: req.body.user}, {participants: req.body.recipient}]})
     // .select('_id')
     .exec((err, conversations) => {
       console.log(conversations)
       if (err) {
         return console.log(err)
       }
-      if(conversations.length===0) {
+      if(conversations===null) {
         return res.status(200).json({ message: "No conversation yet" })
         // return console.log('nothing')
       } else {
-        return res.status(200).json({ message: "Found conversation" })
+        res.send(conversations)
       }
     })
     .then(conversation => {
