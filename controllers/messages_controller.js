@@ -46,7 +46,7 @@ module.exports = {
   getConversation(req, res, next) {  
     Message.find({ conversationId: req.params.id })
     .select('createdAt body author')
-    .sort('-createdAt')
+    .sort({createdAt: 'ascending'})
     .populate({path: 'author', model: Player, select: '_id img steamName steam'})
     .exec((err, messages) => {
       if (err) {

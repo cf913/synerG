@@ -77,15 +77,16 @@ const actions = {
       console.log('edit err: ' + err)
     })
   },
-  sendReply (rootState, {message, conversationId}) {
-    if (!rootState.getters.idToken) {
+  sendReply ({rootState, dispatch}, {message, conversationId}) {
+    if (!rootState.AuthModule.idToken) {
       console.log('Not Authenticated')
-      router.replace(`/players/${rootState.getters.player._id}`)
+      router.replace(`/players/${rootState.PlayerModule.player._id}`)
     }
-    axios.post(`/api/messages/${conversationId}?token=${rootState.getters.idToken}`, {message: message, sender: rootState.getters.user._id})
+    axios.post(`/api/messages/${conversationId}?token=${rootState.AuthModule.idToken}`, {message: message, sender: rootState.AuthModule.user._id})
     .then(newMessage => {
       console.log('created new conversation')
       console.log(newMessage)
+      dispatch('getConversation', conversationId)
       router.replace(`/messages/${newMessage.data.conversationId}`)
       return newMessage
     })
