@@ -76,6 +76,22 @@ const actions = {
     .catch(err => {
       console.log('edit err: ' + err)
     })
+  },
+  sendReply (rootState, {message, conversationId}) {
+    if (!rootState.getters.idToken) {
+      console.log('Not Authenticated')
+      router.replace(`/players/${rootState.getters.player._id}`)
+    }
+    axios.post(`/api/messages/${conversationId}?token=${rootState.getters.idToken}`, {message: message, sender: rootState.getters.user._id})
+    .then(newMessage => {
+      console.log('created new conversation')
+      console.log(newMessage)
+      router.replace(`/messages/${newMessage.data.conversationId}`)
+      return newMessage
+    })
+    .catch(err => {
+      console.log('edit err: ' + err)
+    })
   }
 }
 

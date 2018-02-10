@@ -8,15 +8,21 @@
     </div>
     <div class="tiled inner-tile">
       <form>
-        <div class="tiled inner-tile">
-          <h5 class="label">Message:</h5>
-          <b-form-textarea class="message"
-            v-model="message"
-            placeholder="Write message..."
-            :rows="3"
-            :max-rows="6">
-          </b-form-textarea>
-          <button @click.prevent="newConversation"><i class="fa fa-arrow-right fa-fw"></i></button>
+        <!--<div class="tiled inner-tile">-->
+        <!--  <h5 class="label">Message:</h5>-->
+        <!--  <b-form-textarea class="message"-->
+        <!--    v-model="message"-->
+        <!--    @keyup.enter="newConversation"-->
+        <!--    placeholder="Write message..."-->
+        <!--    :rows="3"-->
+        <!--    :max-rows="6">-->
+        <!--  </b-form-textarea>-->
+        <!--  <button @click.prevent="newConversation"><i class="fa fa-arrow-right fa-fw"></i></button>-->
+        <!--</div>-->
+        <div>
+          <label class="col-form-label" for="message">Message:</label>
+          <input type="text" class="form-control" id="message" name="message" v-model="message" placeholder="Write Message ...">
+          <button @click.prevent="newConversation" @keyup.enter.prevent="newConversation"><i class="fa fa-arrow-right fa-fw"></i></button>
         </div>
       </form>
     </div>

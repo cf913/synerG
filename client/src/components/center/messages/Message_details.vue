@@ -4,14 +4,16 @@
       <p>Name of recipient</p>
     </div>
     <div class="tiled inner-tile">
-      <p>{{messages}}</p>
+      <ul class="list-group clearfix" v-for="(message, index) in messages" :key="index">
+        <li class="list-group-item inner-tile">{{message.author.steamName}} sent {{message.body}}</li>
+      </ul>
     </div>
     <div class="tiled inner-tile">
       <form>
         <div>
           <label class="col-form-label" for="message">Message:</label>
           <input type="text" class="form-control" id="message" name="message" v-model="message" placeholder="Write Message ...">
-          <button><i class="fa fa-arrow-right fa-fw"></i></button>
+          <button @click.prevent="sendReply" @keyup.enter.prevent="sendReply"><i class="fa fa-arrow-right fa-fw"></i></button>
         </div>
       </form>
     </div>
@@ -20,12 +22,24 @@
 
 <script>
 export default {
+  data () {
+    return {
+      message: ''
+    }
+  },
   computed: {
     messages () {
       return this.$store.getters.messages
     }
   },
   methods: {
+    sendReply () {
+      const message = this.message
+      const conversationId = this.$route.params.id
+      console.log(message)
+      console.log(conversationId)
+      this.$store.dispatch('sendReply', {message, conversationId})
+    },
     getConversation () {
       this.$store.dispatch('getConversation', this.$route.params.id)
     }

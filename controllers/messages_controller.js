@@ -121,25 +121,26 @@ module.exports = {
   
   sendReply(req, res, next) {  
     const reply = new Message({
-      conversationId: req.params.conversationId,
-      body: req.body.composedMessage,
-      author: req.user._id
+      conversationId: req.params.id,
+      body: req.body.message,
+      author: req.body.sender
     })
-    reply.save(function(err, sentReply) {
-      if (err) {
-        res.send({ error: err })
-        return next(err)
-      }
-      res.status(200).json({ message: 'Reply successfully sent!' })
-      return(next)
-    });
+    reply.save()
+    .then(message => {
+      console.log('Reply sent')
+      console.log(message)
+      res.send(message)
+    })
+    .catch(err => {
+      console.log(err)
+    })
   },
   
   deleteConversation(req, res, next) {  
     Conversation.findOneAndRemove({
       $and : [
               { '_id': req.params.conversationId }, { 'participants': req.user._id }
-             ]}, function(err) {
+            ]}, function(err) {
           if (err) {
             res.send({ error: err });
             return next(err);
