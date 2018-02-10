@@ -9,37 +9,35 @@ module.exports = {
   
   getConversations(req, res, next) {  
     // Only return one message from each conversation to display as snippet
-    Conversation.find({ participants: req.user._id })
+    Conversation.find({participants: req.body.userId})
     .select('_id')
-    .exec(function(err, conversations) {
-    if (err) {
-      res.send({ error: err })
-      return next(err)
-    }
-    if(conversations.length===0) {
-      return res.status(200).json({ message: "No conversations yet" })
-    }
-    // Set up empty array to hold conversations + most recent message
-    let fullConversations = []
-    conversations.forEach(function(conversation) {
-      Message.find({ 'conversationId': conversation._id })
-        .sort('-createdAt')
-        .limit(1)
-        .populate({
-          path: "author",
-          select: "profile.firstName profile.lastName"
+    .then(conversations => {
+      if(conversations.length===0) {
+        return res.status(200).json({ message: "No conversations yet" })
+      } else {
+        let fullConversations = []
+        conversations.forEach(conversation => {
+          Message.findOne({ 'conversationId': conversation._id })
+          .sort('-createdAt')
+          // .limit(1)
+          .populate({path: 'author', model: Player, select: '_id img steamName steam'})
+          .then(message => {
+            fullConversations.push(message)
+            if(fullConversations.length === conversations.length) {
+              console.log(fullConversations)
+              res.send(fullConversations)
+            }
+          })
+          .catch(err => {
+            console.log('This is error message')
+            res.send(err)
+          })
         })
-        .exec(function(err, message) {
-          if (err) {
-            res.send({ error: err })
-            return next(err)
-          }
-          fullConversations.push(message)
-          if(fullConversations.length === conversations.length) {
-            return res.status(200).json({ conversations: fullConversations })
-          }
-        })
-      })
+      }
+    })
+    .catch(err => {
+      console.log('This is error message')
+      res.send(err)
     })
   },
   
@@ -48,42 +46,26 @@ module.exports = {
     .select('createdAt body author')
     .sort({createdAt: 'ascending'})
     .populate({path: 'author', model: Player, select: '_id img steamName steam'})
-    .exec((err, messages) => {
-      if (err) {
-        res.send({ error: err })
-        return next(err)
-      }
-    })
     .then(messages => {
-      console.log(messages)
       res.send(messages)
     })
     .catch(err => {
-      console.log(err)
+      res.send(err)
     })
   },
   
   checkConversation(req, res, next) {
     Conversation.findOne({$and: [{participants: req.body.user}, {participants: req.body.recipient}]})
-    // .select('_id')
-    .exec((err, conversations) => {
-      console.log(conversations)
-      if (err) {
-        return console.log(err)
-      }
-      if(conversations===null) {
-        return res.status(200).json({ message: "No conversation yet" })
-        // return console.log('nothing')
-      } else {
-        res.send(conversations)
-      }
-    })
     .then(conversation => {
-      console.log('need new conversation')
-      res.send(conversation)
+      if(conversation===null) {
+        return res.status(200).json({message: "No conversation yet"})
+      } else {
+        console.log('need new conversation')
+        res.send(conversation)
+      }
     })
     .catch(err => {
-      console.log(err)
+      res.send(err)
     })
   },
   
@@ -134,43 +116,43 @@ module.exports = {
     .catch(err => {
       console.log(err)
     })
-  },
-  
-  deleteConversation(req, res, next) {  
-    Conversation.findOneAndRemove({
-      $and : [
-              { '_id': req.params.conversationId }, { 'participants': req.user._id }
-            ]}, function(err) {
-          if (err) {
-            res.send({ error: err });
-            return next(err);
-          }
-          res.status(200).json({ message: 'Conversation removed!' });
-          return next();
-    });
-  },
-  
-  updateMessage(req, res, next) {  
-    Conversation.find({
-      $and : [
-              { '_id': req.params.messageId }, { 'author': req.user._id }
-            ]}, function(err, message) {
-          if (err) {
-            res.send({ error: err});
-            return next(err);
-          }
-  
-          message.body = req.body.composedMessage;
-  
-          message.save(function (err, updatedMessage) {
-            if (err) {
-              res.send({ error: err });
-              return next(err);
-            }
-  
-            res.status(200).json({ message: 'Message updated!' });
-            return next();
-          });
-    });
   }
+  
+  // deleteConversation(req, res, next) {  
+  //   Conversation.findOneAndRemove({
+  //     $and : [
+  //             { '_id': req.params.conversationId }, { 'participants': req.user._id }
+  //           ]}, function(err) {
+  //         if (err) {
+  //           res.send({ error: err });
+  //           return next(err);
+  //         }
+  //         res.status(200).json({ message: 'Conversation removed!' });
+  //         return next();
+  //   });
+  // },
+  
+  // updateMessage(req, res, next) {  
+  //   Conversation.find({
+  //     $and : [
+  //             { '_id': req.params.messageId }, { 'author': req.user._id }
+  //           ]}, function(err, message) {
+  //         if (err) {
+  //           res.send({ error: err});
+  //           return next(err);
+  //         }
+  
+  //         message.body = req.body.composedMessage;
+  
+  //         message.save(function (err, updatedMessage) {
+  //           if (err) {
+  //             res.send({ error: err });
+  //             return next(err);
+  //           }
+  
+  //           res.status(200).json({ message: 'Message updated!' });
+  //           return next();
+  //         });
+  //   });
+  // }
 }
