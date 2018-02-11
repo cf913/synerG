@@ -3,12 +3,12 @@
     <div>
       <ul class="list-group clearfix" v-for="(conversation, index) in conversations" :key="index">
         <li class="list-group-item inner-tile">
-          <h4>{{conversation.author.steamName}}</h4>
-          <p>{{conversation.body}}</p>
+          <span v-for="(participant, index) in conversation.conversationId.participants" :key="index">
+            <h4 v-if="participant.steamName !== user.steamName">{{participant.steamName}} </h4>
+          </span>
+          <p>{{conversation.author.steamName}}: {{conversation.body}}</p>
         </li>
       </ul>
-      <!--<p>{{conversations}}</p>-->
-      <p>This is conversations list</p>
     </div>
   </div>
 </template>
@@ -16,6 +16,9 @@
 <script>
 export default {
   computed: {
+    user () {
+      return this.$store.getters.user
+    },
     conversations () {
       return this.$store.getters.conversations
     }

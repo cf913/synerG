@@ -19,9 +19,9 @@ module.exports = {
         conversations.forEach(conversation => {
           Message.findOne({ 'conversationId': conversation._id })
           .sort('-createdAt')
-          // .limit(1)
-          .populate({path: 'author', model: Player, select: '_id img steamName steam'})
+          .populate([{path: 'author', model: Player, select: '_id img steamName steam'}, {path: 'conversationId', model: Conversation, populate: {path: 'participants', model: Player, select: '_id img steamName steam'}}])
           .then(message => {
+            console.log(message)
             fullConversations.push(message)
             if(fullConversations.length === conversations.length) {
               console.log(fullConversations)
