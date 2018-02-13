@@ -11,7 +11,9 @@
             </div>
             <div class="col-sm-10">
               <span v-for="(participant, index) in conversation.conversationId.participants" :key="index">
-                <h4 v-if="participant.steamName !== user.steamName">{{participant.steamName}} </h4>
+                <router-link :to="{ name: 'messageDetails', params: { id: conversation.conversationId._id }}">
+                  <h4 v-if="participant.steamName !== user.steamName">{{participant.steamName}} </h4>
+                </router-link>
               </span>
               <p>{{conversation.author.steamName}}: {{conversation.body}}</p>
             </div>
