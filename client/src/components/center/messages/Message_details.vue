@@ -39,13 +39,35 @@ export default {
       console.log(message)
       console.log(conversationId)
       this.$store.dispatch('sendReply', {message, conversationId})
+      const participants = this.$store.getters.messages[0].conversationId.participants
+      // var receiverID = '5a6d6ef80577a7001430da2e' //  b1g
+      // var receiverID = '5a85e96ffe71681af8e8568d' //  b2g
+      const receiverID = participants.filter(item => {
+        return item._id !== this.$store.getters.user._id
+      })
+      console.log(receiverID[0]._id)
+      this.$socket.emit('message', {sender: this.$store.getters.user, receiverID: receiverID[0]._id, message: this.message})
     },
     getConversation () {
       this.$store.dispatch('getConversation', this.$route.params.id)
     }
   },
+  socket: {
+    events: {
+      incoming (msg) {
+        console.log('Something changed: ' + msg)
+        this.getConversation()
+      }
+    }
+  },
   activated () {
     console.log('Fetching conversation details')
+    var obj = {
+      socketId: this.$socket.id,
+      user: this.$store.getters.user
+    }
+    console.log(this.$socket.id)
+    this.$socket.emit('info', obj)
     this.getConversation()
   }
 }

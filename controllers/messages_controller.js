@@ -19,7 +19,7 @@ module.exports = {
         conversations.forEach(conversation => {
           Message.findOne({ 'conversationId': conversation._id })
           .sort('-createdAt')
-          .populate([{path: 'author', model: Player, select: '_id img steamName steam'}, {path: 'conversationId', model: Conversation, populate: {path: 'participants', model: Player, select: '_id img steamName steam'}}])
+          .populate([{path: 'author', model: Player, select: '_id img steamName'}, {path: 'conversationId', model: Conversation, populate: {path: 'participants', model: Player, select: '_id img steamName'}}])
           .then(message => {
             fullConversations.push(message)
             if(fullConversations.length === conversations.length) {
@@ -41,9 +41,9 @@ module.exports = {
   
   getConversation(req, res, next) {  
     Message.find({ conversationId: req.params.id })
-    .select('createdAt body author')
+    .select('createdAt body author coversationId')
     .sort({createdAt: 'ascending'})
-    .populate({path: 'author', model: Player, select: '_id img steamName steam'})
+    .populate([{path: 'author', model: Player, select: '_id img steamName'}, {path: 'conversationId', model: Conversation, populate: {path: 'participants', model: Player, select: '_id img steamName'}}])
     .then(messages => {
       res.send(messages)
     })

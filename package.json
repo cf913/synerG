@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "build": "./build.sh"
+    "build": "build.sh"
   },
   "_moduleAliases": {
     "@root": ".",
@@ -35,6 +35,8 @@
     "request-promise": "^4.2.2",
     "serve-favicon": "~2.4.5",
     "serve-static": "^1.13.1",
-    "steam-id-convertor": "^1.0.1"
+    "socket.io": "^2.0.4",
+    "steam-id-convertor": "^1.0.1",
+    "vue-socket.io": "^2.1.1-b"
   }
 }

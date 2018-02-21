@@ -9,6 +9,7 @@ let passport = require('passport')
 let jwt = require('jsonwebtoken')
 let config = require('./config/index.js')
 let database = require('./config/database')(mongoose, config)
+let socket = require('./controllers/socket_controller')
 require('module-alias/register')
 
 let app = express()
@@ -92,3 +93,4 @@ let port = process.env.PORT || 3000
 app.listen(port, () => {
   console.log('Server listenning on port ' + port)
 })
+socket.listen(3001)

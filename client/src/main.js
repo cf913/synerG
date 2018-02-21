@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import VueResource from 'vue-resource'
 import BootstrapVue from 'bootstrap-vue'
+import VueSocketIO from 'vue-socket.io'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'font-awesome/css/font-awesome.css'
@@ -13,6 +14,7 @@ import store from './store/store'
 
 Vue.use(BootstrapVue)
 Vue.use(VueResource)
+Vue.use(VueSocketIO, 'http://localhost:3001')
 
 Vue.config.productionTip = false
 
