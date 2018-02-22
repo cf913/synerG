@@ -1,31 +1,34 @@
 <template>
   <div class="players tile gray-tile tiled">
     <div class="container-fluid">
-      <div class="row">
-        <div class="left col-lg-4 sidebar">
-          <div>
-            <app-filter></app-filter> 
-          </div>
-        </div>
-        <div class="right col-lg-8">
-          <div class="fixed">
-            <app-news></app-news>
-          </div>
-        </div>
-      </div>
+      <b-nav justified tabs class="tabs">
+        <b-nav-item @click="tab = 'app-news'" :active="tab === 'app-news'">News Feed</b-nav-item>
+        <b-nav-item @click="tab = 'app-my-posts'" :active="tab === 'app-my-posts'">My Posts</b-nav-item>
+        <b-nav-item @click="tab = 'app-signals'" :active="tab === 'app-signals'">Signals</b-nav-item>
+      </b-nav>
+      <keep-alive>
+        <component :is="tab"></component>
+      </keep-alive>
     </div>
   </div>
 </template>
 
 <script>
-import Filter from '../sidebars/left/Filter_players'
-import News from './News'
+import News from './news/News'
+import MyPosts from './news/My_posts'
+import Signals from './news/signals'
 
 export default {
   name: 'Home',
+  data: () => {
+    return {
+      tab: 'app-news'
+    }
+  },
   components: {
-    appFilter: Filter,
-    appNews: News
+    appNews: News,
+    appMyPosts: MyPosts,
+    appSignals: Signals
   }
 }
 </script>
@@ -34,13 +37,5 @@ export default {
   .tiled {
     padding: 10px;
     margin-bottom: 15px;
-  }
-
-  .players {
-    display: flex;
-    justify-content: center;
-    align-self: center;
-    min-height: 80vh;
-    color: white;
   }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="players tile gray-tile tile-shadow">
-        <router-view/>
+        <h2 class="py-3">Signals</h2>
     </div>
 </template>
 

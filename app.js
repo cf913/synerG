@@ -9,10 +9,12 @@ let passport = require('passport')
 let jwt = require('jsonwebtoken')
 let config = require('./config/index.js')
 let database = require('./config/database')(mongoose, config)
-let socket = require('./controllers/socket_controller')
+// let socket = require('./controllers/socket_controller')
 require('module-alias/register')
 
 let app = express()
+// let server = require('http').createServer(app)
+// let io = require('socket.io').listen(server)
 
 // PASSPORT CONFIG
 require('./config/passportJWT')(passport)
@@ -90,7 +92,23 @@ app.get('*', (req, res) => {
 
 let port = process.env.PORT || 3000
 
+// io.on('connection', function (socket) {
+//   sockets.push(socket)
+//   console.log('client connected : socket ' + socket.id)
+//   socket.on('disconnect', function () {
+//     console.log('client disconnected : socket ' + socket.id)
+//   })
+//   socket.on('message', function (msg) {
+//     io.emit('message', msg)
+//   })
+// })
+
+// app.start = app.listen = function(){
+//   return server.listen.apply(server, arguments)
+// }
+
+// app.start(3000)
+
 app.listen(port, () => {
   console.log('Server listenning on port ' + port)
 })
-socket.listen(3001)
