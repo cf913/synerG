@@ -6,7 +6,7 @@ const config = require('@config')
 const jwt = require('jsonwebtoken')
 
 // Start new conversation
-// router.get('/', passport.authenticate('jwt'), NewsController.getNews)
+router.get('/', passport.authenticate('jwt'), NewsController.getPosts)
 // View messages to and from authenticated user
 router.post('/', passport.authenticate('jwt'), NewsController.newPost)
 
