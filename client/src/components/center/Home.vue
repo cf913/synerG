@@ -20,7 +20,7 @@ import Signals from './news/signals'
 
 export default {
   name: 'Home',
-  data: () => {
+  data () {
     return {
       tab: 'app-news'
     }

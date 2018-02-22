@@ -31,6 +31,7 @@ passport.deserializeUser(function(user, done) {
 // LOAD ROUTES
 let authJWT = require('./routes/auth/authJWT')
 let authSteam = require('./routes/auth/authSteam')
+let news = require('./routes/api/news_routes')
 let players = require('./routes/api/players_routes')
 let friends = require('./routes/api/friends_routes')
 let teams = require('./routes/api/teams_routes')
@@ -50,6 +51,7 @@ app.use(passport.initialize())
 app.use(express.static(path.join(__dirname, 'client/dist')))
 
 // Set our api routes
+app.use('/api/news', news)
 app.use('/api/players', players)
 app.use('/api/friends', friends)
 app.use('/api/teams', teams)
