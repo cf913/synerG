@@ -3,7 +3,8 @@ import router from './../../router'
 
 const state = {
   posts: [],
-  myposts: []
+  myposts: [],
+  signals: []
 }
 
 const mutations = {
@@ -12,6 +13,9 @@ const mutations = {
   },
   myposts (state, myposts) {
     state.myposts = myposts.posts
+  },
+  signals (state, signals) {
+    state.signals = signals.signals
   }
 }
 
@@ -78,6 +82,46 @@ const actions = {
       console.log('This is error message')
       console.log(err)
     })
+  },
+  getSignals ({commit, rootState}) {
+    if (!rootState.AuthModule.idToken) {
+      console.log('Not Authenticated')
+      router.replace(`/players/${rootState.AuthModule.user._id}`)
+    }
+    axios.get(`/api/news/signals?token=${rootState.AuthModule.idToken}`)
+    .then(signals => {
+      console.log(signals)
+      const data = signals.data
+      const resultArray = []
+      for (let key in data) {
+        resultArray.push(data[key])
+      }
+      console.log(resultArray)
+      commit('signals', {
+        signals: resultArray
+      })
+    })
+    .catch(err => {
+      console.log('This is error message')
+      console.log(err)
+    })
+  },
+  newSignal ({rootState, dispatch}, signal) {
+    if (!rootState.AuthModule.idToken) {
+      console.log('Not Authenticated')
+      router.replace(`/`)
+    }
+    axios.post(`/api/news/signals?token=${rootState.AuthModule.idToken}`, {signal: signal, player: rootState.AuthModule.user})
+    .then(newSignal => {
+      console.log('created new signal')
+      console.log(newSignal)
+      dispatch('getSignals')
+      router.replace(`/`)
+      return newSignal
+    })
+    .catch(err => {
+      console.log('edit err: ' + err)
+    })
   }
 }
 
@@ -87,6 +131,9 @@ const getters = {
   },
   myposts (state) {
     return state.myposts
+  },
+  signals (state) {
+    return state.signals
   }
 }
 
