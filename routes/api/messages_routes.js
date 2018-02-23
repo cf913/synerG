@@ -41,7 +41,7 @@ router.post('/new/:recipient', passport.authenticate('jwt'), MessagesController.
 // });
 
 // View messages to and from authenticated user
-router.get('/', MessagesController.getConversations)
+router.post('/', MessagesController.getConversations)
 // Retrieve single conversation
 router.get('/:id', MessagesController.getConversation)
 // Send reply in conversation

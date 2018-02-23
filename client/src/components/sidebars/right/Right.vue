@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import Mail from './Mail'
 import Settings from './Settings'
 import PlayerList from '../../center/players/Player_list'
 import TeamList from '../../center/teams/Team_list'
@@ -60,7 +59,6 @@ export default {
     }
   },
   components: {
-    appMail: Mail,
     appSettings: Settings,
     appPlayerList: PlayerList,
     appTeamList: TeamList

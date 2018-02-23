@@ -9,9 +9,12 @@ let passport = require('passport')
 let jwt = require('jsonwebtoken')
 let config = require('./config/index.js')
 let database = require('./config/database')(mongoose, config)
+// let socket = require('./controllers/socket_controller')
 require('module-alias/register')
 
 let app = express()
+// let server = require('http').createServer(app)
+// let io = require('socket.io').listen(server)
 
 // PASSPORT CONFIG
 require('./config/passportJWT')(passport)
@@ -28,6 +31,7 @@ passport.deserializeUser(function(user, done) {
 // LOAD ROUTES
 let authJWT = require('./routes/auth/authJWT')
 let authSteam = require('./routes/auth/authSteam')
+let news = require('./routes/api/news_routes')
 let players = require('./routes/api/players_routes')
 let friends = require('./routes/api/friends_routes')
 let teams = require('./routes/api/teams_routes')
@@ -47,6 +51,7 @@ app.use(passport.initialize())
 app.use(express.static(path.join(__dirname, 'client/dist')))
 
 // Set our api routes
+app.use('/api/news', news)
 app.use('/api/players', players)
 app.use('/api/friends', friends)
 app.use('/api/teams', teams)
@@ -88,6 +93,23 @@ app.get('*', (req, res) => {
 // })
 
 let port = process.env.PORT || 3000
+
+// io.on('connection', function (socket) {
+//   sockets.push(socket)
+//   console.log('client connected : socket ' + socket.id)
+//   socket.on('disconnect', function () {
+//     console.log('client disconnected : socket ' + socket.id)
+//   })
+//   socket.on('message', function (msg) {
+//     io.emit('message', msg)
+//   })
+// })
+
+// app.start = app.listen = function(){
+//   return server.listen.apply(server, arguments)
+// }
+
+// app.start(3000)
 
 app.listen(port, () => {
   console.log('Server listenning on port ' + port)

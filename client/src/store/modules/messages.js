@@ -3,7 +3,8 @@ import router from './../../router'
 
 const state = {
   messages: [],
-  messages_loading: true
+  messages_loading: true,
+  conversations: []
 }
 
 const mutations = {
@@ -14,10 +15,36 @@ const mutations = {
   reset (state) {
     state.messages = {}
     state.messages_loading = true
+  },
+  conversations (state, conversations) {
+    state.conversations = conversations.conversations
   }
 }
 
 const actions = {
+  getConversations ({commit, rootState}) {
+    if (!rootState.AuthModule.idToken) {
+      console.log('Not Authenticated')
+      router.replace(`/players/${rootState.AuthModule.user._id}`)
+    }
+    axios.post(`/api/messages/`, {userId: rootState.AuthModule.user._id})
+    .then(conversations => {
+      console.log(conversations)
+      const data = conversations.data
+      const resultArray = []
+      for (let key in data) {
+        resultArray.push(data[key])
+      }
+      console.log(resultArray)
+      commit('conversations', {
+        conversations: resultArray
+      })
+    })
+    .catch(err => {
+      console.log('This is error message')
+      console.log(err)
+    })
+  },
   getConversation ({commit}, conversationId) {
     if (!conversationId) {
       console.log('No id')
@@ -76,6 +103,23 @@ const actions = {
     .catch(err => {
       console.log('edit err: ' + err)
     })
+  },
+  sendReply ({rootState, dispatch}, {message, conversationId}) {
+    if (!rootState.AuthModule.idToken) {
+      console.log('Not Authenticated')
+      router.replace(`/players/${rootState.PlayerModule.player._id}`)
+    }
+    axios.post(`/api/messages/${conversationId}?token=${rootState.AuthModule.idToken}`, {message: message, sender: rootState.AuthModule.user._id})
+    .then(newMessage => {
+      console.log('created new conversation')
+      console.log(newMessage)
+      dispatch('getConversation', conversationId)
+      router.replace(`/messages/${newMessage.data.conversationId}`)
+      return newMessage
+    })
+    .catch(err => {
+      console.log('edit err: ' + err)
+    })
   }
 }
 
@@ -85,6 +129,9 @@ const getters = {
   },
   messages_loading (state) {
     return state.messages_loading
+  },
+  conversations (state) {
+    return state.conversations
   }
 }
 

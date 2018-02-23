@@ -65,7 +65,8 @@ export default new Router({
           children: [
             {
               path: ':id',
-              component: MessageDetails
+              component: MessageDetails,
+              name: 'messageDetails'
             },
             {
               path: 'new/:recipient',
