@@ -39,5 +39,21 @@ module.exports = {
     .catch(err => {
       console.log(err)
     })
+  },
+
+  getMyPosts(req, res, next) {
+    console.log(req.body)
+    // Only return one message from each conversation to display as snippet
+    Post.find({author: req.body._id}).limit(30)
+    .sort({createdAt: 'descending'})
+    .populate({path: 'author', model: Player, select: '_id img steamName'})
+    .then(posts => {
+      console.log(posts)
+      res.send(posts)
+    })
+    .catch(err => {
+      console.log('This is error message')
+      res.send(err)
+    })
   }
 }
