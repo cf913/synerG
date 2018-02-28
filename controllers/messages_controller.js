@@ -45,9 +45,11 @@ module.exports = {
     .sort({createdAt: 'ascending'})
     .populate([{path: 'author', model: Player, select: '_id img steamName'}, {path: 'conversationId', model: Conversation, populate: {path: 'participants', model: Player, select: '_id img steamName'}}])
     .then(messages => {
+      console.log('back: ' + messages.length)
       res.send(messages)
     })
     .catch(err => {
+      console.log('request failed')
       res.send(err)
     })
   },

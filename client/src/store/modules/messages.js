@@ -52,6 +52,7 @@ const actions = {
     }
     axios.get(`/api/messages/${conversationId}`)
     .then(messages => {
+      console.log('front: ' + messages.length)
       console.log(messages)
       const data = messages.data
       const resultArray = []

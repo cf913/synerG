@@ -9,12 +9,66 @@ let passport = require('passport')
 let jwt = require('jsonwebtoken')
 let config = require('./config/index.js')
 let database = require('./config/database')(mongoose, config)
-// let socket = require('./controllers/socket_controller')
+//let socket = require('./controllers/socket_controller')
 require('module-alias/register')
 
 let app = express()
-// let server = require('http').createServer(app)
-// let io = require('socket.io').listen(server)
+let server = require('http').Server(app)
+let io = require('socket.io')(server)
+
+let sockets = {}
+let clients = {}
+
+io.on('connection', function (socket) {
+  console.log('client connected : socket ' + socket.id)
+  socket.on('disconnect', function () {
+    console.log('client disconnected : socket ' + socket.id)
+    delete sockets[socket.id]
+    // console.log(sockets)
+    if (Object.keys(clients).length === 0) clients = {}
+  })
+
+  socket.on('storeClientInfo', data => {
+    clients[data._id] = socket.id
+    console.log(clients)
+    socket._id = data._id
+    sockets[socket.id] = socket
+  })
+    /** subscribe to change feeds */
+  // let subscribe = new Subscribe(socket)
+
+  // socket.on('info',function(obj)
+  // {
+  //   console.log('info about user received '+ obj)
+  //   if(socket.id === obj.socketId)
+  //   {
+  //     socket.user = obj.user
+  //   }
+  // })
+  socket.on('message', function (obj) {
+    console.log('receiver : '+ obj.receiverID)
+    console.log('current socket : '+ socket.id)
+    console.log('receivers socket: ' + obj.socketId)
+    //console.log(socket)
+    // socket.emit('incoming', 'incoming message')    
+    // if (socket.user._id === obj.receiverID) {
+    console.log('receiver socket: ' + clients[obj.receiverID])
+      //socket.emit('incoming', 'WE HAVE INCOMING!!')
+      socket.to(clients[obj.receiverID]).emit('incoming', obj.message)
+      // subscribe.notify(obj.sender, obj.receiverID, obj.message)
+      console.log(obj.sender._id + ' sent a message to ' + obj.receiverID)
+    // }
+  })
+})
+
+// function Subscribe (socket) {
+//   this.notify = function (sender, receiverID, message) {
+//     console.log('EMITTING MESSAGE')
+//     socket.emit('incoming', message)
+//   }
+// }
+
+
 
 // PASSPORT CONFIG
 require('./config/passportJWT')(passport)
@@ -111,6 +165,6 @@ let port = process.env.PORT || 3000
 
 // app.start(3000)
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log('Server listenning on port ' + port)
 })

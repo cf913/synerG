@@ -12,7 +12,7 @@ module.exports = {
     .sort({createdAt: 'descending'})
     .populate({path: 'author', model: Player, select: '_id img steamName'})
     .then(posts => {
-      console.log(posts)
+      // console.log(posts)
       res.send(posts)
     })
     .catch(err => {

@@ -11,6 +11,11 @@ export default {
   name: 'app',
   created () {
     this.$store.dispatch('tryAutoLogin')
+  },
+  sockets: {
+    connect () {
+      this.$socket.emit('storeClientInfo', {_id: this.$store.getters.user._id})
+    }
   }
 }
 </script>
