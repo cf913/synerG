@@ -15,6 +15,7 @@ export default {
   sockets: {
     connect () {
       this.$socket.emit('storeClientInfo', {_id: this.$store.getters.user._id})
+      console.log('I\'M CONNECTED MATE!')
     }
   }
 }
