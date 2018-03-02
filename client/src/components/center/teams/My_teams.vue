@@ -14,6 +14,9 @@
         </li>
         <br>
       </ul>
+      <div class="tiled inner-tile">
+        <router-link to="/communities/new">Create New Community</router-link>
+      </div>
     </div>
   </div>
 </template>

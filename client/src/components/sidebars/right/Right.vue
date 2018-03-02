@@ -27,6 +27,7 @@
     <b-nav justified tabs class="tabs">
       <b-nav-item @click="tab = 'app-player-list'" :active="tab === 'app-player-list'">Players</b-nav-item>
       <b-nav-item @click="tab = 'app-team-list'" :active="tab === 'app-team-list'">Teams</b-nav-item>
+      <b-nav-item @click="tab = 'app-community-list'" :active="tab === 'app-community-list'">Communities</b-nav-item>
     </b-nav>
     <keep-alive>
       <component :is="tab" id="search"></component>
@@ -39,6 +40,7 @@
 import Settings from './Settings'
 import PlayerList from '../../center/players/Player_list'
 import TeamList from '../../center/teams/Team_list'
+import CommunityList from '../../center/communities/Community_list'
 
 export default {
   data: () => {
@@ -61,7 +63,8 @@ export default {
   components: {
     appSettings: Settings,
     appPlayerList: PlayerList,
-    appTeamList: TeamList
+    appTeamList: TeamList,
+    appCommunityList: CommunityList
   }
 }
 </script>
