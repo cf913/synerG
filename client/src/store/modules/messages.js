@@ -22,6 +22,11 @@ const mutations = {
 }
 
 const actions = {
+  incomingMessage ({commit, getters}, data) {
+    const messages = getters.messages
+    messages.push(data)
+    commit('messages', { messages, loading: false })
+  },
   getConversations ({commit, rootState}) {
     if (!rootState.AuthModule.idToken) {
       console.log('Not Authenticated')
@@ -110,11 +115,12 @@ const actions = {
       console.log('Not Authenticated')
       router.replace(`/players/${rootState.PlayerModule.player._id}`)
     }
-    axios.post(`/api/messages/${conversationId}?token=${rootState.AuthModule.idToken}`, {message: message, sender: rootState.AuthModule.user._id})
+    axios.post(`/api/messages/${conversationId}?token=${rootState.AuthModule.idToken}`, {message: message.body, sender: rootState.AuthModule.user._id})
     .then(newMessage => {
       console.log('created new conversation')
       console.log(newMessage)
-      dispatch('getConversation', conversationId)
+      // dispatch('getConversation', conversationId)
+      dispatch('incomingMessage', message)
       router.replace(`/messages/${newMessage.data.conversationId}`)
       return newMessage
     })

@@ -38,16 +38,24 @@ export default {
     sendReply () {
       const message = this.message
       const conversationId = this.$route.params.id
+      const sender = this.$store.getters.user
+      const author = {
+        img: sender.img,
+        steamName: sender.steamName,
+        _id: sender._id
+      }
       console.log(message)
       console.log(conversationId)
-      this.$store.dispatch('sendReply', {message, conversationId})
+      this.$store.dispatch('sendReply', { message: { body: message, author }, conversationId })
       const participants = this.$store.getters.messages[0].conversationId.participants
       const receiverID = participants.filter(item => {
         return item._id !== this.$store.getters.user._id
       })
       console.log(receiverID[0]._id)
-      this.$socket.emit('message', {sender: this.$store.getters.user, receiverID: receiverID[0]._id, message: this.message, socketId: this.$socket.id})
+      console.log(this.$store.getters.user.steamName)
+      this.$socket.emit('message', { sender, receiverID: receiverID[0]._id, message: { body: message, author }, socketId: this.$socket.id })
       // this.$socket.emit('message', {sender: this.$store.getters.user, receiverID: receiverID[0]._id, body: this.message, conversationId: conversationId})
+      this.message = ''
     },
     getConversation () {
       this.$store.dispatch('getConversation', this.$route.params.id)
@@ -55,7 +63,9 @@ export default {
   },
   sockets: {
     incoming (msg) {
-      this.getConversation()
+      console.log(msg)
+      this.$store.dispatch('incomingMessage', msg)
+      // this.getConversation()
     }
   },
   activated () {
