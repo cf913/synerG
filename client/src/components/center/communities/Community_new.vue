@@ -52,7 +52,7 @@ export default {
         player: user._id
       }
       console.log(data)
-      this.$store.dispatch('createTeam', {data, player})
+      this.$store.dispatch('createCommunity', {data, player})
     },
     onCancel () {
       this.$router.go(-1)

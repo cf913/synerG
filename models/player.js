@@ -42,6 +42,7 @@ const PlayerSchema = new Schema({
     blocked: [String]
   },
   teams: [{type: Schema.Types.ObjectId, ref: 'Team'}],
+  communities: [{type: Schema.Types.ObjectId, ref: 'Community'}]
 }, { minimize: false })
 
 
