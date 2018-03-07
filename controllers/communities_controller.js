@@ -20,5 +20,22 @@ module.exports = {
     .catch(err => {
       console.log(err)
     })
+  },
+
+  getCommunities(req, res, next) {
+    console.log(req.body)
+    let query = buildQuery(req.body)
+    console.log(query)
+    Community.find(query).limit(30)
+    .then(communities => {
+        res.send(communities)
+    })
+    .catch(err => {
+        console.log(err)
+    })
   }
+}
+
+function buildQuery(body) {
+  let query = {}
 }

@@ -8,16 +8,16 @@
       <p class="lead">Searching for communities...</p>
       <img src="../../../assets/loading.svg" alt="">
     </div>
-    <ul class="list-group clearfix" v-for="(team, index) in teams" :key="index">
+    <ul class="list-group clearfix" v-for="(community, index) in communities" :key="index">
       <li class="list-group-item inner-tile">
-        <app-team-item :team="team"></app-team-item>
+        <app-community-item :community="community"></app-community-item>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-// import TeamItem from './Team_item.vue'
+import CommunityItem from './Community_item.vue'
 
 export default {
   data: () => {
@@ -34,9 +34,9 @@ export default {
     }
   },
   methods: {
-    // getTeams () {
-    //   return this.$store.dispatch('getTeams')
-    // },
+    getCommunities () {
+      return this.$store.dispatch('getCommunities')
+    }
     // refresh () {
     //   this.$store.commit('refreshTeamList', {
     //     loading: true,
@@ -53,9 +53,9 @@ export default {
     //   this.$store.dispatch('getTeams', {})
     // }
   },
-  // components: {
-  //   appCommunityItem: CommunityItem
-  // },
+  components: {
+    appCommunityItem: CommunityItem
+  },
   created () {
     this.getCommunities()
   }

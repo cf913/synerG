@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken')
 
 
 // Get list of teams
-// router.post('/', TeamsController.getTeams)
+router.post('/', CommunitiesController.getCommunities)
 // // Get team details
 
 router.post('/new', passport.authenticate('jwt'), CommunitiesController.createCommunity)
