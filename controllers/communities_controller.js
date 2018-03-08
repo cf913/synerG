@@ -22,6 +22,21 @@ module.exports = {
     })
   },
 
+  getCommunity(req, res, next) {
+    Community.findOne({_id: req.params.id})
+    .populate([{path: 'admins', model: Player}, {path: 'members', model: Player}, {path: 'pending', model: Player}])
+    .exec((err, community) => {
+    if (err) return console.log(err);
+    return;
+    })
+    .then(community => {
+      res.send(community)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  },
+
   getCommunities(req, res, next) {
     console.log(req.body)
     let query = buildQuery(req.body)

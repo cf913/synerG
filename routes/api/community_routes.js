@@ -13,7 +13,7 @@ router.post('/', CommunitiesController.getCommunities)
 
 router.post('/new', passport.authenticate('jwt'), CommunitiesController.createCommunity)
 // router.post('/myteams', passport.authenticate('jwt'), TeamsController.getMyTeams)
-// router.get('/:id',  TeamsController.getTeam)
+router.get('/:id',  CommunitiesController.getCommunity)
 // router.post('/:id/send', passport.authenticate('jwt'), TeamsController.sendTeamRequest)
 // router.post('/:id/cancel', passport.authenticate('jwt'), TeamsController.cancelTeamRequest)
 // router.post('/:id/leave', passport.authenticate('jwt'), TeamsController.leaveTeam)
