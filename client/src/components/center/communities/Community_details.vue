@@ -24,10 +24,10 @@
           <div class="col-8 text-left">
             <header class="d-flex justify-content-between align-items-center">
               <h2>{{community.communityName}}</h2>
-<!--               <router-link v-if="isTeamAdmin" :to="{ name: 'teamEdit', params: { id: team._id }}" class="btn scale-up"><i class="fa fa-edit"></i></router-link>
-              <a v-if="isTeamMember || isTeamAdmin"  class="btn btn-danger btn-sm float-right" @click="leaveTeam"><i class="fa fa-times fa-fw"></i></a>
-              <a v-else-if="isCommunityPending"  class="btn btn-warning btn-sm float-right" @click="cancelTeamRequest"><i class="fa fa-ban fa-fw"></i></a>
-              <a v-else class="btn btn-primary btn-sm float-right" @click="sendTeamRequest()"><i class="fa fa-plus fa-fw"></i></a> -->
+              <!-- <router-link v-if="isTeamAdmin" :to="{ name: 'teamEdit', params: { id: team._id }}" class="btn scale-up"><i class="fa fa-edit"></i></router-link> -->
+              <a v-if="isCommunityMember || isCommunityAdmin"  class="btn btn-danger btn-sm float-right" @click="leaveCommunity"><i class="fa fa-times fa-fw"></i></a>
+              <a v-else-if="isCommunityPending"  class="btn btn-warning btn-sm float-right" @click="cancelCommunityRequest"><i class="fa fa-ban fa-fw"></i></a>
+              <a v-else class="btn btn-primary btn-sm float-right" @click="sendCommunityRequest()"><i class="fa fa-plus fa-fw"></i></a>
             </header>
             <div class="tiled description inner-tile">
               <form>
@@ -43,17 +43,17 @@
                 </div>
               </form>
             </div>
-            <!-- <div v-if="isCommunityAdmin" class="tiled other inner-tile">
+            <div v-if="isCommunityAdmin" class="tiled other inner-tile">
               <p class="title">Pending Requests</p>
               <span v-if="community.pending.length !== 0">
                 <ul class="list-group clearfix" v-for="(pending, index) in community.pending" :key="index">
                   <li class="list-group-item inner-tile">
                     <div class="row">
                       <div class="col-sm-3">
-                        <img id="avatar" :src="pending.player.img" alt="Avatar">
+                        <img id="avatar" :src="pending.img" alt="Avatar">
                       </div>
                       <div class="col-sm-9">
-                        <router-link :to="{ name: 'playerDetails', params: { id: pending.player.steamId }}"><h5>{{ pending.player.steamName }}</h5></router-link>
+                        <router-link :to="{ name: 'playerDetails', params: { id: pending.steamId }}"><h5>{{ pending.steamName }}</h5></router-link>
                         <a class="btn btn-danger btn-sm float-right" @click="declineCommunityRequest(pending)"><i class="fa fa-times fa-fw"></i></a>
                         <a class="btn btn-success btn-sm float-right" @click="acceptCommunityRequest(pending)"><i class="fa fa-check fa-fw"></i></a>
                       </div>
@@ -62,7 +62,7 @@
                 </ul>
               </span>
               <p v-else class="title">You have no pending requests</p>
-            </div> -->
+            </div>
           </div>
         </div>
       </div>
@@ -87,64 +87,54 @@ export default {
     },
     loading () {
       return this.$store.getters.community_loading
+    },
+    isCommunityAdmin () {
+      if (this.$store.getters.user) return this.$store.getters.community.admins.filter(admin => (admin.steamId === this.$store.getters.user.steamId)).length
+      else return false
+    },
+    isCommunityMember () {
+      if (this.$store.getters.user) return this.$store.getters.community.members.filter(member => (member.steamId === this.$store.getters.user.steamId)).length
+      else return false
+    },
+    isCommunityPending () {
+      if (this.$store.getters.user) return this.$store.getters.community.pending.filter(pending => (pending.steamId === this.$store.getters.user.steamId)).length
+      else return false
     }
-    // isCommunityAdmin () {
-    //   if (this.$store.getters.user) return this.$store.getters.community.admins.filter(admin => (admin.player.steamId === this.$store.getters.user.steamId)).length
-    //   else return false
-    // },
-    // isCommunityMember () {
-    //   if (this.$store.getters.user) return this.$store.getters.community.members.filter(member => (member.player.steamId === this.$store.getters.user.steamId)).length
-    //   else return false
-    // },
-    // isCommunityPending () {
-    //   if (this.$store.getters.user) return this.$store.getters.community.pending.filter(pending => (pending.player.steamId === this.$store.getters.user.steamId)).length
-    //   else return false
-    // }
   },
   methods: {
     getCommunity () {
       this.$store.dispatch('getCommunity', this.$route.params.id)
     },
-    // sendCommunityRequest () {
-    //   this.$store.dispatch('sendCommunityRequest', this.position_applied)
-    // },
-    // declineCommunityRequest (player) {
-    //   this.$store.dispatch('declineCommunityRequest', player)
-    // },
-    // acceptCommunityRequest (player) {
-    //   this.$store.dispatch('acceptCommunityRequest', player)
-    // },
-    // cancelCommunityRequest () {
-    //   confirm('Are you sure?')
-    //   this.$store.dispatch('cancelCommunityRequest', this.$route.params.id)
-    // },
-    // leaveCommunity () {
-    //   if ((this.$store.getters.community.admins.filter(admin => (admin.player.steamId === this.$store.getters.user.steamId)).length) && this.$store.getters.community.admins.length === 1) {
-    //     confirm('You are the last community admin, assign admin status to another member otherwise community will disband')
-    //     this.$store.dispatch('deleteCommunity', this.$route.params.id)
-    //   } else {
-    //     confirm('Are you sure?')
-    //     this.$store.dispatch('leaveCommunity', this.$route.params.id)
-    //   }
-    // },
+    sendCommunityRequest () {
+      this.$store.dispatch('sendCommunityRequest')
+    },
+    declineCommunityRequest (player) {
+      this.$store.dispatch('declineCommunityRequest', player)
+    },
+    acceptCommunityRequest (player) {
+      this.$store.dispatch('acceptCommunityRequest', player)
+    },
+    cancelCommunityRequest () {
+      confirm('Are you sure?')
+      this.$store.dispatch('cancelCommunityRequest', this.$route.params.id)
+    },
+    leaveCommunity () {
+      if ((this.$store.getters.community.admins.filter(admin => (admin.steamId === this.$store.getters.user.steamId)).length) && this.$store.getters.community.admins.length === 1) {
+        confirm('You are the last community admin, assign admin status to another member otherwise community will disband')
+        this.$store.dispatch('deleteCommunity', this.$route.params.id)
+      } else {
+        confirm('Are you sure?')
+        this.$store.dispatch('leaveCommunity', this.$route.params.id)
+      }
+    },
     onBack () {
       this.$router.go(-1)
     }
-    // updateTeam () {
-    //   console.log('Updating Players...')
-    //   this.$store.dispatch('updateTeam', this.$route.params.id)
-    // }
   },
   components: {
     appPlayerItem: PlayerItem,
     appPlayerDetails: PlayerDetails
   },
-  // watch: {
-  //   '$route.params.id' (newId, oldId) {
-  //     this.$store.dispatch('resetTeamDetails')
-  //     this.getTeam(newId)
-  //   }
-  // },
   activated () {
     this.$store.dispatch('resetCommunityDetails')
     console.log('Fetching team profile...')

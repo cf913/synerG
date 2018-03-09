@@ -58,13 +58,13 @@ export default new Router({
           name: 'teamEdit'
         },
         {
-          path: 'communities.:id',
-          component: CommunityDetails,
-          name: 'communityDetails'
-        },
-        {
           path: 'communities/new',
           component: CommunityNew
+        },
+        {
+          path: 'communities/:id',
+          component: CommunityDetails,
+          name: 'communityDetails'
         },
         {
           path: 'friends',

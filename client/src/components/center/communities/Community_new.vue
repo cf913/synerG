@@ -1,5 +1,5 @@
 <template>
-  <div class="new-team text-left container tile gray-tile tile-shadow">
+  <div class="new-community text-left container tile gray-tile tile-shadow">
     <div class="">
       <div class="container py-3 text-left">
         <h2 class="py-3">Create New Community</h2>
