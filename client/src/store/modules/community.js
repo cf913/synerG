@@ -174,6 +174,24 @@ const actions = {
     .catch(err => {
       console.log('edit err: ' + err)
     })
+  },
+  newCommunityPost ({state, rootState, dispatch}, post) {
+    if (!(state.community.admins.filter(admin => (admin.steamId === rootState.AuthModule.user.steamId)).length) && !(state.community.members.filter(member => (member.steamId === rootState.AuthModule.user.steamId)).length)) {
+      console.log('You are not a member of this community. Join to post')
+      router.replace(`/communities/${state.community._id}`)
+    }
+    console.log(state.community._id)
+    axios.post(`/api/communities/${state.community._id}/post?token=${rootState.AuthModule.idToken}`, {post: post, author: rootState.AuthModule.user})
+    .then(newCommunityPost => {
+      console.log('created new post')
+      console.log(newCommunityPost)
+      // dispatch('getPosts')
+      router.replace(`/communities/${state.community._id}`)
+      return newCommunityPost
+    })
+    .catch(err => {
+      console.log('edit err: ' + err)
+    })
   }
 }
 

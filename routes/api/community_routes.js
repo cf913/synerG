@@ -12,8 +12,8 @@ router.post('/', CommunitiesController.getCommunities)
 // // Get team details
 
 router.post('/new', passport.authenticate('jwt'), CommunitiesController.createCommunity)
-// router.post('/myteams', passport.authenticate('jwt'), TeamsController.getMyTeams)
 router.get('/:id',  CommunitiesController.getCommunity)
+router.post('/:id/post',  passport.authenticate('jwt'), CommunitiesController.newCommunityPost)
 router.post('/:id/send', passport.authenticate('jwt'), CommunitiesController.sendCommunityRequest)
 router.post('/:id/cancel', passport.authenticate('jwt'), CommunitiesController.cancelCommunityRequest)
 router.post('/:id/leave', passport.authenticate('jwt'), CommunitiesController.leaveCommunity)

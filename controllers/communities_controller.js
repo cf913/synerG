@@ -1,4 +1,5 @@
 const Community = require('@models/community')
+const CommunityPost = require('@models/community_post')
 const Player = require('@models/player')
 const request = require('request-promise')
 const config = require('@config')
@@ -135,7 +136,28 @@ module.exports = {
     .catch(err => {
       res.send(err)
     })
-  }
+  },
+
+  newCommunityPost(req, res, next) {
+    if(!req.body.post) {
+      res.status(422).send({ error: 'Please enter a message.' })
+      return
+    }
+    const communityPost = new CommunityPost({
+      community: req.params.id,
+      body: req.body.post,
+      author: req.body.author
+    })
+    communityPost.save()
+    .then(communityPost => {
+      console.log('New Community Post Created')
+      console.log(communityPost)
+      res.send(communityPost)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  },
 }
 
 function buildQuery(body) {

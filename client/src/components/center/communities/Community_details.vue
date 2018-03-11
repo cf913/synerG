@@ -36,13 +36,28 @@
                     <img class="avatar" :src="user.img" alt="Avatar">
                   </div>
                   <div class="right col-lg-10">
-                    <label class="col-form-label" for="post">Post:</label>
-                    <input type="text" class="form-control" id="post" name="post" v-model="post" placeholder="Write Post ...">
+                    <label class="col-form-label" for="communityPost">Post:</label>
+                    <input type="text" class="form-control" id="communityPost" name="communityPost" v-model="communityPost" placeholder="Write Post ...">
                     <button @click.prevent="newCommunityPost" @keyup.enter.prevent="newCommunityPost">Submit</button>
                   </div>
                 </div>
               </form>
             </div>
+<!--             <div class="tiled inner-tile">
+              <ul class="list-group clearfix" v-for="(post, index) in posts" :key="index">
+                <li class="list-group-item inner-tile">
+                  <div class="row">
+                    <div class="left col-lg-3">
+                      <img class="post-avatar" :src="post.author.img" alt="Avatar">
+                    </div>
+                    <div class="right col-lg-9">
+                      <router-link :to="{ name: 'playerDetails', params: {id: post.author._id}}"><h5>{{post.author.steamName}}</h5></router-link>
+                      <p>{{post.body}}</p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div> -->
             <div v-if="isCommunityAdmin" class="tiled other inner-tile">
               <p class="title">Pending Requests</p>
               <span v-if="community.pending.length !== 0">
@@ -77,6 +92,11 @@ import PlayerItem from '../players/Player_item.vue'
 import PlayerDetails from '../players/Player_details.vue'
 
 export default {
+  data () {
+    return {
+      communityPost: ''
+    }
+  },
   computed: {
     user () {
       if (!this.$store.getters.user) return false
@@ -126,6 +146,11 @@ export default {
         confirm('Are you sure?')
         this.$store.dispatch('leaveCommunity', this.$route.params.id)
       }
+    },
+    newCommunityPost () {
+      const communityPost = this.communityPost
+      this.$store.dispatch('newCommunityPost', communityPost)
+      this.communityPost = ''
     },
     onBack () {
       this.$router.go(-1)
