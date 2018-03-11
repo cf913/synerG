@@ -158,6 +158,20 @@ module.exports = {
       console.log(err)
     })
   },
+
+  getCommunityPosts(req, res, next) {
+    console.log('Getting posts for community')
+    CommunityPost.find({'community': req.params.id}).limit(30)
+    .sort({createdAt: 'descending'})
+    .populate({path: 'author', model: Player, select: '_id img steamName'})
+    .then(communityPosts => {
+      res.send(communityPosts)
+    })
+    .catch(err => {
+      console.log('This is error message')
+      res.send(err)
+    })
+  }
 }
 
 function buildQuery(body) {

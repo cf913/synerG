@@ -43,8 +43,8 @@
                 </div>
               </form>
             </div>
-<!--             <div class="tiled inner-tile">
-              <ul class="list-group clearfix" v-for="(post, index) in posts" :key="index">
+            <div class="tiled inner-tile">
+              <ul class="list-group clearfix" v-for="(post, index) in communityPosts" :key="index">
                 <li class="list-group-item inner-tile">
                   <div class="row">
                     <div class="left col-lg-3">
@@ -57,7 +57,7 @@
                   </div>
                 </li>
               </ul>
-            </div> -->
+            </div>
             <div v-if="isCommunityAdmin" class="tiled other inner-tile">
               <p class="title">Pending Requests</p>
               <span v-if="community.pending.length !== 0">
@@ -104,6 +104,9 @@ export default {
     },
     community () {
       return this.$store.getters.community
+    },
+    communityPosts () {
+      return this.$store.getters.community_posts
     },
     loading () {
       return this.$store.getters.community_loading
@@ -152,6 +155,9 @@ export default {
       this.$store.dispatch('newCommunityPost', communityPost)
       this.communityPost = ''
     },
+    getCommunityPosts () {
+      this.$store.dispatch('getCommunityPosts', this.$route.params.id)
+    },
     onBack () {
       this.$router.go(-1)
     }
@@ -164,6 +170,7 @@ export default {
     this.$store.dispatch('resetCommunityDetails')
     console.log('Fetching team profile...')
     this.getCommunity()
+    this.getCommunityPosts()
   }
 }
 </script>

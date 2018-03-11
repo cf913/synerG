@@ -13,6 +13,7 @@ router.post('/', CommunitiesController.getCommunities)
 
 router.post('/new', passport.authenticate('jwt'), CommunitiesController.createCommunity)
 router.get('/:id',  CommunitiesController.getCommunity)
+router.get('/:id/post', CommunitiesController.getCommunityPosts)
 router.post('/:id/post',  passport.authenticate('jwt'), CommunitiesController.newCommunityPost)
 router.post('/:id/send', passport.authenticate('jwt'), CommunitiesController.sendCommunityRequest)
 router.post('/:id/cancel', passport.authenticate('jwt'), CommunitiesController.cancelCommunityRequest)

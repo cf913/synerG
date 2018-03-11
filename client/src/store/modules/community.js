@@ -3,6 +3,7 @@ import router from './../../router'
 
 const state = {
   community: {},
+  community_posts: [],
   community_loading: true
 }
 
@@ -10,6 +11,9 @@ const mutations = {
   community (state, communityData) {
     state.community = communityData.community
     state.community_loading = communityData.loading
+  },
+  community_posts (state, communityPosts) {
+    state.community_posts = communityPosts.posts
   },
   reset (state) {
     state.community = {}
@@ -185,12 +189,36 @@ const actions = {
     .then(newCommunityPost => {
       console.log('created new post')
       console.log(newCommunityPost)
-      // dispatch('getPosts')
+      dispatch('getCommunityPosts', state.community._id)
       router.replace(`/communities/${state.community._id}`)
       return newCommunityPost
     })
     .catch(err => {
       console.log('edit err: ' + err)
+    })
+  },
+  getCommunityPosts ({commit, rootState}, communityId) {
+    if (!rootState.AuthModule.idToken) {
+      console.log('Not Authenticated')
+      router.replace(`/`)
+    }
+    console.log(communityId)
+    axios.get(`/api/communities/${communityId}/post?token=${rootState.AuthModule.idToken}`)
+    .then(communityPosts => {
+      console.log(communityPosts)
+      const data = communityPosts.data
+      const resultArray = []
+      for (let key in data) {
+        resultArray.push(data[key])
+      }
+      console.log(resultArray)
+      commit('community_posts', {
+        posts: resultArray
+      })
+    })
+    .catch(err => {
+      console.log('This is error message')
+      console.log(err)
     })
   }
 }
@@ -198,6 +226,9 @@ const actions = {
 const getters = {
   community (state) {
     return state.community
+  },
+  community_posts (state) {
+    return state.community_posts
   },
   community_loading (state) {
     return state.community_loading
