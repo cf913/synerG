@@ -15,7 +15,8 @@ import store from './store/store'
 
 Vue.use(BootstrapVue)
 Vue.use(VueResource)
-Vue.use(VueSocketIO, socketio('https://b1g-synerg.herokuapp.com/'), store)
+// Vue.use(VueSocketIO, socketio('https://b1g-synerg.herokuapp.com/'), store)
+Vue.use(VueSocketIO, socketio('http://localhost:3000'), store)
 
 Vue.config.productionTip = false
 

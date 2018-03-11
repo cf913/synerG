@@ -1,12 +1,15 @@
 <template>
   <div class="players tile gray-tile tile-shadow">
     <b-nav justified tabs class="top-tabs">
-      <b-nav-item to="/" exact :disabled="!isLoggedIn"><i class="fa fa-newspaper-o"></i></b-nav-item>
-      <b-nav-item :to="{ name: 'playerDetails', params: { id: user._id }}" :disabled="!isLoggedIn"><i class="fa fa-user-circle-o"></i></b-nav-item>
-      <b-nav-item to="/myteams" :disabled="!isLoggedIn"><i class="fa fa-group"></i></b-nav-item>
-      <b-nav-item to="/friends" :disabled="!isLoggedIn"><i class="fa fa-address-book"></i></b-nav-item>
-      <b-nav-item to="/messages" :disabled="!isLoggedIn"><i class="fa fa-comments"></i></b-nav-item>
-      <b-nav-item to="/settings" :disabled="!isLoggedIn"><i class="fa fa-gear"></i></b-nav-item>
+      <b-nav-item class="tab" to="/" exact :disabled="!isLoggedIn"><i class="fa fa-newspaper-o"></i></b-nav-item>
+      <b-nav-item class="tab" :to="{ name: 'playerDetails', params: { id: user._id }}" :disabled="!isLoggedIn"><i class="fa fa-user-circle-o"></i></b-nav-item>
+      <b-nav-item class="tab" to="/myteams" :disabled="!isLoggedIn"><i class="fa fa-group"></i></b-nav-item>
+      <b-nav-item class="tab" to="/friends" :disabled="!isLoggedIn">
+        <i class="fa fa-address-book"></i>
+        <div class="notification" v-if="isLoggedIn && notif_friends > 0"><p>{{notif_friends}}</p></div>
+      </b-nav-item>
+      <b-nav-item class="tab" to="/messages" :disabled="!isLoggedIn"><i class="fa fa-comments"></i></b-nav-item>
+      <b-nav-item class="tab" to="/settings" :disabled="!isLoggedIn"><i class="fa fa-gear"></i></b-nav-item>
     </b-nav>
 
     <!-- LOGGED IN -->
@@ -58,6 +61,9 @@ export default {
     isLoggedIn () {
       return this.$store.getters.isAuthenticated
       // return true
+    },
+    notif_friends () {
+      return this.$store.getters.user.friends.pending_received.length
     }
   },
   components: {
@@ -167,4 +173,31 @@ export default {
   } 
   /* END STYLE TOP NAVBAR */
 
+  /* NOTIFICATION */
+
+  .tab {
+    position: relative;
+  }
+
+  .notification {
+    position: absolute;
+    right: 12px;
+    top: 5px;
+    margin: 0;
+    padding: 0;
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+  }
+
+  .notification p {
+    font-size: 0.8em;
+    font-weight: bold;
+    margin-top: -1px;
+    margin-left: 0px;
+  }
+  
 </style>

@@ -63,9 +63,9 @@
                 <span v-else>
                   <li v-if="inReceived"><a class="btn scale-up" @click="acceptRequest(player.steamId)"><i class="fa fa-check fa-fw"></i></a></li>
                   <li v-if="inReceived"><a class="btn scale-up" @click="declineRequest(player.steamId)"><i class="fa fa-times fa-fw"></i></a></li>
-                  <li v-else-if="inSent"><a class="btn scale-up" @click="cancelRequest(player.steamId)"><i class="fa fa-ban fa-fw"></i></a></li>
+                  <li v-else-if="inSent"><a class="btn scale-up" @click="cancelRequest(player.steamId, player)"><i class="fa fa-ban fa-fw"></i></a></li>
                   <li v-else-if="inAccepted"><a class="btn scale-up" @click="deleteFriend(player.steamId)"><i class="fa fa-trash fa-fw"></i></a></li>
-                  <li v-else><a :class="{disabled: !isLoggedIn}" class="btn scale-up" @click="sendRequest(player.steamId)"><i class="fa fa-user-plus fa-fw"></i></a></li>
+                  <li v-else><a :class="{disabled: !isLoggedIn}" class="btn scale-up" @click="sendRequest(player.steamId, player)"><i class="fa fa-user-plus fa-fw"></i></a></li>
                 </span>
                 <li><a :href="`http://www.steamcommunity.com/profiles/${player.steamId}`" class="btn scale-up" target="_blank"><i class="fa fa-steam-square fa-fw"></i></a></li>
                 <li><a :class="{disabled: !isLoggedIn}" class="btn scale-up" @click="updatePlayer"><i class="fa fa-refresh fa-fw"></i></a></li>
@@ -166,12 +166,14 @@ export default {
     checkConversation (playerId) {
       this.$store.dispatch('checkConversation', playerId)
     },
-    sendRequest (id) {
+    sendRequest (id, player) {
       this.$store.dispatch('sendRequest', id)
+      this.$socket.emit('friends_request', { sender: this.$store.getters.user, receiverID: player._id, socketId: this.$socket.id })
     },
-    cancelRequest (id) {
+    cancelRequest (id, player) {
       confirm('Are you sure?')
       this.$store.dispatch('cancelRequest', id)
+      this.$socket.emit('friends_cancel', { sender: this.$store.getters.user, receiverID: player._id, socketId: this.$socket.id })
     },
     acceptRequest (id) {
       this.$store.dispatch('acceptRequest', id)

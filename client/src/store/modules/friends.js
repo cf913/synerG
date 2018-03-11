@@ -8,6 +8,15 @@ const mutations = {
 }
 
 const actions = {
+  incomingFriend (rootState, data) {
+    rootState.commit('socketFriend', data.steamId)
+    localStorage.setItem('user', JSON.stringify(rootState.getters.user))
+  },
+  incomingFriendCancel (rootState, data) {
+    rootState.commit('socketFriendCancel', data.steamId)
+    console.log(rootState.getters.user)
+    localStorage.setItem('user', JSON.stringify(rootState.getters.user))
+  },
   getOneFriend (rootState, id) {
     if (!id) {
       console.log('No id')

@@ -16,6 +16,14 @@ export default {
     connect () {
       this.$socket.emit('storeClientInfo', {_id: this.$store.getters.user._id})
       console.log('I\'M CONNECTED MATE!')
+    },
+    incomingFriend (data) {
+      console.log('RECEIVED REQUEST')
+      this.$store.dispatch('incomingFriend', data)
+    },
+    incomingFriendCancel (data) {
+      console.log('RECEIVED CANCEL')
+      this.$store.dispatch('incomingFriendCancel', data)
     }
   }
 }

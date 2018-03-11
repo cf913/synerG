@@ -20,7 +20,16 @@ const api = {
         res.send({friends})
       })
   },
-
+  updateFriends(req, res, next) {
+    console.log('Updating friends....')
+    Player.find({steamId: req.body.tokenId})
+    .select('friends')
+    .then(data => {
+      console.log('new freinds: ' + data)
+      res.send(data)
+    })
+    .catch(err => { res.send(err) })
+  },
   ////////////////////////////////////
   // req.body: {requester: steamId, requestee: steamId}
   //

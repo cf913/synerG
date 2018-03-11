@@ -59,6 +59,19 @@ io.on('connection', function (socket) {
       console.log(obj.sender._id + ' sent a message to ' + obj.receiverID)
     // }
   })
+
+  socket.on('friends_request', function (data) {
+    socket.to(clients[data.receiverID]).emit('incomingFriend', data.sender)
+  })
+  socket.on('friends_cancel', function (data) {
+    socket.to(clients[data.receiverID]).emit('incomingFriendCancel', data.sender)
+  })
+  socket.on('friends_accept', function (data) {
+    socket.to(clients[data.receiverID]).emit('incomingFriendAccept', data.sender)
+  })
+  socket.on('friends_decline', function (data) {
+    socket.to(clients[data.receiverID]).emit('incomingFriendDecline', data.sender)
+  })
 })
 
 // function Subscribe (socket) {

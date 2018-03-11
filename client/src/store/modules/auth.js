@@ -64,6 +64,16 @@ const mutations = {
     state.idToken = null
     state.userId = null
     state.user = null
+  },
+  udpateFriends (state, friends) {
+    state.user.friends = friends
+  },
+  socketFriend (state, id) {
+    state.user.friends.pending_received.push(id)
+  },
+  socketFriendCancel (state, id) {
+    console.log('CANCELING!')
+    state.user.friends.pending_received.splice(state.user.friends.pending_received.indexOf(id), 1)
   }
   // Not needed
   // updateHeroes (state, newStats) {
