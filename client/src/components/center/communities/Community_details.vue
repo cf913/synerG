@@ -29,7 +29,15 @@
               <a v-else-if="isCommunityPending"  class="btn btn-warning btn-sm float-right" @click="cancelCommunityRequest"><i class="fa fa-ban fa-fw"></i></a>
               <a v-else class="btn btn-primary btn-sm float-right" @click="sendCommunityRequest()"><i class="fa fa-plus fa-fw"></i></a>
             </header>
-            <div class="tiled description inner-tile">
+            <b-nav justified tabs class="tabs">
+              <b-nav-item @click="tab = 'app-community-posts'" :active="tab === 'app-community-posts'">Posts</b-nav-item>
+              <b-nav-item @click="tab = 'app-community-members'" :active="tab === 'app-community-members'">Members</b-nav-item>
+            </b-nav>
+            <keep-alive>
+              <component :is="tab" id="search"></component>
+            </keep-alive>
+
+            <!-- <div class="tiled description inner-tile">
               <form>
                 <div class="row container">
                   <div class="left col-lg-2">
@@ -57,8 +65,8 @@
                   </div>
                 </li>
               </ul>
-            </div>
-            <div v-if="isCommunityAdmin" class="tiled other inner-tile">
+            </div> -->
+            <!-- <div v-if="isCommunityAdmin" class="tiled other inner-tile">
               <p class="title">Pending Requests</p>
               <span v-if="community.pending.length !== 0">
                 <ul class="list-group clearfix" v-for="(pending, index) in community.pending" :key="index">
@@ -77,7 +85,7 @@
                 </ul>
               </span>
               <p v-else class="title">You have no pending requests</p>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -88,13 +96,18 @@
 </template>
 
 <script>
-import PlayerItem from '../players/Player_item.vue'
-import PlayerDetails from '../players/Player_details.vue'
+import CommunityPosts from './Community_posts'
+import CommunityMembers from './Community_members'
 
 export default {
+  // data () {
+  //   return {
+  //     communityPost: ''
+  //   }
+  // },
   data () {
     return {
-      communityPost: ''
+      tab: 'app-community-posts'
     }
   },
   computed: {
@@ -105,9 +118,9 @@ export default {
     community () {
       return this.$store.getters.community
     },
-    communityPosts () {
-      return this.$store.getters.community_posts
-    },
+    // communityPosts () {
+    //   return this.$store.getters.community_posts
+    // },
     loading () {
       return this.$store.getters.community_loading
     },
@@ -131,12 +144,12 @@ export default {
     sendCommunityRequest () {
       this.$store.dispatch('sendCommunityRequest')
     },
-    declineCommunityRequest (player) {
-      this.$store.dispatch('declineCommunityRequest', player)
-    },
-    acceptCommunityRequest (player) {
-      this.$store.dispatch('acceptCommunityRequest', player)
-    },
+    // declineCommunityRequest (player) {
+    //   this.$store.dispatch('declineCommunityRequest', player)
+    // },
+    // acceptCommunityRequest (player) {
+    //   this.$store.dispatch('acceptCommunityRequest', player)
+    // },
     cancelCommunityRequest () {
       confirm('Are you sure?')
       this.$store.dispatch('cancelCommunityRequest', this.$route.params.id)
@@ -150,27 +163,27 @@ export default {
         this.$store.dispatch('leaveCommunity', this.$route.params.id)
       }
     },
-    newCommunityPost () {
-      const communityPost = this.communityPost
-      this.$store.dispatch('newCommunityPost', communityPost)
-      this.communityPost = ''
-    },
-    getCommunityPosts () {
-      this.$store.dispatch('getCommunityPosts', this.$route.params.id)
-    },
+    // newCommunityPost () {
+    //   const communityPost = this.communityPost
+    //   this.$store.dispatch('newCommunityPost', communityPost)
+    //   this.communityPost = ''
+    // },
+    // getCommunityPosts () {
+    //   this.$store.dispatch('getCommunityPosts', this.$route.params.id)
+    // },
     onBack () {
       this.$router.go(-1)
     }
   },
   components: {
-    appPlayerItem: PlayerItem,
-    appPlayerDetails: PlayerDetails
+    appCommunityPosts: CommunityPosts,
+    appCommunityMembers: CommunityMembers
   },
   activated () {
     this.$store.dispatch('resetCommunityDetails')
     console.log('Fetching team profile...')
     this.getCommunity()
-    this.getCommunityPosts()
+    // this.getCommunityPosts()
   }
 }
 </script>
@@ -182,6 +195,10 @@ export default {
     margin-bottom: 15px;
   }
 
+  #search{
+    padding: 5px;
+  }
+  
   a {
     color: white;
     cursor: pointer;
