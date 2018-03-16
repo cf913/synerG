@@ -7,7 +7,7 @@
           <li class="list-group-item inner-tile">
             <div class="row">
               <div class="col-sm-3">
-                <img id="avatar" :src="pending.img" alt="Avatar">
+                <img class="avatar" :src="pending.img" alt="Avatar">
               </div>
               <div class="col-sm-9">
                 <router-link :to="{ name: 'playerDetails', params: { id: pending.steamId }}"><h5>{{ pending.steamName }}</h5></router-link>
@@ -20,10 +20,24 @@
       </span>
       <p v-else class="title">You have no pending requests</p>
     </div>
+    <div class="tiled other inner-tile">
+      <ul class="list-group clearfix" v-for="(admin, index) in community.admins" :key="index">
+        <li class="list-group-item inner-tile">
+          <app-player-item :player="admin"></app-player-item>
+        </li>
+      </ul>
+      <ul class="list-group clearfix" v-for="(member, index) in community.members" :key="index">
+        <li class="list-group-item inner-tile">
+          <app-player-item :player="member"></app-player-item>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
+import PlayerItem from '../players/Player_item.vue'
+
 export default {
   computed: {
     user () {
@@ -48,6 +62,9 @@ export default {
     onBack () {
       this.$router.go(-1)
     }
+  },
+  components: {
+    appPlayerItem: PlayerItem
   }
 }
 </script>
@@ -123,6 +140,12 @@ export default {
   .avatar{
     max-height: 100%;
     max-width: 100%;
+  }
+
+  #avatar {
+    width: 40%;
+    border: 3px solid #fff;
+    border-radius: 5px;
   }
 
 </style>

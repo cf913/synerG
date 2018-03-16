@@ -36,56 +36,6 @@
             <keep-alive>
               <component :is="tab" id="search"></component>
             </keep-alive>
-
-            <!-- <div class="tiled description inner-tile">
-              <form>
-                <div class="row container">
-                  <div class="left col-lg-2">
-                    <img class="avatar" :src="user.img" alt="Avatar">
-                  </div>
-                  <div class="right col-lg-10">
-                    <label class="col-form-label" for="communityPost">Post:</label>
-                    <input type="text" class="form-control" id="communityPost" name="communityPost" v-model="communityPost" placeholder="Write Post ...">
-                    <button @click.prevent="newCommunityPost" @keyup.enter.prevent="newCommunityPost">Submit</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="tiled inner-tile">
-              <ul class="list-group clearfix" v-for="(post, index) in communityPosts" :key="index">
-                <li class="list-group-item inner-tile">
-                  <div class="row">
-                    <div class="left col-lg-3">
-                      <img class="post-avatar" :src="post.author.img" alt="Avatar">
-                    </div>
-                    <div class="right col-lg-9">
-                      <router-link :to="{ name: 'playerDetails', params: {id: post.author._id}}"><h5>{{post.author.steamName}}</h5></router-link>
-                      <p>{{post.body}}</p>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div> -->
-            <!-- <div v-if="isCommunityAdmin" class="tiled other inner-tile">
-              <p class="title">Pending Requests</p>
-              <span v-if="community.pending.length !== 0">
-                <ul class="list-group clearfix" v-for="(pending, index) in community.pending" :key="index">
-                  <li class="list-group-item inner-tile">
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <img id="avatar" :src="pending.img" alt="Avatar">
-                      </div>
-                      <div class="col-sm-9">
-                        <router-link :to="{ name: 'playerDetails', params: { id: pending.steamId }}"><h5>{{ pending.steamName }}</h5></router-link>
-                        <a class="btn btn-danger btn-sm float-right" @click="declineCommunityRequest(pending)"><i class="fa fa-times fa-fw"></i></a>
-                        <a class="btn btn-success btn-sm float-right" @click="acceptCommunityRequest(pending)"><i class="fa fa-check fa-fw"></i></a>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </span>
-              <p v-else class="title">You have no pending requests</p>
-            </div> -->
           </div>
         </div>
       </div>
@@ -100,11 +50,6 @@ import CommunityPosts from './Community_posts'
 import CommunityMembers from './Community_members'
 
 export default {
-  // data () {
-  //   return {
-  //     communityPost: ''
-  //   }
-  // },
   data () {
     return {
       tab: 'app-community-posts'
@@ -118,9 +63,6 @@ export default {
     community () {
       return this.$store.getters.community
     },
-    // communityPosts () {
-    //   return this.$store.getters.community_posts
-    // },
     loading () {
       return this.$store.getters.community_loading
     },
@@ -144,12 +86,6 @@ export default {
     sendCommunityRequest () {
       this.$store.dispatch('sendCommunityRequest')
     },
-    // declineCommunityRequest (player) {
-    //   this.$store.dispatch('declineCommunityRequest', player)
-    // },
-    // acceptCommunityRequest (player) {
-    //   this.$store.dispatch('acceptCommunityRequest', player)
-    // },
     cancelCommunityRequest () {
       confirm('Are you sure?')
       this.$store.dispatch('cancelCommunityRequest', this.$route.params.id)
@@ -163,14 +99,6 @@ export default {
         this.$store.dispatch('leaveCommunity', this.$route.params.id)
       }
     },
-    // newCommunityPost () {
-    //   const communityPost = this.communityPost
-    //   this.$store.dispatch('newCommunityPost', communityPost)
-    //   this.communityPost = ''
-    // },
-    // getCommunityPosts () {
-    //   this.$store.dispatch('getCommunityPosts', this.$route.params.id)
-    // },
     onBack () {
       this.$router.go(-1)
     }
@@ -183,7 +111,6 @@ export default {
     this.$store.dispatch('resetCommunityDetails')
     console.log('Fetching team profile...')
     this.getCommunity()
-    // this.getCommunityPosts()
   }
 }
 </script>
@@ -240,39 +167,6 @@ export default {
     margin-bottom: 30px;
     width: 100%;
   }
-
-  ul {
-    padding-left: 0;
-  }
-
-  li {
-    list-style-type: none;
-    line-height: 1.6em;
-    padding-left: 15px;
-  }
-
-  li.tiled {
-    margin-bottom: 10px;
-  }
-
-  ul.links {
-    margin-bottom: 5px;
-  }
-  ul.links li {
-    display: inline-block;
-  }
-
-  .title {
-    font-weight: 600;
-    /* color: #106CD6; */
-    color: orange;
-  }
-  
-  #avatar {
-    width: 40%;
-    border: 3px solid #fff;
-    border-radius: 5px;
-  }
   
   a.btn {
     margin-left: 8px;
@@ -289,15 +183,5 @@ export default {
   
   a:hover h5{
     text-decoration: underline;
-  }
-
-  .avatar{
-    max-height: 100%;
-    max-width: 100%;
-  }
-
-  .post-avatar {
-    max-height: 90px;
-    max-width: 90px;
   }
 </style>
