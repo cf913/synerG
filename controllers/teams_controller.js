@@ -178,6 +178,9 @@ function buildQuery(body) {
   // if (body.competitiveness.length > 0) {
   //   query['competitiveness'] = body.competitiveness
   // }
+  if (body.teamName.length > 0) {
+    query.teamName = {$regex: body.teamName, $options: 'i'}
+  }
   if (body.regions !== null) {
     query.regions = body.regions
   }

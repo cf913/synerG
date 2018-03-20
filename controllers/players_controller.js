@@ -110,6 +110,9 @@ function buildQuery(body) {
     // if (body.positions.length > 0) {
     //     query['positions'] = {$in: body.positions}
     // }
+    if (body.steamName.length > 0) {
+        query.steamName = {$regex: body.steamName, $options: 'i'}
+    }
     if (body.regions !== null) {
         query.regions = body.regions
     }

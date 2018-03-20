@@ -52,9 +52,7 @@ import TeamItem from './Team_item.vue'
 export default {
   data: () => {
     return {
-      // showDetails: false,
-      // showRefresh: true,
-      // selectedTeam: {},
+      team_search: '',
       recruiting_selected: null, // Must be an array reference!
       regions_selected: null,
       languages_selected: null,
@@ -136,6 +134,7 @@ export default {
     },
     onSubmit () {
       const data = {
+        teamName: this.team_search,
         regions: this.regions_selected,
         languages: this.languages_selected,
         comms: this.comms_selected,

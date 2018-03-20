@@ -54,15 +54,11 @@ import PlayerDetails from './Player_details.vue'
 export default {
   data: () => {
     return {
-      // showDetails: false,
-      // showRefresh: true,
-      // selectedPlayer: {},
+      player_search: '',
       positions_selected: null, // Must be an array reference!
-      // mmr_selected: null,
       regions_selected: null,
       languages_selected: null,
       comms_selected: null,
-      // competitive_selected: null,
       positions_options: [
         { text: 'Position:', value: null },
         { text: 'Carry', value: 'Carry' },
@@ -185,6 +181,7 @@ export default {
     },
     onSubmit () {
       const data = {
+        steamName: this.player_search,
         regions: this.regions_selected,
         languages: this.languages_selected,
         comms: this.comms_selected,
