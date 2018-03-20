@@ -51,6 +51,16 @@ module.exports = {
     })
   },
 
+  getMyCommunities(req, res, next) {
+    Community.find({ $or: [{'admins': req.body._id}, {'members': req.body._id}]})
+    .then(community => {
+      res.send(community)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  },
+
   editCommunity(req, res, next) {
     Community.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true })
     .then(community => {

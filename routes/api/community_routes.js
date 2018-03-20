@@ -12,6 +12,7 @@ router.post('/', CommunitiesController.getCommunities)
 // // Get team details
 
 router.post('/new', passport.authenticate('jwt'), CommunitiesController.createCommunity)
+router.post('/mycommunities', passport.authenticate('jwt'), CommunitiesController.getMyCommunities)
 router.get('/:id',  CommunitiesController.getCommunity)
 router.get('/:id/post', CommunitiesController.getCommunityPosts)
 router.post('/:id/post',  passport.authenticate('jwt'), CommunitiesController.newCommunityPost)
