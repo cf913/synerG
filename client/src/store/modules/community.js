@@ -62,6 +62,22 @@ const actions = {
       console.log('edit err: ' + err)
     })
   },
+  editCommunity (rootState, data) {
+    if (!(rootState.getters.community.admins.filter(admin => (admin.steamId === rootState.getters.user.steamId)).length) || !rootState.getters.idToken) {
+      console.log('You are not a community admin')
+      router.replace(`/communities/${rootState.getters.community._id}`)
+      return
+    }
+    axios.post(`/api/communities/${rootState.getters.community._id}/edit?token=${rootState.getters.idToken}`, data.data)
+    .then(res => {
+      console.dir('Community Updated!')
+      router.replace(`/communities/${rootState.getters.community._id}`)
+      return res
+    })
+    .catch(err => {
+      console.log('edit err: ' + err)
+    })
+  },
   sendCommunityRequest ({state, rootState, dispatch}) {
     if ((state.community.admins.filter(admin => (admin.steamId === rootState.AuthModule.user.steamId)).length) || (state.community.members.filter(member => (member.steamId === rootState.AuthModule.user.steamId)).length)) {
       console.log('You are already a team member')

@@ -52,7 +52,7 @@ router.use('/:id/:action', passport.authenticate('jwt'), (req, res, next) => {
 });
 
 // // Edit teams
-// router.post('/:id/edit', TeamsController.editTeam)
+router.post('/:id/edit', CommunitiesController.editCommunity)
 router.post('/:id/decline', CommunitiesController.declineCommunityRequest)
 router.post('/:id/accept', CommunitiesController.acceptCommunityRequest)
 router.post('/:id/delete', CommunitiesController.deleteCommunity)

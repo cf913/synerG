@@ -24,7 +24,7 @@
           <div class="col-8 text-left">
             <header class="d-flex justify-content-between align-items-center">
               <h2>{{community.communityName}}</h2>
-              <!-- <router-link v-if="isTeamAdmin" :to="{ name: 'teamEdit', params: { id: team._id }}" class="btn scale-up"><i class="fa fa-edit"></i></router-link> -->
+              <router-link v-if="isCommunityAdmin" :to="{ name: 'communityEdit', params: { id: community._id }}" class="btn scale-up"><i class="fa fa-edit"></i></router-link>
               <a v-if="isCommunityMember || isCommunityAdmin"  class="btn btn-danger btn-sm float-right" @click="leaveCommunity"><i class="fa fa-times fa-fw"></i></a>
               <a v-else-if="isCommunityPending"  class="btn btn-warning btn-sm float-right" @click="cancelCommunityRequest"><i class="fa fa-ban fa-fw"></i></a>
               <a v-else class="btn btn-primary btn-sm float-right" @click="sendCommunityRequest()"><i class="fa fa-plus fa-fw"></i></a>

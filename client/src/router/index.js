@@ -12,6 +12,7 @@ import TeamDetails from '@/components/center/teams/Team_details'
 import TeamEdit from '@/components/center/teams/Team_edit'
 import CommunityNew from '@/components/center/communities/Community_new'
 import CommunityDetails from '@/components/center/communities/Community_details'
+import CommunityEdit from '@/components/center/communities/Community_edit'
 import Friends from '@/components/center/friends/Friends'
 import Message from '@/components/center/messages/Message'
 import MessageDetails from '@/components/center/messages/Message_details'
@@ -65,6 +66,11 @@ export default new Router({
           path: 'communities/:id',
           component: CommunityDetails,
           name: 'communityDetails'
+        },
+        {
+          path: 'communities/:id/edit',
+          component: CommunityEdit,
+          name: 'communityEdit'
         },
         {
           path: 'friends',

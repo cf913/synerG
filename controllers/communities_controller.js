@@ -51,6 +51,16 @@ module.exports = {
     })
   },
 
+  editCommunity(req, res, next) {
+    Community.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true })
+    .then(community => {
+        res.send(community)
+    })
+    .catch(err => {
+        res.send(err)
+    })
+  },
+
   sendCommunityRequest(req, res, next) {
     console.log(req.body)
     Community.findOneAndUpdate({_id: req.params.id}, {$push: {"pending": req.body._id}}, {new: true})

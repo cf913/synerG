@@ -7,7 +7,7 @@
           <li class="list-group-item inner-tile">
             <div class="row">
               <div class="col-sm-3">
-                <img class="avatar" :src="pending.img" alt="Avatar">
+                <img id="avatar" :src="pending.img" alt="Avatar">
               </div>
               <div class="col-sm-9">
                 <router-link :to="{ name: 'playerDetails', params: { id: pending.steamId }}"><h5>{{ pending.steamName }}</h5></router-link>
