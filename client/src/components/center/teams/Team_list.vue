@@ -28,8 +28,8 @@
         </div>
         <div class="col-lg-4 padding-0">
           <!--Need to add functionality here to actually submit-->
-          <b-button @click.prevent="onSubmit()" variant="info"><i class="fa fa-search"></i> Search</b-button>
-          <b-button @click.prevent="onReset()" variant="warning">Reset</b-button>
+          <b-button type="submit" @click.prevent="onSubmit()" @keyup.enter.prevent="onSubmit" variant="info"><i class="fa fa-search"></i> Search</b-button>
+          <b-button type="reset" @click.prevent="onReset()" variant="warning">Reset</b-button>
         </div>
       </div>
 

@@ -28,9 +28,8 @@
         </div>
       </div>
       <div class="sub">
-          <b-button @click.prevent="onSubmit()" variant="info" class="subButton"><i class="fa fa-search"></i> Search</b-button>
-          <!--Need to add functionality here to actually submit-->
-          <b-button @click.prevent="onReset()" variant="warning" class="subButton">Reset</b-button>
+          <b-button type="submit" @click.prevent="onSubmit()" @keyup.enter.prevent="onSubmit" variant="info" class="subButton"><i class="fa fa-search"></i> Search</b-button>
+          <b-button type="reset" @click.prevent="onReset()" variant="warning" class="subButton">Reset</b-button>
       </div>
     </b-form>
     
