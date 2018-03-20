@@ -196,4 +196,9 @@ module.exports = {
 
 function buildQuery(body) {
   let query = {}
+  if (Object.keys(body).length === 0) return query
+  if (body.communityName.length > 0) {
+    query.communityName = {$regex: body.communityName, $options: 'i'}
+  }
+  return query
 }

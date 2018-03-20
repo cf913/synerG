@@ -171,13 +171,13 @@ export default {
     //   this.showDetails = true
     //   this.selectedPlayer = value
     // },
-    refresh () {
-      this.$store.commit('refreshPlayerList', {
-        loading: true,
-        players: []
-      })
-      this.getPlayers()
-    },
+    // refresh () {
+    //   this.$store.commit('refreshPlayerList', {
+    //     loading: true,
+    //     players: []
+    //   })
+    //   this.getPlayers()
+    // },
     onSubmit () {
       const data = {
         steamName: this.player_search,
@@ -189,6 +189,7 @@ export default {
       this.$store.dispatch('getPlayers', data)
     },
     onReset () {
+      this.player_search = ''
       this.regions_selected = null
       this.languages_selected = null
       this.comms_selected = null

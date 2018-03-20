@@ -144,6 +144,7 @@ export default {
       this.$store.dispatch('getTeams', data)
     },
     onReset () {
+      this.team_search = ''
       this.regions_selected = null
       this.languages_selected = null
       this.comms_selected = null
