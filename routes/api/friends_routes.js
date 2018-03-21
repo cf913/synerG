@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken')
 // ROUTES
 router.get('/:id', FriendsController.getFriends)
 
-// // Filter fraudulent friends request
+// Filter fraudulent friends request
 router.use(passport.authenticate('jwt'), (req, res, next) => {
   jwt.verify(req.query.token, config.secret, (err, decoded) => {
       if (err) {
@@ -18,7 +18,7 @@ router.use(passport.authenticate('jwt'), (req, res, next) => {
             error: err
         })
       }
-      req.body.tokenId = decoded.id
+      req.body.tokenId = decoded._id
       next();
   })
 });

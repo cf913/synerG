@@ -7,48 +7,6 @@ const state = {
   idToken: null,
   userId: null,
   user: null
-  // Not needed
-  // heroStats: {}
-  // user: { _id: '5a2100b386c90104354d705f',
-  //   steamId: '76561198303121519',
-  //   steam32: '342855791',
-  //   steamName: 'B2G \' Orno',
-  //   img: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg',
-  //   __v: 0,
-  //   description: 'This is a description!',
-  //   comms: [ 'Discord' ],
-  //   regions: [
-  //     'EU West',
-  //     'EU East',
-  //     'Japan',
-  //     'Australia',
-  //     'Russia',
-  //     'US West',
-  //     'South Africa',
-  //     'US East'
-  //   ],
-  //   languages: [ 'Chinese' ],
-  //   positions: [],
-  //   mmr: { mmr_estimate: 2757 },
-  //   steam: {
-  //     steamid: '76561198303121519',
-  //     communityvisibilitystate: 3,
-  //     profilestate: 1,
-  //     personaname: 'B2G \' Orno',
-  //     lastlogoff: 1512061628,
-  //     profileurl: 'http://steamcommunity.com/id/b2gorno/',
-  //     avatar: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb.jpg',
-  //     avatarmedium: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_medium.jpg',
-  //     avatarfull: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg',
-  //     personastate: 0,
-  //     realname: 'Joe Harper',
-  //     primaryclanid: '103582791429521408',
-  //     timecreated: 1462816155,
-  //     personastateflags: 0,
-  //     loccountrycode: 'GB',
-  //     locstatecode: 'H9'
-  //   }
-  // }
 }
 
 const mutations = {
@@ -72,8 +30,17 @@ const mutations = {
     state.user.friends.pending_received.push(id)
   },
   socketFriendCancel (state, id) {
-    console.log('CANCELING!')
     state.user.friends.pending_received.splice(state.user.friends.pending_received.indexOf(id), 1)
+  },
+  socketFriendAccept (state, id) {
+    state.user.friends.pending_sent.splice(state.user.friends.pending_sent.indexOf(id), 1)
+    state.user.friends.accepted.push(id)
+  },
+  socketFriendDecline (state, id) {
+    state.user.friends.pending_sent.splice(state.user.friends.pending_sent.indexOf(id), 1)
+  },
+  socketFriendRemove (state, id) {
+    state.user.friends.accepted.splice(state.user.friends.accepted.indexOf(id), 1)
   }
   // Not needed
   // updateHeroes (state, newStats) {
@@ -171,6 +138,9 @@ const actions = {
 }
 
 const getters = {
+  user_id (state) {
+    return state.user._id
+  },
   user (state) {
     return state.user
   },

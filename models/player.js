@@ -36,10 +36,10 @@ const PlayerSchema = new Schema({
   // posts: [{type: Schema.Types.ObjectId, ref: 'post'}],
   // comments: [{type: Schema.Types.ObjectId, ref: 'comment'}],
   friends: {
-    accepted: [String],
-    pending_sent: [String],
-    pending_received: [String],
-    blocked: [String]
+    accepted: [{type: Schema.Types.ObjectId, ref: 'Player'}],
+    pending_sent: [{type: Schema.Types.ObjectId, ref: 'Player'}],
+    pending_received: [{type: Schema.Types.ObjectId, ref: 'Player'}],
+    blocked: [{type: Schema.Types.ObjectId, ref: 'Player'}]
   },
   teams: [{type: Schema.Types.ObjectId, ref: 'Team'}],
   communities: [{type: Schema.Types.ObjectId, ref: 'Community'}]

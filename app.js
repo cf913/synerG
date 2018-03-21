@@ -72,6 +72,9 @@ io.on('connection', function (socket) {
   socket.on('friends_decline', function (data) {
     socket.to(clients[data.receiverID]).emit('incomingFriendDecline', data.sender)
   })
+  socket.on('friends_remove', function (data) {
+    socket.to(clients[data.receiverID]).emit('incomingFriendRemove', data.sender)
+  })
 })
 
 // function Subscribe (socket) {

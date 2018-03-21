@@ -61,11 +61,11 @@
                   <li><router-link :to="{ path: `/players/${userId}/edit`}" class="btn scale-up"><i class="fa fa-edit"></i></router-link></li>
                 </span>
                 <span v-else>
-                  <li v-if="inReceived"><a class="btn scale-up" @click="acceptRequest(player.steamId)"><i class="fa fa-check fa-fw"></i></a></li>
-                  <li v-if="inReceived"><a class="btn scale-up" @click="declineRequest(player.steamId)"><i class="fa fa-times fa-fw"></i></a></li>
-                  <li v-else-if="inSent"><a class="btn scale-up" @click="cancelRequest(player.steamId, player)"><i class="fa fa-ban fa-fw"></i></a></li>
-                  <li v-else-if="inAccepted"><a class="btn scale-up" @click="deleteFriend(player.steamId)"><i class="fa fa-trash fa-fw"></i></a></li>
-                  <li v-else><a :class="{disabled: !isLoggedIn}" class="btn scale-up" @click="sendRequest(player.steamId, player)"><i class="fa fa-user-plus fa-fw"></i></a></li>
+                  <li v-if="inReceived"><a class="btn scale-up" @click="acceptRequest(player._id)"><i class="fa fa-check fa-fw"></i></a></li>
+                  <li v-if="inReceived"><a class="btn scale-up" @click="declineRequest(player._id)"><i class="fa fa-times fa-fw"></i></a></li>
+                  <li v-else-if="inSent"><a class="btn scale-up" @click="cancelRequest(player._id)"><i class="fa fa-ban fa-fw"></i></a></li>
+                  <li v-else-if="inAccepted"><a class="btn scale-up" @click="deleteFriend(player._id)"><i class="fa fa-trash fa-fw"></i></a></li>
+                  <li v-else><a :class="{disabled: !isLoggedIn}" class="btn scale-up" @click="sendRequest(player._id)"><i class="fa fa-user-plus fa-fw"></i></a></li>
                 </span>
                 <li><a :href="`http://www.steamcommunity.com/profiles/${player.steamId}`" class="btn scale-up" target="_blank"><i class="fa fa-steam-square fa-fw"></i></a></li>
                 <li><a :class="{disabled: !isLoggedIn}" class="btn scale-up" @click="updatePlayer"><i class="fa fa-refresh fa-fw"></i></a></li>
@@ -142,19 +142,19 @@ export default {
       return this.$store.getters.player_loading
     },
     inSent () {
-      if (this.$store.getters.user) return this.$store.getters.user.friends.pending_sent.includes(this.player.steamId)
+      if (this.$store.getters.user) return this.$store.getters.user.friends.pending_sent.includes(this.player._id)
       else return false
     },
     inReceived () {
-      if (this.$store.getters.user) return this.$store.getters.user.friends.pending_received.includes(this.player.steamId)
+      if (this.$store.getters.user) return this.$store.getters.user.friends.pending_received.includes(this.player._id)
       else return false
     },
     inAccepted () {
-      if (this.$store.getters.user) return this.$store.getters.user.friends.accepted.includes(this.player.steamId)
+      if (this.$store.getters.user) return this.$store.getters.user.friends.accepted.includes(this.player._id)
       else return false
     },
     inBlocked () {
-      if (this.$store.getters.user) return this.$store.getters.user.friends.blocked.includes(this.player.steamId)
+      if (this.$store.getters.user) return this.$store.getters.user.friends.blocked.includes(this.player._id)
       else return false
     },
     isLoggedIn () {
@@ -166,25 +166,31 @@ export default {
     checkConversation (playerId) {
       this.$store.dispatch('checkConversation', playerId)
     },
-    sendRequest (id, player) {
+    sendRequest (id) {
       this.$store.dispatch('sendRequest', id)
-      this.$socket.emit('friends_request', { sender: this.$store.getters.user, receiverID: player._id, socketId: this.$socket.id })
+      this.$socket.emit('friends_request', { sender: this.$store.getters.user, receiverID: id, socketId: this.$socket.id })
     },
-    cancelRequest (id, player) {
-      confirm('Are you sure?')
-      this.$store.dispatch('cancelRequest', id)
-      this.$socket.emit('friends_cancel', { sender: this.$store.getters.user, receiverID: player._id, socketId: this.$socket.id })
+    cancelRequest (id) {
+      if (confirm('Are you sure?')) {
+        this.$store.dispatch('cancelRequest', id)
+        this.$socket.emit('friends_cancel', { sender: this.$store.getters.user, receiverID: id, socketId: this.$socket.id })
+      }
     },
     acceptRequest (id) {
       this.$store.dispatch('acceptRequest', id)
+      this.$socket.emit('friends_accept', { sender: this.$store.getters.user, receiverID: id, socketId: this.$socket.id })
     },
     declineRequest (id) {
-      confirm('Are you sure?')
-      this.$store.dispatch('declineRequest', id)
+      if (confirm('Are you sure?')) {
+        this.$store.dispatch('declineRequest', id)
+        this.$socket.emit('friends_decline', { sender: this.$store.getters.user, receiverID: id, socketId: this.$socket.id })
+      }
     },
     deleteFriend (id) {
-      confirm('Are you sure?')
-      this.$store.dispatch('deleteFriend', id)
+      if (confirm('Are you sure?')) {
+        this.$store.dispatch('deleteFriend', id)
+        this.$socket.emit('friends_remove', { sender: this.$store.getters.user, receiverID: id, socketId: this.$socket.id })
+      }
     },
     getPlayer () {
       this.$store.dispatch('getPlayer', this.$route.params.id)

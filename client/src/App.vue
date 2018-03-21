@@ -24,6 +24,18 @@ export default {
     incomingFriendCancel (data) {
       console.log('RECEIVED CANCEL')
       this.$store.dispatch('incomingFriendCancel', data)
+    },
+    incomingFriendAccept (data) {
+      console.log('RECEIVED ACCEPTED')
+      this.$store.dispatch('incomingFriendAccept', data)
+    },
+    incomingFriendDecline (data) {
+      console.log('RECEIVED DECLINE')
+      this.$store.dispatch('incomingFriendDecline', data)
+    },
+    incomingFriendRemove (data) {
+      console.log('RECEIVED REMOVE')
+      this.$store.dispatch('incomingFriendRemove', data)
     }
   }
 }
