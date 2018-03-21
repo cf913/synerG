@@ -8,6 +8,8 @@ const SignalSchema = new Schema({
   competitiveness: String,
   description: String,
   player: {type: Schema.Types.ObjectId, ref: 'Player'}
+}, {
+	timestamps: true
 })
 
 const Signal = mongoose.model('Signal', SignalSchema)

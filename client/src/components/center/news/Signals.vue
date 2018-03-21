@@ -1,31 +1,32 @@
 <template>
   <div class="signals container tile gray-tile tile-shadow">
     <h2 class="py-3">Signals</h2>
-    <form>
       <div class="row container">
         <div class="left col-lg-2">
           <img class="avatar" :src="user.img" alt="Avatar">
         </div>
         <div class="right col-lg-10">
           <h5>Send out a signal to look for a team</h5>
-          <p>
-            {{user.steamName}} is a
-            <b-form-select v-model="position_selected" :options="position_options"></b-form-select>
-            player looking for a
-            <b-form-select v-model="language_selected" :options="language_options"></b-form-select>
-            speaking team playing in the
-            <b-form-select v-model="region_selected" :options="region_options"></b-form-select>
-            server to play
-            <b-form-select v-model="competitive_selected" :options="competitive_options"></b-form-select>
-          </p>
-          <div>
-            <label class="col-form-label" for="description">Comment:</label>
-            <input type="text" class="form-control" id="description" name="description" v-model="description" placeholder="Additional Information...">
-          </div>
-          <button @click.prevent="newSignal" @keyup.enter.prevent="newSignal">Send out a signal!</button>
+          <b-form>
+            <b-form-group horizontal label-text-align="left" label="Position" label-for="signalPosition">
+              <b-form-select id="signalPosition" v-model="position_selected" :options="position_options" required></b-form-select>
+            </b-form-group>
+            <b-form-group horizontal label-text-align="left" label="Language" label-for="signalLanguage">
+              <b-form-select id ="signalLanguage" v-model="language_selected" :options="language_options" required></b-form-select>
+            </b-form-group>
+            <b-form-group horizontal label-text-align="left" label="Region" label-for="signalRegion">
+              <b-form-select id="signalRegion" v-model="region_selected" :options="region_options" required></b-form-select>
+            </b-form-group>
+            <b-form-group horizontal label-text-align="left" label="Competitive Level" label-for="signalCompetitive">
+              <b-form-select id="signalCompetitive" v-model="competitive_selected" :options="competitive_options" required></b-form-select>
+            </b-form-group>
+            <b-form-group horizontal label-text-align="left" label="Comments" label-for="signalDescription">
+              <b-form-input type="text" class="form-control" id="signalDescription" v-model="description" placeholder="Additional Information..."></b-form-input>
+            </b-form-group>
+            <b-button type="submit" @click.prevent="newSignal" @keyup.enter.prevent="newSignal">Send out a signal!</b-button>
+          </b-form>
         </div>
       </div>
-    </form>
     <div class="tiled inner-tile">
       <ul class="list-group clearfix" v-for="(signal, index) in signals" :key="index">
         <li class="list-group-item inner-tile">
