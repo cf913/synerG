@@ -56,7 +56,7 @@
             <header class="d-flex justify-content-between align-items-center">
               <h2>{{player.steamName}}</h2>
               <ul class="links">
-                <li><a class="btn scale-up" @click="checkConversation(player._id)"><i class="fa fa-comment fa-fw"></i></a></li>
+                <li v-if="userId !== player.steamId"><a class="btn scale-up" @click="checkConversation(player._id)"><i class="fa fa-comment fa-fw"></i></a></li>
                 <span v-if="userId === player.steamId">
                   <li><router-link :to="{ path: `/players/${userId}/edit`}" class="btn scale-up"><i class="fa fa-edit"></i></router-link></li>
                 </span>

@@ -125,8 +125,7 @@ export default {
 
   ul.details {
     /* background: #222; */
-    padding: 10px;
-    padding-left: 20px;
+    padding: 3px 5px;
     border-radius: 3px;
     flex-wrap: wrap;
   }
