@@ -39,7 +39,6 @@
     </div>
       <ul class="list-group clearfix" v-for="(player, index) in players" :key="index">
         <li class="list-group-item inner-tile">
-          <!--<app-player-item :player="player" @playerSelected="onPlayerSelected"></app-player-item>-->
           <app-player-item :player="player"></app-player-item>
         </li>
       </ul>
@@ -208,9 +207,9 @@ export default {
 </script>
 
 <style scoped>
-.inner-tile {
-  margin-bottom: 5px;
-}
+  .inner-tile {
+    margin-bottom: 5px;
+  }
   .padding-0{
     padding: 0;
   }
@@ -228,5 +227,13 @@ export default {
 
   .subButton {
     width: 100px;
+  }
+
+  li {
+    padding: 5px 8px;
+  }
+
+  ul {
+    margin-bottom: 5px;
   }
 </style>

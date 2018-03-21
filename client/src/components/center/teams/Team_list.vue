@@ -174,4 +174,12 @@ export default {
     width: 100%;
     margin: 0;
   }
+
+  li {
+    padding: 5px 8px;
+  }
+
+  ul {
+    margin-bottom: 5px;
+  }
 </style>
