@@ -111,9 +111,6 @@
             <div class="tiled playstyle inner-tile">
               <p class="title">Playstyle</p>
             </div>
-            <div class="tiled other inner-tile">
-              <p class="title">Other</p>
-            </div>
           </div>
         </div>
       </div>
@@ -300,6 +297,7 @@ export default {
   }
 
   table {
+    width: 100%;
     color: white;
   }
   
