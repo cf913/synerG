@@ -7,25 +7,28 @@ const jwt = require('jsonwebtoken')
 
 const api = {
   ////////////////////////////////////
-  getFriends(req, res, next) {
-    console.log(req.params.id)
-    Relationship.find({$or: [{ $and: [{ user1: req.params.id },{ relation: 1 }]}, 
-                             { $and: [{ user2: req.params.id }, { relation: 1 }]}]})
-      .then(data => {
-        console.log(data)
-        const friends = []
-        data.forEach(value => {
-          friends.push(value.user1 == req.params.id ? value.user2 : value.user1)
-        })
-        console.log(friends)
-        res.send({friends})
-      })
-  },
+  // getFriends(req, res, next) {
+  //   console.log(req.params.id)
+  //   Relationship.find({$or: [{ $and: [{ user1: req.params.id },{ relation: 1 }]}, 
+  //                            { $and: [{ user2: req.params.id }, { relation: 1 }]}]})
+  //     .then(data => {
+  //       console.log(data)
+  //       const friends = []
+  //       data.forEach(value => {
+  //         friends.push(value.user1 == req.params.id ? value.user2 : value.user1)
+  //       })
+  //       console.log(friends)
+  //       res.send({friends})
+  //     })
+  // },
 
-  updateFriends(req, res, next) {
+  getFriends(req, res, next) {
     console.log('Updating friends....')
     Player.findById(req.params.id)
     .select('friends')
+    .populate('friends.accepted', '_id steamId steamName img')
+    .populate('friends.pending_sent', '_id steamId steamName img')
+    .populate('friends.pending_recieved', '_id steamId steamName img')
     .then(data => {
       console.log('new freinds: ' + data)
       res.send(data)

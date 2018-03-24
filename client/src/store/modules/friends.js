@@ -33,19 +33,17 @@ const actions = {
     rootState.commit('socketFriendRemove', data._id)
     localStorage.setItem('user', JSON.stringify(rootState.getters.user))
   },
-
-  getFriendById (rootState, _id) {
-    if (!_id) {
-      console.log('No id')
-      return
-    }
-    axios.get(`/api/friends/${_id}`)
-      .then(({data}) => {
-        return data
-      })
-      .catch(err => {
-        console.log(err)
-      })
+  getFriends (rootState) {
+    axios.get(`/api/friends/${rootState.getters.user_id}`)
+    .then(({data}) => {
+      let user = rootState.getters.user
+      user.friends = data.friends
+      localStorage.setItem('user', JSON.stringify(user))
+      rootState.commit('userUpdate', user)
+    })
+    .catch(err => {
+      console.log(err)
+    })
   },
 
   sendRequest (rootState, id) {

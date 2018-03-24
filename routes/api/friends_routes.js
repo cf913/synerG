@@ -24,7 +24,7 @@ router.use(passport.authenticate('jwt'), (req, res, next) => {
 });
 
 // FILTERED ROUTES
-router.post('/update', FriendsController.updateFriends) // Update friendsList
+// router.post('/update', FriendsController.updateFriends) // Update friendsList
 router.post('/:id/accept', FriendsController.acceptRequest) // Accept friendship
 router.post('/:id/decline', FriendsController.declineRequest) // Decline friendship
 router.post('/:id/cancel', FriendsController.cancelRequest) // Cancel friends request

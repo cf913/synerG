@@ -11,8 +11,11 @@
       <hr>
       (Requests Sent:)
       <ul>
-        <li v-for="(requesterId, index) in requests_sent" :key="index">
-          {{ requesterId }} 
+        <li v-for="(friend, index) in requests_sent" :key="index">
+          <div class="tile tiled">
+            {{friend.steamName}}
+            <img :src="friend.img" alt="">
+          </div>
         </li>
       </ul>
       <hr>
@@ -40,6 +43,9 @@ export default {
     }
   },
   methods: {
+  },
+  activated () {
+    this.$store.dispatch('getFriends')
   }
 }
 </script>
