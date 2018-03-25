@@ -28,7 +28,7 @@ const api = {
     .select('friends')
     .populate('friends.accepted', '_id steamId steamName img')
     .populate('friends.pending_sent', '_id steamId steamName img')
-    .populate('friends.pending_recieved', '_id steamId steamName img')
+    .populate('friends.pending_received', '_id steamId steamName img')
     .then(data => {
       console.log('new freinds: ' + data)
       res.send(data)
@@ -46,10 +46,10 @@ const api = {
     // DECLINED: cancel the request
     let updateRequester = Player.findByIdAndUpdate(rqster, 
                                                { $pullAll: { 'friends.pending_sent': [rqstee] }}, 
-                                               { new: true })
+                                               { new: true }).exec()
     let updateRequestee = Player.findByIdAndUpdate(rqstee, 
                                                { $pullAll: {'friends.pending_received': [rqster] }}, 
-                                               { new: true })
+                                               { new: true }).exec()
     Promise.all([updateRequester, updateRequestee])
       .then(data => {
         console.log('DECLIIIIIIIIIIINED')
@@ -63,7 +63,7 @@ const api = {
   //
   acceptRequest(req, res, next) {
     const rqster = req.params.id
-    const rqstee = req.body.tokenId
+    const rqstee = req.body.tokenI
     let friendsAlready = false
     // ACCEPTED: 
     // create new or update existing relationship
