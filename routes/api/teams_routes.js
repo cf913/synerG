@@ -55,5 +55,6 @@ router.post('/:id/edit', TeamsController.editTeam)
 router.post('/:id/decline', TeamsController.declineTeamRequest)
 router.post('/:id/accept', TeamsController.acceptTeamRequest)
 router.post('/:id/delete', TeamsController.deleteTeam)
+router.post('/:id/captain', TeamsController.makeCaptain)
 
 module.exports = router

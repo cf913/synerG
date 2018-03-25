@@ -55,16 +55,6 @@
           <div class="col-8 text-left">
             <header class="d-flex justify-content-between align-items-center">
               <h2>{{team.teamName}}</h2>
-              <!--<ul class="links">-->
-              <!--  <li v-if="inReceived"><a class="scale-up" @click="acceptRequest(player.steamId)"><i class="fa fa-check fa-fw"></i></a></li>-->
-              <!--  <li v-if="inReceived"><a class="scale-up" @click="declineRequest(player.steamId)"><i class="fa fa-times fa-fw"></i></a></li>-->
-              <!--  <li v-else-if="inSent"><a class="scale-up" @click="cancelRequest(player.steamId)"><i class="fa fa-ban fa-fw"></i></a></li>-->
-              <!--  <li v-else-if="inAccepted"><a class="scale-up" @click="deleteFriend(player.steamId)"><i class="fa fa-trash fa-fw"></i></a></li>-->
-              <!--  <li v-else><a class="scale-up" @click="sendRequest(player.steamId)"><i class="fa fa-user-plus fa-fw"></i></a></li>-->
-              <!--  <li><a :href="`http://www.steamcommunity.com/profiles/${player.steamId}`" class="scale-up" target="_blank"><i class="fa fa-steam-square fa-fw"></i></a></li>-->
-              <!--  <li><a class="scale-up" @click="updatePlayer"><i class="fa fa-refresh fa-fw"></i></a></li>-->
-              <!--</ul>-->
-              <!--Icon only changes after refreshing NEED TO FIX-->
               <router-link v-if="isTeamAdmin" :to="{ name: 'teamEdit', params: { id: team._id }}" class="btn scale-up"><i class="fa fa-edit"></i></router-link>
               <a v-if="isTeamMember || isTeamAdmin"  class="btn btn-danger btn-sm float-right" @click="leaveTeam"><i class="fa fa-times fa-fw"></i></a>
               <a v-else-if="isPending"  class="btn btn-warning btn-sm float-right" @click="cancelTeamRequest"><i class="fa fa-ban fa-fw"></i></a>
@@ -85,35 +75,44 @@
                 {{team.description}}
               </p>
             </div>
-            <!--<div class="tiled heroes inner-tile">-->
-              <!--<p> -->
-              <!--  <span class="title">Most Played Heroes</span>-->
-              <!--  <ul id="example-1">-->
-              <!--    <li v-for="(hero, index) in player.heroes.slice(0,5)" :key="index">-->
-              <!--      {{ hero }}-->
-              <!--    </li>-->
-              <!--  </ul>-->
-              <!--</p>-->
-            <!--</div>-->
-            <div class="tiled teams inner-tile">
-              <p class="title">Teams</p>
-            </div>
-            <div class="tiled playstyle inner-tile">
-              <p class="title">Playstyle</p>
-            </div>
-            <div class="tiled other inner-tile">
-              <p class="title">Other</p>
-            </div>
             <div class="tiled other inner-tile">
               <p class="title">Team Members</p>
               <ul class="list-group clearfix" v-for="(admin, index) in team.teamAdmins" :key="index">
                 <li class="list-group-item inner-tile">
-                  <app-player-item :player="admin.player"></app-player-item>
+                  <div class="row">
+                    <div class="col-sm-2 avatar">
+                      <img class="picture" :src="admin.player.img" alt="Avatar">
+                    </div>
+                    <div class="col-sm-10 summary">
+                      <a class="btn btn-outline-secondary btn-sm float-right disabled"><i class="fa fa-star fa-fw"></i></a>
+                      <router-link :to="{ name: 'playerDetails', params: { id: admin.player._id }}"><h5>{{ admin.player.steamName }} - {{admin.position}}</h5></router-link>
+                      <ul class="d-flex details inner-2-tile">
+                        <li v-if="admin.player.regions.length !== 0"><i class="fa fa-map-marker fa-fw"></i> {{ admin.player.regions | displayListContent }}</li>
+                        <li v-if="admin.player.languages.length !== 0"><i class="fa fa-globe fa-fw"></i> {{ admin.player.languages | displayListContent }}</li>
+                        <li v-if="admin.player.comms.length !== 0"><i class="fa fa-microphone fa-fw"></i> {{ admin.player.comms | displayListContent }}</li>
+                        <li v-if="admin.player.positions.length !== 0"><i class="fa fa-pie-chart fa-fw"></i> {{ admin.player.positions | displayListContent }}</li>
+                      </ul>
+                    </div>
+                  </div>
                 </li>
               </ul>
               <ul class="list-group clearfix" v-for="(member, index) in team.teamMembers" :key="index">
                 <li class="list-group-item inner-tile">
-                  <app-player-item :player="member.player"></app-player-item>
+                  <div class="row">
+                    <div class="col-sm-2 avatar">
+                      <img class="picture" :src="member.player.img" alt="Avatar">
+                    </div>
+                    <div class="col-sm-10 summary">
+                      <a v-if="isTeamAdmin" class="btn btn-success btn-sm float-right" @click="makeCaptain({player: member, captain: team.teamAdmins[0]})"><i class="fa fa-star fa-fw"></i></a>
+                      <router-link :to="{ name: 'playerDetails', params: { id: member.player._id }}"><h5>{{ member.player.steamName }} - {{member.position}}</h5></router-link>
+                      <ul class="d-flex details inner-2-tile">
+                        <li v-if="member.player.regions.length !== 0"><i class="fa fa-map-marker fa-fw"></i> {{ member.player.regions | displayListContent }}</li>
+                        <li v-if="member.player.languages.length !== 0"><i class="fa fa-globe fa-fw"></i> {{ member.player.languages | displayListContent }}</li>
+                        <li v-if="member.player.comms.length !== 0"><i class="fa fa-microphone fa-fw"></i> {{ member.player.comms | displayListContent }}</li>
+                        <li v-if="member.player.positions.length !== 0"><i class="fa fa-pie-chart fa-fw"></i> {{ member.player.positions | displayListContent }}</li>
+                      </ul>
+                    </div>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -157,7 +156,7 @@
                   <li class="list-group-item inner-tile">
                     <div class="row">
                       <div class="col-sm-3">
-                        <img id="avatar" :src="pending.player.img" alt="Avatar">
+                        <img class="picture" :src="pending.player.img" alt="Avatar">
                       </div>
                       <div class="col-sm-9">
                         <router-link :to="{ name: 'playerDetails', params: { id: pending.player.steamId }}"><h5>{{ pending.player.steamName }}</h5></router-link>
@@ -180,7 +179,6 @@
 </template>
 
 <script>
-import PlayerItem from '../players/Player_item.vue'
 import PlayerDetails from '../players/Player_details.vue'
 
 export default {
@@ -253,6 +251,10 @@ export default {
         this.$store.dispatch('leaveTeam', this.$route.params.id)
       }
     },
+    makeCaptain (players) {
+      confirm('Are you sure you want to make this member the captain?')
+      this.$store.dispatch('makeCaptain', players)
+    },
     onBack () {
       this.$router.go(-1)
     }
@@ -262,7 +264,6 @@ export default {
     // }
   },
   components: {
-    appPlayerItem: PlayerItem,
     appPlayerDetails: PlayerDetails
   },
   // watch: {
@@ -355,8 +356,8 @@ export default {
     color: orange;
   }
   
-  #avatar {
-    width: 40%;
+  .picture {
+    width: 100%;
     border: 3px solid #fff;
     border-radius: 5px;
   }
@@ -403,5 +404,37 @@ export default {
   
   td.selected{
     background-color: green;
+  }
+
+  .details i {
+    font-size: 1.2em;
+    color: #ddd;
+    margin-right: 4px;
+  }
+
+  ul.details {
+    /* background: #222; */
+    padding: 3px 5px;
+    border-radius: 3px;
+    flex-wrap: wrap;
+  }
+  .details li {
+    padding: 2px 0;
+    list-style-type: none;
+    font-size: 0.9em;
+    flex-basis: calc(48%);
+  }
+
+  .avatar {
+    padding: 0;
+  }
+
+  .row {
+    width: 100%;
+    margin: 0;
+  }
+
+  .summary {
+    padding-right: 0;
   }
 </style>

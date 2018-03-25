@@ -156,6 +156,22 @@ module.exports = {
     .catch(err => {
       res.send(err)
     })
+  },
+
+  makeCaptain(req, res, next) {
+    console.log('Making Captain')
+    console.log(req.body)
+    let push = Team.findOneAndUpdate({_id: req.params.id}, {$push: {"teamMembers": {player: req.body.captain.player._id, position: req.body.captain.position}, "teamAdmins": {player: req.body.player.player._id, position: req.body.player.position}}}, {new: true})
+    let pull = Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"teamAdmins": {player: req.body.captain.player._id, position: req.body.captain.position}, "teamMembers": {player: req.body.player.player._id, position: req.body.player.position}}}, {new: true})
+    Promise.all([push, pull])
+    .then(team => {
+      console.log("Updated Captain")
+      console.log(team)
+      res.send(team)
+    })
+    .catch(err => {
+      res.send(err)
+    })
   }
 }
 

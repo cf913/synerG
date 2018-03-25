@@ -190,6 +190,23 @@ const actions = {
     .catch(err => {
       console.log('edit err: ' + err)
     })
+  },
+  makeCaptain ({state, rootState, dispatch}, players) {
+    if (!(state.team.teamAdmins.filter(admin => (admin.player.steamId === rootState.AuthModule.user.steamId)).length) || !rootState.AuthModule.idToken) {
+      console.log('You are not a team admin')
+      router.replace(`/teams/${state.team._id}`)
+      return
+    }
+    axios.post(`/api/teams/${state.team._id}/captain?token=${rootState.AuthModule.idToken}`, {captain: players.captain, player: players.player})
+    .then(res => {
+      console.dir('Made Captain!')
+      dispatch('getTeam', state.team._id)
+      router.replace(`/teams/${state.team._id}`)
+      return res
+    })
+    .catch(err => {
+      console.log('edit err: ' + err)
+    })
   }
 }
 
