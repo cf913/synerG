@@ -43,6 +43,19 @@
       <div class="row">
         <div class="col-md-12">
           <h2>Friends:</h2>
+          <ul>
+            <li v-for="(friend, index) in friends" :key="index" class="tile inner-tile">
+              <div class="row">
+                <div class="col-md-3 avatar">
+                  <img id="avatar" :src="friend.img" alt="Avatar">
+                </div>
+                <div class="col-md-9 summary">
+                  <a class="btn btn-danger btn-sm float-right" @click="deleteFriend(friend._id)"><i class="fa fa-trash fa-fw"></i></a>
+                  <router-link :to="{ name: 'playerDetails', params: { id: friend._id }}"><h5>{{ friend.steamName }}</h5></router-link>
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -77,6 +90,12 @@ export default {
       if (confirm('Are you sure?')) {
         this.$store.dispatch('declineRequest', id)
         this.$socket.emit('friends_decline', { sender: this.$store.getters.user, receiverID: id, socketId: this.$socket.id })
+      }
+    },
+    deleteFriend (id) {
+      if (confirm('Are you sure?')) {
+        this.$store.dispatch('deleteFriend', id)
+        this.$socket.emit('friends_remove', { sender: this.$store.getters.user, receiverID: id, socketId: this.$socket.id })
       }
     }
   },

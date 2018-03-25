@@ -63,7 +63,7 @@ const api = {
   //
   acceptRequest(req, res, next) {
     const rqster = req.params.id
-    const rqstee = req.body.tokenI
+    const rqstee = req.body.tokenId
     let friendsAlready = false
     // ACCEPTED: 
     // create new or update existing relationship
