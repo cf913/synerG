@@ -207,6 +207,23 @@ const actions = {
     .catch(err => {
       console.log('edit err: ' + err)
     })
+  },
+  removeMember ({state, rootState, dispatch}, player) {
+    if (!(state.team.teamAdmins.filter(admin => (admin.player.steamId === rootState.AuthModule.user.steamId)).length) || !rootState.AuthModule.idToken) {
+      console.log('You are not a team admin')
+      router.replace(`/teams/${state.team._id}`)
+      return
+    }
+    axios.post(`/api/teams/${state.team._id}/remove?token=${rootState.AuthModule.idToken}`, player)
+    .then(res => {
+      console.dir('Player Removed!')
+      dispatch('getTeam', state.team._id)
+      router.replace(`/teams/${state.team._id}`)
+      return res
+    })
+    .catch(err => {
+      console.log('edit err: ' + err)
+    })
   }
 }
 

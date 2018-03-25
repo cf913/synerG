@@ -39,27 +39,31 @@
                 </ul>
               </li>
               <li class="tiled inner-tile">
-                <span class="title"><i class="fa fa-headphones fa-fw"></i> Communication Method:</span>
-                <ul v-for="(comm, index) in team.comms" :key="index">
-                  <li>{{comm}}</li>
-                </ul>
-              </li>
-              <li class="tiled inner-tile">
                 <span class="title"><i class="fa fa-pie-chart fa-fw"></i> Recruiting:</span>
                 <ul v-for="(recruit, index) in team.recruiting" :key="index">
                   <li>{{recruit}}</li>
                 </ul>
               </li>
+              <li class="tiled inner-tile">
+                <span class="title"><i class="fa fa-trophy fa-fw"></i> Competitiveness:</span>
+                <p>{{team.competitiveness}}</p>
+              </li>
+              <li class="tiled inner-tile">
+                <span class="title"><i class="fa fa-headphones fa-fw"></i> Communication Method:</span>
+                <ul v-for="(comm, index) in team.comms" :key="index">
+                  <li>{{comm}}</li>
+                </ul>
+              </li>
             </ul>
           </div>
           <div class="col-8 text-left">
-            <header class="d-flex justify-content-between align-items-center">
-              <h2>{{team.teamName}}</h2>
-              <router-link v-if="isTeamAdmin" :to="{ name: 'teamEdit', params: { id: team._id }}" class="btn scale-up"><i class="fa fa-edit"></i></router-link>
+            <header class="d-flex justify-content-end align-items-center">
+              <h2 class="mr-auto">{{team.teamName}}</h2>
+              <router-link v-if="isTeamAdmin" :to="{ name: 'teamEdit', params: { id: team._id }}" class="scale-up mr-1"><i class="fa fa-edit fa-2x"></i></router-link>
               <a v-if="isTeamMember || isTeamAdmin"  class="btn btn-danger btn-sm float-right" @click="leaveTeam"><i class="fa fa-times fa-fw"></i></a>
               <a v-else-if="isPending"  class="btn btn-warning btn-sm float-right" @click="cancelTeamRequest"><i class="fa fa-ban fa-fw"></i></a>
               <!-- <a v-else class="btn btn-primary btn-sm float-right" @click="sendTeamRequest()"><i class="fa fa-plus fa-fw"></i></a> -->
-              <b-btn v-b-modal.modal1 v-else>Launch demo modal</b-btn>
+              <a v-b-modal.modal1 v-else class="btn btn-primary btn-sm float-right"><i class="fa fa-plus fa-fw"></i></a>
               
               <b-modal id="modal1" title="Send Request to Join Team" header-text-variant="dark" body-text-variant="dark">
                 <b-form>
@@ -78,7 +82,7 @@
             <div class="tiled other inner-tile">
               <p class="title">Team Members</p>
               <ul class="list-group clearfix" v-for="(admin, index) in team.teamAdmins" :key="index">
-                <li class="list-group-item inner-tile">
+                <li class="list-group-item inner-tile players">
                   <div class="row">
                     <div class="col-sm-2 avatar">
                       <img class="picture" :src="admin.player.img" alt="Avatar">
@@ -97,13 +101,14 @@
                 </li>
               </ul>
               <ul class="list-group clearfix" v-for="(member, index) in team.teamMembers" :key="index">
-                <li class="list-group-item inner-tile">
+                <li class="list-group-item inner-tile players">
                   <div class="row">
                     <div class="col-sm-2 avatar">
                       <img class="picture" :src="member.player.img" alt="Avatar">
                     </div>
                     <div class="col-sm-10 summary">
-                      <a v-if="isTeamAdmin" class="btn btn-success btn-sm float-right" @click="makeCaptain({player: member, captain: team.teamAdmins[0]})"><i class="fa fa-star fa-fw"></i></a>
+                      <a v-if="isTeamAdmin" class="btn btn-warning btn-sm float-right" @click="makeCaptain({player: member, captain: team.teamAdmins[0]})"><i class="fa fa-star fa-fw"></i></a>
+                      <a v-if="isTeamAdmin" class="btn btn-danger btn-sm float-right" @click="removeMember(member)"><i class="fa fa-trash fa-fw"></i></a>
                       <router-link :to="{ name: 'playerDetails', params: { id: member.player._id }}"><h5>{{ member.player.steamName }} - {{member.position}}</h5></router-link>
                       <ul class="d-flex details inner-2-tile">
                         <li v-if="member.player.regions.length !== 0"><i class="fa fa-map-marker fa-fw"></i> {{ member.player.regions | displayListContent }}</li>
@@ -254,6 +259,10 @@ export default {
     makeCaptain (players) {
       confirm('Are you sure you want to make this member the captain?')
       this.$store.dispatch('makeCaptain', players)
+    },
+    removeMember (player) {
+      confirm('Are you sure you want to remove this player from your team?')
+      this.$store.dispatch('removeMember', player)
     },
     onBack () {
       this.$router.go(-1)
@@ -436,5 +445,9 @@ export default {
 
   .summary {
     padding-right: 0;
+  }
+
+  ul li.players.list-group-item {
+    margin-bottom: 8px;
   }
 </style>

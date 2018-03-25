@@ -172,6 +172,19 @@ module.exports = {
     .catch(err => {
       res.send(err)
     })
+  },
+
+  removeMember(req, res, next) {
+    console.log(req.body)
+    Team.findOneAndUpdate({_id: req.params.id}, {$pull: {"teamMembers": {player: req.body.player._id}}}, {new: true})
+    .then(team => {
+      console.log("player removed")
+      console.log(team)
+      res.send(team)
+    })
+    .catch(err => {
+      res.send(err)
+    })
   }
 }
 
