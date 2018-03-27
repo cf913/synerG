@@ -5,7 +5,7 @@
   <!-- Components News/Players/Teams -->
   <div class="container-fluid">
     <div class="row">
-      <div class="left col-md-12 col-lg-9">
+      <div class="left col-md-12 col-lg-8">
         <div class="">
           <transition name="fade" mode="out-in">
             <keep-alive>
@@ -14,7 +14,7 @@
           </transition>
         </div>
       </div>
-      <div class="right col-lg-3 sidebar">
+      <div class="right col-lg-4 sidebar">
         <div class="fixed">
           <app-right></app-right>
         </div>
@@ -46,7 +46,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  @media (min-width: 1200px) {
+    div.main .container-fluid {
+      max-width: 1300px;
+    }
+      div.right.col-lg-4 {
+        max-width: 29%;
+    }
+  }
 
+  
   .left, .center, .right {
     padding: 10px;
     padding-top: 20px;
@@ -82,8 +91,6 @@ export default {
   }
 
   .container-fluid {
-    /* stretch the container to 100% width */
-    max-width: 1600px;
     padding-top: 55px;
   }
   .fixed {
