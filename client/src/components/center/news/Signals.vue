@@ -1,5 +1,5 @@
 <template>
-  <div class="signals container tile gray-tile tile-shadow">
+  <div class="signals container">
     <h2 class="py-3">Signals</h2>
       <div class="row container">
         <div class="left col-lg-2">

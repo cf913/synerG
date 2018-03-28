@@ -1,18 +1,22 @@
 <template>
-  <div class="news-feed container tile gray-tile tile-shadow">
-    <h2 class="py-3">News</h2>
-    <form>
-      <div class="row container">
+  <div class="news-feed container">
+      <div class="row container new-post">
         <div class="left col-lg-2">
           <img class="avatar" :src="user.img" alt="Avatar">
         </div>
         <div class="right col-lg-10">
-          <label class="col-form-label" for="post">Post:</label>
-          <input type="text" class="form-control" id="post" name="post" v-model="post" placeholder="Write Post ...">
-          <button @click.prevent="newPost" @keyup.enter.prevent="newPost">Submit</button>
+          <b-form>
+            <b-form-textarea type="text" v-model="post" :rows="2" :max-rows="6" placeholder="Write a new a post ..."></b-form-textarea>
+            <div class="d-flex justify-content-start align-items-center">
+              <b-button-group>
+                <b-button>Create a Post</b-button>
+                <b-button>Upload Image</b-button>
+              </b-button-group>
+              <b-button class="ml-auto" type="submit" @click.prevent="newPost" @keyup.enter.prevent="newPost">Submit</b-button>
+            </div>
+          </b-form>
         </div>
       </div>
-    </form>
     <div class="tiled inner-tile">
       <ul class="list-group clearfix" v-for="(post, index) in posts" :key="index">
         <li class="list-group-item inner-tile">
@@ -64,9 +68,17 @@ export default {
 </script>
 
 <style scoped>
+  .new-post {
+    padding: 15px 30px;
+    margin: 0;
+  }
+  div.right {
+    padding-right: 0;
+  }
   .avatar{
-    max-height: 100%;
-    max-width: 100%;
+    width: 100%;
+    border: 3px solid #fff;
+    border-radius: 5px;
   }
   .tiled {
     padding: 5px 10px;
@@ -76,5 +88,9 @@ export default {
   .post-avatar {
     max-height: 90px;
     max-width: 90px;
+  }
+
+  ul li.list-group-item {
+    margin: 3px 0;
   }
 </style>

@@ -69,6 +69,17 @@ export default {
 
 
   .main {
+/*    background: #304352;  /* fallback for old browsers */
+    /*background: -webkit-linear-gradient(to top, #304352, #d7d2dd);   Chrome 10-25, Safari 5.1-6 */
+    /*background: linear-gradient(to top, #304352, #d7d2dd);  W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    background: -webkit-linear-gradient(to top, #6c8193, #8e9eab);
+    background: linear-gradient(to top, #6c8193, #8e9eab);
+
+    /*background: -webkit-linear-gradient(to top, #21272c, #161a1d);*/
+    /*background: linear-gradient(to top, #21272c, #161a1d);*/
+
+
     /* background: linear-gradient(to top, #000000, #53346d);
     background: linear-gradient(to bottom, #159957, #155799);
     background: linear-gradient(to bottom, #007991, #78ffd6);
@@ -78,8 +89,8 @@ export default {
     background: linear-gradient(to top, #000000, #434343);
     background: linear-gradient(to top, #2980b9, #2c3e50);
     background: linear-gradient(to top, #4b79a1, #283e51);
-    background: linear-gradient(to bottom, #485563, #29323c); */
-    background: linear-gradient(to top, #141e30, #243b55);
+    background: linear-gradient(to bottom, #485563, #29323c); 
+    /*background: linear-gradient(to top, #141e30, #243b55);*/
 
     /* background: linear-gradient(to bottom, #023, #012); */
 
@@ -181,12 +192,30 @@ export default {
     font-weight: 500;
   }
 
+  /*STYLING NAV BARS*/
+  ul.nav-tabs {
+    background-color: #2F363D;
+    border-color: #2F363D;
+    border-radius: 5px 5px 0 0;
+  }
+
+  li.nav-item a.nav-link {
+    color: #fff;
+  }
+
+  li.nav-item a.nav-link.active {
+    background-color: #600;
+    color: #fff;
+    border: 1px solid #600;
+  }
+
   .tile {
     border-radius: 5px;
   }
   .gray-tile {
     /* background: #111; */
-    background: rgba(17, 17, 17, 0.5);
+    /*background: rgba(17, 17, 17, 0.5);*/
+    background-color: #21272c;
     color: #fff;
   }
 

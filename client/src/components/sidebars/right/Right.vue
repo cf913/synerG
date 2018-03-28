@@ -115,14 +115,14 @@ export default {
   
 
   /* STYLE FOR TOP NAVBAR */
-  ul.nav-tabs.top-tabs  {
+/*  ul.nav-tabs.top-tabs  {
     border-radius: 5px 5px 0 0;
-  }
+  }*/
 
-  ul.nav-tabs {
+/*  ul.nav-tabs {
     background: #333;
     border-color: #333;
-  }
+  }*/
 
   li.nav-item {
     border:0;
@@ -134,7 +134,7 @@ export default {
     transition: 0.5s;
   }
 
-  li.nav-item a.nav-link:hover{
+/*  li.nav-item a.nav-link:hover{
     background-color: #222; 
     transition: 0.1s;
   }
@@ -142,7 +142,7 @@ export default {
   li.nav-item a.nav-link.active{
     background-color:#111;
     color: white;
-  }
+  }*/
 
   i.fa {
     transform: scale(1);

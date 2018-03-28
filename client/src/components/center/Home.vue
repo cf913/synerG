@@ -1,7 +1,7 @@
 <template>
   <div class="players tile gray-tile tiled">
     <div class="container-fluid">
-      <b-nav justified tabs class="tabs">
+      <b-nav justified tabs class="home-nav">
         <b-nav-item @click="tab = 'app-news'" :active="tab === 'app-news'">News Feed</b-nav-item>
         <b-nav-item @click="tab = 'app-my-posts'" :active="tab === 'app-my-posts'">My Posts</b-nav-item>
         <b-nav-item @click="tab = 'app-signals'" :active="tab === 'app-signals'">Signals</b-nav-item>
@@ -34,8 +34,22 @@ export default {
 </script>
 
 <style scoped>
-  .tiled {
-    padding: 10px;
-    margin-bottom: 15px;
+  div.container-fluid {
+    padding: 0;
   }
+
+  /*Styling for the nav bar tabs*/
+  ul.home-nav.nav-tabs {
+    border-bottom: 3px solid #600;
+  }
+
+/*  li.nav-item a.nav-link {
+    color: #fff;
+  }
+
+  li.nav-item a.nav-link.active {
+    background-color: #600;
+    color: #fff;
+    border: 1px solid #600;
+  }*/
 </style>

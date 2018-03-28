@@ -1,5 +1,5 @@
 <template>
-  <div class="my-posts container tile gray-tile tile-shadow">
+  <div class="my-posts container">
     <h2 class="py-3">My Posts</h2>
     <div class="tiled inner-tile">
       <ul class="list-group clearfix" v-for="(post, index) in myposts" :key="index">
