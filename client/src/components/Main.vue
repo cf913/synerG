@@ -205,7 +205,7 @@ export default {
 
   li.nav-item a.nav-link.active {
     background-color: #600;
-    color: #fff;
+    color: #DAA520;
     border: 1px solid #600;
   }
 

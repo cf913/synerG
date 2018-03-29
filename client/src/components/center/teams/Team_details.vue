@@ -126,13 +126,13 @@
               <table id="timetable">
 		          	<tr>
 		          		<td></td>
-		          		<td>Monday</td>
-		          		<td>Tuesday</td>
-		          		<td>Wednesday</td>
-		          		<td>Thursday</td>
-		          		<td>Friday</td>
-		          		<td>Saturday</td>
-		          		<td>Sunday</td>
+		          		<td>Mon</td>
+		          		<td>Tue</td>
+		          		<td>Wed</td>
+		          		<td>Thu</td>
+		          		<td>Fri</td>
+		          		<td>Sat</td>
+		          		<td>Sun</td>
 		          	</tr>
 		          	<!--<tr v-for="(time, index) in team.timetable" :key="index">-->
 		          	<!--  <td>12am</td>-->

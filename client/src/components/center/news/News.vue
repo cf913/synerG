@@ -17,7 +17,7 @@
           </b-form>
         </div>
       </div>
-    <div class="tiled inner-tile">
+    <div class="tiled">
       <ul class="list-group clearfix" v-for="(post, index) in posts" :key="index">
         <li class="list-group-item inner-tile">
           <div class="row">
@@ -75,13 +75,16 @@ export default {
   div.right {
     padding-right: 0;
   }
+  div.left {
+    padding-left: 0;
+  }
   .avatar{
     width: 100%;
     border: 3px solid #fff;
     border-radius: 5px;
   }
   .tiled {
-    padding: 5px 10px;
+    padding: 15px 60px;
     border-radius: 5px;
     margin-bottom: 15px;
   }
@@ -92,5 +95,13 @@ export default {
 
   ul li.list-group-item {
     margin: 3px 0;
+  }
+
+  li div.right {
+    text-align: left;
+  }
+
+  li div.right p {
+    padding-right: 5px;
   }
 </style>

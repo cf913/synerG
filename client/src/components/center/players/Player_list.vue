@@ -1,8 +1,10 @@
 <template>
   <div class="player_list text-left container" style="position: relative">
     <b-form>
-      <b-form-input type="text" placeholder="Search for players..." v-model="player_search">
-      </b-form-input>
+      <div class="text-search">
+        <b-form-input type="text" placeholder="Search for players..." v-model="player_search">
+        </b-form-input>
+      </div>
       <div class="row maxwidth">
         <div class="col-lg-6 padding-0">
           <b-form-select v-model="positions_selected" :options="positions_options">
@@ -27,10 +29,12 @@
           </b-form-select>
         </div>
       </div>
-      <div class="sub">
-          <b-button type="submit" @click.prevent="onSubmit()" @keyup.enter.prevent="onSubmit" variant="info" class="subButton"><i class="fa fa-search"></i> Search</b-button>
-          <b-button type="reset" @click.prevent="onReset()" variant="warning" class="subButton">Reset</b-button>
-      </div>
+      <!-- <div class="sub"> -->
+      <div class="d-flex justify-content-end align-items-center">
+        <b-button size="sm" type="reset" @click.prevent="onReset()" variant="warning">Reset</b-button>
+        <b-button size="sm" type="submit" @click.prevent="onSubmit()" @keyup.enter.prevent="onSubmit" variant="info"><i class="fa fa-search"></i> Search</b-button>
+      </div>  
+      <!-- </div> -->
     </b-form>
     
     <div v-if="loading" class="text-center">
@@ -211,22 +215,11 @@ export default {
     margin-bottom: 5px;
   }
   .padding-0{
-    padding: 0;
+    padding: 0 5px;
   }
   .maxwidth{
     width: 100%;
     margin: 0;
-  }
-
-  .sub {
-    max-width: 220px;
-    margin: 10px auto;
-    display: flex;
-    justify-content: space-around;
-  }
-
-  .subButton {
-    width: 100px;
   }
 
   li {
@@ -235,5 +228,50 @@ export default {
 
   ul {
     margin-bottom: 5px;
+  }
+
+  /*STYLING THE SEARCH CRITERIA*/
+  div.text-search {
+    margin: 0 5px;
+  }
+
+  input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #fff;
+    opacity: 1; /* Firefox */
+  }
+
+  input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #fff;
+  }
+  
+  input::-ms-input-placeholder { /* Microsoft Edge */
+    color: #fff;
+  }
+
+  input.form-control {
+    background: transparent;
+    border: none;
+    border-bottom: solid 1px #f00;
+    color: #fff;
+    border-radius: 0;
+  }
+
+  select.custom-select {
+    color: #fff;
+    background-color: #21272c;
+    /*background: transparent;*/
+    border: none;
+    border-bottom: solid 1px #f00;
+    border-radius: 0;
+  }
+
+  select.custom-select option {
+    color: black;
+  }
+
+  div.d-flex.justify-content-end {
+    padding-right: 5px;
+    margin-top: 2px;
+    margin-bottom: 15px;
   }
 </style>
