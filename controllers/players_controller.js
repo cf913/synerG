@@ -1,5 +1,7 @@
 const Player = require('@models/player')
 const Team = require('@models/team')
+const Post = require('@models/post')
+const Community = require('@models/community')
 const request = require('request-promise')
 const convertor = require('steam-id-convertor')
 const config = require('@config')
@@ -20,7 +22,7 @@ module.exports = {
 
     getPlayer(req, res, next) {
         Player.findOne({_id: req.params.id})
-        .populate({path: 'teams', model: Team})
+        .populate([{path: 'teams', model: Team}, {path: 'communities', model: Community}])
         .exec(function (err, team) {
         if (err) return console.log(err);
         return;
@@ -40,6 +42,22 @@ module.exports = {
         })
         .catch(err => {
             res.send(err)
+        })
+    },
+
+    getPlayerPosts(req, res, next) {
+        console.log(req.body)
+        // Only return one message from each conversation to display as snippet
+        Post.find({author: req.body._id}).limit(30)
+        .sort({createdAt: 'descending'})
+        .populate({path: 'author', model: Player, select: '_id img steamName'})
+        .then(posts => {
+          console.log(posts)
+          res.send(posts)
+        })
+        .catch(err => {
+          console.log('This is error message')
+          res.send(err)
         })
     },
 

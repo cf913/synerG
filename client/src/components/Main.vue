@@ -73,11 +73,12 @@ export default {
     /*background: -webkit-linear-gradient(to top, #304352, #d7d2dd);   Chrome 10-25, Safari 5.1-6 */
     /*background: linear-gradient(to top, #304352, #d7d2dd);  W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-    background: -webkit-linear-gradient(to top, #6c8193, #8e9eab);
-    background: linear-gradient(to top, #6c8193, #8e9eab);
+    /*background: -webkit-linear-gradient(to top, #6c8193, #8e9eab);*/
+    /*background: linear-gradient(to top, #6c8193, #8e9eab);*/
 
-    /*background: -webkit-linear-gradient(to top, #21272c, #161a1d);*/
-    /*background: linear-gradient(to top, #21272c, #161a1d);*/
+    background: #8E0E00;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #8E0E00, #1F1C18);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #8E0E00, #1F1C18); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 
     /* background: linear-gradient(to top, #000000, #53346d);

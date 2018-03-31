@@ -1,9 +1,8 @@
 <template>
-  <div class="players tile gray-tile tiled">
+  <div class="home tile gray-tile tiled">
     <div class="container-fluid">
       <b-nav justified tabs class="home-nav">
         <b-nav-item @click="tab = 'app-news'" :active="tab === 'app-news'">News Feed</b-nav-item>
-        <b-nav-item @click="tab = 'app-my-posts'" :active="tab === 'app-my-posts'">My Posts</b-nav-item>
         <b-nav-item @click="tab = 'app-signals'" :active="tab === 'app-signals'">Signals</b-nav-item>
       </b-nav>
       <keep-alive>
@@ -15,7 +14,6 @@
 
 <script>
 import News from './news/News'
-import MyPosts from './news/My_posts'
 import Signals from './news/signals'
 
 export default {
@@ -27,7 +25,6 @@ export default {
   },
   components: {
     appNews: News,
-    appMyPosts: MyPosts,
     appSignals: Signals
   }
 }

@@ -1,22 +1,22 @@
 <template>
   <div class="news-feed container">
-      <div class="row container new-post">
-        <div class="left col-lg-2">
-          <img class="avatar" :src="user.img" alt="Avatar">
-        </div>
-        <div class="right col-lg-10">
-          <b-form>
-            <b-form-textarea type="text" v-model="post" :rows="2" :max-rows="6" placeholder="Write a new a post ..."></b-form-textarea>
-            <div class="d-flex justify-content-start align-items-center">
-              <b-button-group>
-                <b-button>Create a Post</b-button>
-                <b-button>Upload Image</b-button>
-              </b-button-group>
-              <b-button class="ml-auto" type="submit" @click.prevent="newPost" @keyup.enter.prevent="newPost">Submit</b-button>
-            </div>
-          </b-form>
-        </div>
+    <div class="row container new-post">
+      <div class="left col-lg-2">
+        <img class="avatar" :src="user.img" alt="Avatar">
       </div>
+      <div class="right col-lg-10">
+        <b-form>
+          <b-form-textarea type="text" v-model="post" :rows="2" :max-rows="6" placeholder="Write a new a post ..."></b-form-textarea>
+          <div class="d-flex justify-content-start align-items-center">
+            <b-button-group>
+              <b-button>Create a Post</b-button>
+              <b-button>Upload Image</b-button>
+            </b-button-group>
+            <b-button class="ml-auto" type="submit" @click.prevent="newPost" @keyup.enter.prevent="newPost">Submit</b-button>
+          </div>
+        </b-form>
+      </div>
+    </div>
     <div class="tiled">
       <ul class="list-group clearfix" v-for="(post, index) in posts" :key="index">
         <li class="list-group-item inner-tile">
