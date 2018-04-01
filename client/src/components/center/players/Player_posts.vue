@@ -36,15 +36,14 @@ export default {
 </script>
 
 <style scoped>
-  .avatar{
-    max-height: 100%;
-    max-width: 100%;
+  div.player-posts {
+    padding: 15px 60px;
   }
-  .tiled {
-    padding: 5px 10px;
-    border-radius: 5px;
-    margin-bottom: 15px;
+
+  ul li.list-group-item {
+    margin-bottom: 5px;
   }
+
   .post-avatar {
     max-height: 90px;
     max-width: 90px;

@@ -100,14 +100,6 @@
                   </table>
               </p>
             </div>
-            <div class="tiled teams inner-tile">
-              <p class="title">Teams</p>
-              <ul class="list-group clearfix" v-for="(team, index) in player.teams" :key="index">
-                <li class="list-group-item inner-tile">
-                  <app-team-item :team="team"></app-team-item>
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
       </div>
@@ -118,9 +110,6 @@
 </template>
 
 <script>
-import TeamItem from '../teams/Team_item.vue'
-import TeamDetails from '../teams/Team_details.vue'
-
 export default {
   computed: {
     userId () {
@@ -196,10 +185,6 @@ export default {
       console.log('Updating Players...')
       this.$store.dispatch('updatePlayer', this.$route.params.id)
     }
-  },
-  components: {
-    appTeamItem: TeamItem,
-    appTeamDetails: TeamDetails
   },
   // watch: {
   //   '$route.params.id' (newId, oldId) {
@@ -290,7 +275,7 @@ export default {
   .title {
     font-weight: 600;
     /* color: #106CD6; */
-    color: orange;
+    color: #DAA520;
   }
 
   table {
