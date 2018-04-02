@@ -93,12 +93,14 @@ const api = {
       // update users friends.accepted list
       let updateRequester = Player.findByIdAndUpdate(rqster, 
                                                     { $push: {'friends.accepted': rqstee }, $pullAll: { 'friends.pending_sent': [rqstee] }},
-                                                    { new: true })
+                                                    { new: true }).exec()
+                                                    
       let updateRequestee = Player.findByIdAndUpdate(rqstee, 
                                                     { $push: {'friends.accepted': rqster}, $pullAll: {'friends.pending_received': [rqster] }},
-                                                    { new: true })
+                                                    { new: true }).exec()
       Promise.all([updateRequester, updateRequestee])
       .then(data => {
+        console.log('updatin players')
         res.send(data[1])
       })
       .catch(err => res.send(err)) // end create new or update 

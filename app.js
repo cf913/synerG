@@ -61,19 +61,29 @@ io.on('connection', function (socket) {
   })
 
   socket.on('friends_request', function (data) {
-    socket.to(clients[data.receiverID]).emit('incomingFriend', data.sender)
+    const { _id, steamId, steamName, img } = data.sender
+    const sender = { _id, steamId, steamName, img }
+    socket.to(clients[data.receiverID]).emit('incomingFriend', sender)
   })
   socket.on('friends_cancel', function (data) {
-    socket.to(clients[data.receiverID]).emit('incomingFriendCancel', data.sender)
+    const { _id, steamId, steamName, img } = data.sender
+    const sender = { _id, steamId, steamName, img }
+    socket.to(clients[data.receiverID]).emit('incomingFriendCancel', sender)
   })
   socket.on('friends_accept', function (data) {
-    socket.to(clients[data.receiverID]).emit('incomingFriendAccept', data.sender)
+    const { _id, steamId, steamName, img } = data.sender
+    const sender = { _id, steamId, steamName, img }
+    socket.to(clients[data.receiverID]).emit('incomingFriendAccept', sender)
   })
   socket.on('friends_decline', function (data) {
-    socket.to(clients[data.receiverID]).emit('incomingFriendDecline', data.sender)
+    const { _id, steamId, steamName, img } = data.sender
+    const sender = { _id, steamId, steamName, img }
+    socket.to(clients[data.receiverID]).emit('incomingFriendDecline', sender)
   })
   socket.on('friends_remove', function (data) {
-    socket.to(clients[data.receiverID]).emit('incomingFriendRemove', data.sender)
+    const { _id, steamId, steamName, img } = data.sender
+    const sender = { _id, steamId, steamName, img }
+    socket.to(clients[data.receiverID]).emit('incomingFriendRemove', sender)
   })
 })
 

@@ -10,27 +10,27 @@ const mutations = {
 const actions = {
   incomingFriend (rootState, data) {
     console.log('FRIEND INCOMING!')
-    rootState.commit('socketFriend', data._id)
+    rootState.commit('socketFriend', data)
     localStorage.setItem('user', JSON.stringify(rootState.getters.user))
   },
   incomingFriendCancel (rootState, data) {
     console.log('FRIEND CANCEL INCOMING!')
-    rootState.commit('socketFriendCancel', data._id)
+    rootState.commit('socketFriendCancel', data)
     localStorage.setItem('user', JSON.stringify(rootState.getters.user))
   },
   incomingFriendAccept (rootState, data) {
     console.log('FRIEND ACCEPT INCOMING!')
-    rootState.commit('socketFriendAccept', data._id)
+    rootState.commit('socketFriendAccept', data)
     localStorage.setItem('user', JSON.stringify(rootState.getters.user))
   },
   incomingFriendDecline (rootState, data) {
     console.log('FRIEND DECLINE INCOMING!')
-    rootState.commit('socketFriendDecline', data._id)
+    rootState.commit('socketFriendDecline', data)
     localStorage.setItem('user', JSON.stringify(rootState.getters.user))
   },
   incomingFriendRemove (rootState, data) {
     console.log('FRIEND REMOVE INCOMING!')
-    rootState.commit('socketFriendRemove', data._id)
+    rootState.commit('socketFriendRemove', data)
     localStorage.setItem('user', JSON.stringify(rootState.getters.user))
   },
   getFriends (rootState) {
@@ -56,6 +56,7 @@ const actions = {
       if (data.message) console.log(data.message)
       if (data._id === rootState.getters.user_id) {
         console.log('DATA RETURNED!')
+        rootState.dispatch('getFriends')
         localStorage.setItem('user', JSON.stringify(data))
         rootState.commit('userUpdate', data)
       }
@@ -70,6 +71,7 @@ const actions = {
     .then(({data}) => {
       if (data._id === rootState.getters.user_id) {
         console.log('canceling...')
+        rootState.dispatch('getFriends')
         data.friends.pending_sent.splice(data.friends.pending_sent.indexOf(id), 1)
         localStorage.setItem('user', JSON.stringify(data))
         rootState.commit('userUpdate', data)
@@ -86,6 +88,7 @@ const actions = {
       if (data.message) console.log(data.message)
       if (data._id === rootState.getters.user_id) {
         console.log('accepting...')
+        rootState.dispatch('getFriends')
         data.friends.pending_received.splice(data.friends.pending_received.indexOf(id), 1)
         localStorage.setItem('user', JSON.stringify(data))
         rootState.commit('userUpdate', data)
@@ -101,6 +104,7 @@ const actions = {
       if (data.message) console.log(data.message)
       if (data._id === rootState.getters.user_id) {
         console.log('DATA RETURNED!')
+        rootState.dispatch('getFriends')
         data.friends.pending_received.splice(data.friends.pending_received.indexOf(id), 1)
         localStorage.setItem('user', JSON.stringify(data))
         rootState.commit('userUpdate', data)
@@ -116,6 +120,7 @@ const actions = {
       if (data.message) console.log(data.message)
       if (data._id === rootState.getters.user_id) {
         console.log('deleteing...')
+        rootState.dispatch('getFriends')
         data.friends.accepted.splice(data.friends.accepted.indexOf(id), 1)
         localStorage.setItem('user', JSON.stringify(data))
         rootState.commit('userUpdate', data)

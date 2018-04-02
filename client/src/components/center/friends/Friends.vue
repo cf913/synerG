@@ -4,8 +4,8 @@
       <div class="row">
         <div class="col-md-6 tile">
           <h2>Requests:</h2>
-          <ul>
-            <li v-for="(friend, index) in requests" :key="index" class="tile inner-tile">
+          <ul class="list-group">
+            <li v-for="(friend, index) in requests" :key="index" class="list-group-item tile inner-tile">
               <div class="row">
                 <div class="col-md-3 avatar">
                   <img id="avatar" :src="friend.img" alt="Avatar">
@@ -21,8 +21,8 @@
         </div>
         <div class="col-md-6 tile">
           <h2>Sent:</h2>
-          <ul>
-            <li v-for="(friend, index) in requests_sent" :key="index" class="tile inner-tile">
+          <ul class="list-group">
+            <li v-for="(friend, index) in requests_sent" :key="index" class="list-group-item tile inner-tile">
               <div class="row">
                 <div class="col-md-3 avatar">
                   <img id="avatar" :src="friend.img" alt="Avatar">
@@ -43,8 +43,9 @@
       <div class="row">
         <div class="col-md-12">
           <h2>Friends:</h2>
-          <ul>
-            <li v-for="(friend, index) in friends" :key="index" class="tile inner-tile">
+          {{friends}}
+          <ul class="list-group">
+            <li v-for="(friend, index) in friends" :key="index" class="lit-group-item tile inner-tile">
               <div class="row">
                 <div class="col-md-3 avatar">
                   <img id="avatar" :src="friend.img" alt="Avatar">
