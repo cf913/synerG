@@ -450,4 +450,8 @@ export default {
   ul li.players.list-group-item {
     margin-bottom: 8px;
   }
+
+  li p {
+    padding-left: 15px;
+  }
 </style>

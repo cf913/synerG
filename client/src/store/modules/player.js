@@ -3,6 +3,7 @@ import router from './../../router'
 
 const state = {
   player: {},
+  playerposts: [],
   player_loading: true
 }
 
@@ -10,6 +11,9 @@ const mutations = {
   player (state, playerData) {
     state.player = playerData.player
     state.player_loading = playerData.loading
+  },
+  playerposts (state, playerposts) {
+    state.playerposts = playerposts.posts
   },
   reset (state) {
     state.player = {}
@@ -73,6 +77,29 @@ const actions = {
         console.log(err)
       })
   },
+  getPlayerPosts ({commit, rootState}, playerId) {
+    if (!rootState.AuthModule.idToken) {
+      console.log('Not Authenticated')
+      router.replace(`/players/${playerId}`)
+    }
+    axios.post(`/api/players/${playerId}/posts?token=${rootState.AuthModule.idToken}`, state.player)
+    .then(playerposts => {
+      console.log(playerposts)
+      const data = playerposts.data
+      const resultArray = []
+      for (let key in data) {
+        resultArray.push(data[key])
+      }
+      console.log(resultArray)
+      commit('playerposts', {
+        posts: resultArray
+      })
+    })
+    .catch(err => {
+      console.log('This is error message')
+      console.log(err)
+    })
+  },
   resetPlayerDetails ({commit}) {
     commit('reset')
   }
@@ -81,6 +108,9 @@ const actions = {
 const getters = {
   player (state) {
     return state.player
+  },
+  playerposts (state) {
+    return state.playerposts
   },
   player_loading (state) {
     return state.player_loading

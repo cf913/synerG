@@ -6,7 +6,9 @@
       </div>
       <div class="col-sm-10 summary">
         <router-link :to="{ name: 'communityDetails', params: { id: community._id }}"><h5>{{ community.communityName }}</h5></router-link>
-        <p class="display-description">{{community.description}}</p>
+        <div class="details inner-2-tile">
+          <p class="display-description">{{community.description}}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -64,5 +66,16 @@ export default {
 
   .summary {
     padding-right: 0;
+  }
+
+  div.details {
+    /* background: #222; */
+    padding: 7px 10px;
+    border-radius: 3px;
+    flex-wrap: wrap;
+  }
+
+  div.details p {
+    margin-bottom: 0;
   }
 </style>

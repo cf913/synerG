@@ -3,16 +3,12 @@ import router from './../../router'
 
 const state = {
   posts: [],
-  myposts: [],
   signals: []
 }
 
 const mutations = {
   posts (state, posts) {
     state.posts = posts.posts
-  },
-  myposts (state, myposts) {
-    state.myposts = myposts.posts
   },
   signals (state, signals) {
     state.signals = signals.signals
@@ -60,29 +56,6 @@ const actions = {
       console.log('edit err: ' + err)
     })
   },
-  getMyPosts ({commit, rootState}) {
-    if (!rootState.AuthModule.idToken) {
-      console.log('Not Authenticated')
-      router.replace(`/players/${rootState.AuthModule.user._id}`)
-    }
-    axios.post(`/api/news/myposts?token=${rootState.AuthModule.idToken}`, rootState.AuthModule.user)
-    .then(myposts => {
-      console.log(myposts)
-      const data = myposts.data
-      const resultArray = []
-      for (let key in data) {
-        resultArray.push(data[key])
-      }
-      console.log(resultArray)
-      commit('myposts', {
-        posts: resultArray
-      })
-    })
-    .catch(err => {
-      console.log('This is error message')
-      console.log(err)
-    })
-  },
   getSignals ({commit, rootState}) {
     if (!rootState.AuthModule.idToken) {
       console.log('Not Authenticated')
@@ -128,9 +101,6 @@ const actions = {
 const getters = {
   posts (state) {
     return state.posts
-  },
-  myposts (state) {
-    return state.myposts
   },
   signals (state) {
     return state.signals

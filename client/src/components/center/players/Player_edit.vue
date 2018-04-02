@@ -33,6 +33,7 @@
               </b-form-checkbox-group>
             </b-form-group>
           </div>
+          <h5 class="label">Description:</h5>
           <b-form-textarea class="description"
             v-model="description"
             placeholder="Describe yourself, your playstyle, what sort of team you are looking for, etc... :D "
