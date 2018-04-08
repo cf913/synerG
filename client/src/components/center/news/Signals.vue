@@ -1,32 +1,40 @@
 <template>
   <div class="signals container">
-    <h2 class="py-3">Signals</h2>
-      <div class="row container">
-        <div class="left col-lg-2">
-          <img class="avatar" :src="user.img" alt="Avatar">
+    <p class="title">Send out a signal to other players</p>
+    <b-form>
+      <div class="row maxwidth">
+        <div class="col-lg-6 padding-0">
+          <b-form-group horizontal label-text-align="left" label="Position:" label-for="signalPosition">
+            <b-form-select id="signalPosition" v-model="position_selected" :options="position_options" required></b-form-select>
+          </b-form-group>
         </div>
-        <div class="right col-lg-10">
-          <h5>Send out a signal to look for a team</h5>
-          <b-form>
-            <b-form-group horizontal label-text-align="left" label="Position" label-for="signalPosition">
-              <b-form-select id="signalPosition" v-model="position_selected" :options="position_options" required></b-form-select>
-            </b-form-group>
-            <b-form-group horizontal label-text-align="left" label="Language" label-for="signalLanguage">
-              <b-form-select id ="signalLanguage" v-model="language_selected" :options="language_options" required></b-form-select>
-            </b-form-group>
-            <b-form-group horizontal label-text-align="left" label="Region" label-for="signalRegion">
-              <b-form-select id="signalRegion" v-model="region_selected" :options="region_options" required></b-form-select>
-            </b-form-group>
-            <b-form-group horizontal label-text-align="left" label="Competitive Level" label-for="signalCompetitive">
-              <b-form-select id="signalCompetitive" v-model="competitive_selected" :options="competitive_options" required></b-form-select>
-            </b-form-group>
-            <b-form-group horizontal label-text-align="left" label="Comments" label-for="signalDescription">
-              <b-form-input type="text" class="form-control" id="signalDescription" v-model="description" placeholder="Additional Information..."></b-form-input>
-            </b-form-group>
-            <b-button type="submit" @click.prevent="newSignal" @keyup.enter.prevent="newSignal">Send out a signal!</b-button>
-          </b-form>
+        <div class="col-lg-6 padding-0">
+          <b-form-group horizontal label-text-align="left" label="Language:" label-for="signalLanguage">
+            <b-form-select id ="signalLanguage" v-model="language_selected" :options="language_options" required></b-form-select>
+          </b-form-group>
         </div>
       </div>
+      <div class="row maxwidth">
+        <div class="col-lg-6 padding-0">
+          <b-form-group horizontal label-text-align="left" label="Region:" label-for="signalRegion">
+            <b-form-select id="signalRegion" v-model="region_selected" :options="region_options" required></b-form-select>
+          </b-form-group>
+        </div>
+        <div class="col-lg-6 padding-0">
+          <b-form-group horizontal label-text-align="left" label="Aims:" label-for="signalCompetitive">
+            <b-form-select id="signalCompetitive" v-model="competitive_selected" :options="competitive_options" required></b-form-select>
+          </b-form-group>
+        </div>
+      </div>
+      <div class="row maxwidth">
+        <div class="col-lg-12 padding-0">
+          <b-form-group horizontal label-text-align="left" label="Comments:" label-for="signalDescription">
+            <b-form-input type="text" class="form-control" id="signalDescription" v-model="description" placeholder="Additional Information..."></b-form-input>
+          </b-form-group>
+        </div>
+      </div>
+      <b-button type="submit" @click.prevent="newSignal" @keyup.enter.prevent="newSignal">Send out a signal!</b-button>
+    </b-form>
     <div class="tiled inner-tile">
       <ul class="list-group clearfix" v-for="(signal, index) in signals" :key="index">
         <li class="list-group-item inner-tile">
@@ -36,7 +44,7 @@
             </div>
             <div class="right col-lg-9">
               <router-link :to="{ name: 'playerDetails', params: {id: signal.player._id}}"><h5>{{signal.player.steamName}}</h5></router-link>
-              <h6>{{signal.position}} player looking for a {{signal.language}} team playing in the {{signal.region}} server to play {{signal.competitiveness}}</h6>
+              <h6>{{signal.position}} player looking for a {{signal.language}}-speaking team playing on the {{signal.region}} server to play {{signal.competitiveness}}</h6>
               <h6>{{signal.description}}</h6>
             </div>
           </div>
@@ -135,10 +143,6 @@ export default {
 </script>
 
 <style scoped>
-  .avatar{
-    max-height: 100%;
-    max-width: 100%;
-  }
   .tiled {
     padding: 5px 10px;
     border-radius: 5px;
@@ -147,5 +151,67 @@ export default {
   .signal-avatar {
     max-height: 90px;
     max-width: 90px;
+  }
+
+  div.signals.container {
+    margin-top: 25px;
+  }
+
+  .title {
+    font-weight: 600;
+    /* color: #106CD6; */
+    color: #DAA520;
+  }
+
+  /*SENDING SIGNAL STYLING*/
+
+  .padding-0{
+    padding: 0 10px;
+  }
+
+  .maxwidth{
+    width: 100%;
+    margin: 0;
+  }
+
+  fieldset.form-group {
+    margin: 3px 0;
+  }
+
+  legend.col-form-legend {
+    padding-top: .6rem;
+    padding-bottom: .5rem;
+  }
+
+  select.custom-select {
+    color: #fff;
+    background-color: #21272c;
+    border: none;
+    border-bottom: solid 1px #f00;
+    border-radius: 0;
+  }
+
+  select.custom-select option {
+    color: black;
+  }
+
+  input.form-control {
+    background-color: #21272c;
+    border: none;
+    border-bottom: solid 1px #f00;
+    border-radius: 0;
+  }
+
+  input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #fff;
+    opacity: 1; /* Firefox */
+  }
+
+  input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #fff;
+  }
+  
+  input::-ms-input-placeholder { /* Microsoft Edge */
+    color: #fff;
   }
 </style>
