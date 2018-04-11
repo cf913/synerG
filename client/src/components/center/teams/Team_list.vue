@@ -1,8 +1,10 @@
 <template>
   <div class="team_list text-left container" style="position: relative">
     <b-form>
-      <b-form-input type="text" placeholder="Search for teams..." v-model="team_search">
-      </b-form-input>
+      <div class="text-search">
+        <b-form-input type="text" placeholder="Search for teams..." v-model="team_search">
+        </b-form-input>
+      </div>
       <div class="row maxwidth">
         <div class="col-lg-4 padding-0">
           <b-form-select v-model="recruiting_selected" :options="recruiting_options">
@@ -18,21 +20,19 @@
         </div>
       </div>
       <div class="row maxwidth">
-        <div class="col-lg-4 padding-0">
+        <div class="col-lg-6 padding-0">
           <b-form-select v-model="competitive_selected" :options="competitive_options">
           </b-form-select>
         </div>
-        <div class="col-lg-4 padding-0">
+        <div class="col-lg-6 padding-0">
           <b-form-select v-model="comms_selected" :options="comms_options">
           </b-form-select>
         </div>
-        <div class="col-lg-4 padding-0">
-          <!--Need to add functionality here to actually submit-->
-          <b-button type="submit" @click.prevent="onSubmit()" @keyup.enter.prevent="onSubmit" variant="info"><i class="fa fa-search"></i> Search</b-button>
-          <b-button type="reset" @click.prevent="onReset()" variant="warning">Reset</b-button>
-        </div>
       </div>
-
+      <div class="d-flex justify-content-end align-items-center">
+        <b-button size="sm" type="reset" @click.prevent="onReset()" variant="warning">Reset</b-button>
+        <b-button size="sm" type="submit" @click.prevent="onSubmit()" @keyup.enter.prevent="onSubmit" variant="info"><i class="fa fa-search"></i> Search</b-button>
+      </div>
     </b-form>
     <div v-if="loading" class="text-center">
       <p class="lead">Searching for teams...</p>
@@ -167,8 +167,7 @@ export default {
     margin-bottom: 5px;
   }
   .padding-0{
-      padding-right:0;
-      padding-left:0;
+    padding: 0 5px;
   }
   .maxwidth{
     width: 100%;
@@ -181,5 +180,50 @@ export default {
 
   ul {
     margin-bottom: 5px;
+  }
+
+  /*STYLING THE SEARCH CRITERIA*/
+  div.text-search {
+    margin: 0 5px;
+  }
+
+  input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #fff;
+    opacity: 1; /* Firefox */
+  }
+
+  input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #fff;
+  }
+  
+  input::-ms-input-placeholder { /* Microsoft Edge */
+    color: #fff;
+  }
+
+  input.form-control {
+    background: transparent;
+    border: none;
+    border-bottom: solid 1px #f00;
+    color: #fff;
+    border-radius: 0;
+  }
+
+  select.custom-select {
+    color: #fff;
+    background-color: #21272c;
+    /*background: transparent;*/
+    border: none;
+    border-bottom: solid 1px #f00;
+    border-radius: 0;
+  }
+
+  select.custom-select option {
+    color: black;
+  }
+
+  div.d-flex.justify-content-end {
+    padding-right: 5px;
+    margin-top: 2px;
+    margin-bottom: 15px;
   }
 </style>
