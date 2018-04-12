@@ -1,49 +1,16 @@
 <template>
-  <div class="filter tile gray-tile tile-shadow">
-    <h4 class="py-3">Filter Players</h4>
-    <div class="container inner-tile">
-      <b-form>
-        <div class="row">
-          <div class="col-sm-6">
-            <b-form-group>
-              <h5 class="label">Regions:</h5>
-              <b-form-checkbox-group stacked v-model="regions_selected" :options="regions_options">
-              </b-form-checkbox-group>
-            </b-form-group>
-          </div>
-          <div class="col-sm-6">
-            <b-form-group>
-              <h5 class="label">Languages:</h5>
-              <b-form-checkbox-group stacked v-model="languages_selected" :options="languages_options">
-              </b-form-checkbox-group>
-            </b-form-group>
-            <b-form-group>
-              <h5 class="label">Comms:</h5>
-              <b-form-checkbox-group stacked v-model="comms_selected" :options="comms_options">
-              </b-form-checkbox-group>
-            </b-form-group>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <b-form-group>
-              <h5 class="label">Positions:</h5>
-              <b-form-checkbox-group stacked v-model="positions_selected" :options="positions_options">
-              </b-form-checkbox-group>
-            </b-form-group>
-          </div>
-          <div class="col-sm-6">
-            <b-form-group>
-              <h5 class="label">MMR:</h5>
-              <b-form-checkbox-group stacked v-model="mmr_selected" :options="mmr_options">
-              </b-form-checkbox-group>
-            </b-form-group>
-          </div>
-        </div>
-        <b-button @click.prevent="onSubmit()" variant="info"><i class="fa fa-search"></i> Search</b-button>
-        <b-button @click.prevent="onReset()" variant="warning">Reset</b-button>
-      </b-form>
-    </div>
+  <div class="players tile gray-tile tile-shadow">
+    <b-nav justified tabs class="top-tabs">
+      <b-nav-item class="tab" to="/" exact :disabled="!isLoggedIn"><i class="fa fa-newspaper-o"></i></b-nav-item>
+      <b-nav-item class="tab" :to="{ name: 'playerDetails', params: { id: user._id }}" :disabled="!isLoggedIn"><i class="fa fa-user-circle-o"></i></b-nav-item>
+      <b-nav-item class="tab" to="/myteams" :disabled="!isLoggedIn"><i class="fa fa-group"></i></b-nav-item>
+      <b-nav-item class="tab" to="/friends" :disabled="!isLoggedIn">
+        <i class="fa fa-address-book"></i>
+        <div class="notification" v-if="isLoggedIn && notif_friends > 0"><p>{{notif_friends}}</p></div>
+      </b-nav-item>
+      <b-nav-item class="tab" to="/messages" :disabled="!isLoggedIn"><i class="fa fa-comments"></i></b-nav-item>
+      <b-nav-item class="tab" to="/settings" :disabled="!isLoggedIn"><i class="fa fa-gear"></i></b-nav-item>
+    </b-nav>
   </div>
 </template>
 

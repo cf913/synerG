@@ -5,7 +5,12 @@
   <!-- Components News/Players/Teams -->
   <div class="container-fluid">
     <div class="row">
-      <div class="left col-md-12 col-lg-8">
+      <div class="left col-lg-2 sidebar">
+        <div class="fixed">
+          <app-left></app-left>
+        </div>
+      </div>
+      <div class="center col-md-12 col-lg-6">
         <div class="">
           <transition name="fade" mode="out-in">
             <keep-alive>
@@ -14,7 +19,7 @@
           </transition>
         </div>
       </div>
-      <div class="right col-lg-4 sidebar">
+      <div class="right col-lg-3 sidebar">
         <div class="fixed">
           <app-right></app-right>
         </div>
@@ -28,12 +33,14 @@
 <script>
 import Header from './Header'
 import Right from './sidebars/right/Right'
+import Left from './sidebars/left/Left'
 
 export default {
   name: 'Main',
   components: {
     appHeader: Header,
-    appRight: Right
+    appRight: Right,
+    appLeft: Left
   },
   created () {
     this.$store.dispatch('checkLogin', this.$route.query)
@@ -48,20 +55,21 @@ export default {
 <style scoped>
   @media (min-width: 1200px) {
     div.main .container-fluid {
-      max-width: 1300px;
+      max-width: 1400px;
     }
-      div.right.col-lg-4 {
+/*      div.right.col-lg-4 {
         max-width: 29%;
-    }
+    }*/
   }
 
   
-  .left, .center, .right {
+  .center, .right {
     padding: 10px;
     padding-top: 20px;
   }
   .left {
-    padding-left: 20px;
+    padding: 10px;
+    border-radius: 5px;
   }
   .right {
     padding-right: 20px;

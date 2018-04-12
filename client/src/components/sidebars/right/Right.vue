@@ -1,6 +1,6 @@
 <template>
-  <div class="players tile gray-tile tile-shadow">
-    <b-nav justified tabs class="top-tabs">
+  <div class="players tile gray-tile">
+<!--     <b-nav justified tabs class="top-tabs">
       <b-nav-item class="tab" to="/" exact :disabled="!isLoggedIn"><i class="fa fa-newspaper-o"></i></b-nav-item>
       <b-nav-item class="tab" :to="{ name: 'playerDetails', params: { id: user._id }}" :disabled="!isLoggedIn"><i class="fa fa-user-circle-o"></i></b-nav-item>
       <b-nav-item class="tab" to="/myteams" :disabled="!isLoggedIn"><i class="fa fa-group"></i></b-nav-item>
@@ -10,7 +10,7 @@
       </b-nav-item>
       <b-nav-item class="tab" to="/messages" :disabled="!isLoggedIn"><i class="fa fa-comments"></i></b-nav-item>
       <b-nav-item class="tab" to="/settings" :disabled="!isLoggedIn"><i class="fa fa-gear"></i></b-nav-item>
-    </b-nav>
+    </b-nav> -->
 
     <!-- LOGGED IN -->
     <div class="card-header d-flex align-items-center" id="rightprofile" v-if="isLoggedIn">
