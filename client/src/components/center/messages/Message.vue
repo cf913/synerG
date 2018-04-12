@@ -1,18 +1,16 @@
 <template>
-  <div class="players tile gray-tile tiled">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="left col-lg-4 sidebar">
-          <div>
-            <app-message-list></app-message-list> 
-          </div>
+  <div class="messages tile gray-tile">
+    <div class="row">
+      <div class="left col-lg-4 sidebar">
+        <div>
+          <app-message-list></app-message-list> 
         </div>
-        <div class="right col-lg-8">
-          <div class="fixed">
-            <keep-alive>
-              <router-view :key="$route.fullPath"></router-view>
-            </keep-alive>
-          </div>
+      </div>
+      <div class="right col-lg-8">
+        <div class="fixed">
+          <keep-alive>
+            <router-view :key="$route.fullPath"></router-view>
+          </keep-alive>
         </div>
       </div>
     </div>
@@ -35,13 +33,5 @@ export default {
   .tiled {
     padding: 10px;
     margin-bottom: 15px;
-  }
-
-  .players {
-    display: flex;
-    justify-content: center;
-    align-self: center;
-    min-height: 80vh;
-    color: white;
   }
 </style>

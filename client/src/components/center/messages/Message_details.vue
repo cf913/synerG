@@ -1,13 +1,13 @@
 <template>
-  <div class="message_details text-left container tile gray-tile tile-shadow" style="position: relative">
+  <div class="message_details text-left tile gray-tile" style="position: relative">
     <div class="tiled inner-tile">
-      <p>Name of recipient</p>
+      <h5 v-for="(participant, index) in messages[0].conversationId.participants">
+        <span class="title" v-if="participant.steamName !== user.steamName">{{participant.steamName}}</span>
+      </h5>
     </div>
-    <div class="tiled inner-tile">
-      <ul class="list-group clearfix" v-for="(message, index) in messages" :key="index">
-        <li class="list-group-item inner-tile">{{message.author.steamName}} sent {{message.body}}</li>
-      </ul>
-    </div>
+    <ul class="list-group clearfix" v-for="(message, index) in messages" :key="index">
+      <li class="list-group-item inner-tile">{{message.author.steamName}}: {{message.body}}</li>
+    </ul>
     {{inc}}
     <div class="tiled inner-tile">
       <form>
@@ -30,6 +30,9 @@ export default {
     }
   },
   computed: {
+    user () {
+      return this.$store.getters.user
+    },
     messages () {
       return this.$store.getters.messages
     }
@@ -86,5 +89,11 @@ export default {
     padding: 5px 10px;
     border-radius: 5px;
     margin-bottom: 15px;
+  }
+
+  .title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #DAA520;
   }
 </style>

@@ -361,8 +361,7 @@ export default {
 
   .title {
     font-weight: 600;
-    /* color: #106CD6; */
-    color: orange;
+    color: #DAA520;
   }
   
   .picture {

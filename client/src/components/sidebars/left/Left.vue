@@ -3,7 +3,7 @@
     <b-nav vertical>
       <b-nav-item class="tab" to="/" exact :disabled="!isLoggedIn"><i class="fa fa-newspaper-o"></i> News Feed</b-nav-item>
       <b-nav-item class="tab" :to="{ name: 'playerDetails', params: { id: user._id }}" :disabled="!isLoggedIn"><i class="fa fa-user-circle-o"></i> Profile</b-nav-item>
-      <b-nav-item class="tab" to="/myteams" :disabled="!isLoggedIn"><i class="fa fa-group"></i> Teams/Communities</b-nav-item>
+      <b-nav-item class="tab" to="/myteams" :disabled="!isLoggedIn"><i class="fa fa-group"></i> Teams</b-nav-item>
       <b-nav-item class="tab" to="/friends" :disabled="!isLoggedIn">
         <i class="fa fa-address-book"></i> Friends
         <div class="notification" v-if="isLoggedIn && notif_friends > 0"><p>{{notif_friends}}</p></div>

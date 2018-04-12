@@ -1,5 +1,5 @@
 <template>
-  <div class="conversation_list text-left container tile gray-tile tile-shadow" style="position: relative">
+  <div class="conversation_list text-left tile gray-tile" style="position: relative">
     <div>
       <ul class="list-group clearfix" v-for="(conversation, index) in conversations" :key="index">
         <li class="list-group-item inner-tile">
@@ -12,10 +12,10 @@
             <div class="col-sm-10">
               <span v-for="(participant, index) in conversation.conversationId.participants" :key="index">
                 <router-link :to="{ name: 'messageDetails', params: { id: conversation.conversationId._id }}">
-                  <h4 v-if="participant.steamName !== user.steamName">{{participant.steamName}} </h4>
+                  <h5 v-if="participant.steamName !== user.steamName">{{participant.steamName}} </h5>
                 </router-link>
               </span>
-              <p>{{conversation.author.steamName}}: {{conversation.body}}</p>
+              <p class="message-preview">{{conversation.author.steamName}}: {{conversation.body}}</p>
             </div>
           </div>
         </li>
@@ -61,5 +61,12 @@ export default {
   
   li .image {
     padding: 0;
+  }
+
+  .message-preview{
+    max-height: 3.3em;
+    line-height: 1.1em;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 </style>
