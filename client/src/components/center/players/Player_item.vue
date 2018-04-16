@@ -44,19 +44,19 @@ export default {
       return this.$store.getters.user
     },
     inSent () {
-      if (this.$store.getters.user) return this.$store.getters.user.friends.pending_sent.includes(this.player._id)
+      if (this.$store.getters.user) return this.$store.getters.user.friends.pending_sent.filter(pendingSent => (pendingSent._id === this.player._id)).length
       else return false
     },
     inReceived () {
-      if (this.$store.getters.user) return this.$store.getters.user.friends.pending_received.includes(this.player._id)
+      if (this.$store.getters.user) return this.$store.getters.user.friends.pending_received.filter(pendingReceived => (pendingReceived._id === this.player._id)).length
       else return false
     },
     inAccepted () {
-      if (this.$store.getters.user) return this.$store.getters.user.friends.accepted.includes(this.player._id)
+      if (this.$store.getters.user) return this.$store.getters.user.friends.accepted.filter(accepted => (accepted._id === this.player._id)).length
       else return false
     },
     inBlocked () {
-      if (this.$store.getters.user) return this.$store.getters.user.friends.blocked.includes(this.player._id)
+      if (this.$store.getters.user) return this.$store.getters.user.friends.blocked.filter(blocked => (blocked._id === this.player._id)).length
       else return false
     },
     isLoggedIn () {

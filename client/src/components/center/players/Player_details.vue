@@ -29,6 +29,9 @@ export default {
     appPlayerPosts: PlayerPosts,
     appPlayerTeams: PlayerTeams
   }
+  // activated () {
+  //   this.getPlayer()
+  // }
 }
 </script>
 

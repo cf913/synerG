@@ -1,20 +1,22 @@
 <template>
-  <div class="tiled player-teams inner-tile">
-    <div class="tiled inner-tile">
+  <div class="tiled player-teams gray-tile">
+    <div class="tiled">
       <h5 class="title">Teams</h5>
-      <ul class="list-group clearfix" v-for="(team, index) in player.teams" :key="index">
-        <li class="list-group-item inner-tile">
+      <ul v-if="player.teams.length > 0" class="list-group clearfix teams">
+        <li class="list-group-item inner-tile" v-for="(team, index) in player.teams" :key="index">
           <app-team-item :team="team"></app-team-item>
         </li>
       </ul>
+      <p v-else class="tile inner-tile title">Currently not a part of any team</p>
     </div>
-    <div class="tiled inner-tile">
+    <div class="tiled">
       <h5 class="title">Communities</h5>
-      <ul class="list-group row">
+      <ul v-if="player.communities.length > 0" class="list-group row">
         <li class="list-group-item inner-tile col-lg-6" v-for="(community, index) in player.communities" :key="index">
           <app-community-item :community="community"></app-community-item>
         </li>
       </ul>
+      <p v-else class="tile inner-tile title">Currently not a part of any community</p>
     </div>
   </div>
 </template>
@@ -67,8 +69,21 @@ export default {
     text-align: left;
     flex-direction: row;
   }
+  ul li.list-group-item {
+    max-width: 100%;
+  }
   ul li.list-group-item.col-lg-6 {
     margin: 5px 5px;
     max-width: 48.3%;
+  }
+  p.title {
+    padding: 10px;
+    margin-left: 5px;
+  }
+  ul.list-group.teams {
+    display: block;
+  }
+  ul.list-group.teams li.list-group-item {
+    margin: 5px 0;
   }
 </style>
