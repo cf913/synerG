@@ -68,7 +68,7 @@
                   <li v-else><a :class="{disabled: !isLoggedIn}" class="btn scale-up" @click="sendRequest(player._id)"><i class="fa fa-user-plus fa-fw"></i></a></li>
                 </span>
                 <li><a :href="`http://www.steamcommunity.com/profiles/${player.steamId}`" class="btn scale-up" target="_blank"><i class="fa fa-steam-square fa-fw"></i></a></li>
-                <li><a :class="{disabled: !isLoggedIn}" class="btn scale-up" @click="updatePlayer"><i class="fa fa-refresh fa-fw"></i></a></li>
+                <li v-if="userId === player.steamId"><a :class="{disabled: !isLoggedIn}" class="btn scale-up" @click="updatePlayer"><i class="fa fa-refresh fa-fw"></i></a></li>
               </ul>
             </header>
             <div class="tiled description inner-tile">

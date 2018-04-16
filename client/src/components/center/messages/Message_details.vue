@@ -1,10 +1,8 @@
 <template>
   <div class="message_details text-left tile gray-tile" style="position: relative">
-    <div class="tiled inner-tile">
-      <h5 v-for="(participant, index) in messages[0].conversationId.participants">
-        <span class="title" v-if="participant.steamName !== user.steamName">{{participant.steamName}}</span>
-      </h5>
-    </div>
+    <h5 v-for="(participant, index) in messages[0].conversationId.participants">
+      <span class="title" v-if="participant.steamName !== user.steamName">{{participant.steamName}}</span>
+    </h5>
     <ul class="list-group clearfix" v-for="(message, index) in messages" :key="index">
       <li class="list-group-item inner-tile">{{message.author.steamName}}: {{message.body}}</li>
     </ul>
@@ -85,6 +83,10 @@ export default {
 </script>
 
 <style scoped>
+  h5 {
+    padding-left: 10px;
+  }
+  
   .tiled {
     padding: 5px 10px;
     border-radius: 5px;

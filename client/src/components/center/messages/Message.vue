@@ -3,7 +3,8 @@
     <div class="row">
       <div class="left col-lg-4 sidebar">
         <div>
-          <app-message-list></app-message-list> 
+          <app-message-list></app-message-list>
+          {{conversations}}
         </div>
       </div>
       <div class="right col-lg-8">

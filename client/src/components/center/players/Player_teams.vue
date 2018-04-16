@@ -69,6 +69,6 @@ export default {
   }
   ul li.list-group-item.col-lg-6 {
     margin: 5px 5px;
-    max-width: 48.74%;
+    max-width: 48.3%;
   }
 </style>
