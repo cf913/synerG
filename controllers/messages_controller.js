@@ -11,6 +11,7 @@ module.exports = {
     // Only return one message from each conversation to display as snippet
     Conversation.find({participants: req.body.userId})
     .select('_id')
+    .sort('-createdAt')
     .then(conversations => {
       if(conversations.length===0) {
         return res.status(200).json({ message: "No conversations yet" })

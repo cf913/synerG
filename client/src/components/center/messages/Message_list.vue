@@ -1,8 +1,8 @@
 <template>
   <div class="conversation_list text-left tile gray-tile" style="position: relative">
     <div>
-      <ul class="list-group clearfix" v-for="(conversation, index) in conversations" :key="index">
-        <li class="list-group-item inner-tile">
+      <ul class="list-group clearfix">
+        <li class="list-group-item inner-tile" v-for="(conversation, index) in conversations" :key="index">
           <div class="row">
             <div class="col-sm-2 image">
               <span v-for="(participant, index) in conversation.conversationId.participants" :key="index">

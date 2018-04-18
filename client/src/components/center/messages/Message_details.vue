@@ -1,18 +1,16 @@
 <template>
   <div class="message_details text-left tile gray-tile" style="position: relative">
-    <div class="tiled inner-tile">
-      <h5 v-for="(participant, index) in messages[0].conversationId.participants">
-        <span class="title" v-if="participant.steamName !== user.steamName">{{participant.steamName}}</span>
-      </h5>
-    </div>
-    <ul class="list-group clearfix" v-for="(message, index) in messages" :key="index">
-      <li class="list-group-item inner-tile">{{message.author.steamName}}: {{message.body}}</li>
+    <h5 v-for="(participant, index) in messages[0].conversationId.participants">
+      <span class="title" v-if="participant.steamName !== user.steamName">{{participant.steamName}}</span>
+    </h5>
+    <ul class="list-group clearfix">
+      <li class="list-group-item inner-tile" v-for="(message, index) in messages" :key="index">{{message.author.steamName}}: {{message.body}}</li>
     </ul>
-    {{inc}}
-    <div class="tiled inner-tile">
+    <!-- {{inc}} -->
+    <div class="tiled inner-tile message-input">
       <form>
         <div>
-          <label class="col-form-label" for="message">Message:</label>
+          <label class="title" for="message">Message:</label>
           <input type="text" class="form-control" id="message" name="message" v-model="message" placeholder="Write Message ...">
           <button @click.prevent="sendReply" @keyup.enter.prevent="sendReply"><i class="fa fa-arrow-right fa-fw"></i></button>
         </div>
@@ -85,6 +83,14 @@ export default {
 </script>
 
 <style scoped>
+  .message_details {
+    padding-right: 10px;
+  }
+
+  h5 {
+    padding-left: 10px;
+  }
+  
   .tiled {
     padding: 5px 10px;
     border-radius: 5px;
@@ -93,6 +99,19 @@ export default {
 
   .title {
     font-size: 20px;
+    font-weight: 600;
+    color: #DAA520;
+  }
+
+  .message-input {
+    margin-top: 10px;
+  }
+
+  label.title {
+    padding-top: 5px;
+    margin-bottom: 10px;
+    text-align: left;
+    font-size: 17px;
     font-weight: 600;
     color: #DAA520;
   }

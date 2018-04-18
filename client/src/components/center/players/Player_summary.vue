@@ -68,7 +68,7 @@
                   <li v-else><a :class="{disabled: !isLoggedIn}" class="btn scale-up" @click="sendRequest(player._id)"><i class="fa fa-user-plus fa-fw"></i></a></li>
                 </span>
                 <li><a :href="`http://www.steamcommunity.com/profiles/${player.steamId}`" class="btn scale-up" target="_blank"><i class="fa fa-steam-square fa-fw"></i></a></li>
-                <li><a :class="{disabled: !isLoggedIn}" class="btn scale-up" @click="updatePlayer"><i class="fa fa-refresh fa-fw"></i></a></li>
+                <li v-if="userId === player.steamId"><a :class="{disabled: !isLoggedIn}" class="btn scale-up" @click="updatePlayer"><i class="fa fa-refresh fa-fw"></i></a></li>
               </ul>
             </header>
             <div class="tiled description inner-tile">
@@ -125,19 +125,19 @@ export default {
       return this.$store.getters.player_loading
     },
     inSent () {
-      if (this.$store.getters.user) return this.$store.getters.user.friends.pending_sent.includes(this.player._id)
+      if (this.$store.getters.user) return this.$store.getters.user.friends.pending_sent.filter(pendingSent => (pendingSent._id === this.player._id)).length
       else return false
     },
     inReceived () {
-      if (this.$store.getters.user) return this.$store.getters.user.friends.pending_received.includes(this.player._id)
+      if (this.$store.getters.user) return this.$store.getters.user.friends.pending_received.filter(pendingReceived => (pendingReceived._id === this.player._id)).length
       else return false
     },
     inAccepted () {
-      if (this.$store.getters.user) return this.$store.getters.user.friends.accepted.includes(this.player._id)
+      if (this.$store.getters.user) return this.$store.getters.user.friends.accepted.filter(accepted => (accepted._id === this.player._id)).length
       else return false
     },
     inBlocked () {
-      if (this.$store.getters.user) return this.$store.getters.user.friends.blocked.includes(this.player._id)
+      if (this.$store.getters.user) return this.$store.getters.user.friends.blocked.filter(blocked => (blocked._id === this.player._id)).length
       else return false
     },
     isLoggedIn () {
@@ -216,6 +216,10 @@ export default {
     margin-bottom: 15px;
   }
 
+  a.btn {
+    padding: 0;
+  }
+
   a.scale-up i{
     cursor: pointer;
     transform: scale(1);
@@ -254,7 +258,6 @@ export default {
   li {
     list-style-type: none;
     line-height: 1.6em;
-    padding-left: 15px;
   }
 
   li.tiled {
@@ -268,7 +271,7 @@ export default {
     display: inline-block;
   }
   ul.links li a i {
-    font-size: 1.8em;
+    font-size: 1.2em;
   }
 
 
