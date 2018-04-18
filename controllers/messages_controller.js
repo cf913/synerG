@@ -13,6 +13,7 @@ module.exports = {
     .select('_id')
     .sort('-createdAt')
     .then(conversations => {
+      console.log(conversations)
       if(conversations.length===0) {
         return res.status(200).json({ message: "No conversations yet" })
       } else {
@@ -24,6 +25,12 @@ module.exports = {
           .then(message => {
             fullConversations.push(message)
             if(fullConversations.length === conversations.length) {
+              // sorts conversations by updated date
+              fullConversations.sort((a, b) => {
+                a = new Date(a.updatedAt)
+                b = new Date(b.updatedAt)
+                return a>b ? -1 : a<b ? 1 : 0
+               })
               res.send(fullConversations)
             }
           })
