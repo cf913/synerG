@@ -43,7 +43,6 @@
       <div class="row">
         <div class="col-md-12">
           <h2>Friends:</h2>
-          {{friends}}
           <ul class="list-group">
             <li v-for="(friend, index) in friends" :key="index" class="lit-group-item tile inner-tile">
               <div class="row">
