@@ -210,7 +210,7 @@
 <script>
 export default {
   created () {
-    if (this.$route.query.token) {
+    if (this.$route.query.token || this.$store.getters.idToken) {
       this.$store.dispatch('checkLogin', this.$route.query)
       this.$router.push('/app')
     }
