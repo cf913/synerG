@@ -324,7 +324,7 @@ header.masthead h1 {
 }
 
 .showcase {
-  background-color: #222;
+  background-color: #111;
   color: #f4f4f4;
 }
 
@@ -334,7 +334,7 @@ header.masthead h1 {
 }
 
 .showcase h2 {
-  color: rgba(249, 47, 47, 0.8); 
+  color: rgba(238, 23, 23, 0.8); 
 }
 
 @media (min-width: 768px) {
@@ -385,7 +385,7 @@ header.masthead h1 {
 
 .testimonials {
   color: #f4f4f4;
-  background-color: #111;
+  background-color: rgb(133, 9, 9);
   padding-top: 7rem;
   padding-bottom: 7rem;
 }
@@ -409,7 +409,7 @@ header.masthead h1 {
 footer.footer {
   padding-top: 4rem;
   padding-bottom: 4rem;
-  background-color: #222;
+  background-color: #111;
   color: rgba(169, 1, 1, 0.8); 
 }
 
