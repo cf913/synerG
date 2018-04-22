@@ -44,7 +44,7 @@ export default {
   },
   created () {
     this.$store.dispatch('checkLogin', this.$route.query)
-    this.$router.push('/')
+    this.$router.push('/app')
   }
 }
 </script>

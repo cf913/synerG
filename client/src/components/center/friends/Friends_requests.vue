@@ -27,7 +27,7 @@
             <div class="col-md-9 summary">
               <a class="btn btn-warning btn-sm float-right" @click="cancelRequest(friend._id)" title="Cancel request"><i class="fa fa-ban fa-fw"></i></a>
               <a class="btn btn-info btn-sm float-right" target="_blank" :href="`http://www.steamcommunity.com/profiles/${friend.steamId}`"><i class="fa fa-steam fa-fw"></i></a>
-              <a v-else-if="inAccepted" class="btn btn-outline-secondary btn-sm float-right disabled"><i class="fa fa-check fa-fw"></i></a>
+              <a v-if="inAccepted" class="btn btn-outline-secondary btn-sm float-right disabled"><i class="fa fa-check fa-fw"></i></a>
               <a v-else-if="friend.steamId !== user.steamId" :class="{disabled: !isLoggedIn}" class="btn btn-primary btn-sm float-right" @click="sendRequest(friend._id)"><i class="fa fa-user-plus fa-fw"></i></a>
               <router-link :to="{ name: 'playerDetails', params: { id: friend._id }}"><h5>{{ friend.steamName }}</h5></router-link>
             </div>

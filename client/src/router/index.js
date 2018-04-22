@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // COMPONENTS
+import Landing from '@/components/Landing'
 import Main from '@/components/Main'
 import Home from '@/components/center/Home'
 import PlayerDetails from '@/components/center/players/Player_details'
@@ -24,8 +25,14 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '',
+      path: '/',
+      component: Landing,
+      name: 'home'
+    },
+    {
+      path: '/app',
       component: Main,
+      name: 'main',
       children: [
         {
           path: '',

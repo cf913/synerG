@@ -107,6 +107,11 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
+// view engine setup
+// app.set('views', path.join(__dirname, 'views'));
+// app.engine('html', require('ejs').renderFile);
+// app.set('view engine', 'html');
+
 
 // LOAD ROUTES
 let authJWT = require('./routes/auth/authJWT')
@@ -128,8 +133,8 @@ app.use(cors())
 
 app.use(passport.initialize())
 
-//app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.static(path.join(__dirname, 'client/dist')))
+// app.use(express.static(path.join(__dirname, 'public')))
 
 // Set our api routes
 app.use('/api/news', news)
@@ -142,13 +147,14 @@ app.use('/auth/jwt', authJWT)
 app.use('/auth/steam', authSteam)
 
 // Login/Home page
-app.get('/home', (req, res) => {
-  res.render('home')
-})
+// app.get('/', (req, res) => {
+//   res.render('index')
+// })
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/dist/index.html'))
-})
+// app.get('/', (req, res) => {
+//   console.log('accessing app...')
+//   res.sendFile(path.join(__dirname, 'client/dist/index.html'))
+// })
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
