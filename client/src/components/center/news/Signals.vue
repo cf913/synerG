@@ -4,36 +4,38 @@
     <b-form>
       <div class="row maxwidth">
         <div class="col-lg-6 padding-0">
-          <b-form-group horizontal label-text-align="left" label="Position:" label-for="signalPosition">
+          <b-form-group horizontal label-text-align="left" label="Position:" label-class="title">
             <b-form-select id="signalPosition" v-model="position_selected" :options="position_options" required></b-form-select>
           </b-form-group>
         </div>
         <div class="col-lg-6 padding-0">
-          <b-form-group horizontal label-text-align="left" label="Language:" label-for="signalLanguage">
+          <b-form-group horizontal label-text-align="left" label="Language:">
             <b-form-select id ="signalLanguage" v-model="language_selected" :options="language_options" required></b-form-select>
           </b-form-group>
         </div>
       </div>
       <div class="row maxwidth">
         <div class="col-lg-6 padding-0">
-          <b-form-group horizontal label-text-align="left" label="Region:" label-for="signalRegion">
+          <b-form-group horizontal label-text-align="left" label="Region:">
             <b-form-select id="signalRegion" v-model="region_selected" :options="region_options" required></b-form-select>
           </b-form-group>
         </div>
         <div class="col-lg-6 padding-0">
-          <b-form-group horizontal label-text-align="left" label="Aims:" label-for="signalCompetitive">
+          <b-form-group horizontal label-text-align="left" label="Aims:">
             <b-form-select id="signalCompetitive" v-model="competitive_selected" :options="competitive_options" required></b-form-select>
           </b-form-group>
         </div>
       </div>
       <div class="row maxwidth">
         <div class="col-lg-12 padding-0">
-          <b-form-group horizontal label-text-align="left" label="Comments:" label-for="signalDescription">
+          <b-form-group horizontal label-text-align="left" label="Comments:" label-cols="2">
             <b-form-input type="text" class="form-control" id="signalDescription" v-model="description" placeholder="Additional Information..."></b-form-input>
           </b-form-group>
         </div>
       </div>
-      <b-button type="submit" @click.prevent="newSignal" @keyup.enter.prevent="newSignal">Send out a signal!</b-button>
+      <div class="d-flex justify-content-end align-items-center">
+        <b-button type="submit" @click.prevent="newSignal" @keyup.enter.prevent="newSignal">Send out a signal!</b-button>
+      </div>
     </b-form>
     <ul class="list-group clearfix">
       <li class="list-group-item inner-tile" v-for="(signal, index) in signals" :key="index">
