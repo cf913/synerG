@@ -29,12 +29,10 @@
           </b-form-select>
         </div>
       </div>
-      <!-- <div class="sub"> -->
       <div class="d-flex justify-content-end align-items-center">
         <b-button size="sm" type="reset" @click.prevent="onReset()" variant="warning">Reset</b-button>
         <b-button size="sm" type="submit" @click.prevent="onSubmit()" @keyup.enter.prevent="onSubmit" variant="info"><i class="fa fa-search"></i> Search</b-button>
       </div>  
-      <!-- </div> -->
     </b-form>
     
     <div v-if="loading" class="text-center">

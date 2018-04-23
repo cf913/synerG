@@ -35,22 +35,23 @@
       </div>
       <b-button type="submit" @click.prevent="newSignal" @keyup.enter.prevent="newSignal">Send out a signal!</b-button>
     </b-form>
-    <div class="tiled inner-tile">
-      <ul class="list-group clearfix" v-for="(signal, index) in signals" :key="index">
-        <li class="list-group-item inner-tile">
-          <div class="row">
-            <div class="left col-lg-3">
-              <img class="signal-avatar" :src="signal.player.img" alt="Avatar">
-            </div>
-            <div class="right col-lg-9">
-              <router-link :to="{ name: 'playerDetails', params: {id: signal.player._id}}"><h5>{{signal.player.steamName}}</h5></router-link>
-              <h6>{{signal.position}} player looking for a {{signal.language}}-speaking team playing on the {{signal.region}} server to play {{signal.competitiveness}}</h6>
-              <h6>{{signal.description}}</h6>
-            </div>
+    <ul class="list-group clearfix">
+      <li class="list-group-item inner-tile" v-for="(signal, index) in signals" :key="index">
+        <div class="row">
+          <div class="left col-lg-3">
+            <img class="signal-avatar" :src="signal.player.img" alt="Avatar">
           </div>
-        </li>
-      </ul>
-    </div>
+          <div class="right signal-info col-lg-9">
+            <router-link :to="{ name: 'playerDetails', params: {id: signal.player._id}}"><h5>{{signal.player.steamName}}</h5></router-link>
+            <h6><span class="title">Position:</span> {{signal.position}}</h6>
+            <h6><span class="title">Language:</span> {{signal.language}}</h6>
+            <h6><span class="title">Server:</span> {{signal.region}}</h6>
+            <h6><span class="title">Competitiveness:</span> {{signal.competitiveness}}</h6>
+            <h6>{{signal.description}}</h6>
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -154,7 +155,7 @@ export default {
   }
 
   div.signals.container {
-    margin-top: 25px;
+    margin-top: 10px;
   }
 
   .title {
@@ -200,6 +201,7 @@ export default {
     border: none;
     border-bottom: solid 1px #f00;
     border-radius: 0;
+    color: #fff;
   }
 
   input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -213,5 +215,17 @@ export default {
   
   input::-ms-input-placeholder { /* Microsoft Edge */
     color: #fff;
+  }
+
+  div.signal-info {
+    text-align: left;
+  }
+
+  ul.list-group {
+    margin-top: 15px;
+  }
+
+  li.list-group-item {
+    margin-bottom: 10px;
   }
 </style>
