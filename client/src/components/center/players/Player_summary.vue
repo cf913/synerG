@@ -183,7 +183,8 @@ export default {
     },
     updatePlayer () {
       console.log('Updating Players...')
-      this.$store.dispatch('updatePlayer', this.$route.params.id)
+      console.log(this.player)
+      this.$store.dispatch('updatePlayer', this.player.steamId)
     }
   },
   // watch: {

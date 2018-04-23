@@ -63,7 +63,7 @@ const actions = {
       router.replace(`/players/${rootState.getters.user._id}`)
       return
     }
-    axios.get(`/api/players/${rootState.getters.user._id}/update?token=${rootState.getters.idToken}`)
+    axios.get(`/api/players/${id}/update?token=${rootState.getters.idToken}`)
       .then(({data}) => {
         console.log('DATA RETURNED!')
         rootState.commit('player', {
