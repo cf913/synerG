@@ -32,11 +32,11 @@ export default new Router({
     {
       path: '/app',
       component: Main,
-      name: 'main',
       children: [
         {
           path: '',
-          component: Home
+          component: Home,
+          name: 'main'
         },
         {
           path: 'players/:id',
@@ -49,7 +49,8 @@ export default new Router({
         },
         {
           path: 'myteams',
-          component: MyTeams
+          component: MyTeams,
+          name: 'myTeams'
         },
         {
           path: 'teams/new',
@@ -81,11 +82,13 @@ export default new Router({
         },
         {
           path: 'friends',
-          component: Friends
+          component: Friends,
+          name: 'myFriends'
         },
         {
           path: 'messages',
           component: Message,
+          name: 'myMessages',
           children: [
             {
               path: ':id',
