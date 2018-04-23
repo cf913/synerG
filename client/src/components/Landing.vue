@@ -144,6 +144,55 @@
     </div>
   </section>
 
+  <!-- ABOUT AND CONTACT -->
+  <section class="about text-white text-center">
+    <div class="container">
+      <h2 class="mb-4">About us</h2>
+      <div class="row">
+        <div class="col-md-6 us">
+          <div class="profile">
+            <div class="profile-pic chad">
+              <span class="name">Chad</span>
+            </div>
+            <div class="description">
+              <h5>The 2k Support</h5>
+              <p class="px-4 text-justify">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus velit totam, 
+                provident placeat distinctio accusantium fugit sit impedit eum alias?
+              </p>
+            </div>
+          </div>
+          <div class="profile">
+            <div class="profile-pic terry">
+              <span class="name">Terrence</span>
+            </div>
+            <div class="description">
+              <h5>The 7k Carry</h5>
+              <p class="px-4 text-justify">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci dolore molestias 
+                alias quisquam necessitatibus atque?
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 story">
+          <div class="story-box">
+            <h5>Story</h5>
+            <p class="px-4 text-justify">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi, magni aperiam eaque nihil, minus delectus tempore distinctio placeat aspernatur, soluta totam obcaecati! Sunt earum eaque nostrum, ducimus hic expedita est assumenda laboriosam voluptas molestiae quidem libero voluptatem totam blanditiis esse!
+            </p>
+            <p class="px-4 text-justify">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia illum minus hic?
+            </p>
+            <p class="px-4 text-justify">
+              Lorem ipsum dolor sit amet. Cupiditate commodi aliquam quidem quos eos alias officiis, ut sequi unde inventore.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
@@ -359,6 +408,61 @@ header.masthead h1 {
   color: rgba(238, 23, 23, 0.8); 
 }
 
+.about {
+  padding-top: 40px;
+  background: #111;
+}
+
+
+.profile {
+  padding: 20px;
+  display: flex;
+}
+
+.us {
+  padding: 10px;
+  border-right: 3px solid rgba(238, 23, 23, 0.6);
+}
+
+.story {
+  padding: 30px;
+}
+
+.about h5 {
+  color: rgba(238, 23, 23, 0.8);
+}
+
+.profile-pic {
+  height: 100px;
+  width: 100px;
+  border: 3px solid ;
+  border-radius: 50%;
+}
+
+.profile-pic.chad {
+  background: url('../assets/img/chad.jpg') center center;
+  background-size: cover;
+}
+
+.profile-pic.terry {
+  background: url('../assets/img/pic.png') center center;
+  background-size: cover;
+}
+
+.description {
+  flex:1;
+}
+
+span.name {
+  display: block;
+  font-weight: 600;
+  position: relative;
+  top: 105px;
+}
+
+
+
+
 @media (min-width: 768px) {
   header.masthead {
     padding-top: 12rem;
@@ -408,8 +512,8 @@ header.masthead h1 {
 .testimonials {
   color: #f4f4f4;
   background-color: rgb(133, 9, 9);
-  padding-top: 7rem;
-  padding-bottom: 7rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
 
 .testimonials .testimonial-item {
