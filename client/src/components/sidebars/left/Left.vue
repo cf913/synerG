@@ -1,6 +1,7 @@
 <template>
   <div class="left tile gray-tile">
     <b-nav vertical>
+<<<<<<< HEAD
       <b-nav-item class="tab" :to="{ name: 'main'}" exact :disabled="!isLoggedIn"><i class="fa fa-newspaper-o"></i> News Feed</b-nav-item>
       <b-nav-item class="tab" :to="{ name: 'playerDetails', params: { id: user._id }}" :disabled="!isLoggedIn"><i class="fa fa-user-circle-o"></i> Profile</b-nav-item>
       <b-nav-item class="tab" :to="{ name: 'myTeams'}" :disabled="!isLoggedIn"><i class="fa fa-group"></i> Teams</b-nav-item>
@@ -10,6 +11,17 @@
       </b-nav-item>
       <b-nav-item class="tab" :to="{ name: 'myMessages'}" :disabled="!isLoggedIn"><i class="fa fa-comments"></i> Messages</b-nav-item>
       <b-nav-item class="tab" :disabled="!isLoggedIn"><i class="fa fa-gear"></i> Settings</b-nav-item>
+=======
+      <b-nav-item class="tab" to="/app/" exact :disabled="!isLoggedIn"><i class="fa fa-newspaper-o"></i> News Feed</b-nav-item>
+      <b-nav-item class="tab" :to="{ name: 'playerDetails', params: { id: user._id }}" :disabled="!isLoggedIn"><i class="fa fa-user-circle-o"></i> Profile</b-nav-item>
+      <b-nav-item class="tab" to="/app/myteams" :disabled="!isLoggedIn"><i class="fa fa-group"></i> Teams</b-nav-item>
+      <b-nav-item class="tab" to="/app/friends" :disabled="!isLoggedIn">
+        <i class="fa fa-address-book"></i> Friends
+        <div class="notification" v-if="isLoggedIn && notif_friends > 0"><p>{{notif_friends}}</p></div>
+      </b-nav-item>
+      <b-nav-item class="tab" to="/app/messages" :disabled="!isLoggedIn"><i class="fa fa-comments"></i> Messages</b-nav-item>
+      <b-nav-item class="tab" to="/settings" :disabled="!isLoggedIn"><i class="fa fa-gear"></i> Settings</b-nav-item>
+>>>>>>> 15b2365d96dab0b2ed34aaecd550382cbd403355
     </b-nav>
   </div>
 </template>
