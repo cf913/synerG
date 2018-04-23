@@ -1,18 +1,18 @@
 <template>
 <div class="header">
 
-  <b-navbar class="py-2 fixed-top" toggleable="md" type="dark" style="background: rgba(0,0,0,0.5)">
+  <b-navbar class="py-2 fixed-top" toggleable="md" type="dark">
 
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-    <b-navbar-brand to="/">SynerG</b-navbar-brand>
+    <b-navbar-brand to="/">SynerG<span class="beta">BETA</span></b-navbar-brand>
 
     <b-collapse is-nav id="nav_collapse">
 
       <b-navbar-nav>
-        <b-nav-item to="/news">DotA 2</b-nav-item>
-        <b-nav-item to="/players">CS:GO</b-nav-item>
-        <b-nav-item to="/teams">League of Legends</b-nav-item>
+        <!-- <b-nav-item to="/news">DotA 2</b-nav-item> -->
+        <!-- <b-nav-item to="/players">CS:GO</b-nav-item>
+        <b-nav-item to="/teams">League of Legends</b-nav-item> -->
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
@@ -77,10 +77,15 @@ export default {
 </script>
 
 <style scoped>
+  .beta {
+    font-size: 0.5em;
+  }
 
   .navbar {
     /* background: rgb(10,10,100) !important; */
-    background: linear-gradient(to bottom, rgb(0,0,0), rgba(0,0,0,.6)) !important;
+    /* background: linear-gradient(to bottom, rgb(0,0,0), rgba(0,0,0,.6)) !important; */
+    background: rgba(0, 0, 0, 1) !important;
+    background: rgba(118, 0, 0, 0.8) !important;
   }
   .navbar-brand {
     padding-left: 20px;

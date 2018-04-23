@@ -164,7 +164,7 @@
           </div>
           <div class="profile">
             <div class="profile-pic terry">
-              <span class="name">Terrence</span>
+              <span class="name">Terence</span>
             </div>
             <div class="description">
               <h5>The 7k Carry</h5>

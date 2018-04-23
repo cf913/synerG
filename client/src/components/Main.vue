@@ -86,7 +86,9 @@ export default {
 
     background: #8E0E00;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to top, #8E0E00, #1F1C18);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to top, #8E0E00, #1F1C18); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to top, #8E0E00 0%, rgba(80,0,0, 1) 40%, rgba(80,0,0,.4)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    /* background: linear-gradient(to bottom, rgba(80,0,0.1),rgba(120,0,0,.5)); */
+    /* background: #161616; */
 
 
     /* background: linear-gradient(to top, #000000, #53346d);
@@ -224,8 +226,9 @@ export default {
   .gray-tile {
     /* background: #111; */
     /*background: rgba(17, 17, 17, 0.5);*/
-    background-color: #21272c;
-    color: #fff;
+    /* background-color: #21272c; */
+    background-color: rgba(35, 39, 44, 1);
+    color: #f4f4f4;
   }
 
   .inner-tile {
