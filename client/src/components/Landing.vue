@@ -4,7 +4,7 @@
   <nav class="navbar navbar-dark fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">SynerG<span class="beta">BETA</span> </a>
-      <a class="btn btn-secondary" href="/auth/steam/steam"><i class="fa fa-steam fa-lg fa-fw"></i> Login with Steam</a>
+      <a class="btn btn-secondary" href="/auth/steam/steam"><i class="fa fa-steam fa-lg fa-fw"></i> Steam Login</a>
     </div>
   </nav>
 
@@ -14,8 +14,9 @@
     <div class="container-fluid">
       <div class="title">
         <div class="jumbo">
-          <h1 class="display-1 mt-5 mb-4">SynerG<span class="beta">BETA</span></h1>
-              <router-link to="/app"><button type="submit" class="btn btn-lg get-started">Get Started!</button></router-link>
+          <h1 class="display-1 mt-5 mb-2">SynerG<span class="beta">BETA</span></h1>
+          <p class="mb-1 subtitle">By the players. For the players.</p>
+          <router-link to="/app"><button type="submit" class="btn btn-lg get-started">Get Started!</button></router-link>
         </div>
       </div>
     </div>
@@ -23,9 +24,9 @@
 
   <!-- Icons Grid -->
   <section class="features-icons text-center">
-    <div class="container-fluid">
+    <div class="container">
       <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-4">
           <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
             <div class="features-icons-icon d-flex">
               <i class="fa fa-steam"></i>
@@ -34,7 +35,7 @@
             <p class="lead mb-0">No need to create a new account!</p>
           </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-4">
           <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
             <div class="features-icons-icon d-flex">
               <i class="fa fa-users"></i>
@@ -44,7 +45,7 @@
 
           </div>
         </div>
-        <div class="col-lg-3">
+        <!-- <div class="col-lg-3">
           <div class="features-icons-item mx-auto mb-0 mb-lg-3">
             <div class="features-icons-icon d-flex">
               <i class="fa fa-line-chart"></i>
@@ -52,8 +53,8 @@
             <h3>Increase your MMR</h3>
             <p class="lead mb-0">Participate in one of our weekly tournaments</p>
           </div>
-        </div>
-        <div class="col-lg-3">
+        </div> -->
+        <div class="col-lg-4">
           <div class="features-icons-item mx-auto mb-0 mb-lg-3">
             <div class="features-icons-icon d-flex">
               <i class="fa fa-trophy"></i>
@@ -219,18 +220,26 @@ export default {
 </script>
 
 <style scoped>
+
+.landing {
+  font-size: 16px;
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 700;
 }
 
 .navbar.navbar-dark {
   background: rgba(118, 0, 0, 0.8);
+}
+
+.navbar-brand {
+  font-weight: 700;
 }
 
 .beta {
@@ -239,6 +248,10 @@ h6 {
 
 h1 .beta {
   font-size: 0.2em;
+}
+
+.btn {
+  border-radius: 25px;
 }
 
 header.masthead {
@@ -263,6 +276,7 @@ header.masthead .overlay {
   top: 0;
   left: 0;
 }
+
 .title {
   margin: 0 0 0 auto;
   position: relative;
@@ -278,6 +292,14 @@ header.masthead .overlay {
   margin-right: 10%;
   transform: translateX(900px);
   animation: key-in  1s forwards;
+}
+
+p.subtitle {
+  font-size: 1.2em;
+  font-weight: 500;
+  position: relative;
+  top: -30px;
+  left: 22px;
 }
 
 .signals {
@@ -402,8 +424,8 @@ header.masthead h1 {
 .call-to-action {
   position: relative;
   background-color: #333;
-  padding-top: 7rem;
-  padding-bottom: 7rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
 footer.footer {
@@ -416,6 +438,46 @@ footer.footer {
 footer.footer a {
   color: rgba(169, 1, 1, 0.8); 
 }
+
+@media (max-width: 640px) {
+
+  .navbar.navbar-dark {
+    background: rgba(118, 0, 0, 0.8);
+    height: 40px;
+  }
+
+  .navbar.navbar-dark .btn.btn-secondary {
+    font-size: 0.75em;
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  header.masthead {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .title {
+    margin-top: 0 !important;
+    align-items: center;
+  }
+  .title h1.display-1{
+    font-size: 4em !important;
+  }
+
+  p.subtitle {
+    font-size: 1.2em;
+    position: relative;
+    margin-bottom: 20px !important;
+    top: 0;
+    left: 0;
+  }
+
+  .jumbo {
+    margin-right: 0;
+  }
+}
+
 </style>
 
 
