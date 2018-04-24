@@ -61,7 +61,8 @@ export default new Router({
         },
         {
           path: 'teams/new',
-          component: TeamsNew
+          component: TeamsNew,
+          name: 'teamsNew'
         },
         {
           path: 'teams/:id',
@@ -75,7 +76,8 @@ export default new Router({
         },
         {
           path: 'communities/new',
-          component: CommunityNew
+          component: CommunityNew,
+          name: 'communityNew'
         },
         {
           path: 'communities/:id',

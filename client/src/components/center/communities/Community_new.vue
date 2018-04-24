@@ -54,9 +54,16 @@ export default {
       console.log(data)
       this.$store.dispatch('createCommunity', {data, player})
     },
+    onReset () {
+      this.community_name = ''
+      this.description = ''
+    },
     onCancel () {
       this.$router.go(-1)
     }
+  },
+  activated () {
+    this.onReset()
   }
 }
 </script>

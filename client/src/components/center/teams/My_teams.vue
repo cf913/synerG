@@ -2,7 +2,7 @@
   <div class="my_teams text-left container tile gray-tile" style="position: relative">
     <div class="container py-3 text-left">
       <div class="tiled inner-tile">
-        <router-link to="/teams/new">Create Team</router-link>
+        <router-link :to="{ name: 'teamsNew'}">Create Team</router-link>
       </div>
       <div v-if="loading" class="text-center">
         <p class="lead">Loading your teams...</p>
@@ -15,7 +15,7 @@
         <br>
       </ul>
       <div class="tiled inner-tile">
-        <router-link to="/communities/new">Create New Community</router-link>
+        <router-link :to="{ name: 'communityNew' }">Create New Community</router-link>
       </div>
       <ul class="list-group clearfix" v-for="(community, index) in mycommunities" :key="index">
         <li class="list-group-item tile-shadow inner-tile">

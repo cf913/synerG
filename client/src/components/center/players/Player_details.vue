@@ -24,14 +24,19 @@ export default {
       tab: 'app-player-summary'
     }
   },
+  methods: {
+    resetPage () {
+      this.tab = 'app-player-summary'
+    }
+  },
   components: {
     appPlayerSummary: PlayerSummary,
     appPlayerPosts: PlayerPosts,
     appPlayerTeams: PlayerTeams
+  },
+  activated () {
+    this.resetPage()
   }
-  // activated () {
-  //   this.getPlayer()
-  // }
 }
 </script>
 

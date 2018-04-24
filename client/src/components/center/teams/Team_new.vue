@@ -220,6 +220,16 @@ export default {
       console.log(data)
       this.$store.dispatch('createTeam', {data, player})
     },
+    onReset () {
+      this.team_name = ''
+      this.team_logo = ''
+      this.description = ''
+      this.recruiting_selected = []
+      this.languages_selected = []
+      this.regions_selected = []
+      this.competitive_selected = ''
+      this.position_selected = ''
+    },
     onCancel () {
       this.$router.go(-1)
     },
@@ -229,6 +239,9 @@ export default {
       // splice replaces elem at index index by Math.abs(state - 1)
       this.timetable[prop].splice(index, 1, Math.abs(state - 1))
     }
+  },
+  activated () {
+    this.onReset()
   }
 }
 </script>
