@@ -56,12 +56,12 @@ const actions = {
       console.log('edit err: ' + err)
     })
   },
-  getSignals ({commit, rootState}) {
+  getSignals ({commit, rootState}, query) {
     if (!rootState.AuthModule.idToken) {
       console.log('Not Authenticated')
       router.replace(`/players/${rootState.AuthModule.user._id}`)
     }
-    axios.get(`/api/news/signals?token=${rootState.AuthModule.idToken}`)
+    axios.post(`/api/news/signals?token=${rootState.AuthModule.idToken}`, query)
     .then(signals => {
       console.log(signals)
       const data = signals.data
@@ -84,7 +84,7 @@ const actions = {
       console.log('Not Authenticated')
       router.replace(`/`)
     }
-    axios.post(`/api/news/signals?token=${rootState.AuthModule.idToken}`, {signal: signal, player: rootState.AuthModule.user})
+    axios.post(`/api/news/signals/new?token=${rootState.AuthModule.idToken}`, {signal: signal, player: rootState.AuthModule.user})
     .then(newSignal => {
       console.log('created new signal')
       console.log(newSignal)

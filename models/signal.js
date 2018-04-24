@@ -7,7 +7,9 @@ const SignalSchema = new Schema({
   region: String,
   competitiveness: String,
   description: String,
-  player: {type: Schema.Types.ObjectId, ref: 'Player'}
+  isPlayer: Boolean,
+  player: {type: Schema.Types.ObjectId, ref: 'Player'},
+  team: {type: Schema.Types.ObjectId, ref: 'Team'}
 }, {
 	timestamps: true
 })

@@ -2,6 +2,7 @@
   <div class="left tile gray-tile">
     <b-nav vertical>
       <b-nav-item class="tab" :to="{ name: 'main'}" exact :disabled="!isLoggedIn"><i class="fa fa-newspaper-o"></i> News Feed</b-nav-item>
+      <b-nav-item class="tab" :to="{ name: 'signals'}" exact :disabled="!isLoggedIn"><i class="fa fa-podcast"></i> Signals</b-nav-item>
       <b-nav-item class="tab" :to="{ name: 'playerDetails', params: { id: user._id }}" :disabled="!isLoggedIn"><i class="fa fa-user-circle-o"></i> Profile</b-nav-item>
       <b-nav-item class="tab" :to="{ name: 'myTeams'}" :disabled="!isLoggedIn"><i class="fa fa-group"></i> Teams</b-nav-item>
       <b-nav-item class="tab" :to="{ name: 'myFriends'}" :disabled="!isLoggedIn">

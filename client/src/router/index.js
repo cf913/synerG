@@ -4,7 +4,9 @@ import Router from 'vue-router'
 // COMPONENTS
 import Landing from '@/components/Landing'
 import Main from '@/components/Main'
-import Home from '@/components/center/Home'
+// import Home from '@/components/center/Home'
+import News from '@/components/center/news/News'
+import Signals from '@/components/center/news/Signals'
 import PlayerDetails from '@/components/center/players/Player_details'
 import PlayerEdit from '@/components/center/players/Player_edit'
 import MyTeams from '@/components/center/teams/My_teams'
@@ -35,8 +37,13 @@ export default new Router({
       children: [
         {
           path: '',
-          component: Home,
+          component: News,
           name: 'main'
+        },
+        {
+          path: 'signals',
+          component: Signals,
+          name: 'signals'
         },
         {
           path: 'players/:id',

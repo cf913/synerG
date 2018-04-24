@@ -42,8 +42,9 @@ module.exports = {
     })
   },
 
-  getSignals(req, res, next) {  
-    Signal.find().limit(30)
+  getSignals(req, res, next) {
+    let query = buildQuery(req.body)  
+    Signal.find(query).limit(30)
     .sort({createdAt: 'descending'})
     .populate({path: 'player', model: Player, select: '_id img steamName'})
     .then(signals => {
@@ -80,4 +81,25 @@ module.exports = {
       console.log(err)
     })
   },
+}
+
+function buildQuery(body) {
+    let query = {}
+    if (Object.keys(body).length === 0) return query
+    if (body.region !== null) {
+        query.region = body.region
+    }
+    if (body.language !== null) {
+        query.language = body.language
+    }
+    if (body.competitiveness !== null) {
+        query.competitiveness = body.competitiveness
+    }
+    if (body.position !== null) {
+        query.position = body.position
+    }
+    if (body.isPlayer !== null) {
+        query.isPlayer = body.isPlayer
+    }
+    return query
 }

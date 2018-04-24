@@ -1,5 +1,5 @@
 <template>
-  <div class="news-feed container">
+  <div class="news-feed container gray-tile">
     <div class="row container new-post">
       <div class="left col-lg-2">
         <img class="avatar" :src="user.img" alt="Avatar">
