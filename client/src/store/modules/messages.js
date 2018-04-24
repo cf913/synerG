@@ -85,9 +85,9 @@ const actions = {
       console.log(checkConversation)
       if (checkConversation.data.message === 'No conversation yet') {
         console.log('Writing new message')
-        router.replace(`/messages/new/${data}`)
+        router.replace(`/app/messages/new/${data}`)
       } else {
-        router.replace(`/messages/${checkConversation.data._id}`)
+        router.replace(`/app/messages/${checkConversation.data._id}`)
       }
     })
     .catch(err => {
@@ -103,7 +103,7 @@ const actions = {
     .then(newMessage => {
       console.log('created new conversation')
       console.log(newMessage)
-      router.replace(`/messages/${newMessage.data.conversationId}`)
+      router.replace(`/app/messages/${newMessage.data.conversationId}`)
       return newMessage
     })
     .catch(err => {
@@ -121,7 +121,7 @@ const actions = {
       console.log(newMessage)
       // dispatch('getConversation', conversationId)
       dispatch('incomingMessage', message)
-      router.replace(`/messages/${newMessage.data.conversationId}`)
+      router.replace(`/app/messages/${newMessage.data.conversationId}`)
       return newMessage
     })
     .catch(err => {

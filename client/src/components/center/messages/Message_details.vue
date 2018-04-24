@@ -1,10 +1,18 @@
 <template>
   <div class="message_details text-left tile gray-tile" style="position: relative">
-    <h5 v-for="(participant, index) in messages[0].conversationId.participants">
+    <h5 v-for="(participant, index) in messages[0].conversationId.participants" :key="index">
       <span class="title" v-if="participant.steamName !== user.steamName">{{participant.steamName}}</span>
     </h5>
-    <ul class="list-group clearfix">
-      <li class="list-group-item inner-tile" v-for="(message, index) in messages" :key="index">{{message.author.steamName}}: {{message.body}}</li>
+    <ul class="list-group inner-tile">
+      <li 
+        class="list-group-item left" 
+        :class="{'right': message.author.steamName === user.steamName}" 
+        v-for="(message, index) in messages" 
+        :key="index"
+      >
+        <img v-if="message.author.steamName !== user.steamName" :src="message.author.img" alt="">
+        <span class="blob" :class="{'blob-right': message.author.steamName === user.steamName}" >{{message.body}}</span>
+      </li>
     </ul>
     <!-- {{inc}} -->
     <div class="tiled inner-tile message-input">
@@ -114,5 +122,49 @@ export default {
     font-size: 17px;
     font-weight: 600;
     color: #DAA520;
+  }
+  
+  ul.list-group {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  
+  li.list-group-item {
+    border: none;
+    margin: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background: rgba(0,0,0,0);
+  }
+
+  .left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  img {
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .blob {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: #111;
+    background: rgba(199, 199, 199, 0.8) 
+  }
+
+  .blob-right {
+    color: #f4f4f4;
+    background-color: rgba(169, 1, 1, 0.8);
   }
 </style>

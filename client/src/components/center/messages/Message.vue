@@ -1,17 +1,17 @@
 <template>
   <div class="messages tile gray-tile">
-    <div class="row">
-      <div class="left col-lg-4 sidebar">
-        <div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="left col-lg-4 sidebar">
           <app-message-list></app-message-list>
-          {{conversations}}
+            <!-- {{conversations}} -->
         </div>
-      </div>
-      <div class="right col-lg-8">
-        <div class="fixed">
-          <keep-alive>
-            <router-view :key="$route.fullPath"></router-view>
-          </keep-alive>
+        <div class="right col-lg-8">
+          <div class="fixed">
+            <keep-alive>
+              <router-view :key="$route.fullPath"></router-view>
+            </keep-alive>
+          </div>
         </div>
       </div>
     </div>
@@ -31,8 +31,7 @@ export default {
 </script>
 
 <style scoped>
-  .tiled {
-    padding: 10px;
-    margin-bottom: 15px;
-  }
+.sidebar {
+  padding: 0;
+}
 </style>

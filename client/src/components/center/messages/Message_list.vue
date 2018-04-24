@@ -1,27 +1,28 @@
 <template>
-  <div class="conversation_list text-left tile gray-tile" style="position: relative">
-    <div>
-      <ul class="list-group clearfix">
-        <li class="list-group-item inner-tile" v-for="(conversation, index) in conversations" :key="index">
-          <div class="row">
-            <div class="col-sm-2 image">
-              <span v-for="(participant, index) in conversation.conversationId.participants" :key="index">
-                <img v-if="participant.steamName !== user.steamName" id="avatar" :src="participant.img" alt="Avatar">
-              </span>
-            </div>
-            <div class="col-sm-10">
-              <span v-for="(participant, index) in conversation.conversationId.participants" :key="index">
-                <router-link :to="{ name: 'messageDetails', params: { id: conversation.conversationId._id }}">
-                  <h5 v-if="participant.steamName !== user.steamName">{{participant.steamName}} </h5>
-                </router-link>
-              </span>
-              <p class="message-preview">{{conversation.author.steamName}}: {{conversation.body}}</p>
-            </div>
+    <ul class="conversation_list text-left tile gray-tile inner-tile">
+      <li v-if="conversation.conversationId.participants.filter(p => p.steamName !== user.steamName)[0]" class="" v-for="(conversation, index) in conversations" :key="index">
+          <router-link :to="{ name: 'messageDetails', params: { id: conversation.conversationId._id }}">
+        <div class="row">
+          
+          <div class="col-sm-4 image">
+            <img 
+              v-if="conversation.conversationId.participants.filter(p => p.steamName !== user.steamName)[0]" 
+              id="avatar" 
+              :src="conversation.conversationId.participants.filter(p => p.steamName !== user.steamName)[0].img" 
+              alt="Avatar"
+            >
           </div>
-        </li>
-      </ul>
-    </div>
-  </div>
+          
+          <div class="col-sm-8 preview">
+            <h5>
+              {{conversation.conversationId.participants.filter(p => p.steamName !== user.steamName)[0] ? conversation.conversationId.participants.filter(p => p.steamName !== user.steamName)[0].steamName : 'Fix this'}}
+            </h5>
+            <p class="message-preview">{{conversation.body}}</p>
+          </div>
+        </div>
+          </router-link>
+      </li>
+    </ul>
 </template>
 
 <script>
@@ -47,26 +48,44 @@ export default {
 </script>
 
 <style scoped>
-  .tiled {
-    padding: 5px 10px;
-    border-radius: 5px;
-    margin-bottom: 15px;
+  ul, li {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+
+  li {
+    padding: 10px;
+  }
+
+  .conversation_list {
+    border-radius: 5px 0 0 5px;
+  }
+
+  li:hover {
+    background-color: #222;
+  }
+
+  li:first-child:hover {
+    border-radius: 5px 0 0 0;
+  }
+
+  li:last-child:hover {
+    border-radius: 0 0 0 5px;
   }
   
   #avatar {
     width: 100%;
-    border: 3px solid #fff;
+    border: 2px solid #fff;
     border-radius: 5px;
-  }
-  
-  li .image {
-    padding: 0;
   }
 
   .message-preview{
-    max-height: 3.3em;
-    line-height: 1.1em;
+    font-size: 0.9em;
+    color: #aaa;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin: 0;
+    padding: 0;
   }
 </style>
