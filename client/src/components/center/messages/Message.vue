@@ -7,11 +7,9 @@
             <!-- {{conversations}} -->
         </div>
         <div class="right col-lg-8">
-          <div class="fixed">
-            <keep-alive>
-              <router-view :key="$route.fullPath"></router-view>
-            </keep-alive>
-          </div>
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
         </div>
       </div>
     </div>
@@ -33,5 +31,9 @@ export default {
 <style scoped>
 .sidebar {
   padding: 0;
+}
+
+.right {
+  position: relative;
 }
 </style>

@@ -55,6 +55,10 @@ const actions = {
       console.log('No id')
       return
     }
+    commit('messages', {
+      loading: true,
+      messages: []
+    })
     axios.get(`/api/messages/${conversationId}`)
     .then(messages => {
       console.log('front: ' + messages.length)

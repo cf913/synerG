@@ -39,8 +39,8 @@
       <p class="lead">Searching for players...</p>
       <img src="../../../assets/loading.svg" alt="">
     </div>
-      <ul class="list-group clearfix" v-for="(player, index) in players" :key="index">
-        <li class="list-group-item inner-tile">
+      <ul class="list-group" id="player-list">
+        <li class="list-group-item inner-tile" v-for="(player, index) in players" :key="index">
           <app-player-item :player="player"></app-player-item>
         </li>
       </ul>
@@ -271,5 +271,10 @@ export default {
     padding-right: 5px;
     margin-top: 2px;
     margin-bottom: 15px;
+  }
+
+  #player-list {
+    overflow-y: scroll;
+    height: 59vh;
   }
 </style>

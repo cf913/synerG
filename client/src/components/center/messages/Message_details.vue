@@ -1,17 +1,21 @@
 <template>
-  <div class="message_details text-left tile gray-tile" style="position: relative">
+  <div v-if="messages_loading" class="loading">
+      <p class="lead">Fetching messages...</p>
+      <img src="../../../assets/loading.svg" alt="">
+  </div>
+  <div v-else class=" text-left tile gray-tile" style="position: relative">
     <h5 v-for="(participant, index) in messages[0].conversationId.participants" :key="index">
       <span class="title" v-if="participant.steamName !== user.steamName">{{participant.steamName}}</span>
     </h5>
-    <ul class="list-group inner-tile">
+    <ul class="list-group2 inner-tile" id="chat-box">
       <li 
-        class="list-group-item left" 
+        class="list-group-item2 left" 
         :class="{'right': message.author.steamName === user.steamName}" 
         v-for="(message, index) in messages" 
         :key="index"
       >
         <img v-if="message.author.steamName !== user.steamName" :src="message.author.img" alt="">
-        <span class="blob" :class="{'blob-right': message.author.steamName === user.steamName}" >{{message.body}}</span>
+        <p class="blob" :class="{'blob-right': message.author.steamName === user.steamName}" >{{message.body}}</p>
       </li>
     </ul>
     <!-- {{inc}} -->
@@ -41,6 +45,9 @@ export default {
     },
     messages () {
       return this.$store.getters.messages
+    },
+    messages_loading () {
+      return this.$store.getters.messages_loading
     }
   },
   methods: {
@@ -86,13 +93,24 @@ export default {
     console.log(this.$socket.id)
     this.$socket.emit('info', obj)
     this.getConversation()
+  },
+  updated () {
+    const chatBox = document.getElementById('chat-box')
+    chatBox.scrollTop = chatBox.scrollHeight
   }
 }
 </script>
 
 <style scoped>
   .message_details {
-    padding-right: 10px;
+    position: relative;
+  }
+
+  .loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
   }
 
   h5 {
@@ -124,16 +142,20 @@ export default {
     color: #DAA520;
   }
   
-  ul.list-group {
+  ul.list-group2 {
+    margin: 0;
+    padding: 0;
     padding-top: 15px;
     padding-bottom: 15px;
+    list-style-type: none;
+    height: 73vh;
+    overflow-y: auto;
   }
   
-  li.list-group-item {
+  li.list-group-item2 {
     border: none;
     margin: 0;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 5px 10px;
     background: rgba(0,0,0,0);
   }
 
@@ -156,11 +178,13 @@ export default {
   }
 
   .blob {
+    margin: 0;
     display: inline-block;
     padding: 5px 10px;
     border-radius: 20px;
     color: #111;
-    background: rgba(199, 199, 199, 0.8) 
+    background: rgba(199, 199, 199, 0.8);
+    word-break: break-all; 
   }
 
   .blob-right {

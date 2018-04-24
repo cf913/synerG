@@ -12,11 +12,11 @@
       </div>
       <div class="center col-md-12 col-lg-6">
         <div class="">
-          <transition name="fade" mode="out-in">
+          <!-- <transition name="fade" mode="out-in"> -->
             <keep-alive>
               <router-view :key="$route.fullPath"></router-view>
             </keep-alive>
-          </transition>
+          <!-- </transition> -->
         </div>
       </div>
       <div class="right col-lg-3 sidebar">
