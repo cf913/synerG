@@ -1,5 +1,6 @@
 const Post = require('@models/post')
 const Player = require('@models/player')
+const Team = require('@models/team')
 const Signal = require('@models/signal')
 const request = require('request-promise')
 const config = require('@config')
@@ -46,7 +47,7 @@ module.exports = {
     let query = buildQuery(req.body)  
     Signal.find(query).limit(30)
     .sort({createdAt: 'descending'})
-    .populate({path: 'player', model: Player, select: '_id img steamName'})
+    .populate([{path: 'player', model: Player, select: '_id img steamName'}, {path: 'team', model: Team, select: '_id teamName'}])
     .then(signals => {
       console.log(signals)
       res.send(signals)
@@ -82,6 +83,32 @@ module.exports = {
       console.log(err)
     })
   },
+
+  newTeamSignal(req, res, next) {
+    if(!req.body.signal) {
+      res.status(422).send({ error: 'Missing fields' })
+      return
+    }
+    console.log(req.body)
+    const signal = new Signal({
+      position: req.body.signal.position,
+      language: req.body.signal.language,
+      region: req.body.signal.region,
+      competitiveness: req.body.signal.competitive,
+      isPlayer: false,
+      description: req.body.signal.description,
+      team: req.body.team
+    })
+    signal.save()
+    .then(signal => {
+      console.log('New Signal Created')
+      console.log(signal)
+      res.send(signal)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
 }
 
 function buildQuery(body) {

@@ -43,13 +43,15 @@
       <li class="list-group-item inner-tile" v-for="(signal, index) in signals" :key="index">
         <div class="row">
           <div class="left col-lg-3">
-            <img class="signal-avatar" :src="signal.player.img" alt="Avatar">
+            <img v-if="signal.isPlayer" class="signal-avatar" :src="signal.player.img" alt="Avatar">
+            <img v-else class="signal-avatar" src="http://assets.worldwildlife.org/photos/479/images/story_full_width/giant-panda-shutterstock_86500690.jpg?1345572346" alt="Avatar"> 
           </div>
           <div class="right signal-info col-lg-9">
-            <router-link :to="{ name: 'playerDetails', params: {id: signal.player._id}}"><h5>{{signal.player.steamName}}</h5></router-link>
-            <h6><span class="title">Position:</span> {{signal.position}}</h6>
-            <h6><span class="title">Language:</span> {{signal.language}}</h6>
-            <h6><span class="title">Server:</span> {{signal.region}}</h6>
+            <router-link v-if="signal.isPlayer" :to="{ name: 'playerDetails', params: {id: signal.player._id}}"><h5>Player - {{signal.player.steamName}}</h5></router-link>
+            <router-link v-else :to="{ name: 'teamDetails', params: {id: signal.team._id}}"><h5>Team - {{signal.team.teamName}}</h5></router-link>
+            <h6><span class="title">Position:</span> {{signal.position | displayListContent}}</h6>
+            <h6><span class="title">Language:</span> {{signal.language | displayListContent}}</h6>
+            <h6><span class="title">Server:</span> {{signal.region | displayListContent}}</h6>
             <h6><span class="title">Competitiveness:</span> {{signal.competitiveness}}</h6>
             <h6>{{signal.description}}</h6>
           </div>

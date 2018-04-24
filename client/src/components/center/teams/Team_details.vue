@@ -59,13 +59,35 @@
           <div class="col-8 text-left">
             <header class="d-flex justify-content-end align-items-center">
               <h2 class="mr-auto">{{team.teamName}}</h2>
-              <router-link v-if="isTeamAdmin" :to="{ name: 'teamEdit', params: { id: team._id }}" class="scale-up mr-1"><i class="fa fa-edit fa-2x"></i></router-link>
+              <a v-b-modal.signal v-if="isTeamAdmin" class="scale-up mr-3"><i class="fa fa-podcast"></i></a>
+              <b-modal id="signal" title="Send a Team Signal" header-text-variant="dark" body-text-variant="dark" hide-footer=true>
+                <b-form>
+                  <h6>Position:</h6>
+                  <b-form-checkbox-group  name="signalposition" v-model="signalposition_selected" :options="signalposition_options" required></b-form-checkbox-group>
+                  <br>
+                  <h6>Language:</h6>
+                  <b-form-checkbox-group  name="language" v-model="language_selected" :options="language_options" required></b-form-checkbox-group>
+                  <br>
+                  <h6>Server:</h6>
+                  <b-form-checkbox-group  name="region" v-model="region_selected" :options="region_options" required></b-form-checkbox-group>
+                  <br>
+                  <h6>Aims:</h6>
+                  <b-form-radio-group  name="competitive" v-model="competitive_selected" :options="competitive_options" required></b-form-radio-group>
+                  <br>
+                  <h6>Comments:</h6>
+                  <b-form-input type="text" class="form-control" id="signalDescription" v-model="description" placeholder="Additional Information..."></b-form-input>
+                  <div class="d-flex justify-content-end align-items-center">
+                    <b-button type="submit" @click.prevent="newTeamSignal" @keyup.enter.prevent="newTeamSignal">Send out a signal!</b-button>
+                  </div>
+                </b-form>
+              </b-modal>
+              <router-link v-if="isTeamAdmin" :to="{ name: 'teamEdit', params: { id: team._id }}" class="scale-up mr-3"><i class="fa fa-edit fa-2x"></i></router-link>
               <a v-if="isTeamMember || isTeamAdmin"  class="btn btn-danger btn-sm float-right" @click="leaveTeam"><i class="fa fa-times fa-fw"></i></a>
               <a v-else-if="isPending"  class="btn btn-warning btn-sm float-right" @click="cancelTeamRequest"><i class="fa fa-ban fa-fw"></i></a>
               <!-- <a v-else class="btn btn-primary btn-sm float-right" @click="sendTeamRequest()"><i class="fa fa-plus fa-fw"></i></a> -->
               <a v-b-modal.modal1 v-else class="btn btn-primary btn-sm float-right"><i class="fa fa-plus fa-fw"></i></a>
               
-              <b-modal id="modal1" title="Send Request to Join Team" header-text-variant="dark" body-text-variant="dark">
+              <b-modal id="modal1" title="Send Request to Join Team" header-text-variant="dark" body-text-variant="dark" hide-footer=true>
                 <b-form>
                   <p>What position are you applying for?</p>
                   <b-form-select v-model="position_applied" :options="position_options" required></b-form-select>
@@ -190,6 +212,11 @@ export default {
   data () {
     return {
       position_applied: null,
+      language_selected: [],
+      region_selected: [],
+      competitive_selected: '',
+      signalposition_selected: [],
+      description: '',
       position_options: [
         { text: 'Position', value: null },
         { text: 'Carry', value: 'Carry' },
@@ -197,6 +224,43 @@ export default {
         { text: 'Offlane', value: 'Offlane' },
         { text: 'Farming Support', value: 'Farming Support' },
         { text: 'Hard Support', value: 'Hard Support' }
+      ],
+      signalposition_options: [
+        { text: 'Carry', value: 'Carry' },
+        { text: 'Midlane', value: 'Midlane' },
+        { text: 'Offlane', value: 'Offlane' },
+        { text: 'Farming Support', value: 'Farming Support' },
+        { text: 'Hard Support', value: 'Hard Support' }
+      ],
+      language_options: [
+        { text: 'English', value: 'English' },
+        { text: 'Chinese', value: 'Chinese' },
+        { text: 'French', value: 'French' },
+        { text: 'Korean', value: 'Korean' },
+        { text: 'Portuguese', value: 'Portuguese' },
+        { text: 'Russian', value: 'Russian' },
+        { text: 'Spanish', value: 'Spanish' }
+      ],
+      region_options: [
+        { text: 'Chile', value: 'Chile' },
+        { text: 'China', value: 'China' },
+        { text: 'Dubai', value: 'Dubai' },
+        { text: 'EU West', value: 'EU West' },
+        { text: 'EU East', value: 'EU East' },
+        { text: 'Japan', value: 'Japan' },
+        { text: 'Australia', value: 'Australia' },
+        { text: 'Russia', value: 'Russia' },
+        { text: 'SEA', value: 'SEA' },
+        { text: 'South Africa', value: 'South Africa' },
+        { text: 'US West', value: 'US West' },
+        { text: 'US East', value: 'US East' }
+      ],
+      competitive_options: [
+        { text: 'Casual Unranked', value: 'Casual Unranked' },
+        { text: 'Casual Ranked', value: 'Casual Ranked' },
+        { text: 'Semi-Competitive Ranked', value: 'Semi-Competitive Ranked' },
+        { text: 'Competitive Ranked', value: 'Competitive Ranked' },
+        { text: 'Tournaments', value: 'Tournaments' }
       ]
     }
   },
@@ -233,6 +297,24 @@ export default {
   methods: {
     getTeam () {
       this.$store.dispatch('getTeam', this.$route.params.id)
+    },
+    newTeamSignal () {
+      const signal = {
+        language: this.language_selected,
+        region: this.region_selected,
+        competitive: this.competitive_selected,
+        position: this.signalposition_selected,
+        description: this.description
+      }
+      console.log(signal)
+      const team = this.$route.params.id
+      console.log(team)
+      this.$store.dispatch('newTeamSignal', {signal, team})
+      this.signalposition_selected = []
+      this.language_selected = []
+      this.region_selected = []
+      this.competitive_selected = ''
+      this.description = ''
     },
     sendTeamRequest () {
       this.$store.dispatch('sendTeamRequest', this.position_applied)
@@ -368,10 +450,6 @@ export default {
     width: 100%;
     border: 3px solid #fff;
     border-radius: 5px;
-  }
-  
-  a.btn {
-    margin-left: 8px;
   }
   
   a.btn i {

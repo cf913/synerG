@@ -95,6 +95,25 @@ const actions = {
     .catch(err => {
       console.log('edit err: ' + err)
     })
+  },
+  newTeamSignal ({rootState, dispatch}, {signal, team}) {
+    if (!rootState.AuthModule.idToken) {
+      console.log('Not Authenticated')
+      router.replace(`/`)
+    }
+    console.log(signal)
+    console.log(team)
+    axios.post(`/api/news/signals/team/new?token=${rootState.AuthModule.idToken}`, {signal: signal, team: team})
+    .then(newSignal => {
+      console.log('created new signal')
+      console.log(newSignal)
+      dispatch('getSignals')
+      router.replace(`/app/signals`)
+      return newSignal
+    })
+    .catch(err => {
+      console.log('edit err: ' + err)
+    })
   }
 }
 
