@@ -57,7 +57,7 @@ module.exports = {
     })
   },
 
-  newSignal(req, res, next) {
+  newPlayerSignal(req, res, next) {
     if(!req.body.signal) {
       res.status(422).send({ error: 'Missing fields' })
       return
@@ -68,6 +68,7 @@ module.exports = {
       language: req.body.signal.language,
       region: req.body.signal.region,
       competitiveness: req.body.signal.competitive,
+      isPlayer: true,
       description: req.body.signal.description,
       player: req.body.player._id
     })

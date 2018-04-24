@@ -8,6 +8,6 @@ const jwt = require('jsonwebtoken')
 router.get('/', passport.authenticate('jwt'), NewsController.getPosts)
 router.post('/', passport.authenticate('jwt'), NewsController.newPost)
 router.post('/signals', passport.authenticate('jwt'), NewsController.getSignals)
-router.post('/signals/new', passport.authenticate('jwt'), NewsController.newSignal)
+router.post('/signals/player/new', passport.authenticate('jwt'), NewsController.newPlayerSignal)
 
 module.exports = router

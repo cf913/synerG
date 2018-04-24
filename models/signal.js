@@ -2,9 +2,9 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const SignalSchema = new Schema({
-  position: String,
-  language: String,
-  region: String,
+  position: [String],
+  language: [String],
+  region: [String],
   competitiveness: String,
   description: String,
   isPlayer: Boolean,

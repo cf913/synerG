@@ -23,9 +23,17 @@ export default {
       tab: 'app-signals-search'
     }
   },
+  methods: {
+    resetPage () {
+      this.tab = 'app-signals-search'
+    }
+  },
   components: {
     appSignalsSearch: SignalsSearch,
     appSignalsNew: SignalsNew
+  },
+  activated () {
+    this.resetPage()
   }
 }
 </script>

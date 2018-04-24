@@ -1,5 +1,5 @@
 <template>
-  <div class="signals container gray-tile">
+  <div class="signals-search container gray-tile">
     <b-form>
       <div class="row maxwidth">
         <div class="col-lg-6 padding-0">
@@ -69,7 +69,7 @@ export default {
       position_selected: null,
       type_selected: null,
       position_options: [
-        { text: 'Position', value: null, disabled: true },
+        { text: 'Position', value: null },
         { text: 'Carry', value: 'Carry' },
         { text: 'Midlane', value: 'Midlane' },
         { text: 'Offlane', value: 'Offlane' },
@@ -77,7 +77,7 @@ export default {
         { text: 'Hard Support', value: 'Hard Support' }
       ],
       language_options: [
-        { text: 'Language', value: null, disabled: true },
+        { text: 'Language', value: null },
         { text: 'English', value: 'English' },
         { text: 'Chinese', value: 'Chinese' },
         { text: 'French', value: 'French' },
@@ -87,7 +87,7 @@ export default {
         { text: 'Spanish', value: 'Spanish' }
       ],
       region_options: [
-        { text: 'Region', value: null, disabled: true },
+        { text: 'Region', value: null },
         { text: 'Chile', value: 'Chile' },
         { text: 'China', value: 'China' },
         { text: 'Dubai', value: 'Dubai' },
@@ -102,7 +102,7 @@ export default {
         { text: 'US East', value: 'US East' }
       ],
       competitive_options: [
-        { text: 'Competitiveness', value: null, disabled: true },
+        { text: 'Competitiveness', value: null },
         { text: 'Casual Unranked', value: 'Casual Unranked' },
         { text: 'Casual Ranked', value: 'Casual Ranked' },
         { text: 'Semi-Competitive Ranked', value: 'Semi-Competitive Ranked' },
@@ -164,10 +164,6 @@ export default {
     max-width: 90px;
   }
 
-  div.signals.container {
-    margin-top: 10px;
-  }
-
   .title {
     font-weight: 600;
     /* color: #106CD6; */
@@ -204,27 +200,6 @@ export default {
 
   select.custom-select option {
     color: black;
-  }
-
-  input.form-control {
-    background-color: #21272c;
-    border: none;
-    border-bottom: solid 1px #f00;
-    border-radius: 0;
-    color: #fff;
-  }
-
-  input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #fff;
-    opacity: 1; /* Firefox */
-  }
-
-  input:-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: #fff;
-  }
-  
-  input::-ms-input-placeholder { /* Microsoft Edge */
-    color: #fff;
   }
 
   div.signal-info {

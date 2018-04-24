@@ -79,17 +79,17 @@ const actions = {
       console.log(err)
     })
   },
-  newSignal ({rootState, dispatch}, signal) {
+  newPlayerSignal ({rootState, dispatch}, signal) {
     if (!rootState.AuthModule.idToken) {
       console.log('Not Authenticated')
       router.replace(`/`)
     }
-    axios.post(`/api/news/signals/new?token=${rootState.AuthModule.idToken}`, {signal: signal, player: rootState.AuthModule.user})
+    axios.post(`/api/news/signals/player/new?token=${rootState.AuthModule.idToken}`, {signal: signal, player: rootState.AuthModule.user})
     .then(newSignal => {
       console.log('created new signal')
       console.log(newSignal)
       dispatch('getSignals')
-      router.replace(`/`)
+      router.replace(`/app/signals`)
       return newSignal
     })
     .catch(err => {
