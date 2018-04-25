@@ -4,7 +4,6 @@
       <div class="row">
         <div class="left col-lg-4 sidebar">
           <app-message-list></app-message-list>
-            <!-- {{conversations}} -->
         </div>
         <div class="right col-lg-8">
           <keep-alive>
