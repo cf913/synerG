@@ -184,7 +184,7 @@ export default {
     border-radius: 20px;
     color: #111;
     background: rgba(199, 199, 199, 0.8);
-    word-break: break-all; 
+    word-break: break-word; 
   }
 
   .blob-right {

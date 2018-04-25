@@ -35,8 +35,8 @@
         </div>
       </div>
       <div class="d-flex justify-content-end align-items-center">
-        <b-button type="reset" @click.prevent="onReset()" variant="warning">Reset</b-button>
-        <b-button type="submit" @click.prevent="onSubmit()" @keyup.enter.prevent="onSubmit" variant="info"><i class="fa fa-search"></i> Search</b-button>
+        <b-button size="sm" type="reset" @click.prevent="onReset()" variant="link" id="reset">Clear</b-button>
+        <b-button size="sm" type="submit" @click.prevent="onSubmit()" @keyup.enter.prevent="onSubmit" variant="warning" id="search"><i class="fa fa-search"></i> Search</b-button>
       </div>
     </b-form>
     <ul class="list-group clearfix">
@@ -218,5 +218,16 @@ export default {
 
   li.list-group-item {
     margin-bottom: 10px;
+  }
+
+    /* BUTTONS */
+  #reset {
+    margin: 0 5px;
+    color: white;
+    cursor: pointer;
+  }
+
+  #search {
+    cursor: pointer;
   }
 </style>

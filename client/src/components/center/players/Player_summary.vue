@@ -55,7 +55,7 @@
               <ul class="links">
                 <li v-if="userId !== player.steamId"><a class="btn scale-up" @click="checkConversation(player._id)"><i class="fa fa-comment fa-fw"></i></a></li>
                 <span v-if="userId === player.steamId">
-                  <li><router-link :to="{ path: `/players/${userId}/edit`}" class="btn scale-up"><i class="fa fa-edit"></i></router-link></li>
+                  <li><router-link :to="{ path: `/app/players/${userId}/edit`}" class="btn scale-up"><i class="fa fa-edit fa-fw"></i></router-link></li>
                 </span>
                 <span v-else>
                   <li v-if="inReceived"><a class="btn scale-up" @click="acceptRequest(player._id)"><i class="fa fa-check fa-fw"></i></a></li>
@@ -80,18 +80,20 @@
                 <table>
                     <thead>
                       <tr>
-                        <th class="text-center table-header">Hero ID</th>
-                        <th class="text-center table-header">Games Played</th>
-                        <th class="text-center table-header">Games Won</th>
+                        <th class="text-center table-header hero">Hero</th>
+                        <th class="text-center table-header">Played</th>
+                        <th class="text-center table-header">Won</th>
+                        <th class="text-center table-header">W/L</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="(hero, index) in player.heroes.slice(0, 5)" :key="index">
                         <!--<img class="img-thumbnails" :src="'https://api.opendota.com' + heroStats.heroStats[hero.hero_id - 2].img" alt="Avatar">-->
-                        <img class="img-thumbnails" :src="heroes[hero.hero_id - 1].img" alt="Avatar">
+                        <td class="text-center table-content"><img class="" :src="heroes[hero.hero_id - 1].img" alt="Avatar"></td>
                         <!--<td class="text-center">{{ heroStats.heroStats[hero.hero_id].id }}</td>-->
                         <td class="text-center table-content">{{ hero.games }}</td>
                         <td class="text-center table-content">{{ hero.win }}</td>
+                        <td class="text-center table-content green" :class="{red: hero.win/hero.games < 0.5}">{{ hero.win/hero.games | ratio}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -108,6 +110,11 @@
 
 <script>
 export default {
+  filters: {
+    ratio (value) {
+      return (value * 100).toFixed(1)
+    }
+  },
   computed: {
     userId () {
       return this.$store.getters.userId
@@ -272,6 +279,9 @@ export default {
     font-size: 1.2em;
   }
 
+  .description {
+    word-break: break-word; 
+  }
 
   .title {
     font-weight: 600;
@@ -282,16 +292,30 @@ export default {
   table {
     width: 100%;
     color: white;
+    margin-top: 10px;
   }
   
   tr th.table-header {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
+    background-color: #333;
+  }
+
+  tr th.hero {
+    width: 100px;
   }
   
-  tr img.img-thumbnails {
+  tr img {
     height: 57px;
     width: 100px;
-    margin: 5px;
+    margin: 0 auto;
+  }
+
+  .green {
+    color:rgb(0, 174, 29);
+  }
+
+  .red {
+    color: rgb(216, 0, 0);
   }
 </style>
