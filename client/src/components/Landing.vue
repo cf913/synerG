@@ -155,7 +155,7 @@
               <span class="name">Chad</span>
             </div>
             <div class="description">
-              <h5>The 2k Support</h5>
+              <h5>Co-Founder of SynerG</h5>
               <p class="px-4 text-justify">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus velit totam, 
                 provident placeat distinctio accusantium fugit sit impedit eum alias?
@@ -167,10 +167,11 @@
               <span class="name">Terence</span>
             </div>
             <div class="description">
-              <h5>The 7k Carry</h5>
+              <h5>Co-Founder of SynerG</h5>
               <p class="px-4 text-justify">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci dolore molestias 
-                alias quisquam necessitatibus atque?
+                Terence started gaming at a young age and having always been competitive, he quickly
+                became enthusiastic about the competitive gaming scene and hopes to help other
+                gamers form their own competitive teams.
               </p>
             </div>
           </div>
@@ -179,13 +180,13 @@
           <div class="story-box">
             <h5>Story</h5>
             <p class="px-4 text-justify">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi, magni aperiam eaque nihil, minus delectus tempore distinctio placeat aspernatur, soluta totam obcaecati! Sunt earum eaque nostrum, ducimus hic expedita est assumenda laboriosam voluptas molestiae quidem libero voluptatem totam blanditiis esse!
+              SynerG was created from the desire to help gamers meet other like-minded individuals who share their passion for gaming and competition. With competitive gaming on the rise, games are much more team-based now where social interaction and chemistry is crucial to any successful team. However, this can be difficult to achieve when each game is played with strangers. Due to the nature of gaming it can be difficult to meet and interact with other gamers and build a team of genuinely compatible friends.
             </p>
             <p class="px-4 text-justify">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia illum minus hic?
+              SynerG provides a platform for gamers who share a passion for a game to find and socialise with each other and form a team with strong bonds and chemistry. Grow as a team and enjoy the game with your friends and escape from the toxicity that can often be the result of matchmaking with strangers.
             </p>
             <p class="px-4 text-justify">
-              Lorem ipsum dolor sit amet. Cupiditate commodi aliquam quidem quos eos alias officiis, ut sequi unde inventore.
+              We hope we can help you become the next world-renowned competitive team!
             </p>
           </div>
         </div>
@@ -445,7 +446,7 @@ header.masthead h1 {
 }
 
 .profile-pic.terry {
-  background: url('../assets/img/pic.png') center center;
+  background: url('../assets/img/terry.jpg') center center;
   background-size: cover;
 }
 
