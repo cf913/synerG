@@ -1,5 +1,5 @@
 <template>
-  <div class="signals-search container gray-tile">
+  <div class="signals-search container gray-tile tile">
     <b-form>
       <div class="row maxwidth">
         <div class="col-lg-6 padding-0">
@@ -39,7 +39,7 @@
         <b-button size="sm" type="submit" @click.prevent="onSubmit()" @keyup.enter.prevent="onSubmit" variant="warning" id="search"><i class="fa fa-search"></i> Search</b-button>
       </div>
     </b-form>
-    <ul class="list-group clearfix">
+    <ul class="list-group clearfix" id="signals-list">
       <li class="list-group-item inner-tile" v-for="(signal, index) in signals" :key="index">
         <div class="row">
           <div class="left col-lg-3">
@@ -229,5 +229,10 @@ export default {
 
   #search {
     cursor: pointer;
+  }
+
+  #signals-list {
+    overflow-y: scroll;
+    height: 70vh;
   }
 </style>

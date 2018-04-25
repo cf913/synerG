@@ -1,5 +1,5 @@
 <template>
-  <div class="news-feed container gray-tile">
+  <div class="news-feed container gray-tile tiled">
     <div class="row container new-post">
       <div class="left col-lg-2">
         <img class="avatar" :src="user.img" alt="Avatar">
@@ -17,9 +17,9 @@
         </b-form>
       </div>
     </div>
-    <div class="tiled">
-      <ul class="list-group clearfix" v-for="(post, index) in posts" :key="index">
-        <li class="list-group-item inner-tile">
+    <div id="news-list">
+      <ul class="list-group clearfix">
+        <li class="list-group-item inner-tile"  v-for="(post, index) in posts" :key="index">
           <div class="row">
             <div class="left col-lg-3">
               <img class="post-avatar" :src="post.author.img" alt="Avatar">
@@ -69,7 +69,7 @@ export default {
 
 <style scoped>
   .new-post {
-    padding: 15px 30px;
+    padding: 15px 0;
     margin: 0;
   }
   div.right {
@@ -84,7 +84,7 @@ export default {
     border-radius: 5px;
   }
   .tiled {
-    padding: 15px 60px;
+    padding: 15px 35px;
     border-radius: 5px;
     margin-bottom: 15px;
   }
@@ -111,5 +111,11 @@ export default {
 
   .buttons .btn {
     cursor: pointer;
+  }
+
+  #news-list {
+    overflow-y: scroll;
+    height: 75.5vh;
+    margin: 0 30px;
   }
 </style>

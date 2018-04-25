@@ -38,8 +38,8 @@
       <p class="lead">Searching for teams...</p>
       <img src="../../../assets/loading.svg" alt="">
     </div>
-    <ul class="list-group clearfix" v-for="(team, index) in teams" :key="index">
-      <li class="list-group-item inner-tile">
+    <ul class="list-group clearfix" id="team-list">
+      <li class="list-group-item inner-tile" v-for="(team, index) in teams" :key="index">
         <app-team-item :team="team"></app-team-item>
       </li>
     </ul>
@@ -237,4 +237,9 @@ export default {
   /* #search {
     cursor: pointer;
   } */
+
+  #team-list {
+    overflow-y: scroll;
+    height: 58vh;
+  }
 </style>

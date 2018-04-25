@@ -1,7 +1,7 @@
 <template>
   <div class="player-posts container">
-    <ul class="list-group clearfix" v-for="(post, index) in playerposts" :key="index">
-      <li class="list-group-item inner-tile">
+    <ul class="list-group clearfix" id="player-posts">
+      <li class="list-group-item inner-tile" v-for="(post, index) in playerposts" :key="index">
         <div class="row">
           <div class="left col-lg-3">
             <img class="post-avatar" :src="post.author.img" alt="Avatar">
@@ -47,5 +47,10 @@ export default {
   .post-avatar {
     max-height: 90px;
     max-width: 90px;
+  }
+
+  #player-posts {
+    overflow-y: scroll;
+    height: 84vh;
   }
 </style>

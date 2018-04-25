@@ -1,5 +1,5 @@
 <template>
-  <div class="tiled player-teams gray-tile">
+  <div class="tiled player-teams gray-tile" id="player-teams">
     <div class="tiled">
       <h5 class="title">Teams</h5>
       <ul v-if="player.teams.length > 0" class="list-group clearfix teams">
@@ -85,5 +85,9 @@ export default {
   }
   ul.list-group.teams li.list-group-item {
     margin: 5px 0;
+  }
+  #player-teams {
+    overflow-y: scroll;
+    height: 87.5vh;
   }
 </style>
