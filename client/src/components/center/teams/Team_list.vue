@@ -31,7 +31,7 @@
       </div>
       <div class="d-flex justify-content-end align-items-center">
         <b-button size="sm" type="reset" @click.prevent="onReset()" variant="link" id="reset">Clear</b-button>
-        <b-button size="sm" type="submit" @click.prevent="onSubmit()" @keyup.enter.prevent="onSubmit" variant="warning" id="search"><i class="fa fa-search"></i> Search</b-button> 
+        <b-button size="sm" type="submit" @click.prevent="onSubmit()" @keyup.enter.prevent="onSubmit" variant="warning" id="search"><i class="fa fa-search fa-fw"></i> Search</b-button> 
       </div>
     </b-form>
     <div v-if="loading" class="text-center">
@@ -234,7 +234,7 @@ export default {
     cursor: pointer;
   }
 
-  #search {
+  /* #search {
     cursor: pointer;
-  }
+  } */
 </style>
