@@ -203,6 +203,28 @@ export default {
     font-size: 15px;
     font-weight: 500;
   }
+  /*STYLING SCROLLBARS*/
+  /* width */
+  ::-webkit-scrollbar {
+      width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+      background: rgba(35, 39, 44, 1);
+      border-radius: 8px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 8px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+      background: #555; 
+  }
 
   /*STYLING NAV BARS*/
   ul.nav-tabs {
