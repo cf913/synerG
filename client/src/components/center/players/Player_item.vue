@@ -6,11 +6,11 @@
       </div>
       <div class="col-sm-10 summary">
         <!-- <a class="btn btn-info btn-sm float-right" target="_blank" :href="`http://www.steamcommunity.com/profiles/${player.steamId}`"><i class="fa fa-steam fa-fw"></i></a> -->
-        <a v-if="inReceived" class="btn btn-success btn-sm float-right" @click="acceptRequest(player._id)"><i class="fa fa-check fa-fw"></i></a>
+        <!-- <a v-if="inReceived" class="btn btn-success btn-sm float-right" @click="acceptRequest(player._id)"><i class="fa fa-check fa-fw"></i></a>
         <a v-if="inReceived" class="btn btn-danger btn-sm float-right" @click="declineRequest(player._id)"><i class="fa fa-times fa-fw"></i></a>
         <a v-else-if="inSent" class="btn btn-warning btn-sm float-right" @click="cancelRequest(player._id)" title="Cancel request"><i class="fa fa-ban fa-fw"></i></a>
         <a v-else-if="inAccepted" class="btn btn-outline-secondary btn-sm float-right disabled"><i class="fa fa-check fa-fw"></i></a>
-        <a v-else-if="player.steamId !== user.steamId" :class="{disabled: !isLoggedIn}" class="btn btn-primary btn-sm float-right" @click="sendRequest(player._id)"><i class="fa fa-user-plus fa-fw"></i></a>
+        <a v-else-if="player.steamId !== user.steamId" :class="{disabled: !isLoggedIn}" class="btn btn-primary btn-sm float-right" @click="sendRequest(player._id)"><i class="fa fa-user-plus fa-fw"></i></a> -->
         <!-- <router-link class="btn btn-warning btn-sm float-right" :to="{}"><i class="fa fa-comment fa-fw"></i></router-link> -->
         <!-- <router-link class="btn btn-secondary btn-sm float-right" :to="{ path: `/players/${player.steamId}`}"><i class="fa fa-user-circle-o fa-fw"></i></router-link> -->
         <!--<router-link :to="{ path: `/players/${player.steamId}`}"><h5>{{ player.steamName }}</h5></router-link>-->

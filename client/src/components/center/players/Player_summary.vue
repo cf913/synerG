@@ -2,9 +2,6 @@
   <div class="player_summary tile gray-tile">
     <!-- WHILE LOADING -->
     <div v-if="loading" class="text-center">
-      <div class="container py-3 text-left">
-        <a class="btn btn-primary btn-sm back" @click="onBack"><i class="fa fa-arrow-left fa-fw"></i> Back</a>
-      </div>
       <div class="text-center">
         <h2 class="py-3">...</h2>
       </div>

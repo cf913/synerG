@@ -30,8 +30,8 @@
         </div>
       </div>
       <div class="d-flex justify-content-end align-items-center">
-        <b-button size="sm" type="reset" @click.prevent="onReset()" variant="warning">Reset</b-button>
-        <b-button size="sm" type="submit" @click.prevent="onSubmit()" @keyup.enter.prevent="onSubmit" variant="info"><i class="fa fa-search"></i> Search</b-button>
+        <b-button size="sm" type="reset" @click.prevent="onReset()" variant="link" id="reset">Clear</b-button>
+        <b-button size="sm" type="submit" @click.prevent="onSubmit()" @keyup.enter.prevent="onSubmit" variant="warning" id="search"><i class="fa fa-search"></i> Search</b-button>
       </div>  
     </b-form>
     
@@ -270,11 +270,22 @@ export default {
   div.d-flex.justify-content-end {
     padding-right: 5px;
     margin-top: 2px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
   }
 
   #player-list {
     overflow-y: scroll;
     height: 59vh;
+  }
+
+  /* BUTTONS */
+  #reset {
+    margin: 10px 5px;
+    color: white;
+    cursor: pointer;
+  }
+
+  #search {
+    cursor: pointer;
   }
 </style>

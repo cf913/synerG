@@ -7,12 +7,12 @@
       <div class="right col-lg-10">
         <b-form>
           <b-form-textarea type="text" v-model="post" :rows="2" :max-rows="6" placeholder="Write a new a post ..."></b-form-textarea>
-          <div class="d-flex justify-content-start align-items-center">
+          <div class="d-flex justify-content-start align-items-center buttons">
             <b-button-group>
-              <b-button>Create a Post</b-button>
-              <b-button>Upload Image</b-button>
+              <b-button size="sm" variant="outline-secondary"><i class="fa fa-plus fa-fw"></i></b-button>
+              <b-button size="sm" variant="outline-secondary"><i class="fa fa-photo fa-fw"></i></b-button>
             </b-button-group>
-            <b-button class="ml-auto" type="submit" @click.prevent="newPost" @keyup.enter.prevent="newPost">Submit</b-button>
+            <b-button size="sm" class="ml-auto" variant="warning" type="submit" @click.prevent="newPost" @keyup.enter.prevent="newPost">Submit</b-button>
           </div>
         </b-form>
       </div>
@@ -103,5 +103,13 @@ export default {
 
   li div.right p {
     padding-right: 5px;
+  }
+
+  .buttons {
+    margin-top: 10px;
+  }
+
+  .buttons .btn {
+    cursor: pointer;
   }
 </style>
