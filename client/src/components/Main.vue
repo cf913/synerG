@@ -55,7 +55,7 @@ export default {
 <style scoped>
   @media (min-width: 1200px) {
     div.main .container-fluid {
-      max-width: 1400px;
+      max-width: 1500px;
     }
 /*      div.right.col-lg-4 {
         max-width: 29%;
