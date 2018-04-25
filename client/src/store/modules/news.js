@@ -20,6 +20,7 @@ const actions = {
     if (!rootState.AuthModule.idToken) {
       console.log('Not Authenticated')
       router.replace(`/players/${rootState.AuthModule.user._id}`)
+      return
     }
     axios.get(`/api/news/?token=${rootState.AuthModule.idToken}`)
     .then(posts => {
@@ -43,6 +44,7 @@ const actions = {
     if (!rootState.AuthModule.idToken) {
       console.log('Not Authenticated')
       router.replace(`/`)
+      return
     }
     axios.post(`/api/news/?token=${rootState.AuthModule.idToken}`, {post: post, author: rootState.AuthModule.user})
     .then(newPost => {
@@ -60,6 +62,7 @@ const actions = {
     if (!rootState.AuthModule.idToken) {
       console.log('Not Authenticated')
       router.replace(`/players/${rootState.AuthModule.user._id}`)
+      return
     }
     axios.post(`/api/news/signals?token=${rootState.AuthModule.idToken}`, query)
     .then(signals => {
@@ -83,6 +86,7 @@ const actions = {
     if (!rootState.AuthModule.idToken) {
       console.log('Not Authenticated')
       router.replace(`/`)
+      return
     }
     axios.post(`/api/news/signals/player/new?token=${rootState.AuthModule.idToken}`, {signal: signal, player: rootState.AuthModule.user})
     .then(newSignal => {
@@ -100,6 +104,7 @@ const actions = {
     if (!rootState.AuthModule.idToken) {
       console.log('Not Authenticated')
       router.replace(`/`)
+      return
     }
     console.log(signal)
     console.log(team)

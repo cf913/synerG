@@ -3,16 +3,16 @@
     <p class="title text-center">Send Out Signals to Other Players</p>
       <b-form>
         <h6 class="title">Position:</h6>
-        <b-form-checkbox-group  name="position" v-model="position_selected" :options="position_options" required></b-form-checkbox-group>
+        <b-form-checkbox-group  name="position" v-model="position_selected" :options="position_options" required=true></b-form-checkbox-group>
         <br>
         <h6 class="title">Language:</h6>
-        <b-form-checkbox-group  name="language" v-model="language_selected" :options="language_options" required></b-form-checkbox-group>
+        <b-form-checkbox-group  name="language" v-model="language_selected" :options="language_options" required=true></b-form-checkbox-group>
         <br>
         <h6 class="title">Server:</h6>
-        <b-form-checkbox-group  name="region" v-model="region_selected" :options="region_options" required></b-form-checkbox-group>
+        <b-form-checkbox-group  name="region" v-model="region_selected" :options="region_options" required=true></b-form-checkbox-group>
         <br>
         <h6 class="title">Aims:</h6>
-        <b-form-radio-group  name="competitive" v-model="competitive_selected" :options="competitive_options" required></b-form-radio-group>
+        <b-form-radio-group  name="competitive" v-model="competitive_selected" :options="competitive_options" required=true></b-form-radio-group>
         <br>
         <h6 class="title">Comments:</h6>
         <b-form-input type="text" class="form-control" id="signalDescription" v-model="description" placeholder="Additional Information..."></b-form-input>
@@ -80,13 +80,20 @@ export default {
         position: this.position_selected,
         description: this.description
       }
-      console.log(data)
+      if (data.position.length < 1) {
+        return alert('Please fill in the position field')
+      }
+      if (data.language.length < 1) {
+        return alert('Please fill in the language field')
+      }
+      if (data.region.length < 1) {
+        return alert('Please fill in the server field')
+      }
+      if (data.competitive.length < 1) {
+        return alert('Please fill in the aims field')
+      }
       this.$store.dispatch('newPlayerSignal', data)
-      this.position_selected = []
-      this.language_selected = []
-      this.region_selected = []
-      this.competitive_selected = ''
-      this.description = ''
+      this.$emit('backToSearch', 'app-signals-search')
     },
     onReset () {
       this.description = ''
@@ -108,7 +115,6 @@ export default {
     }
   },
   activated () {
-    console.log('fetching signals')
     this.onReset()
   }
 }

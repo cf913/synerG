@@ -306,9 +306,19 @@ export default {
         position: this.signalposition_selected,
         description: this.description
       }
-      console.log(signal)
+      if (signal.position.length < 1) {
+        return alert('Please fill in the position field')
+      }
+      if (signal.language.length < 1) {
+        return alert('Please fill in the language field')
+      }
+      if (signal.region.length < 1) {
+        return alert('Please fill in the server field')
+      }
+      if (signal.competitive.length < 1) {
+        return alert('Please fill in the aims field')
+      }
       const team = this.$route.params.id
-      console.log(team)
       this.$store.dispatch('newTeamSignal', {signal, team})
       this.signalposition_selected = []
       this.language_selected = []

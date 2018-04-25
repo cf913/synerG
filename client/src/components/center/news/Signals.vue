@@ -6,7 +6,7 @@
         <b-nav-item @click="tab = 'app-signals-new'" :active="tab === 'app-signals-new'">New Signal</b-nav-item>
       </b-nav>
       <keep-alive>
-        <component :is="tab"></component>
+        <component :is="tab" @backToSearch="tab = $event"></component>
       </keep-alive>
     </div>
   </div>
