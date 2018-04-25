@@ -13,8 +13,8 @@
       <p class="lead">Searching for communities...</p>
       <img src="../../../assets/loading.svg" alt="">
     </div>
-    <ul class="list-group clearfix" v-for="(community, index) in communities" :key="index">
-      <li class="list-group-item inner-tile">
+    <ul class="list-group clearfix" id="community-list">
+      <li class="list-group-item inner-tile"  v-for="(community, index) in communities" :key="index">
         <app-community-item :community="community"></app-community-item>
       </li>
     </ul>
@@ -121,4 +121,9 @@ export default {
   /* #search {
     cursor: pointer;
   } */
+
+  #community-list {
+    overflow-y: scroll;
+    height: 65.5vh;
+  }
 </style>

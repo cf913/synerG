@@ -1,5 +1,5 @@
 <template>
-  <div class="signals-new container gray-tile text-left">
+  <div class="signals-new container gray-tile tile text-left">
     <p class="title text-center">Send Out Signals to Other Players</p>
       <b-form>
         <h6 class="title">Position:</h6>

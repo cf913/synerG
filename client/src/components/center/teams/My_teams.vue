@@ -1,5 +1,5 @@
 <template>
-  <div class="my_teams text-left container tile gray-tile" style="position: relative">
+  <div class="my_teams text-left container tile gray-tile" style="position: relative" id="my-teams">
     <div class="container py-3 text-left">
       <div class="tiled inner-tile">
         <router-link :to="{ name: 'teamsNew'}">Create Team</router-link>
@@ -8,8 +8,8 @@
         <p class="lead">Loading your teams...</p>
         <img src="../../../assets/loading.svg" alt="">
       </div>
-      <ul class="list-group clearfix" v-for="(team, index) in myteams" :key="index">
-        <li class="list-group-item tile-shadow inner-tile">
+      <ul class="list-group clearfix">
+        <li class="list-group-item inner-tile" v-for="(team, index) in myteams" :key="index">
           <app-team-item :team="team"></app-team-item>
         </li>
         <br>
@@ -17,8 +17,8 @@
       <div class="tiled inner-tile">
         <router-link :to="{ name: 'communityNew' }">Create New Community</router-link>
       </div>
-      <ul class="list-group clearfix" v-for="(community, index) in mycommunities" :key="index">
-        <li class="list-group-item tile-shadow inner-tile">
+      <ul class="list-group clearfix">
+        <li class="list-group-item inner-tile" v-for="(community, index) in mycommunities" :key="index">
           <app-community-item :community="community"></app-community-item>
         </li>
         <br>
@@ -75,5 +75,10 @@ export default {
     padding: 5px 10px;
     border-radius: 5px;
     margin-bottom: 15px;
+  }
+
+  #my-teams {
+    overflow-y: scroll;
+    height: 92vh;
   }
 </style>

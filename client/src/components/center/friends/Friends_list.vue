@@ -2,19 +2,21 @@
   <div class="friends-list tile gray-tile">
     <div class="container">
       <h5 class="title">Friends - {{friends.length}}</h5>
-      <ul class="list-group row">
-        <li v-for="(friend, index) in friends" :key="index" class="list-group-item tile inner-tile col-lg-6">
-          <div class="row">
-            <div class="col-md-3 avatar">
-              <img id="avatar" :src="friend.img" alt="Avatar">
+      <div id="friends-list">
+        <ul class="list-group row">
+          <li v-for="(friend, index) in friends" :key="index" class="list-group-item tile inner-tile col-lg-6">
+            <div class="row">
+              <div class="col-md-3 avatar">
+                <img id="avatar" :src="friend.img" alt="Avatar">
+              </div>
+              <div class="col-md-9 summary">
+                <a class="btn btn-danger btn-sm float-right" @click="deleteFriend(friend._id)"><i class="fa fa-trash fa-fw"></i></a>
+                <router-link :to="{ name: 'playerDetails', params: { id: friend._id }}"><h5>{{ friend.steamName }}</h5></router-link>
+              </div>
             </div>
-            <div class="col-md-9 summary">
-              <a class="btn btn-danger btn-sm float-right" @click="deleteFriend(friend._id)"><i class="fa fa-trash fa-fw"></i></a>
-              <router-link :to="{ name: 'playerDetails', params: { id: friend._id }}"><h5>{{ friend.steamName }}</h5></router-link>
-            </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -66,5 +68,9 @@ export default {
   ul li.list-group-item.col-lg-6 {
     margin: 5px 5px;
     max-width: 48.3%;
+  }
+  #friends-list {
+    overflow-y: scroll;
+    height: 82.5vh;
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="signals tile gray-tile tiled">
+  <div class="signals tile gray-tile tile">
     <div class="container-fluid">
       <b-nav justified tabs class="signals-nav">
         <b-nav-item @click="tab = 'app-signals-search'" :active="tab === 'app-signals-search'">Search</b-nav-item>
