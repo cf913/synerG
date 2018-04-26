@@ -20,14 +20,15 @@
       </span>
       <p v-else class="title">You have no pending requests</p>
     </div>
-    <div class="tiled other inner-tile">
-      <ul class="list-group clearfix" v-for="(admin, index) in community.admins" :key="index">
-        <li class="list-group-item inner-tile">
+    <div>
+      <h6 class="title">Members - {{community.admins.length + community.members.length}}</h6>
+      <ul class="list-group clearfix">
+        <li class="list-group-item inner-tile" v-for="(admin, index) in community.admins" :key="index">
           <app-player-item :player="admin"></app-player-item>
         </li>
       </ul>
-      <ul class="list-group clearfix" v-for="(member, index) in community.members" :key="index">
-        <li class="list-group-item inner-tile">
+      <ul class="list-group clearfix">
+        <li class="list-group-item inner-tile" v-for="(member, index) in community.members" :key="index">
           <app-player-item :player="member"></app-player-item>
         </li>
       </ul>
@@ -86,13 +87,6 @@ export default {
     margin-bottom: 15px;
   }
 
-  .img-thumbnails {
-    border: 3px solid #fff;
-    border-radius: 5px;
-    margin-bottom: 30px;
-    width: 100%;
-  }
-
   ul {
     padding-left: 0;
   }
@@ -113,35 +107,7 @@ export default {
   ul.links li {
     display: inline-block;
   }
-
-  .title {
-    font-weight: 600;
-    /* color: #106CD6; */
-    color: orange;
-  }
   
-  a.btn {
-    margin-left: 8px;
-  }
-  
-  a.btn i {
-    font-size: 1em;
-  }
-  
-  h5 {
-    display: inline-block;
-    margin-bottom: 15px;
-  }
-  
-  a:hover h5{
-    text-decoration: underline;
-  }
-
-  .avatar{
-    max-height: 100%;
-    max-width: 100%;
-  }
-
   #avatar {
     width: 40%;
     border: 3px solid #fff;

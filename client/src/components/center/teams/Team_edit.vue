@@ -1,5 +1,5 @@
 <template>
-  <div class="team-edit text-left container tile gray-tile">
+  <div class="team-edit text-left container tile gray-tile" id="team-edit">
     <div class="container py-3 text-left">
       <h2 class="py-3 title">{{team.teamName}}</h2>
       <form>
@@ -262,5 +262,10 @@ export default {
   .title {
     font-weight: 600;
     color: #DAA520;
+  }
+
+  #team-edit {
+    overflow-y: scroll;
+    height: 92vh;
   }
 </style>

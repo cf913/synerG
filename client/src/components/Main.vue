@@ -264,5 +264,8 @@ export default {
   .tile-shadow {
     box-shadow: 0px 2px 2px #000;
   }
-
+  .title {
+    font-weight: 600;
+    color: #DAA520;
+  }
 </style>

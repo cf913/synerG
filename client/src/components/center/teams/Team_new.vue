@@ -1,5 +1,5 @@
 <template>
-  <div class="new-team text-left container tile gray-tile tile-shadow">
+  <div class="new-team text-left container tile gray-tile" id="team-new">
     <div class="container py-3 text-left">
       <h2 class="py-3 title">Create New Team</h2>
       <form>
@@ -243,6 +243,11 @@ export default {
     background: #666;
     color: white;
     padding: 5px 10px;
+  }
+
+  #team-new {
+    overflow-y: scroll;
+    height: 92vh;
   }
 </style>
 

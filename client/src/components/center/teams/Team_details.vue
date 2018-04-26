@@ -1,5 +1,5 @@
 <template>
-  <div class="team_details tile gray-tile">
+  <div class="team_details tile gray-tile" id="team-details">
     <!-- WHILE LOADING -->
     <div v-if="loading" class="text-center">
       <div class="container py-3 text-left">
@@ -460,11 +460,6 @@ export default {
   ul.links li {
     display: inline-block;
   }
-
-  .title {
-    font-weight: 600;
-    color: #DAA520;
-  }
   
   .picture {
     width: 100%;
@@ -552,8 +547,8 @@ export default {
     padding-left: 15px;
   }
 
-  #signal {
-    background-color: rgba(35, 39, 44, 1);
-    color: #f4f4f4;
+  #team-details {
+    overflow-y: scroll;
+    height: 92vh;
   }
 </style>
