@@ -329,6 +329,9 @@ export default {
       this.description = ''
     },
     sendTeamRequest () {
+      if (this.position_applied = null) {
+        return alert('Please specify which position you would like to apply for')
+      } 
       this.$store.dispatch('sendTeamRequest', this.position_applied)
     },
     declineTeamRequest (player) {
