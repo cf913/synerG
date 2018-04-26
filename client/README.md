@@ -1,7 +1,6 @@
 # client
 
-> front-end
-
+SynerG client
 ## Build Setup
 
 ``` bash
