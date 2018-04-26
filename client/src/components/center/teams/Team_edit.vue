@@ -259,11 +259,6 @@ export default {
   /*  transform: scale(1.1); */
   /*}*/
 
-  .title {
-    font-weight: 600;
-    color: #DAA520;
-  }
-
   #team-edit {
     overflow-y: scroll;
     height: 92vh;

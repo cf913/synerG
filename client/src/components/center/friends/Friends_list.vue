@@ -49,8 +49,6 @@ export default {
     margin-top: 10px;
     margin-bottom: 10px;
     text-align: left;
-    font-weight: 600;
-    color: #DAA520;
   }
 
   #avatar {

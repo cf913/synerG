@@ -283,12 +283,6 @@ export default {
     word-break: break-word; 
   }
 
-  .title {
-    font-weight: 600;
-    /* color: #106CD6; */
-    color: #DAA520;
-  }
-
   table {
     width: 100%;
     color: white;

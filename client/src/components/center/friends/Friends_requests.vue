@@ -1,6 +1,6 @@
 <template>
   <div class="friends-requests tile gray-tile">
-    <div class="container">
+    <div class="container" id="friends-requests">
       <h5 class="title">Received - {{requests.length}}</h5>
       <ul v-if="requests.length > 0" class="list-group row">
         <li v-for="(friend, index) in requests" :key="index" class="list-group-item tile inner-tile col-lg-6">
@@ -84,8 +84,6 @@ export default {
     margin-top: 10px;
     margin-bottom: 10px;
     text-align: left;
-    font-weight: 600;
-    color: #DAA520;
   }
 
   div.container {
@@ -113,5 +111,10 @@ export default {
   p.title {
     padding: 10px;
     margin-left: 5px;
+  }
+
+  #friends-requests {
+    overflow-y: scroll;
+    height: 87.5vh;
   }
 </style>

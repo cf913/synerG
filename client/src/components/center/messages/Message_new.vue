@@ -1,26 +1,13 @@
 <template>
-  <div class="message_details text-left container tile gray-tile tile-shadow" style="position: relative">
-    <div class="tiled inner-tile">
-      <p>{{player.steamName}}</p>
+  <div class="message_new text-left tile gray-tile" style="position: relative">
+    <h5 class="title">{{player.steamName}}</h5>
+    <div class="inner-tile message-new">
+      <h6 class="title">You have no messages with this player yet</h6>
     </div>
-    <div class="tiled inner-tile">
-      <p>Messages should appear here</p>
-    </div>
-    <div class="tiled inner-tile">
+    <div class="tiled inner-tile message-input">
       <form>
-        <!--<div class="tiled inner-tile">-->
-        <!--  <h5 class="label">Message:</h5>-->
-        <!--  <b-form-textarea class="message"-->
-        <!--    v-model="message"-->
-        <!--    @keyup.enter="newConversation"-->
-        <!--    placeholder="Write message..."-->
-        <!--    :rows="3"-->
-        <!--    :max-rows="6">-->
-        <!--  </b-form-textarea>-->
-        <!--  <button @click.prevent="newConversation"><i class="fa fa-arrow-right fa-fw"></i></button>-->
-        <!--</div>-->
         <div>
-          <label class="col-form-label" for="message">Message:</label>
+          <label class="title" for="message">Message:</label>
           <input type="text" class="form-control" id="message" name="message" v-model="message" placeholder="Write Message ...">
           <button @click.prevent="newConversation" @keyup.enter.prevent="newConversation"><i class="fa fa-arrow-right fa-fw"></i></button>
         </div>
@@ -66,5 +53,29 @@ export default {
     padding: 5px 10px;
     border-radius: 5px;
     margin-bottom: 15px;
+  }
+
+  h5 {
+    padding-left: 10px;
+    padding-top: 10px;
+  }
+
+  div.message-new {
+    margin: 0;
+    padding: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    list-style-type: none;
+    height: 73vh;
+    overflow-y: auto;
+  }
+
+  h6 {
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .message-input {
+    margin-top: 10px;
   }
 </style>

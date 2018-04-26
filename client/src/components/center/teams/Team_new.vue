@@ -215,11 +215,6 @@ export default {
     margin-bottom: 15px;
   }
 
-  .title {
-    font-weight: 600;
-    color: #DAA520;
-  }
-
   #timetable {
     width: 100%;
   }

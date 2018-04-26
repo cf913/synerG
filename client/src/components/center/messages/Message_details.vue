@@ -3,10 +3,8 @@
       <p class="lead">Fetching messages...</p>
       <img src="../../../assets/loading.svg" alt="">
   </div>
-  <div v-else class=" text-left tile gray-tile" style="position: relative">
-    <h5 v-for="(participant, index) in messages[0].conversationId.participants" :key="index">
-      <span class="title" v-if="participant.steamName !== user.steamName">{{participant.steamName}}</span>
-    </h5>
+  <div v-else class="text-left tile gray-tile" style="position: relative">
+    <h5 class="title" v-if="participant.steamName !== user.steamName" v-for="(participant, index) in messages[0].conversationId.participants" :key="index">{{participant.steamName}}</h5>
     <ul class="list-group2 inner-tile" id="chat-box">
       <li 
         class="list-group-item2 left" 
@@ -115,18 +113,13 @@ export default {
 
   h5 {
     padding-left: 10px;
+    padding-top: 10px;
   }
   
   .tiled {
     padding: 5px 10px;
     border-radius: 5px;
     margin-bottom: 15px;
-  }
-
-  .title {
-    font-size: 20px;
-    font-weight: 600;
-    color: #DAA520;
   }
 
   .message-input {

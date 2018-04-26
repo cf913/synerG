@@ -166,12 +166,6 @@ export default {
     max-width: 90px;
   }
 
-  .title {
-    font-weight: 600;
-    /* color: #106CD6; */
-    color: #DAA520;
-  }
-
   /*SENDING SIGNAL STYLING*/
 
   .padding-0{
