@@ -60,24 +60,24 @@
             <header class="d-flex justify-content-end align-items-center">
               <h2 class="mr-auto">{{team.teamName}}</h2>
               <a v-b-modal.signal v-if="isTeamAdmin" class="scale-up mr-3"><i class="fa fa-podcast"></i></a>
-              <b-modal id="signal" title="Send a Team Signal" header-text-variant="dark" body-text-variant="dark" hide-footer=true>
+              <b-modal id="signal" title="Send a Team Signal" header-text-variant="white" header-bg-variant="dark" body-text-variant="white" body-bg-variant="dark" hide-footer=true>
                 <b-form>
-                  <h6>Position:</h6>
+                  <h6 class="title">Position:</h6>
                   <b-form-checkbox-group  name="signalposition" v-model="signalposition_selected" :options="signalposition_options" required></b-form-checkbox-group>
                   <br>
-                  <h6>Language:</h6>
+                  <h6 class="title">Language:</h6>
                   <b-form-checkbox-group  name="language" v-model="language_selected" :options="language_options" required></b-form-checkbox-group>
                   <br>
-                  <h6>Server:</h6>
+                  <h6 class="title">Server:</h6>
                   <b-form-checkbox-group  name="region" v-model="region_selected" :options="region_options" required></b-form-checkbox-group>
                   <br>
-                  <h6>Aims:</h6>
+                  <h6 class="title">Aims:</h6>
                   <b-form-radio-group  name="competitive" v-model="competitive_selected" :options="competitive_options" required></b-form-radio-group>
                   <br>
-                  <h6>Comments:</h6>
+                  <h6 class="title">Comments:</h6>
                   <b-form-input type="text" class="form-control" id="signalDescription" v-model="description" placeholder="Additional Information..."></b-form-input>
                   <div class="d-flex justify-content-end align-items-center">
-                    <b-button type="submit" @click.prevent="newTeamSignal" @keyup.enter.prevent="newTeamSignal">Send out a signal!</b-button>
+                    <b-button type="submit" variant="warning" @click.prevent="newTeamSignal" @keyup.enter.prevent="newTeamSignal">Send out a signal!</b-button>
                   </div>
                 </b-form>
               </b-modal>
@@ -87,11 +87,13 @@
               <!-- <a v-else class="btn btn-primary btn-sm float-right" @click="sendTeamRequest()"><i class="fa fa-plus fa-fw"></i></a> -->
               <a v-b-modal.modal1 v-else class="btn btn-primary btn-sm float-right"><i class="fa fa-plus fa-fw"></i></a>
               
-              <b-modal id="modal1" title="Send Request to Join Team" header-text-variant="dark" body-text-variant="dark" hide-footer=true>
+              <b-modal id="modal1" title="Send Request to Join Team" header-text-variant="white" header-bg-variant="dark" body-text-variant="white" body-bg-variant="dark" hide-footer=true>
                 <b-form>
-                  <p>What position are you applying for?</p>
+                  <p class="title">What position are you applying for?</p>
                   <b-form-select v-model="position_applied" :options="position_options" required></b-form-select>
-                  <b-button type="submit" @click.prevent="sendTeamRequest()" @keyup.enter.prevent="sendTeamRequest()">Send Request</b-button>
+                  <div class="d-flex justify-content-end align-items-center">
+                    <b-button type="submit" variant="warning" @click.prevent="sendTeamRequest()" @keyup.enter.prevent="sendTeamRequest()">Send Request</b-button>
+                  </div>
                 </b-form>
               </b-modal>
             </header>
@@ -540,5 +542,10 @@ export default {
 
   li p {
     padding-left: 15px;
+  }
+
+  #signal {
+    background-color: rgba(35, 39, 44, 1);
+    color: #f4f4f4;
   }
 </style>

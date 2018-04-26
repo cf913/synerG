@@ -82,7 +82,7 @@ const actions = {
     }
     if (!rootState.AuthModule.idToken) {
       console.log('You are not authenticated')
-      router.replace(`/teams/${state.team._id}`)
+      router.replace(`app/teams/${state.team._id}`)
       return
     }
     axios.post(`/api/teams/${state.team._id}/send?token=${rootState.AuthModule.idToken}`, {user: rootState.AuthModule.user, position: position})
@@ -90,7 +90,7 @@ const actions = {
       console.log(res)
       console.dir('Request Sent!')
       dispatch('getTeam', state.team._id)
-      router.replace(`/teams/${state.team._id}`)
+      router.replace(`app/teams/${state.team._id}`)
       return res
     })
     .catch(err => {
@@ -100,14 +100,14 @@ const actions = {
   declineTeamRequest ({state, rootState, dispatch}, player) {
     if (!(state.team.teamAdmins.filter(admin => (admin.player.steamId === rootState.AuthModule.user.steamId)).length) || !rootState.AuthModule.idToken) {
       console.log('You are not a team admin')
-      router.replace(`/teams/${state.team._id}`)
+      router.replace(`app/teams/${state.team._id}`)
       return
     }
     axios.post(`/api/teams/${state.team._id}/decline?token=${rootState.AuthModule.idToken}`, player)
     .then(res => {
       console.dir('Request Declined!')
       dispatch('getTeam', state.team._id)
-      router.replace(`/teams/${state.team._id}`)
+      router.replace(`app/teams/${state.team._id}`)
       return res
     })
     .catch(err => {
@@ -117,14 +117,14 @@ const actions = {
   acceptTeamRequest ({state, rootState, dispatch}, player) {
     if (!(state.team.teamAdmins.filter(admin => (admin.player.steamId === rootState.AuthModule.user.steamId)).length) || !rootState.AuthModule.idToken) {
       console.log('You are not a team admin')
-      router.replace(`/teams/${state.team._id}`)
+      router.replace(`app/teams/${state.team._id}`)
       return
     }
     axios.post(`/api/teams/${state.team._id}/accept?token=${rootState.AuthModule.idToken}`, player)
     .then(res => {
       console.dir('Request Accepted!')
       dispatch('getTeam', state.team._id)
-      router.replace(`/teams/${state.team._id}`)
+      router.replace(`app/teams/${state.team._id}`)
       return res
     })
     .catch(err => {
@@ -134,19 +134,19 @@ const actions = {
   cancelTeamRequest ({state, rootState, dispatch}, teamId) {
     if ((state.team.teamAdmins.filter(admin => (admin.player.steamId === rootState.AuthModule.user.steamId)).length) || (state.team.teamMembers.filter(member => (member.player.steamId === rootState.AuthModule.user.steamId)).length)) {
       console.log('You are already a team member')
-      router.replace(`/teams/${teamId}`)
+      router.replace(`app/teams/${teamId}`)
       return
     }
     if (!rootState.AuthModule.idToken) {
       console.log('You are not authenticated')
-      router.replace(`/teams/${teamId}`)
+      router.replace(`app/teams/${teamId}`)
       return
     }
     axios.post(`/api/teams/${teamId}/cancel?token=${rootState.AuthModule.idToken}`, rootState.AuthModule.user)
     .then(res => {
       console.dir('Request Cancelled!')
       dispatch('getTeam', teamId)
-      router.replace(`/teams/${teamId}`)
+      router.replace(`app/teams/${teamId}`)
       return res
     })
     .catch(err => {
@@ -156,19 +156,19 @@ const actions = {
   leaveTeam ({state, rootState, dispatch}, teamId) {
     if (!(state.team.teamAdmins.filter(admin => (admin.player.steamId === rootState.AuthModule.user.steamId)).length) && !(state.team.teamMembers.filter(member => (member.player.steamId === rootState.AuthModule.user.steamId)).length)) {
       console.log('You are not a team member')
-      router.replace(`/teams/${teamId}`)
+      router.replace(`app/teams/${teamId}`)
       return
     }
     if (!rootState.AuthModule.idToken) {
       console.log('You are not authenticated')
-      router.replace(`/teams/${teamId}`)
+      router.replace(`app/teams/${teamId}`)
       return
     }
     axios.post(`/api/teams/${teamId}/leave?token=${rootState.AuthModule.idToken}`, rootState.AuthModule.user)
     .then(res => {
       console.dir('Left Team!')
       dispatch('getTeam', teamId)
-      router.replace(`/teams/${teamId}`)
+      router.replace(`app/teams/${teamId}`)
       return res
     })
     .catch(err => {
@@ -178,13 +178,13 @@ const actions = {
   deleteTeam (rootState, teamId) {
     if (!(rootState.getters.team.teamAdmins.filter(admin => (admin.player.steamId === rootState.getters.user.steamId)).length) || !rootState.getters.idToken) {
       console.log('You are not a team admin')
-      router.replace(`/teams/${teamId}`)
+      router.replace(`app/teams/${teamId}`)
       return
     }
     axios.post(`/api/teams/${teamId}/delete?token=${rootState.getters.idToken}`, rootState.getters.user)
     .then(res => {
       console.dir('Deleted Team!')
-      router.replace(`/players/${rootState.getters.user._id}`)
+      router.replace(`app/players/${rootState.getters.user._id}`)
       return res
     })
     .catch(err => {
@@ -194,14 +194,14 @@ const actions = {
   makeCaptain ({state, rootState, dispatch}, players) {
     if (!(state.team.teamAdmins.filter(admin => (admin.player.steamId === rootState.AuthModule.user.steamId)).length) || !rootState.AuthModule.idToken) {
       console.log('You are not a team admin')
-      router.replace(`/teams/${state.team._id}`)
+      router.replace(`app/teams/${state.team._id}`)
       return
     }
     axios.post(`/api/teams/${state.team._id}/captain?token=${rootState.AuthModule.idToken}`, {captain: players.captain, player: players.player})
     .then(res => {
       console.dir('Made Captain!')
       dispatch('getTeam', state.team._id)
-      router.replace(`/teams/${state.team._id}`)
+      router.replace(`app/teams/${state.team._id}`)
       return res
     })
     .catch(err => {
@@ -211,14 +211,14 @@ const actions = {
   removeMember ({state, rootState, dispatch}, player) {
     if (!(state.team.teamAdmins.filter(admin => (admin.player.steamId === rootState.AuthModule.user.steamId)).length) || !rootState.AuthModule.idToken) {
       console.log('You are not a team admin')
-      router.replace(`/teams/${state.team._id}`)
+      router.replace(`app/teams/${state.team._id}`)
       return
     }
     axios.post(`/api/teams/${state.team._id}/remove?token=${rootState.AuthModule.idToken}`, player)
     .then(res => {
       console.dir('Player Removed!')
       dispatch('getTeam', state.team._id)
-      router.replace(`/teams/${state.team._id}`)
+      router.replace(`app/teams/${state.team._id}`)
       return res
     })
     .catch(err => {

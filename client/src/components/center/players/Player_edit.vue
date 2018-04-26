@@ -8,32 +8,32 @@
         <div class="row">
           <div class="col-sm-4">
             <b-form-group>
-              <h5 class="label">Regions:</h5>
+              <h6 class="title">Regions:</h6>
               <b-form-checkbox-group  name="flavour1" stacked v-model="regions_selected" :options="regions_options">
               </b-form-checkbox-group>
             </b-form-group>
           </div>
           <div class="col-sm-4">
             <b-form-group>
-              <h5 class="label">Languages:</h5>
+              <h6 class="title">Languages:</h6>
               <b-form-checkbox-group  name="flavour1" stacked v-model="languages_selected" :options="languages_options">
               </b-form-checkbox-group>
             </b-form-group>
           </div>
           <div class="col-sm-4">
             <b-form-group>
-              <h5 class="label">Comms:</h5>
+              <h6 class="title">Comms:</h6>
               <b-form-checkbox-group  name="flavour1" stacked v-model="comms_selected" :options="comms_options">
               </b-form-checkbox-group>
             </b-form-group>
             <br>
             <b-form-group>
-              <h5 class="label">Positions:</h5>
+              <h6 class="title">Positions:</h6>
               <b-form-checkbox-group name="flavour1" stacked v-model="positions_selected" :options="positions_options">
               </b-form-checkbox-group>
             </b-form-group>
           </div>
-          <h5 class="label">Description:</h5>
+          <h6 class="title">Description:</h6>
           <b-form-textarea class="description"
             v-model="description"
             placeholder="Describe yourself, your playstyle, what sort of team you are looking for, etc... :D "
@@ -42,7 +42,6 @@
           </b-form-textarea>
         </div>
         <b-button @click.prevent="onSubmit()" variant="info">Save</b-button>
-        <b-button @click.prevent="onReset()" variant="warning">Reset</b-button>
         <b-button @click.prevent="onCancel()" variant="danger">Cancel</b-button>
       </b-form>
     </div>
@@ -84,6 +83,7 @@ export default {
         { text: 'Spanish', value: 'Spanish' }
       ],
       comms_options: [
+        { text: 'In-Game Chat/Mic', value: 'In-Game Chat/Mic' },
         { text: 'Discord', value: 'Discord' },
         { text: 'TeamSpeak', value: 'TeamSpeak' },
         { text: 'Skype', value: 'Skype' }
@@ -108,18 +108,18 @@ export default {
       }
       this.$store.dispatch('editPlayer', {data, id: this.$route.params.id})
     },
-    onReset () {
-      this.description = ''
-      this.regions_selected = []
-      this.languages_selected = []
-      this.comms_selected = []
-      this.positions_selected = []
-    },
+    // onReset () {
+    //   this.description = ''
+    //   this.regions_selected = []
+    //   this.languages_selected = []
+    //   this.comms_selected = []
+    //   this.positions_selected = []
+    // },
     onCancel () {
       this.$router.go(-1)
     }
   },
-  created () {
+  activated () {
     if (this.$store.getters.user) {
       this.username = this.$store.getters.user.steamName
       this.description = this.$store.getters.user.description
@@ -137,20 +137,16 @@ export default {
   .container {
     padding: 0 20px;
   }
-  .label {
-    font-weight: bold;
-    color: #106CD6;
+  .title {
+    font-weight: 600;
+    color: #DAA520;
     text-align: left;
-  }
-  .custom-controls-stacked {
-    padding-left: 20%;
   }
   .btn {
     width: 100px;
     margin: 10px 5px;
   }
   textarea {
-    margin: auto 10px;
     background-color: #222;
     color: white;
     border-width: 2px;
