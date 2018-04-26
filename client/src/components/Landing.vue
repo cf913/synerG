@@ -16,7 +16,8 @@
         <div class="jumbo">
           <h1 class="display-1 mt-5 mb-2">SynerG<span class="beta">BETA</span></h1>
           <p class="mb-1 subtitle">By the players. For the players.</p>
-          <router-link to="/app"><button type="submit" class="btn btn-lg get-started">Get Started!</button></router-link>
+          <!-- <router-link to="/app"><button type="submit" class="btn btn-lg get-started">Get Started!</button></router-link> -->
+          <a class="btn btn-lg get-started" href="/auth/steam/steam">Get Started!</a>
         </div>
       </div>
     </div>
