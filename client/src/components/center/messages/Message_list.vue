@@ -1,5 +1,5 @@
 <template>
-    <ul class="conversation_list text-left tile gray-tile inner-tile">
+    <ul class="conversation_list text-left tile gray-tile inner-tile" id="conversation-list">
       <li v-if="conversation.conversationId.participants.filter(p => p.steamName !== user.steamName)[0]" class="" v-for="(conversation, index) in conversations" :key="index">
           <router-link :to="{ name: 'messageDetails', params: { id: conversation.conversationId._id }}">
         <div class="row">
@@ -87,5 +87,10 @@ export default {
     text-overflow: ellipsis;
     margin: 0;
     padding: 0;
+  }
+  #conversation-list {
+    overflow-y: scroll;
+    height: 92vh;
+    padding-right: 10px;
   }
 </style>
