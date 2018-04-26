@@ -84,7 +84,6 @@
               <router-link v-if="isTeamAdmin" :to="{ name: 'teamEdit', params: { id: team._id }}" class="scale-up mr-3"><i class="fa fa-edit fa-2x"></i></router-link>
               <a v-if="isTeamMember || isTeamAdmin"  class="btn btn-danger btn-sm float-right" @click="leaveTeam"><i class="fa fa-times fa-fw"></i></a>
               <a v-else-if="isPending"  class="btn btn-warning btn-sm float-right" @click="cancelTeamRequest"><i class="fa fa-ban fa-fw"></i></a>
-              <!-- <a v-else class="btn btn-primary btn-sm float-right" @click="sendTeamRequest()"><i class="fa fa-plus fa-fw"></i></a> -->
               <a v-b-modal.modal1 v-else class="btn btn-primary btn-sm float-right"><i class="fa fa-plus fa-fw"></i></a>
               
               <b-modal id="modal1" title="Send Request to Join Team" header-text-variant="white" header-bg-variant="dark" body-text-variant="white" body-bg-variant="dark" hide-footer=true>
@@ -92,7 +91,7 @@
                   <p class="title">What position are you applying for?</p>
                   <b-form-select v-model="position_applied" :options="position_options" required></b-form-select>
                   <div class="d-flex justify-content-end align-items-center">
-                    <b-button type="submit" variant="warning" @click.prevent="sendTeamRequest()" @keyup.enter.prevent="sendTeamRequest()">Send Request</b-button>
+                    <b-button type="submit" slot="modal-ok" variant="warning" @click.prevent="sendTeamRequest()" @keyup.enter.prevent="sendTeamRequest()">Send Request</b-button>
                   </div>
                 </b-form>
               </b-modal>
@@ -329,9 +328,10 @@ export default {
       this.description = ''
     },
     sendTeamRequest () {
-      if (this.position_applied = null) {
+      const position = this.position_applied
+      if (position.length < 1) {
         return alert('Please specify which position you would like to apply for')
-      } 
+      }
       this.$store.dispatch('sendTeamRequest', this.position_applied)
     },
     declineTeamRequest (player) {
@@ -341,25 +341,30 @@ export default {
       this.$store.dispatch('acceptTeamRequest', player)
     },
     cancelTeamRequest () {
-      confirm('Are you sure?')
-      this.$store.dispatch('cancelTeamRequest', this.$route.params.id)
+      if (confirm('Are you sure?')) {
+        this.$store.dispatch('cancelTeamRequest', this.$route.params.id)
+      }
     },
     leaveTeam () {
       if ((this.$store.getters.team.teamAdmins.filter(admin => (admin.player.steamId === this.$store.getters.user.steamId)).length) && this.$store.getters.team.teamAdmins.length === 1) {
-        confirm('You are the last team admin, assign admin status to another member otherwise team will disband')
-        this.$store.dispatch('deleteTeam', this.$route.params.id)
+        if (confirm('You are the last team admin, assign admin status to another member otherwise team will disband')) {
+          this.$store.dispatch('deleteTeam', this.$route.params.id)
+        }
       } else {
-        confirm('Are you sure?')
-        this.$store.dispatch('leaveTeam', this.$route.params.id)
+        if (confirm('Are you sure?')) {
+          this.$store.dispatch('leaveTeam', this.$route.params.id)
+        }
       }
     },
     makeCaptain (players) {
-      confirm('Are you sure you want to make this member the captain?')
-      this.$store.dispatch('makeCaptain', players)
+      if (confirm('Are you sure you want to make this member the captain?')) {
+        this.$store.dispatch('makeCaptain', players)
+      }
     },
     removeMember (player) {
-      confirm('Are you sure you want to remove this player from your team?')
-      this.$store.dispatch('removeMember', player)
+      if (confirm('Are you sure you want to remove this player from your team?')) {
+        this.$store.dispatch('removeMember', player)
+      }
     },
     onBack () {
       this.$router.go(-1)
