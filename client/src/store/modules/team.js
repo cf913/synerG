@@ -31,7 +31,7 @@ const actions = {
       console.log('done')
       console.log(data)
       // data.teamAdmins.push(rootState.AuthModule.user)
-      router.replace(`/players/${rootState.getters.user._id}`)
+      router.replace(`/app/players/${rootState.getters.user._id}`)
     })
     .catch(err => {
       console.log('edit err: ' + err)
@@ -60,14 +60,14 @@ const actions = {
   editTeam (rootState, data) {
     if (!(rootState.getters.team.teamAdmins.filter(admin => (admin.player.steamId === rootState.getters.user.steamId)).length) || !rootState.getters.idToken) {
       console.log('You are not a team admin')
-      router.replace(`/teams/${rootState.getters.team._id}`)
+      router.replace(`/app/teams/${rootState.getters.team._id}`)
       return
     }
     // axios.post(`/api/teams/${state.getters.team._id}/edit?token=${rootState.getters.idToken}`, data.data)
     axios.post(`/api/teams/${rootState.getters.team._id}/edit?token=${rootState.getters.idToken}`, data.data)
     .then(res => {
       console.dir('Profile Updated!')
-      router.replace(`/teams/${rootState.getters.team._id}`)
+      router.replace(`/app/teams/${rootState.getters.team._id}`)
       return res
     })
     .catch(err => {

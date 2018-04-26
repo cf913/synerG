@@ -1,119 +1,83 @@
 <template>
-  <div class="new-team text-left container tile gray-tile tile-shadow">
-    <div class="">
-      <div class="container py-3 text-left">
-        <h2 class="py-3">{{team.teamName}}</h2>
-          <form>
-            <div class="tiled inner-tile">
-              <div class="form-group">
-                <label class="col-form-label" for="team-name">Team Name</label>
-                <input type="text" class="form-control" id="team-name" name="team_name" v-model="team_name">
-              </div>
-            </div>
-            <!--<div class="tiled inner-tile">-->
-            <!--  <div class="form-group">-->
-            <!--    <label for="team-logo">Team Logo</label>-->
-            <!--    <input type="file" class="form-control-file" id="team-logo" name="team_logo" v-model="team_logo">-->
-            <!--  </div>-->
-            <!--</div>-->
-            <div class="tiled inner-tile">
-              <h5 class="label">Description:</h5>
-              <b-form-textarea class="description"
-                v-model="description"
-                :rows="3"
-                :max-rows="6">
-              </b-form-textarea>
-            </div>
-            <br>
-            <!--Can have them all in the same b-form-group but spacing between them will be smaller, just preference-->
-            <div class="tiled inner-tile">
-              <b-form-group>
-                <h5 class="label">Recruiting:</h5>
-                <b-form-checkbox-group  name="recruiting" v-model="recruiting_selected" :options="recruiting_options">
-                </b-form-checkbox-group>
-              </b-form-group>
-            </div>
-            <div class="tiled inner-tile">
-              <b-form-group>
-                <h5 class="label">Languages:</h5>
-                <b-form-checkbox-group  name="languages" v-model="languages_selected" :options="languages_options">
-                </b-form-checkbox-group>
-              </b-form-group>
-            </div>
-            <div class="tiled inner-tile">
-              <b-form-group>
-                <h5 class="label">Regions:</h5>
-                <b-form-checkbox-group  name="regions" v-model="regions_selected" :options="regions_options">
-                </b-form-checkbox-group>
-              </b-form-group>
-            </div>
-            <div class="tiled inner-tile">
-              <b-form-group>
-                <h5 class="label">Competitiveness:</h5>
-                <b-form-radio-group  name="competitiveness" v-model="competitive_selected" :options="competitive_options">
-                </b-form-radio-group>
-              </b-form-group>
-            </div>
-            <div class="tiled inner-tile">
-              <b-form-group>
-                <h5 class="label">Method of Communication:</h5>
-                <b-form-checkbox-group  name="comms" v-model="comms_selected" :options="comms_options">
-                </b-form-checkbox-group>
-              </b-form-group>
-            </div>
-            <div class="tiled inner-tile">
-              <p>Timetable</p>
-              <p>{{timetable}}</p>
-              <p>{{team.timetable}}</p>
-              <table id="timetable">
-		          	<tr>
-		          		<td></td>
-		          		<td>Monday</td>
-		          		<td>Tuesday</td>
-		          		<td>Wednesday</td>
-		          		<td>Thursday</td>
-		          		<td>Friday</td>
-		          		<td>Saturday</td>
-		          		<td>Sunday</td>
-		          	</tr>
-		          	<!--<tr>-->
-		          	<!--	<td>12am</td>-->
-		          	<!--	<td :class="{selected: monday[0] === 1}" class="scale-up">-->
-		          	<!--		<button type="button" v-if="monday[0] === 1" @click="monday[0] -= 1"><i class="fa fa-minus fa-fw"></i></button>-->
-		          	<!--		<button type="button" v-else @click="monday[0] += 1"><i class="fa fa-plus fa-fw"></i></button>-->
-		          	<!--	</td>-->
-		          	<!--	<td :class="{selected: tuesday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="tuesday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
-		          	<!--	<td :class="{selected: wednesday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="wednesday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
-		          	<!--	<td :class="{selected: thursday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="thursday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
-		          	<!--	<td :class="{selected: friday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="friday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
-		          	<!--	<td :class="{selected: saturday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="saturday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
-		          	<!--	<td :class="{selected: sunday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="sunday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
-		          	<!--</tr>-->
-
-
-                <!-- you were updating time[index] instead of the values in timetable -->
-		          	<tr v-for="(time, index) in timetable" :key="index">
-                  <!-- for display: added a filter (formatHour) to format index. index is the key of the object timetable (row1, row2,...). 
-                       formatHour turns 'row6' into '5-6' -->
-		          	  <td>{{ index | formatHour }}</td> 
-                  <!-- For loop for table cells -->
-                  <!-- day is an elem of time, where time is an array of length 6. when day == 1 (same as day == true) add class selected -->
-		          	  <td v-for="(day, i) in time" :key="i" :class="{selected: day}">
-                    <!-- on click toggle day value 0 or 1 -->
-		          	  	<button type="button" @click="toggleCell(index, i)">
-                      <i v-if="day" class="fa fa-minus fa-fw"></i>
-                      <i v-else class="fa fa-plus fa-fw"></i>
-                    </button>
-		          	  </td>
-		          	</tr>
-		          </table>
-		        </div>
-            <p>Show friends list here to select teammate</p>
-            <b-button @click.prevent="onSubmit()" variant="info">Save</b-button>
-            <b-button @click.prevent="onCancel()" variant="danger">Cancel</b-button>
-          </form>
+  <div class="team-edit text-left container tile gray-tile">
+    <div class="container py-3 text-left">
+      <h2 class="py-3 title">{{team.teamName}}</h2>
+      <form>
+        <h6 class="title">Team Name</h6>
+        <input type="text" class="form-control" id="team-name" name="team_name" v-model="team_name">
+        <!--<div class="tiled inner-tile">-->
+        <!--  <div class="form-group">-->
+        <!--    <label for="team-logo">Team Logo</label>-->
+        <!--    <input type="file" class="form-control-file" id="team-logo" name="team_logo" v-model="team_logo">-->
+        <!--  </div>-->
+        <!--</div>-->
+        <br>
+        <h6 class="title">Description:</h6>
+        <b-form-textarea class="description"
+          v-model="description"
+          :rows="3"
+          :max-rows="6">
+        </b-form-textarea>
+        <br>
+        <h6 class="title">Recruiting:</h6>
+        <b-form-checkbox-group  name="recruiting" v-model="recruiting_selected" :options="recruiting_options"></b-form-checkbox-group>
+        <h6 class="title">Languages:</h6>
+        <b-form-checkbox-group  name="languages" v-model="languages_selected" :options="languages_options"></b-form-checkbox-group>
+        <h6 class="title">Regions:</h6>
+        <b-form-checkbox-group  name="regions" v-model="regions_selected" :options="regions_options"></b-form-checkbox-group>
+        <h6 class="title">Competitiveness:</h6>
+        <b-form-radio-group  name="competitiveness" v-model="competitive_selected" :options="competitive_options"></b-form-radio-group>
+        <h6 class="title">Method of Communication:</h6>
+        <b-form-checkbox-group  name="comms" v-model="comms_selected" :options="comms_options"></b-form-checkbox-group>
+        <br>
+        <h6 class="title">Timetable</h6>
+        <table id="timetable">
+		    	<tr>
+		    		<td></td>
+		    		<td>Monday</td>
+		    		<td>Tuesday</td>
+		    		<td>Wednesday</td>
+		    		<td>Thursday</td>
+		    		<td>Friday</td>
+		    		<td>Saturday</td>
+		    		<td>Sunday</td>
+		    	</tr>
+		    	<!--<tr>-->
+		    	<!--	<td>12am</td>-->
+		    	<!--	<td :class="{selected: monday[0] === 1}" class="scale-up">-->
+		    	<!--		<button type="button" v-if="monday[0] === 1" @click="monday[0] -= 1"><i class="fa fa-minus fa-fw"></i></button>-->
+		    	<!--		<button type="button" v-else @click="monday[0] += 1"><i class="fa fa-plus fa-fw"></i></button>-->
+		    	<!--	</td>-->
+		    	<!--	<td :class="{selected: tuesday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="tuesday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
+		    	<!--	<td :class="{selected: wednesday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="wednesday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
+		    	<!--	<td :class="{selected: thursday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="thursday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
+		    	<!--	<td :class="{selected: friday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="friday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
+		    	<!--	<td :class="{selected: saturday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="saturday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
+		    	<!--	<td :class="{selected: sunday[0] === 1}" class="scale-up"><i class="fa fa-minus fa-fw" v-if="sunday[0] === 1"></i><i class="fa fa-plus fa-fw" v-else></i></td>-->
+		    	<!--</tr>-->
+          <!-- you were updating time[index] instead of the values in timetable -->
+		    	<tr v-for="(time, index) in timetable" :key="index">
+            <!-- for display: added a filter (formatHour) to format index. index is the key of the object timetable (row1, row2,...). 
+                 formatHour turns 'row6' into '5-6' -->
+		    	  <td>{{ index | formatHour }}</td> 
+            <!-- For loop for table cells -->
+            <!-- day is an elem of time, where time is an array of length 6. when day == 1 (same as day == true) add class selected -->
+		    	  <td v-for="(day, i) in time" :key="i" :class="{selected: day}">
+              <!-- on click toggle day value 0 or 1 -->
+		    	  	<button type="button" @click="toggleCell(index, i)">
+                <i v-if="day" class="fa fa-minus fa-fw"></i>
+                <i v-else class="fa fa-plus fa-fw"></i>
+              </button>
+		    	  </td>
+		    	</tr>
+		    </table>
+        <br>
+        <div class="d-flex justify-content-end align-items-center">
+          <b-button @click.prevent="onCancel()" variant="danger">Cancel</b-button>
+          <b-button type="submit" @click.prevent="onSubmit()" variant="info">Save</b-button>
         </div>
-      </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -237,6 +201,10 @@ export default {
     margin-bottom: 15px;
   }
   
+  #timetable {
+    width: 100%;
+  }
+
   th,td{
     margin: 0;
     text-align: center;
@@ -290,4 +258,9 @@ export default {
   /*.scale-up:focus i{*/
   /*  transform: scale(1.1); */
   /*}*/
+
+  .title {
+    font-weight: 600;
+    color: #DAA520;
+  }
 </style>

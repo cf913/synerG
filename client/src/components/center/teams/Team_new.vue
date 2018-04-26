@@ -1,105 +1,67 @@
 <template>
   <div class="new-team text-left container tile gray-tile tile-shadow">
-    <div class="">
-      <div class="container py-3 text-left">
-        <h2 class="py-3">Create New Team</h2>
-          <form>
-            <div class="tiled inner-tile">
-              <div class="form-group">
-                <label class="col-form-label" for="team-name">Team Name</label>
-                <input type="text" class="form-control" id="team-name" name="team_name" v-model="team_name" placeholder="Team Name">
-              </div>
-            </div>
-            <!--<div class="tiled inner-tile">-->
-            <!--  <div class="form-group">-->
-            <!--    <label for="team-logo">Team Logo</label>-->
-            <!--    <input type="file" class="form-control-file" id="team-logo" name="team_logo" v-model="team_logo">-->
-            <!--  </div>-->
-            <!--</div>-->
-            <div class="tiled inner-tile">
-              <h5 class="label">Description:</h5>
-              <b-form-textarea class="description"
-                v-model="description"
-                placeholder="Describe what sort of players you are looking for and what your want to do as a team ..."
-                :rows="3"
-                :max-rows="6">
-              </b-form-textarea>
-            </div>
-            <br>
-            <div class="tiled inner-tile">
-              <b-form-group>
-                <h5 class="label">Position You Are Playing:</h5>
-                <b-form-radio-group  name="position" v-model="position_selected" :options="position_options">
-                </b-form-radio-group>
-              </b-form-group>
-            </div>
-            <!--Can have them all in the same b-form-group but spacing between them will be smaller, just preference-->
-            <div class="tiled inner-tile">
-              <b-form-group>
-                <h5 class="label">Recruiting:</h5>
-                <b-form-checkbox-group  name="recruiting" v-model="recruiting_selected" :options="recruiting_options">
-                </b-form-checkbox-group>
-              </b-form-group>
-            </div>
-            <div class="tiled inner-tile">
-              <b-form-group>
-                <h5 class="label">Languages:</h5>
-                <b-form-checkbox-group  name="languages" v-model="languages_selected" :options="languages_options">
-                </b-form-checkbox-group>
-              </b-form-group>
-            </div>
-            <div class="tiled inner-tile">
-              <b-form-group>
-                <h5 class="label">Regions:</h5>
-                <b-form-checkbox-group  name="regions" v-model="regions_selected" :options="regions_options">
-                </b-form-checkbox-group>
-              </b-form-group>
-            </div>
-            <div class="tiled inner-tile">
-              <b-form-group>
-                <h5 class="label">Competitiveness:</h5>
-                <b-form-radio-group  name="competitiveness" v-model="competitive_selected" :options="competitive_options">
-                </b-form-radio-group>
-              </b-form-group>
-            </div>
-            <div class="tiled inner-tile">
-              <b-form-group>
-                <h5 class="label">Method of Communication:</h5>
-                <b-form-checkbox-group  name="comms" v-model="comms_selected" :options="comms_options">
-                </b-form-checkbox-group>
-              </b-form-group>
-            </div>
-            <div class="tiled inner-tile">
-              <p>Indicate what time you are likely to be online</p>
-              <p>{{timetable}}</p>
-              <table id="timetable">
-		          	<tr>
-		          		<td></td>
-		          		<td>Monday</td>
-		          		<td>Tuesday</td>
-		          		<td>Wednesday</td>
-		          		<td>Thursday</td>
-		          		<td>Friday</td>
-		          		<td>Saturday</td>
-		          		<td>Sunday</td>
-		          	</tr>
-		          	<tr v-for="(time, index) in timetable" :key="index">
-		          	  <td>{{ index | formatHour }}</td> 
-		          	  <td v-for="(day, i) in time" :key="i" :class="{selected: day}">
-		          	  	<button type="button" @click="toggleCell(index, i)">
-                      <i v-if="day" class="fa fa-minus fa-fw"></i>
-                      <i v-else class="fa fa-plus fa-fw"></i>
-                    </button>
-		          	  </td>
-		          	</tr>
-		          </table>
-		        </div>
-            <p>Show friends list here to select teammate</p>
-            <b-button @click.prevent="onSubmit()" variant="info">Save</b-button>
-            <b-button @click.prevent="onCancel()" variant="danger">Cancel</b-button>
-          </form>
+    <div class="container py-3 text-left">
+      <h2 class="py-3 title">Create New Team</h2>
+      <form>
+        <h6 class="title">Team Name</h6>
+        <input type="text" class="form-control" id="team-name" name="team_name" v-model="team_name">
+        <!--<div class="tiled inner-tile">-->
+        <!--  <div class="form-group">-->
+        <!--    <label for="team-logo">Team Logo</label>-->
+        <!--    <input type="file" class="form-control-file" id="team-logo" name="team_logo" v-model="team_logo">-->
+        <!--  </div>-->
+        <!--</div>-->
+        <br>
+        <h6 class="title">Description:</h6>
+        <b-form-textarea class="description"
+          v-model="description"
+          :rows="3"
+          :max-rows="6">
+        </b-form-textarea>
+        <br>
+        <h6 class="title">Position You Are Playing:</h6>
+        <b-form-radio-group  name="position" v-model="position_selected" :options="position_options"></b-form-radio-group>
+        <h6 class="title">Recruiting:</h6>
+        <b-form-checkbox-group  name="recruiting" v-model="recruiting_selected" :options="recruiting_options"></b-form-checkbox-group>
+        <h6 class="title">Languages:</h6>
+        <b-form-checkbox-group  name="languages" v-model="languages_selected" :options="languages_options"></b-form-checkbox-group>
+        <h6 class="title">Regions:</h6>
+        <b-form-checkbox-group  name="regions" v-model="regions_selected" :options="regions_options"></b-form-checkbox-group>
+        <h6 class="title">Competitiveness:</h6>
+        <b-form-radio-group  name="competitiveness" v-model="competitive_selected" :options="competitive_options"></b-form-radio-group>
+        <h6 class="title">Method of Communication:</h6>
+        <b-form-checkbox-group  name="comms" v-model="comms_selected" :options="comms_options"></b-form-checkbox-group>
+        <br>
+        <h6 class="title">Timetable</h6>
+        <p>Indicate what time you are likely to be online or when team practices will occur</p>
+        <table id="timetable">
+		      <tr>
+		      	<td></td>
+		      	<td>Monday</td>
+		      	<td>Tuesday</td>
+		      	<td>Wednesday</td>
+		      	<td>Thursday</td>
+		      	<td>Friday</td>
+		      	<td>Saturday</td>
+		      	<td>Sunday</td>
+		      </tr>
+		    	<tr v-for="(time, index) in timetable" :key="index">
+		    	  <td>{{ index | formatHour }}</td> 
+		    	  <td v-for="(day, i) in time" :key="i" :class="{selected: day}">
+		    	  	<button type="button" @click="toggleCell(index, i)">
+                <i v-if="day" class="fa fa-minus fa-fw"></i>
+                <i v-else class="fa fa-plus fa-fw"></i>
+              </button>
+		    	  </td>
+		    	</tr>
+		    </table>
+		    <br>
+        <div class="d-flex justify-content-end align-items-center">
+          <b-button @click.prevent="onCancel()" variant="danger">Cancel</b-button>
+          <b-button type="submit" @click.prevent="onSubmit()" variant="info">Save</b-button>
         </div>
-      </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -251,6 +213,15 @@ export default {
     padding: 5px 10px;
     border-radius: 5px;
     margin-bottom: 15px;
+  }
+
+  .title {
+    font-weight: 600;
+    color: #DAA520;
+  }
+
+  #timetable {
+    width: 100%;
   }
   
   th,td{

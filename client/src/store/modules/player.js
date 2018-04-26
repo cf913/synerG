@@ -25,7 +25,7 @@ const actions = {
   editPlayer (rootState, data) {
     if (!rootState.getters.idToken) {
       console.log('Not Authenticated')
-      router.replace(`/players/${rootState.getters.user._id}`)
+      router.replace(`/app/players/${rootState.getters.user._id}`)
       return
     }
     axios.post(`/api/players/${rootState.getters.user._id}/edit?token=${rootState.getters.idToken}`, data.data)
@@ -35,7 +35,7 @@ const actions = {
       })
       .then(({data}) => {
         rootState.commit('userUpdate', data)
-        router.replace(`/players/${rootState.getters.user._id}`)
+        router.replace(`/app/players/${rootState.getters.user._id}`)
       })
       .catch(err => {
         console.log('edit err: ' + err)
@@ -80,7 +80,7 @@ const actions = {
   getPlayerPosts ({commit, rootState}, playerId) {
     if (!rootState.AuthModule.idToken) {
       console.log('Not Authenticated')
-      router.replace(`/players/${playerId}`)
+      router.replace(`/app/players/${playerId}`)
     }
     axios.post(`/api/players/${playerId}/posts?token=${rootState.AuthModule.idToken}`, state.player)
     .then(playerposts => {
