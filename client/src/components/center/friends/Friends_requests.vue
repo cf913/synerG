@@ -47,6 +47,10 @@ export default {
     },
     requests () {
       return this.$store.getters.user.friends.pending_received
+    },
+    user () {
+      if (!this.$store.getters.user) return false
+      return this.$store.getters.user
     }
   },
   methods: {
@@ -82,6 +86,10 @@ export default {
     text-align: left;
     font-weight: 600;
     color: #DAA520;
+  }
+
+  div.container {
+    padding-bottom: 15px;
   }
 
   #avatar {

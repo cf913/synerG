@@ -2,7 +2,7 @@
   <div class="my_teams text-left container tile gray-tile" style="position: relative" id="my-teams">
     <div class="container py-3 text-left">
       <div class="tiled inner-tile">
-        <router-link :to="{ name: 'teamsNew'}">Create Team</router-link>
+        <router-link :to="{ name: 'teamsNew'}">Create New Team</router-link>
       </div>
       <div v-if="loading" class="text-center">
         <p class="lead">Loading your teams...</p>
