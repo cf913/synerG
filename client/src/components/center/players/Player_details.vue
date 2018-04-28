@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <b-nav justified tabs class="player-nav">
         <b-nav-item @click="tab = 'app-player-summary'" :active="tab === 'app-player-summary'">Summary</b-nav-item>
-        <b-nav-item @click="tab = 'app-player-posts'" :active="tab === 'app-player-posts'">Posts</b-nav-item>
+        <b-nav-item v-if="isFriend || this.$route.params.id === user._id" @click="tab = 'app-player-posts'" :active="tab === 'app-player-posts'">Posts</b-nav-item>
         <b-nav-item @click="tab = 'app-player-teams'" :active="tab === 'app-player-teams'">Teams/Communities</b-nav-item>
       </b-nav>
       <keep-alive>
@@ -29,6 +29,19 @@ export default {
       this.tab = 'app-player-summary'
     }
   },
+  computed: {
+    user () {
+      if (!this.$store.getters.user) return false
+      return this.$store.getters.user
+    },
+    // friends () {
+    //   return this.$store.getters.user.friends.accepted
+    // },
+    isFriend () {
+      if (this.$store.getters.user) return this.$store.getters.user.friends.accepted.filter(friend => (friend._id === this.$route.params.id)).length
+      else return false
+    }
+  },
   components: {
     appPlayerSummary: PlayerSummary,
     appPlayerPosts: PlayerPosts,
@@ -36,6 +49,7 @@ export default {
   },
   activated () {
     this.resetPage()
+    this.$store.dispatch('getFriends')
   }
 }
 </script>
