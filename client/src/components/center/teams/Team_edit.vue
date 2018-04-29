@@ -33,14 +33,14 @@
         <h6 class="title">Timetable</h6>
         <table id="timetable">
 		    	<tr>
-		    		<td></td>
-		    		<td>Monday</td>
-		    		<td>Tuesday</td>
-		    		<td>Wednesday</td>
-		    		<td>Thursday</td>
-		    		<td>Friday</td>
-		    		<td>Saturday</td>
-		    		<td>Sunday</td>
+		    		<td class="table-header title"></td>
+		    		<th class="table-header title">Monday</th>
+		    		<th class="table-header title">Tuesday</th>
+		    		<th class="table-header title">Wednesday</th>
+		    		<th class="table-header title">Thursday</th>
+		    		<th class="table-header title">Friday</th>
+		    		<th class="table-header title">Saturday</th>
+		    		<th class="table-header title">Sunday</th>
 		    	</tr>
 		    	<!--<tr>-->
 		    	<!--	<td>12am</td>-->
@@ -59,12 +59,12 @@
 		    	<tr v-for="(time, index) in timetable" :key="index">
             <!-- for display: added a filter (formatHour) to format index. index is the key of the object timetable (row1, row2,...). 
                  formatHour turns 'row6' into '5-6' -->
-		    	  <td>{{ index | formatHour }}</td> 
+		    	  <td class="table-header title">{{ index | formatHour }}</td> 
             <!-- For loop for table cells -->
             <!-- day is an elem of time, where time is an array of length 6. when day == 1 (same as day == true) add class selected -->
 		    	  <td v-for="(day, i) in time" :key="i" :class="{selected: day}">
               <!-- on click toggle day value 0 or 1 -->
-		    	  	<button type="button" @click="toggleCell(index, i)">
+		    	  	<button type="button" class="timetable-button" @click="toggleCell(index, i)">
                 <i v-if="day" class="fa fa-minus fa-fw"></i>
                 <i v-else class="fa fa-plus fa-fw"></i>
               </button>
@@ -86,7 +86,19 @@ export default {
   filters: {
     formatHour (value) {
       let time = value.split('').splice(3).join('')
-      return `${time - 1}-${time}`
+      if (time < 2) {
+        return `12am - 1am`
+      } else if (time > 1 && time < 12) {
+        return `${time - 1}am - ${time}am`
+      } else if (time > 11 && time < 13) {
+        return `${time - 1}am - ${time}pm`
+      } else if (time > 12 && time < 14) {
+        return `12pm - 1pm`
+      } else if (time > 23 && time < 25) {
+        return `11pm - 12am`
+      } else {
+        return `${time - 13}pm - ${time - 12}pm`
+      }
     }
   },
   data () {
@@ -205,6 +217,10 @@ export default {
     width: 100%;
   }
 
+  .table-header {
+    background-color: #333;
+  }
+
   th,td{
     margin: 0;
     text-align: center;
@@ -213,7 +229,8 @@ export default {
   }
 
   td{
-    padding: 5px 10px;
+    padding: 5px;
+    font-size: 13px;
   }
   
   td.selected{
@@ -221,9 +238,7 @@ export default {
   }
 
   th{
-    background: #666;
-    color: white;
-    padding: 5px 10px;
+    padding: 5px;
   }
 
   /*td:hover{*/
@@ -237,6 +252,11 @@ export default {
   }
   td:hover i {
     visibility:visible;
+  }
+
+  button.timetable-button {
+    background-color: transparent;
+    border-color: transparent;
   }
   
   /*.scale-up i{*/
