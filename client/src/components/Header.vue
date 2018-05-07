@@ -9,10 +9,17 @@
 
     <b-collapse is-nav id="nav_collapse">
 
-      <b-navbar-nav>
-        <!-- <b-nav-item to="/news">DotA 2</b-nav-item> -->
-        <!-- <b-nav-item to="/players">CS:GO</b-nav-item>
-        <b-nav-item to="/teams">League of Legends</b-nav-item> -->
+      <b-navbar-nav class="mobileOnly my-3">
+        <b-nav-item class="tab" :to="{ name: 'main'}" exact :disabled="!auth"><i class="fa fa-newspaper-o"></i> News Feed</b-nav-item>
+        <b-nav-item class="tab" :to="{ name: 'signals'}" exact :disabled="!auth"><i class="fa fa-podcast"></i> Signals</b-nav-item>
+        <b-nav-item class="tab" :to="{ name: 'playerDetails', params: { id: user ? user._id : '' }}" :disabled="!auth"><i class="fa fa-user-circle-o"></i> Profile</b-nav-item>
+        <b-nav-item class="tab" :to="{ name: 'myTeams'}" :disabled="!auth"><i class="fa fa-group"></i> Teams</b-nav-item>
+        <b-nav-item class="tab" :to="{ name: 'myFriends'}" :disabled="!auth">
+          <i class="fa fa-address-book"></i> Friends
+          <!-- <div class="notification" v-if="auth && notif_friends > 0"><p>{{notif_friends}}</p></div> -->
+        </b-nav-item>
+        <b-nav-item class="tab" :to="{ name: 'myMessages'}" :disabled="!auth"><i class="fa fa-comments"></i> Messages</b-nav-item>
+        <b-nav-item class="tab" :disabled="!auth"><i class="fa fa-gear"></i> Settings</b-nav-item>
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
@@ -22,8 +29,8 @@
           <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
           <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
         </b-nav-form> -->
-  <!--
-        <b-nav-item-dropdown text="Lang" right>
+  
+        <!-- <b-nav-item-dropdown text="Lang" right>
           <b-dropdown-item href="#">EN</b-dropdown-item>
           <b-dropdown-item href="#">ES</b-dropdown-item>
           <b-dropdown-item href="#">RU</b-dropdown-item>
@@ -55,7 +62,7 @@
 export default {
   // data: () => {
   //   return {
-  //     isLoggedIn: !this.$store.idToken == null
+  //     auth: !this.$store.idToken == null
   //   }
   // },
   computed: {

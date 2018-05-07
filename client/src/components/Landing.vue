@@ -46,16 +46,16 @@
 
           </div>
         </div>
-        <!-- <div class="col-lg-3">
+        <div class="col-lg-3">
           <div class="features-icons-item mx-auto mb-0 mb-lg-3">
             <div class="features-icons-icon d-flex">
               <i class="fa fa-line-chart"></i>
             </div>
             <h3>Increase your MMR</h3>
-            <p class="lead mb-0">Participate in one of our weekly tournaments</p>
+            <p class="lead mb-0">Win and win and win and win...</p>
           </div>
-        </div> -->
-        <div class="col-lg-4">
+        </div>
+        <!-- <div class="col-lg-4">
           <div class="features-icons-item mx-auto mb-0 mb-lg-3">
             <div class="features-icons-icon d-flex">
               <i class="fa fa-trophy"></i>
@@ -63,7 +63,7 @@
             <h3>Win tournaments!</h3>
             <p class="lead mb-0">Participate in one of our weekly tournaments</p>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </section>
@@ -584,6 +584,54 @@ footer.footer a {
   }
 }
 
-</style>
+/* MOBILE*/
 
+@media (max-width: 499px) {
+  header.masthead .overlay {
+    background: rgba(0,0,0,0.6);
+  }
+
+  .call-to-action h2 {
+    font-size: 1.4em;
+  }
+
+  p {
+    font-size: 0.9em;
+  }
+
+  .features-icons h3 {
+    margin: 0;
+  }
+
+  .features-icons i.fa {
+    font-size: 3em !important;
+  }
+
+  .us {
+    padding: 0;
+    border: none;
+  }
+  .profile {
+    display: block;
+    padding: 20px 0;
+  }
+
+  .profile .profile-pic {
+    height: 130px;
+    width: 130px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+  }
+
+  .story {
+    background: #333;
+    padding: 20px 0;
+  }
+
+  .profile .name {
+    top: 130px;
+  }
+}
+
+</style>
 

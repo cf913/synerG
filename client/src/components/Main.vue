@@ -268,4 +268,24 @@ export default {
     font-weight: 600;
     color: #DAA520;
   }
+
+  .mobileOnly {
+    display: none !important;
+  }
+
+  /* MOBILE */
+
+  @media (max-width: 500px) {
+    .mobileOnly {
+      display: block !important;
+    }
+
+    .left {
+      display: none;
+    }
+
+    .center {
+      padding: 0;
+    }
+  }
 </style>
