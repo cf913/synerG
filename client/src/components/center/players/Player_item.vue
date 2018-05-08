@@ -1,10 +1,10 @@
 <template>
 	<div class="player_item">
     <div class="row">
-      <div class="col-sm-2 avatar">
+      <div class="col-2 avatar">
         <img id="avatar" :src="player.img" alt="Avatar">
       </div>
-      <div class="col-sm-10 summary">
+      <div class="col-10 summary">
         <!-- <a class="btn btn-info btn-sm float-right" target="_blank" :href="`http://www.steamcommunity.com/profiles/${player.steamId}`"><i class="fa fa-steam fa-fw"></i></a> -->
         <!-- <a v-if="inReceived" class="btn btn-success btn-sm float-right" @click="acceptRequest(player._id)"><i class="fa fa-check fa-fw"></i></a>
         <a v-if="inReceived" class="btn btn-danger btn-sm float-right" @click="declineRequest(player._id)"><i class="fa fa-times fa-fw"></i></a>

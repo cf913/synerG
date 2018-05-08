@@ -2,31 +2,31 @@
   <div class="signals-search container gray-tile tile">
     <b-form>
       <div class="row maxwidth">
-        <div class="col-lg-6 padding-0">
+        <div class="col-6 padding-0">
           <b-form-group horizontal label-text-align="left" label="Position:">
             <b-form-select id="signalPosition" v-model="position_selected" :options="position_options" required></b-form-select>
           </b-form-group>
         </div>
-        <div class="col-lg-6 padding-0">
+        <div class="col-6 padding-0">
           <b-form-group horizontal label-text-align="left" label="Language:">
             <b-form-select id ="signalLanguage" v-model="language_selected" :options="language_options" required></b-form-select>
           </b-form-group>
         </div>
       </div>
       <div class="row maxwidth">
-        <div class="col-lg-6 padding-0">
+        <div class="col-6 padding-0">
           <b-form-group horizontal label-text-align="left" label="Region:">
             <b-form-select id="signalRegion" v-model="region_selected" :options="region_options" required></b-form-select>
           </b-form-group>
         </div>
-        <div class="col-lg-6 padding-0">
+        <div class="col-6 padding-0">
           <b-form-group horizontal label-text-align="left" label="Aims:">
             <b-form-select id="signalCompetitive" v-model="competitive_selected" :options="competitive_options" required></b-form-select>
           </b-form-group>
         </div>
       </div>
       <div class="row maxwidth">
-        <div class="col-lg-12 padding-0">
+        <div class="col-12 padding-0">
           <b-form-group horizontal label-text-align="left" label="Player or Team Signals?" label-cols="4">
             <div class="radio-buttons">
               <b-form-radio-group v-model="type_selected" :options="type_options"></b-form-radio-group>
@@ -42,11 +42,11 @@
     <ul class="list-group clearfix" id="signals-list">
       <li class="list-group-item inner-tile" v-for="(signal, index) in signals" :key="index">
         <div class="row">
-          <div class="left col-lg-3">
+          <div class="left col-3">
             <img v-if="signal.isPlayer" class="signal-avatar" :src="signal.player.img" alt="Avatar">
             <img v-else class="signal-avatar" src="http://assets.worldwildlife.org/photos/479/images/story_full_width/giant-panda-shutterstock_86500690.jpg?1345572346" alt="Avatar"> 
           </div>
-          <div class="right signal-info col-lg-9">
+          <div class="right signal-info col-9">
             <router-link v-if="signal.isPlayer" :to="{ name: 'playerDetails', params: {id: signal.player._id}}"><h5>Player - {{signal.player.steamName}}</h5></router-link>
             <router-link v-else :to="{ name: 'teamDetails', params: {id: signal.team._id}}"><h5>Team - {{signal.team.teamName}}</h5></router-link>
             <h6><span class="title">Position:</span> {{signal.position | displayListContent}}</h6>

@@ -4,7 +4,7 @@
           <router-link :to="{ name: 'messageDetails', params: { id: conversation.conversationId._id }}">
         <div class="row">
           
-          <div class="col-sm-4 image">
+          <div class="col-4 image">
             <img 
               v-if="conversation.conversationId.participants.filter(p => p.steamName !== user.steamName)[0]" 
               id="avatar" 
@@ -13,7 +13,7 @@
             >
           </div>
           
-          <div class="col-sm-8 preview">
+          <div class="col-8 preview">
             <h5>
               {{conversation.conversationId.participants.filter(p => p.steamName !== user.steamName)[0] ? conversation.conversationId.participants.filter(p => p.steamName !== user.steamName)[0].steamName : 'Fix this'}}
             </h5>

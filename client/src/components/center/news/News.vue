@@ -1,10 +1,10 @@
 <template>
   <div class="news-feed container gray-tile tiled">
     <div class="row container new-post">
-      <div class="left col-lg-2">
+      <div class="left col-2">
         <img class="avatar" :src="user.img" alt="Avatar">
       </div>
-      <div class="right col-lg-10">
+      <div class="right col-10">
         <b-form>
           <b-form-textarea type="text" v-model="post" :rows="2" :max-rows="6" placeholder="Write a new a post ..."></b-form-textarea>
           <div class="d-flex justify-content-start align-items-center buttons">
@@ -21,10 +21,10 @@
       <ul class="list-group clearfix">
         <li class="list-group-item inner-tile"  v-for="(post, index) in posts" :key="index">
           <div class="row">
-            <div class="left col-lg-3">
+            <div class="left col-3">
               <img class="post-avatar" :src="post.author.img" alt="Avatar">
             </div>
-            <div class="right col-lg-9">
+            <div class="right col-9">
               <router-link :to="{ name: 'playerDetails', params: {id: post.author._id}}"><h5>{{post.author.steamName}}</h5></router-link>
               <p>{{post.body}}</p>
             </div>
@@ -117,5 +117,25 @@ export default {
     overflow-y: scroll;
     height: 75.5vh;
     margin: 0 30px;
+  }
+
+  @media (max-width: 500px) {
+    #news-list {
+      overflow-y: none;
+      margin: 0;
+    }
+
+    .left {
+      padding: 0;
+    }
+
+    .new-post {
+      padding: 10px;
+      margin-bottom: 15px;  
+    }
+
+    .tiled {
+      padding: 0;
+    }
   }
 </style>

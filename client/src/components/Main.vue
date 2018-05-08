@@ -5,12 +5,12 @@
   <!-- Components News/Players/Teams -->
   <div class="container-fluid">
     <div class="row">
-      <div class="left col-lg-2 sidebar">
+      <div class="left col-sm-2 sidebar desktopOnly">
         <div class="fixed">
           <app-left></app-left>
         </div>
       </div>
-      <div class="center col-md-12 col-lg-6">
+      <div class="center col-sm-12 col-lg-6">
         <div class="">
           <!-- <transition name="fade" mode="out-in"> -->
             <keep-alive>
@@ -19,7 +19,7 @@
           <!-- </transition> -->
         </div>
       </div>
-      <div class="right col-lg-3 sidebar">
+      <div class="right col-sm-3 sidebar">
         <div class="fixed">
           <app-right></app-right>
         </div>
@@ -196,6 +196,21 @@ export default {
       transform: translateX(0);
     }
   }
+
+  @media (max-width: 500px) {
+    .center, .right {
+      padding: 0;
+      margin: 0;
+    }
+
+    .tile {
+      border-radius: 0px;
+    }
+
+    .tiled {
+      border-radius: 0px;
+    }
+  }
 </style>
 
 <style>
@@ -203,28 +218,7 @@ export default {
     font-size: 15px;
     font-weight: 500;
   }
-  /*STYLING SCROLLBARS*/
-  /* width */
-  ::-webkit-scrollbar {
-      width: 10px;
-  }
   
-  /* Track */
-  ::-webkit-scrollbar-track {
-      background: rgba(35, 39, 44, 1);
-      border-radius: 8px;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-      background: rgba(0, 0, 0, 0.35);
-      border-radius: 8px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-      background: #555; 
-  }
 
   /*STYLING NAV BARS*/
   ul.nav-tabs {
@@ -273,6 +267,31 @@ export default {
     display: none !important;
   }
 
+  @media (min-width: 501px) {
+    /*STYLING SCROLLBARS*/
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: rgba(35, 39, 44, 1);
+        border-radius: 8px;
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.35);
+        border-radius: 8px;
+    }
+    
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555; 
+    }
+  }
+
   /* MOBILE */
 
   @media (max-width: 500px) {
@@ -280,12 +299,17 @@ export default {
       display: block !important;
     }
 
-    .left {
+    .desktopOnly {
       display: none;
     }
 
-    .center {
+    /* .center, .right {
       padding: 0;
+      margin: 0;
+    } */
+
+    .tile {
+      border-radius: 0px;
     }
   }
 </style>
