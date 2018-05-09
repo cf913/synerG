@@ -227,6 +227,6 @@ export default {
 
   #signals-list {
     overflow-y: scroll;
-    height: 70vh;
+    height: 64.5vh;
   }
 </style>

@@ -79,6 +79,6 @@ export default {
 
   #my-teams {
     overflow-y: scroll;
-    height: 92vh;
+    height: 86.3vh;
   }
 </style>

@@ -275,7 +275,7 @@ export default {
 
   #player-list {
     overflow-y: scroll;
-    height: 58vh;
+    height: 52.4vh;
   }
 
   /* BUTTONS */

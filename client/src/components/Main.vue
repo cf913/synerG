@@ -6,27 +6,22 @@
   <div class="container-fluid">
     <div class="row">
       <div class="left col-sm-2 sidebar desktopOnly">
-        <div class="fixed">
-          <app-left></app-left>
-        </div>
+        <app-left></app-left>
       </div>
       <div class="center col-sm-12 col-lg-6">
-        <div class="">
-          <!-- <transition name="fade" mode="out-in"> -->
-            <keep-alive>
-              <router-view :key="$route.fullPath"></router-view>
-            </keep-alive>
-          <!-- </transition> -->
-        </div>
+        <!-- <transition name="fade" mode="out-in"> -->
+          <keep-alive>
+            <router-view :key="$route.fullPath"></router-view>
+          </keep-alive>
+        <!-- </transition> -->
       </div>
       <div class="right col-sm-3 sidebar">
-        <div class="fixed">
-          <app-right></app-right>
-        </div>
+        <app-right></app-right>
       </div>
     </div>
   </div>
 
+  <app-footer></app-footer>
 </div>
 </template>
 
@@ -34,13 +29,15 @@
 import Header from './Header'
 import Right from './sidebars/right/Right'
 import Left from './sidebars/left/Left'
+import Footer from './Footer'
 
 export default {
   name: 'Main',
   components: {
     appHeader: Header,
     appRight: Right,
-    appLeft: Left
+    appLeft: Left,
+    appFooter: Footer
   },
   created () {
     this.$store.dispatch('checkLogin', this.$route.query)
@@ -65,14 +62,14 @@ export default {
   
   .center, .right {
     padding: 10px;
-    padding-top: 20px;
+/*    padding-top: 20px;*/
   }
   .left {
     padding: 10px;
     border-radius: 5px;
   }
   .right {
-    padding-right: 20px;
+/*    padding-right: 20px;*/
   }
 
 
@@ -109,16 +106,20 @@ export default {
     /* background: url('../assets/back.jpg') center no-repeat;
     background-size: cover;
     background-attachment: fixed; */
-    min-height: 100vh;
+    height: 100vh;
     width: 100%;
   }
 
   .container-fluid {
-    padding-top: 55px;
+    height: calc(100% - 112.5px);
+    position: relative;
+    top: 55px;
   }
-  .fixed {
+ /* .fixed {
     position: sticky;
-    top: 75px;
+  }*/
+  div.container-fluid div.row {
+    height: 100%
   }
 
   .fade-enter-active, .fade-leave-active {

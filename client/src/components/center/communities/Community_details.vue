@@ -124,7 +124,7 @@ export default {
   #search{
     padding: 5px;
     overflow-y: scroll;
-    height: 78.5vh;
+    height: 73vh;
   }
   
   a {

@@ -568,6 +568,6 @@ export default {
 
   #team-details {
     overflow-y: scroll;
-    height: 92vh;
+    height: 86.4vh;
   }
 </style>
