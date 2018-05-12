@@ -124,6 +124,6 @@ export default {
 
   #community-list {
     overflow-y: scroll;
-    height: 65.5vh;
+    height: 60vh;
   }
 </style>

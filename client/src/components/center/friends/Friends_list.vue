@@ -69,6 +69,6 @@ export default {
   }
   #friends-list {
     overflow-y: scroll;
-    height: 82.5vh;
+    height: 77.3vh;
   }
 </style>

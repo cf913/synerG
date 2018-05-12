@@ -240,6 +240,6 @@ export default {
 
   #team-list {
     overflow-y: scroll;
-    height: 58vh;
+    height: 52.4vh;
   }
 </style>

@@ -66,7 +66,7 @@ export default {
     padding-top: 15px;
     padding-bottom: 15px;
     list-style-type: none;
-    height: 73vh;
+    height: 67.8vh;
     overflow-y: auto;
   }
 

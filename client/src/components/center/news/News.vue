@@ -86,7 +86,6 @@ export default {
   .tiled {
     padding: 15px 35px;
     border-radius: 5px;
-    margin-bottom: 15px;
   }
   .post-avatar {
     max-height: 90px;
@@ -115,7 +114,7 @@ export default {
 
   #news-list {
     overflow-y: scroll;
-    height: 75.5vh;
+    height: 70vh;
     margin: 0 30px;
   }
 
