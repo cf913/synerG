@@ -1,5 +1,5 @@
 <template>
-  <div class="friends tile gray-tile tiled">
+  <div class="friends tile gray-tile tiled mobile">
     <div class="container-fluid">
       <b-nav justified tabs class="friends-nav">
         <b-nav-item @click="tab = 'app-friends-list'" :active="tab === 'app-friends-list'">Friends</b-nav-item>

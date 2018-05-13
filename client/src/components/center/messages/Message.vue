@@ -1,5 +1,5 @@
 <template>
-  <div class="messages tile gray-tile">
+  <div class="messages tile gray-tile mobile">
     <div class="container-fluid">
       <div class="row">
         <div class="left col-lg-4 sidebar">

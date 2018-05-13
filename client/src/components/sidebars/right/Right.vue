@@ -1,41 +1,31 @@
 <template>
-  <div class="players tile gray-tile">
-<!--     <b-nav justified tabs class="top-tabs">
-      <b-nav-item class="tab" to="/" exact :disabled="!isLoggedIn"><i class="fa fa-newspaper-o"></i></b-nav-item>
-      <b-nav-item class="tab" :to="{ name: 'playerDetails', params: { id: user._id }}" :disabled="!isLoggedIn"><i class="fa fa-user-circle-o"></i></b-nav-item>
-      <b-nav-item class="tab" to="/myteams" :disabled="!isLoggedIn"><i class="fa fa-group"></i></b-nav-item>
-      <b-nav-item class="tab" to="/friends" :disabled="!isLoggedIn">
-        <i class="fa fa-address-book"></i>
-        <div class="notification" v-if="isLoggedIn && notif_friends > 0"><p>{{notif_friends}}</p></div>
-      </b-nav-item>
-      <b-nav-item class="tab" to="/messages" :disabled="!isLoggedIn"><i class="fa fa-comments"></i></b-nav-item>
-      <b-nav-item class="tab" to="/settings" :disabled="!isLoggedIn"><i class="fa fa-gear"></i></b-nav-item>
-    </b-nav> -->
+  <div class="players tile gray-tile mobile">
+    <div class="mobile">
+      <!-- LOGGED IN -->
+      <div id="rightprofile" class="card-header d-flex align-items-center desktopOnly" v-if="isLoggedIn">
+        <img class="avatar" :src="user.img" alt="Avatar">
+        <h4 class="profile-name">{{ user.steamName }}</h4>
+      </div>
 
-    <!-- LOGGED IN -->
-    <div class="card-header d-flex align-items-center" id="rightprofile" v-if="isLoggedIn">
-      <img class="avatar" :src="user.img" alt="Avatar">
-      <h4 class="profile-name">{{ user.steamName }}</h4>
+      <!-- SIGN IN BUTTON-->
+      <!-- <div class="login" v-else>
+        <a href="/auth/steam/steam" class="btn btn-outline-secondary btn-md d-inline-flex align-items-center my-3 sign-in">
+          <i class="fa fa-steam p-2"></i> 
+          <span class="p-2">Sign in with Steam</span>
+        </a>
+      </div> -->
+
+      
+      <b-nav justified tabs class="tabs">
+        <b-nav-item @click="tab = 'app-player-list'" :active="tab === 'app-player-list'">Players</b-nav-item>
+        <b-nav-item @click="tab = 'app-team-list'" :active="tab === 'app-team-list'">Teams</b-nav-item>
+        <b-nav-item @click="tab = 'app-community-list'" :active="tab === 'app-community-list'">Communities</b-nav-item>
+      </b-nav>
+      <keep-alive>
+        <component :is="tab" id="search"></component>
+      </keep-alive>
+
     </div>
-
-    <!-- SIGN IN BUTTON-->
-    <div class="login" v-else>
-      <a href="/auth/steam/steam" class="btn btn-outline-secondary btn-md d-inline-flex align-items-center my-3 sign-in">
-        <i class="fa fa-steam p-2"></i> 
-        <span class="p-2">Sign in with Steam</span>
-      </a>
-    </div>
-
-    
-    <b-nav justified tabs class="tabs">
-      <b-nav-item @click="tab = 'app-player-list'" :active="tab === 'app-player-list'">Players</b-nav-item>
-      <b-nav-item @click="tab = 'app-team-list'" :active="tab === 'app-team-list'">Teams</b-nav-item>
-      <b-nav-item @click="tab = 'app-community-list'" :active="tab === 'app-community-list'">Communities</b-nav-item>
-    </b-nav>
-    <keep-alive>
-      <component :is="tab" id="search"></component>
-    </keep-alive>
-
   </div>
 </template>
 
@@ -170,6 +160,10 @@ export default {
   .top-tabs li.nav-item:last-child a.nav-link.active{
     border-radius: 0 5px 0 0;    
     border:0;
+  }
+
+  .nav-tabs {
+    border-bottom: 3px solid #600;
   } 
   /* END STYLE TOP NAVBAR */
 
@@ -200,4 +194,9 @@ export default {
     margin-left: 0px;
   }
   
+  @media screen and (max-width: 767px) {
+    #rightprofile {
+      display: none !important;
+    }
+  }
 </style>

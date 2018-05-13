@@ -1,5 +1,5 @@
 <template>
-  <div class="new-community text-left container tile gray-tile">
+  <div class="new-community text-left tile gray-tile mobile">
     <div class="container py-3 text-left">
       <h2 class="py-3 title">Create New Community</h2>
       <form>

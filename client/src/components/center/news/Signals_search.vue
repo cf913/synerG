@@ -1,5 +1,5 @@
 <template>
-  <div class="signals-search container gray-tile tile">
+  <div class="signals-search container gray-tile tile mobile">
     <b-form>
       <div class="row maxwidth">
         <div class="col-6 padding-0">
@@ -186,6 +186,8 @@ export default {
     padding-bottom: .5rem;
   }
 
+  
+
   select.custom-select {
     color: #fff;
     background-color: #21272c;
@@ -228,5 +230,15 @@ export default {
   #signals-list {
     overflow-y: scroll;
     height: 64.5vh;
+  }
+
+  @media screen and (max-width: 767px) {
+    div.right {
+      padding-right: 0;
+    }
+    
+    div.left {
+      padding-left: 0;
+    }
   }
 </style>

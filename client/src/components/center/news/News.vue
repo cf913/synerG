@@ -1,5 +1,5 @@
 <template>
-  <div class="news-feed container gray-tile tiled">
+  <div class="news-feed gray-tile tiled mobile">
     <div class="row container new-post">
       <div class="left col-2">
         <img class="avatar" :src="user.img" alt="Avatar">
@@ -88,8 +88,8 @@ export default {
     border-radius: 5px;
   }
   .post-avatar {
-    max-height: 90px;
-    max-width: 90px;
+    max-height: 80px;
+    max-width: 80px;
   }
 
   ul li.list-group-item {
@@ -118,9 +118,9 @@ export default {
     margin: 0 30px;
   }
 
-  @media (max-width: 500px) {
+  @media screen and (max-width: 767px) {
     #news-list {
-      overflow-y: none;
+      overflow-y: scroll;
       margin: 0;
     }
 

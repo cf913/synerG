@@ -1,5 +1,5 @@
 <template>
-  <div class="my_teams text-left container tile gray-tile" style="position: relative" id="my-teams">
+  <div id="my-teams" class="my_teams text-left tile gray-tile mobile" style="position: relative">
     <div class="container py-3 text-left">
       <div class="tiled inner-tile">
         <router-link :to="{ name: 'teamsNew'}">Create New Team</router-link>

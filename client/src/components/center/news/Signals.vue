@@ -1,6 +1,5 @@
 <template>
-  <div class="signals tile gray-tile tile">
-    <div class="container-fluid">
+  <div class="signals tile gray-tile mobile">
       <b-nav justified tabs class="signals-nav">
         <b-nav-item @click="tab = 'app-signals-search'" :active="tab === 'app-signals-search'">Search</b-nav-item>
         <b-nav-item @click="tab = 'app-signals-new'" :active="tab === 'app-signals-new'">New Signal</b-nav-item>
@@ -8,7 +7,6 @@
       <keep-alive>
         <component :is="tab" @backToSearch="tab = $event"></component>
       </keep-alive>
-    </div>
   </div>
 </template>
 
@@ -57,4 +55,10 @@ export default {
     color: #fff;
     border: 1px solid #600;
   }*/
+
+  @media screen and (max-width: 767px) {
+    .right {
+      padding-right: 0;
+    }
+  }
 </style>

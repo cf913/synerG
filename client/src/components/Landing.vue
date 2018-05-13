@@ -158,8 +158,7 @@
             <div class="description">
               <h5>Co-Founder of SynerG</h5>
               <p class="px-4 text-justify">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus velit totam, 
-                provident placeat distinctio accusantium fugit sit impedit eum alias?
+                Chad is a web developer living in Australia. He discovered DotA 2 in 2013 and, since then, has been trying to fulfill his destiny: reach the holy 9k mmr mark and make it to the International.
               </p>
             </div>
           </div>

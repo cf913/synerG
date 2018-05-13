@@ -10,9 +10,8 @@
     <router-link
       class="mobileOnly"
       :class="{hidden: expanded}" 
-      :to="{ name: 'playerDetails', params: { id: user ? user._id : '' }}" 
-      :disabled="!isLoggedIn"  
-      style="height: 30px; width: 30px; border-radius: 50%; overflow: hidden;">
+      :to="{ name: 'playerDetails', params: { id: user ? user._id : '' }}"
+      style="height: 30px; width: 30px; border-radius: 5px; overflow: hidden;">
       <img 
         :src="user ? user.img : ''" 
         alt="" 
@@ -62,6 +61,7 @@
       <router-link :to="{ name: 'myMessages'}"  :disabled="!auth"><i class="fa fa-comments"></i></router-link>
       <router-link :to="{ name: 'myTeams'}"  :disabled="!auth"><i class="fa fa-group"></i></router-link>
       <router-link :to="{ name: 'myFriends'}"  :disabled="!auth"><i class="fa fa-address-book"></i></router-link>
+      <router-link :to="{ name: 'search'}"  :disabled="!auth"><i class="fa fa-search"></i></router-link>
     </ul>
   </div>
   

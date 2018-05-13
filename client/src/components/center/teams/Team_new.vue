@@ -1,5 +1,5 @@
 <template>
-  <div class="new-team text-left container tile gray-tile" id="team-new">
+  <div id="team-new" class="new-team text-left tile gray-tile mobile" >
     <div class="container py-3 text-left">
       <h2 class="py-3 title">Create New Team</h2>
       <form>

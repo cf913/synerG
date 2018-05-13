@@ -20,6 +20,7 @@ import Friends from '@/components/center/friends/Friends'
 import Message from '@/components/center/messages/Message'
 import MessageDetails from '@/components/center/messages/Message_details'
 import MessageNew from '@/components/center/messages/Message_new'
+import Right from '@/components/sidebars/right/Right'
 
 Vue.use(Router)
 
@@ -109,6 +110,11 @@ export default new Router({
               component: MessageNew
             }
           ]
+        },
+        {
+          path: 'search',
+          component: Right,
+          name: 'search'
         }
       ]
     //     {

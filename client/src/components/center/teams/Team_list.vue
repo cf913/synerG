@@ -1,30 +1,30 @@
 <template>
-  <div class="team_list text-left container" style="position: relative">
+  <div class="team_list text-left mobile" style="position: relative">
     <b-form>
       <div class="text-search">
         <b-form-input type="text" placeholder="Search for teams..." v-model="team_search">
         </b-form-input>
       </div>
       <div class="row maxwidth">
-        <div class="col-lg-4 padding-0">
+        <div class="col-4 padding-0">
           <b-form-select v-model="recruiting_selected" :options="recruiting_options">
           </b-form-select>
         </div>
-        <div class="col-lg-4 padding-0">
+        <div class="col-4 padding-0">
           <b-form-select v-model="regions_selected" :options="regions_options">
           </b-form-select>
         </div>
-        <div class="col-lg-4 padding-0">
+        <div class="col-4 padding-0">
           <b-form-select v-model="languages_selected" :options="languages_options">
           </b-form-select>
         </div>
       </div>
       <div class="row maxwidth">
-        <div class="col-lg-6 padding-0">
+        <div class="col-6 padding-0">
           <b-form-select v-model="competitive_selected" :options="competitive_options">
           </b-form-select>
         </div>
-        <div class="col-lg-6 padding-0">
+        <div class="col-6 padding-0">
           <b-form-select v-model="comms_selected" :options="comms_options">
           </b-form-select>
         </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="community_list text-left container" style="position: relative">
+  <div class="community_list text-left mobile" style="position: relative">
     <b-form>
       <div class="text-search">
         <b-form-input type="text" placeholder="Search for communities..." v-model="community_search"></b-form-input>

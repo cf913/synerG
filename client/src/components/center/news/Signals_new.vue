@@ -1,25 +1,27 @@
 <template>
-  <div class="signals-new container gray-tile tile text-left">
+  <div class="signals-new container gray-tile tile text-left mobile">
+  <div style="padding: 10px 0;">
     <p class="title text-center">Send Out Signals to Other Players</p>
-      <b-form>
-        <h6 class="title">Position:</h6>
-        <b-form-checkbox-group  name="position" v-model="position_selected" :options="position_options" required=true></b-form-checkbox-group>
-        <br>
-        <h6 class="title">Language:</h6>
-        <b-form-checkbox-group  name="language" v-model="language_selected" :options="language_options" required=true></b-form-checkbox-group>
-        <br>
-        <h6 class="title">Server:</h6>
-        <b-form-checkbox-group  name="region" v-model="region_selected" :options="region_options" required=true></b-form-checkbox-group>
-        <br>
-        <h6 class="title">Aims:</h6>
-        <b-form-radio-group  name="competitive" v-model="competitive_selected" :options="competitive_options" required=true></b-form-radio-group>
-        <br>
-        <h6 class="title">Comments:</h6>
-        <b-form-input type="text" class="form-control" id="signalDescription" v-model="description" placeholder="Additional Information..."></b-form-input>
-        <div class="d-flex justify-content-end align-items-center">
-          <b-button type="submit" @click.prevent="newPlayerSignal" @keyup.enter.prevent="newPlayerSignal">Send out a signal!</b-button>
-        </div>
-      </b-form>
+    <b-form>
+      <h6 class="title">Position:</h6>
+      <b-form-checkbox-group  name="position" v-model="position_selected" :options="position_options" required=true></b-form-checkbox-group>
+      <br>
+      <h6 class="title">Language:</h6>
+      <b-form-checkbox-group  name="language" v-model="language_selected" :options="language_options" required=true></b-form-checkbox-group>
+      <br>
+      <h6 class="title">Server:</h6>
+      <b-form-checkbox-group  name="region" v-model="region_selected" :options="region_options" required=true></b-form-checkbox-group>
+      <br>
+      <h6 class="title">Aims:</h6>
+      <b-form-radio-group  name="competitive" v-model="competitive_selected" :options="competitive_options" required=true></b-form-radio-group>
+      <br>
+      <h6 class="title">Comments:</h6>
+      <b-form-input type="text" class="form-control" id="signalDescription" v-model="description" placeholder="Additional Information..."></b-form-input>
+      <div class="d-flex justify-content-end align-items-center">
+        <b-button type="submit" @click.prevent="newPlayerSignal" @keyup.enter.prevent="newPlayerSignal">Send out a signal!</b-button>
+      </div>
+    </b-form>
+  </div>
   </div>
 </template>
 

@@ -3,13 +3,13 @@
     <div class="container">
       <h5 class="title">Friends - {{friends.length}}</h5>
       <div id="friends-list">
-        <ul class="list-group row">
-          <li v-for="(friend, index) in friends" :key="index" class="list-group-item tile inner-tile col-lg-6">
+        <ul class="list-group">
+          <li v-for="(friend, index) in friends" :key="index" class="list-group-item tile inner-tile">
             <div class="row">
-              <div class="col-md-3 avatar">
+              <div class="col-3 avatar">
                 <img id="avatar" :src="friend.img" alt="Avatar">
               </div>
-              <div class="col-md-9 summary">
+              <div class="col-9 summary">
                 <a class="btn btn-danger btn-sm float-right" @click="deleteFriend(friend._id)"><i class="fa fa-trash fa-fw"></i></a>
                 <router-link :to="{ name: 'playerDetails', params: { id: friend._id }}"><h5>{{ friend.steamName }}</h5></router-link>
               </div>

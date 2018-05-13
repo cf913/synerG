@@ -5,23 +5,23 @@
   <!-- Components News/Players/Teams -->
   <div class="container-fluid">
     <div class="row">
-      <div class="left col-sm-2 sidebar desktopOnly">
+      <div class="left col-md-1 col-lg-2 sidebar desktopOnly">
         <app-left></app-left>
       </div>
-      <div class="center col-sm-12 col-lg-6">
+      <div class="center col-md-7">
         <!-- <transition name="fade" mode="out-in"> -->
           <keep-alive>
             <router-view :key="$route.fullPath"></router-view>
           </keep-alive>
         <!-- </transition> -->
       </div>
-      <div class="right col-sm-3 sidebar">
+      <div class="right col-md-4 col-lg-3 sidebar desktopOnly">
         <app-right></app-right>
       </div>
     </div>
   </div>
 
-  <app-footer></app-footer>
+  <app-footer class="desktopOnly"></app-footer>
 </div>
 </template>
 
@@ -198,7 +198,7 @@ export default {
     }
   }
 
-  @media (max-width: 500px) {
+  @media screen and (max-width: 767px) {
     .center, .right {
       padding: 0;
       margin: 0;
@@ -209,6 +209,7 @@ export default {
     }
 
     .tiled {
+      margin: 0;
       border-radius: 0px;
     }
   }
@@ -295,7 +296,8 @@ export default {
 
   /* MOBILE */
 
-  @media (max-width: 500px) {
+  @media screen and (max-width: 767px) {
+
     .mobileOnly {
       display: block !important;
     }
@@ -311,6 +313,25 @@ export default {
 
     .tile {
       border-radius: 0px;
+    }
+
+    .mobile {
+      height: 100% !important;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mobile > * {
+      flex: auto;
+    }
+
+
+
+    .center {
+      position: relative;
+      height: calc(100vh - 105px);
+      overflow: hidden;
+      position: fixed;
     }
   }
 </style>
