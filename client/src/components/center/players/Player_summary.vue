@@ -206,6 +206,10 @@ export default {
 </script>
 
 <style scoped>
+  .player_summary {
+    overflow: scroll;
+  }
+
   .tiled {
     padding: 5px 10px;
     border-radius: 5px;

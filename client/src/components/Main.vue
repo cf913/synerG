@@ -217,8 +217,8 @@ export default {
 
 <style>
   * {
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 13px;
+    font-weight: 400;
   }
   
 
@@ -330,6 +330,7 @@ export default {
     .center {
       position: relative;
       height: calc(100vh - 105px);
+      min-height: 500px;
       overflow: hidden;
       position: fixed;
     }
