@@ -1,6 +1,8 @@
 <template>
   <div class="team_list text-left mobile" style="position: relative">
-    <b-form>
+    <div class="overlay" v-show="show_filter" @click="show_filter = !show_filter"></div>
+    <app-filter-button v-on:clicked="show_filter = !show_filter"></app-filter-button>
+    <b-form class="filter-mobile" :class="{visible: show_filter}">
       <div class="text-search">
         <b-form-input type="text" placeholder="Search for teams..." v-model="team_search">
         </b-form-input>
@@ -48,10 +50,16 @@
 
 <script>
 import TeamItem from './Team_item.vue'
+import FilterButton from '../../sidebars/Filter_button.vue'
 
 export default {
+  components: {
+    appTeamItem: TeamItem,
+    appFilterButton: FilterButton
+  },
   data: () => {
     return {
+      show_filter: false,
       team_search: '',
       recruiting_selected: null, // Must be an array reference!
       regions_selected: null,
@@ -141,6 +149,7 @@ export default {
         recruiting: this.recruiting_selected,
         competitiveness: this.competitive_selected
       }
+      setTimeout(() => { this.show_filter = !this.show_filter }, 500)
       this.$store.dispatch('getTeams', data)
     },
     onReset () {
@@ -152,9 +161,6 @@ export default {
       this.competitive_selected = null
       this.$store.dispatch('getTeams', {})
     }
-  },
-  components: {
-    appTeamItem: TeamItem
   },
   created () {
     this.getTeams()
@@ -241,5 +247,11 @@ export default {
   #team-list {
     overflow-y: scroll;
     height: 52.4vh;
+  }
+
+  @media screen and (max-width: 767px) {
+    #search.mobile {
+      padding: 0;
+    }
   }
 </style>

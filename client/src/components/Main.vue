@@ -216,8 +216,8 @@ export default {
 </style>
 
 <style>
-  * {
-    font-size: 13px;
+  body {
+    font-size: 14px;
     font-weight: 400;
   }
   
@@ -269,7 +269,7 @@ export default {
     display: none !important;
   }
 
-  @media (min-width: 501px) {
+  @media (min-width: 767px) {
     /*STYLING SCROLLBARS*/
     /* width */
     ::-webkit-scrollbar {
@@ -297,6 +297,10 @@ export default {
   /* MOBILE */
 
   @media screen and (max-width: 767px) {
+    * {
+      font-size: 13px;
+      font-weight: 400;
+    }
 
     .mobileOnly {
       display: block !important;
@@ -316,6 +320,7 @@ export default {
     }
 
     .mobile {
+      position: relative;
       height: 100% !important;
       display: flex;
       flex-direction: column;
@@ -333,6 +338,35 @@ export default {
       min-height: 500px;
       overflow: hidden;
       position: fixed;
+    }
+
+    /* FILTER AND OVERLAYS */
+    
+    .overlay {
+      position: absolute;
+      z-index: 998;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(55,0,0,0.8);
+    }
+
+    .filter-mobile {
+      border-top: 3px solid rgba(118, 0, 0, 1 );
+      padding-top: 5px;
+      opacity: 0;
+      background: #222;
+      position: fixed;
+      bottom: 0;
+      left : 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      z-index: 999;
+      transition: .5s;
+    }
+
+    .filter-mobile.visible {
+      opacity: 1;
+      bottom: 50px;
     }
   }
 </style>

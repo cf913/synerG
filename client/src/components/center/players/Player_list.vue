@@ -1,6 +1,17 @@
 <template>
   <div class="player_list text-left mobile" style="position: relative">
-    <b-form>
+    <div class="overlay" v-show="show_filter" @click="show_filter = !show_filter"></div>
+    <button class="filter-button mobileOnly" @click="show_filter = !show_filter">
+      <ul>
+        <li>F</li>
+        <li>I</li>
+        <li>L</li>
+        <li>T</li>
+        <li>E</li>
+        <li>R</li>
+      </ul>
+    </button>
+    <b-form class="filter-mobile" :class="{visible: show_filter}">
       <div class="text-search">
         <b-form-input type="text" placeholder="Search for players..." v-model="player_search">
         </b-form-input>
@@ -54,6 +65,7 @@ import PlayerDetails from './Player_details.vue'
 export default {
   data: () => {
     return {
+      show_filter: false,
       player_search: '',
       positions_selected: null, // Must be an array reference!
       regions_selected: null,
@@ -187,6 +199,7 @@ export default {
         comms: this.comms_selected,
         positions: this.positions_selected
       }
+      setTimeout(() => { this.show_filter = !this.show_filter }, 500)
       this.$store.dispatch('getPlayers', data)
     },
     onReset () {
@@ -288,4 +301,10 @@ export default {
   /* #search {
     cursor: pointer;
   } */
+
+  @media screen and (max-width: 767px) {
+    #search.mobile {
+      padding: 0;
+    }
+  }
 </style>

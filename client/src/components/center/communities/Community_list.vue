@@ -1,6 +1,8 @@
 <template>
   <div class="community_list text-left mobile" style="position: relative">
-    <b-form>
+    <div class="overlay" v-show="show_filter" @click="show_filter = !show_filter"></div>
+    <app-filter-button v-on:clicked="show_filter = !show_filter"></app-filter-button>
+    <b-form class="filter-mobile" :class="{visible: show_filter}">
       <div class="text-search">
         <b-form-input type="text" placeholder="Search for communities..." v-model="community_search"></b-form-input>
       </div>
@@ -23,10 +25,16 @@
 
 <script>
 import CommunityItem from './Community_item.vue'
+import FilterButton from '../../sidebars/Filter_button.vue'
 
 export default {
+  components: {
+    appCommunityItem: CommunityItem,
+    appFilterButton: FilterButton
+  },
   data: () => {
     return {
+      show_filter: false,
       community_search: ''
     }
   },
@@ -46,15 +54,13 @@ export default {
       const data = {
         communityName: this.community_search
       }
+      setTimeout(() => { this.show_filter = !this.show_filter }, 500)
       this.$store.dispatch('getCommunities', data)
     },
     onReset () {
       this.community_search = ''
       this.$store.dispatch('getCommunities', {})
     }
-  },
-  components: {
-    appCommunityItem: CommunityItem
   },
   created () {
     this.getCommunities()
@@ -125,5 +131,11 @@ export default {
   #community-list {
     overflow-y: scroll;
     height: 60vh;
+  }
+
+  @media screen and (max-width: 767px) {
+    #search.mobile {
+      padding: 0;
+    }
   }
 </style>
