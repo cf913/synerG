@@ -88,6 +88,6 @@ export default {
   }
   #player-teams {
     overflow-y: scroll;
-    height: 82.2vh;
+    height: 83.5vh;
   }
 </style>

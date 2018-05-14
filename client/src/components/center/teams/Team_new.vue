@@ -272,7 +272,7 @@ export default {
 
   #team-new {
     overflow-y: scroll;
-    height: 86.4vh;
+    height: 88vh;
   }
 </style>
 

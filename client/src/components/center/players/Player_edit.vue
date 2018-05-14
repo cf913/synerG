@@ -3,7 +3,7 @@
     <header class="text-center">
       <h2 class="py-3">{{ username }}</h2>
     </header>
-    <div class="container">
+    <div class="container text-left">
       <b-form>
         <div class="row">
           <div class="col-sm-4">
@@ -165,4 +165,7 @@ export default {
     background: #333;
   }
 
+  div.custom-control.custom-checkbox {
+    text-align: left!important;
+  }
 </style>

@@ -212,7 +212,7 @@ export default {
     border-radius: 5px;
     margin-bottom: 15px;
   }
-  
+
   #timetable {
     width: 100%;
   }
@@ -281,6 +281,6 @@ export default {
 
   #team-edit {
     overflow-y: scroll;
-    height: 86.4vh;
+    height: 88vh;
   }
 </style>

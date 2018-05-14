@@ -207,7 +207,8 @@ export default {
 
 <style scoped>
   .player_summary {
-    overflow: scroll;
+    overflow-y: scroll;
+    height: 83.4vh;
   }
 
   .tiled {
