@@ -19,8 +19,10 @@
             <li class="list-inline-item">
               <a href="#">Privacy Policy</a>
             </li>
+            <li class="list-inline-item">
+              <span class="text-muted small mb-4 mb-lg-0">&copy; SynerG 2018. All Rights Reserved.</span>
+            </li>
           </ul>
-          <p class="text-muted small mb-4 mb-lg-0">&copy; SynerG 2018. All Rights Reserved.</p>
         </div>
       </div>
     </div>
@@ -36,7 +38,6 @@ footer {
   bottom: 0;
   width: 100%;
   padding-top: 5px;
-  padding-bottom: 5px;
   background: #111;
 }
 
@@ -46,6 +47,11 @@ footer.footer {
 }
 
 footer.footer a {
-  color: rgba(169, 1, 1, 0.8); 
+  color: rgba(169, 1, 1, 0.8);
+  font-size: 12px; 
+}
+
+footer.footer span {
+  font-size: 12px;
 }
 </style>
