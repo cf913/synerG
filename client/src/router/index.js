@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 // COMPONENTS
 import Landing from '@/components/Landing'
+import Terms from '@/components/Terms'
 import Main from '@/components/Main'
 // import Home from '@/components/center/Home'
 import News from '@/components/center/news/News'
@@ -31,6 +32,11 @@ export default new Router({
       path: '/',
       component: Landing,
       name: 'home'
+    },
+    {
+      path: '/terms',
+      component: Terms,
+      name: 'terms'
     },
     {
       path: '/app',
