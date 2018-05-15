@@ -13,7 +13,7 @@
             </li>
             <li class="list-inline-item">&sdot;</li>
             <li class="list-inline-item">
-              <a href="#">Terms of Use</a>
+              <router-link :to="{name: 'terms'}">Terms of Use</router-link>
             </li>
             <li class="list-inline-item">&sdot;</li>
             <li class="list-inline-item">

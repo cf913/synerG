@@ -1,7 +1,7 @@
 <template>
 <div class="header">
 
-  <b-navbar class="py-2 fixed-top" toggleable="md" type="dark">
+  <b-navbar class="fixed-top" toggleable="md" type="dark">
 
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
@@ -118,7 +118,8 @@ export default {
     /* background: rgb(10,10,100) !important; */
     /* background: linear-gradient(to bottom, rgb(0,0,0), rgba(0,0,0,.6)) !important; */
     background: rgba(0, 0, 0, 1) !important;
-    background: rgba(118, 0, 0, 0.8) !important;
+    background: rgba(118, 0, 0, 1) !important;
+    padding: 0;
   }
   .navbar-brand {
     padding-left: 20px;
