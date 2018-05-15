@@ -17,7 +17,7 @@
             </li>
             <li class="list-inline-item">&sdot;</li>
             <li class="list-inline-item">
-              <a href="#">Privacy Policy</a>
+              <router-link :to="{name: 'privacy'}">Privacy Policy</router-link>
             </li>
             <li class="list-inline-item">
               <span class="text-muted small mb-4 mb-lg-0">&copy; SynerG 2018. All Rights Reserved.</span>
