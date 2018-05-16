@@ -90,7 +90,7 @@ export default {
   }
   #conversation-list {
     overflow-y: scroll;
-    height: 86.4vh;
+    height: 88vh;
     padding-right: 10px;
   }
 </style>

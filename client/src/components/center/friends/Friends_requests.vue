@@ -115,6 +115,6 @@ export default {
 
   #friends-requests {
     overflow-y: scroll;
-    height: 82.1vh;
+    height: 83.4vh;
   }
 </style>

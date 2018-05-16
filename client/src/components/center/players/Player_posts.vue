@@ -51,6 +51,6 @@ export default {
 
   #player-posts {
     overflow-y: scroll;
-    height: 79vh;
+    height: 80.2vh;
   }
 </style>
