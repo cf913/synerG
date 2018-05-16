@@ -216,7 +216,7 @@ export default {
 </style>
 
 <style>
-  body {
+  * {
     font-size: 14px;
     font-weight: 400;
   }
