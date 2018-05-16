@@ -1,16 +1,7 @@
 <template>
   <div class="player_list text-left mobile" style="position: relative">
     <div class="overlay" v-show="show_filter" @click="show_filter = !show_filter"></div>
-    <button class="filter-button mobileOnly" @click="show_filter = !show_filter">
-      <ul>
-        <li>F</li>
-        <li>I</li>
-        <li>L</li>
-        <li>T</li>
-        <li>E</li>
-        <li>R</li>
-      </ul>
-    </button>
+    <app-filter-button v-on:clicked="show_filter = !show_filter"></app-filter-button>
     <b-form class="filter-mobile" :class="{visible: show_filter}">
       <div class="text-search">
         <b-form-input type="text" placeholder="Search for players..." v-model="player_search">
@@ -61,6 +52,7 @@
 <script>
 import PlayerItem from './Player_item.vue'
 import PlayerDetails from './Player_details.vue'
+import FilterButton from '../../sidebars/Filter_button.vue'
 
 export default {
   data: () => {
@@ -213,7 +205,8 @@ export default {
   },
   components: {
     appPlayerItem: PlayerItem,
-    appPlayerDetails: PlayerDetails
+    appPlayerDetails: PlayerDetails,
+    appFilterButton: FilterButton
   },
   created () {
     this.getPlayers()

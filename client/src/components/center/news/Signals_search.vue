@@ -1,6 +1,8 @@
 <template>
-  <div class="signals-search container gray-tile tile mobile">
-    <b-form>
+  <div class="signals-search mobile" style="position: relative">
+    <div class="overlay" v-show="show_filter" @click="show_filter = !show_filter"></div>
+    <app-filter-button v-on:clicked="show_filter = !show_filter"></app-filter-button>
+    <b-form class="filter-mobile" :class="{visible: show_filter}">
       <div class="row maxwidth">
         <div class="col-6 padding-0">
           <b-form-group horizontal label-text-align="left" label="Position:">
@@ -34,9 +36,9 @@
           </b-form-group>
         </div>
       </div>
-      <div class="d-flex justify-content-end align-items-center">
+      <div class="d-flex justify-content-end align-items-center buttons">
         <b-button size="sm" type="reset" @click.prevent="onReset()" variant="link" id="reset">Clear</b-button>
-        <b-button size="sm" type="submit" @click.prevent="onSubmit()" @keyup.enter.prevent="onSubmit" variant="warning" id="search"><i class="fa fa-search"></i> Search</b-button>
+        <b-button size="sm" type="submit" @click.prevent="onSubmit()" @keyup.enter.prevent="onSubmit" variant="warning" id="search"><i class="fa fa-search fa-fw"></i> Search</b-button>
       </div>
     </b-form>
     <ul class="list-group clearfix" id="signals-list">
@@ -62,9 +64,15 @@
 </template>
 
 <script>
+import FilterButton from '../../sidebars/Filter_button.vue'
+
 export default {
+  components: {
+    appFilterButton: FilterButton
+  },
   data () {
     return {
+      show_filter: false,
       language_selected: null,
       region_selected: null,
       competitive_selected: null,
@@ -126,6 +134,7 @@ export default {
         competitiveness: this.competitive_selected,
         isPlayer: this.type_selected
       }
+      setTimeout(() => { this.show_filter = !this.show_filter }, 500)
       this.$store.dispatch('getSignals', data)
     },
     onReset () {
@@ -217,6 +226,10 @@ export default {
   }
 
     /* BUTTONS */
+  .buttons {
+    padding: 0 10px;
+  }
+
   #reset {
     margin: 0 5px;
     color: white;
@@ -239,6 +252,10 @@ export default {
     
     div.left {
       padding-left: 0;
+    }
+
+    .buttons {
+      margin-bottom: 10px;
     }
   }
 </style>

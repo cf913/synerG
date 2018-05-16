@@ -2,10 +2,10 @@
   <div class="messages tile gray-tile mobile">
     <div class="container-fluid">
       <div class="row">
-        <div class="left col-lg-4 sidebar">
+        <div class="left col-4 sidebar">
           <app-message-list></app-message-list>
         </div>
-        <div class="right col-lg-8">
+        <div class="right col-8">
           <keep-alive>
             <router-view></router-view>
           </keep-alive>

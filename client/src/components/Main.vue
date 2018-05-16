@@ -356,15 +356,16 @@ export default {
       opacity: 0;
       background: #222;
       position: fixed;
-      bottom: 0;
+      bottom: -100%;
       left : 50%;
       transform: translateX(-50%);
       width: 100%;
       z-index: 999;
-      transition: .5s;
+      transition: .3s;
     }
 
     .filter-mobile.visible {
+      z-index: 999;
       opacity: 1;
       bottom: 50px;
     }

@@ -1,13 +1,6 @@
 <template>
    <button class="filter-button mobileOnly" @click="$emit('clicked')">
-      <ul>
-        <li>F</li>
-        <li>I</li>
-        <li>L</li>
-        <li>T</li>
-        <li>E</li>
-        <li>R</li>
-      </ul>
+      <i class="fa fa-gears fa-fw"></i>
     </button>
 </template>
 
@@ -17,29 +10,28 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
+  i {
+    font-size: 1.6em;
+  }
   .filter-button {
     color: white;
     text-align: center;
     background-color: rgba(118, 0, 0, 1 );
     position: fixed;
-    top: 30%;
-    right: 0;
+    width: 50px;
+    height: 50px;
+    padding: 10px 0;
+    bottom: 45px;
+    right: 20px;
     z-index: 1000;
     border: none;
-    border-radius: 5px 0 0 5px;
+    border-radius: 50%;
     transform: translateY(-50%);
-  }
-
-  .filter-button ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .filter-button ul li {
-    font-weight: 600;
-    padding: 0;
+    z-index: 998;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>
 
